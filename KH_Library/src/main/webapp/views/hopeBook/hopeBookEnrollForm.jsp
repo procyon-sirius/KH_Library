@@ -44,7 +44,7 @@
 					</tr>
 					<tr>
 						<th>신청 이유</th>
-					</tr>
+					</tr> 
 					<tr>
 						<td colspan="2">
 							<textarea name="content" rows="10" style="resize: none" required></textarea>
