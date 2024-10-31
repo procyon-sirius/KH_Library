@@ -28,18 +28,19 @@
 
 		<div id="content-area" align="center">
 			<h2>도서 신청</h2>
-			<form action="/hopeBookInsert.ho">
+			<form action="/hopeBookInsert.ho" method="post">
+				<input type="hidden" value="1">
 				<table>
 					<tr>
 						<th>희망 도서</th>
 						<td>
-							<input type="text">
+							<input type="text" name="hopeTitle">
 						</td>
 					</tr>
 					<tr>
 						<th>도서 저자</th>
 						<td>
-							<input type="text">
+							<input type="text" name="hopeWriter">
 						</td>
 					</tr>
 					<tr>
@@ -47,7 +48,7 @@
 					</tr> 
 					<tr>
 						<td colspan="2">
-							<textarea name="content" rows="10" style="resize: none" required></textarea>
+							<textarea name="hopeContent" rows="10" style="resize: none" required></textarea>
 						</td>
 					</tr>
 				</table>

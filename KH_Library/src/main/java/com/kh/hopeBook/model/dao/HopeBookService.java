@@ -1,4 +1,4 @@
-package main.java.com.kh.hopeBook.model.dao;
+package com.kh.hopeBook.model.dao;
 
 public class HopeBookService {
 

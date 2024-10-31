@@ -1,4 +1,4 @@
-package main.java.com.kh.hopeBook.model.vo;
+package com.kh.hopeBook.model.vo;
 
 import java.sql.Date;
 
