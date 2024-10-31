@@ -16,13 +16,29 @@
 		
         <div id="content-area">
             <h2>도서 신청</h2>
-            <table>
+            <table border="1">
             	<thead>
             		<tr>
             			<th>신청자</th>
-            			<th>희망 도서</th>
+            			<tb>bre*****</tb>
+            			<th>신청일</th>
+            			<td>2024-11-11</td>
             		</tr>
             	</thead>
+            	<tbody>
+            		<tr>
+            			<th>희망 도서</th>
+            			<td>책 먹는 여우</td>
+            		</tr>
+            		<tr>
+            			<th>신청 이유</th>
+            		</tr>
+            		<tr>
+            			<td>
+							<input type="text">
+						</td>
+            		</tr>
+            	</tbody>
             </table>
         </div>
         

@@ -438,7 +438,7 @@
                         <a href="" class="menu-title">도서신청</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="">도서 신청</a></li>
+                            <li><a href="views/hopeBook/hopeBookEnrollForm.jsp">도서 신청</a></li>
                             <li><a href="">도서 신청 현황</a></li>
                         </ul>
                     </li>
