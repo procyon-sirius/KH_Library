@@ -464,7 +464,7 @@
                         <a href="" class="menu-title">소통공간</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="">공지 사항</a></li>
+                            <li><a href="/views/board/qnaBoard.jsp">공지 사항</a></li>
                             <li><a href="">문의 게시판</a></li>
                             <li><a href="">한줄평</a></li>
                             <li><a href="">자유게시판</a></li>
