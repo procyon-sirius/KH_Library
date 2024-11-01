@@ -39,6 +39,8 @@ public class BookDetailController extends HttpServlet {
 		
 		request.setAttribute("b", b);
 		
+		request.getRequestDispatcher("/views/book/bookDetail.jsp").forward(request, response);
+
 	}
 
 	/**
