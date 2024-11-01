@@ -486,48 +486,48 @@
                 <ul id="navi">
                     <div id="background_menu_mask"></div>
                     <li>
-                        <a href="" class="menu-title">도서신청</a>
+                        <a href="${contextPath }" class="menu-title">도서신청</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
                             <li><a href="views/hopeBook/hopeBookEnrollForm.jsp">도서 신청</a></li>
-                            <li><a href="">도서 신청 현황</a></li>
+                            <li><a href="${contextPath }">도서 신청 현황</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="/input.se" class="menu-title">자료 검색</a>
+                        <a href="${contextPath }/input.se" class="menu-title">자료 검색</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="/input.se">통합검색</a></li>
-                            <li><a href="">카테고리 검색</a></li>
-                            <li><a href="">신규 도서</a></li>
-                            <li><a href="">추천 도서</a></li>
+                            <li><a href="${contextPath }/input.se">통합검색</a></li>
+                            <li><a href="${contextPath }">카테고리 검색</a></li>
+                            <li><a href="${contextPath }">신규 도서</a></li>
+                            <li><a href="${contextPath }">추천 도서</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="" class="menu-title">도서관 안내</a>
+                        <a href="${contextPath }" class="menu-title">도서관 안내</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="">도서관 소개</a></li>
-                            <li><a href="">오시는 길</a></li>
+                            <li><a href="${contextPath }">도서관 소개</a></li>
+                            <li><a href="${contextPath }">오시는 길</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="" class="menu-title">소통공간</a>
+                        <a href="${contextPath }" class="menu-title">소통공간</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
                             <li><a href="/views/board/qnaBoard.jsp">공지 사항</a></li>
-                            <li><a href="">문의 게시판</a></li>
-                            <li><a href="">한줄평</a></li>
-                            <li><a href="">자유게시판</a></li>
+                            <li><a href="${contextPath }">문의 게시판</a></li>
+                            <li><a href="${contextPath }">한줄평</a></li>
+                            <li><a href="${contextPath }">자유게시판</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="" class="menu-title">나만의 서재</a>
+                        <a href="${contextPath }" class="menu-title">나만의 서재</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="">내 정보</a></li>
-                            <li><a href="">신청 내역</a></li>
-                            <li><a href="">도서 관리</a></li>
+                            <li><a href="${contextPath }">내 정보</a></li>
+                            <li><a href="${contextPath }">신청 내역</a></li>
+                            <li><a href="${contextPath }">도서 관리</a></li>
                         </ul>
                     </li>
                 </ul>
