@@ -1,3 +1,4 @@
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,7 +8,7 @@
 		String contextPath = request.getContextPath();
 		
 		//로그인 유저 정보 추출하기
-		//Member loginUser = (Member)session.getAttribute("loginUser");
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		//loginUser에 담긴 데이터
 		//로그인 전 : null

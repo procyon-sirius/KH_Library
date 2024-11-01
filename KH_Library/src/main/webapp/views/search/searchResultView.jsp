@@ -14,7 +14,10 @@
     <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
         <div id="content-area">
-        	
+        	검색결과페이지 <br>
+        	<div>
+        		<input type="text" value="${search-result }">
+        	</div>
         </div>
     </div>
     <%@include file="/views/common/footer.jsp" %>
