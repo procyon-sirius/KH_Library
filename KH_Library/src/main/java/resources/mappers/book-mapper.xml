@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	<entry key="selectBook">
+		SELECT BOOK_ID,
+	           BOOK_TITLE,
+	           BOOK_AUTHOR,
+	           PUBLISHER,
+	           PUBLISH_DATE,
+	           ENROLL_DATE,
+	           STATUS,
+	           SUMMARY
+		FROM BOOK
+		WHERE BOOK_ID = ?
+	</entry>
+
 </properties>
