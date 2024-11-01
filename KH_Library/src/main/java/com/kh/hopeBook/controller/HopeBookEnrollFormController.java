@@ -1,11 +1,15 @@
 package com.kh.hopeBook.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.hopeBook.model.dao.HopeBookService;
+import com.kh.hopeBook.model.vo.HopeBook;
 
 /**
  * Servlet implementation class HopeBookEnrollFormController
@@ -39,10 +43,21 @@ public class HopeBookEnrollFormController extends HttpServlet {
 		
 		String hopeUser = request.getParameter("hopeUser");
 		String hopeTitle = request.getParameter("hopeTitle");
+		String hopeAutor = request.getParameter("hopeAutor");
 		String hopeContent = request.getParameter("hopeContent");
-		System.out.println(hopeUser);
-		System.out.println(hopeTitle);
-		System.out.println(hopeContent);
+//		System.out.println(hopeUser);
+//		System.out.println(hopeTitle);
+//		System.out.println(hopeWriter);
+//		System.out.println(hopeContent);
+		
+		HopeBook h = new HopeBook();
+		h.setHopeUser(hopeUser);
+		h.setHopeTitle(hopeTitle);
+		h.setHopeAutor(hopeAutor);
+		h.setHopeContent(hopeContent);
+		System.out.println(h);
+		
+		int result = new HopeBookService().hopeBookInsert(h);
 		
 		
 	}

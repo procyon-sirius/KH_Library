@@ -29,7 +29,7 @@
 		<div id="content-area" align="center">
 			<h2>도서 신청</h2>
 			<form action="/hopeBookInsert.ho" method="post">
-				<input type="hidden" value="1">
+				<input type="hidden" name="hopeUser" value="1">
 				<table>
 					<tr>
 						<th>희망 도서</th>
@@ -40,7 +40,7 @@
 					<tr>
 						<th>도서 저자</th>
 						<td>
-							<input type="text" name="hopeWriter">
+							<input type="text" name="hopeAutor">
 						</td>
 					</tr>
 					<tr>
