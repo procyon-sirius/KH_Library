@@ -447,12 +447,12 @@
                     <script>
                         	function loginPage(){
                         		
-                        		location.href = "//login.me";
+                        		location.href="/login.me";
                         	
                         	}                       
                         	function enrollPage(){
                         		
-                        		location.href = "//enrollForm.me";
+                        		location.href="/enrollForm.me";
                         	}
                     </script> 
                 </div>

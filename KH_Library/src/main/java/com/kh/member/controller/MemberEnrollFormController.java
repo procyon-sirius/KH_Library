@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberEnrollFormController
  */
-@WebServlet("//enrollForm.me")
+@WebServlet("/enrollForm.me")
 public class MemberEnrollFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +27,8 @@ public class MemberEnrollFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/views/member/memberEnrollForm.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/member/memberEnrollForm.jsp").forward(request,response);
+		
 	}
 
 	/**
