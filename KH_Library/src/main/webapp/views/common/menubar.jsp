@@ -396,6 +396,7 @@
 </head>
 
 <body>
+    <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 	
     <!-- 모달 검색창 -->
     <div id="search-modal">
@@ -468,12 +469,12 @@
                     <script>
                         	function loginPage(){
                         		
-                        		location.href="/login.me";
+                        		location.href="${contextPath }/login.me";
                         	
                         	}                       
                         	function enrollPage(){
                         		
-                        		location.href="/enrollForm.me";
+                        		location.href="${contextPath }/enrollForm.me";
                         	}
                     </script> 
                 </div>
