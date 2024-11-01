@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.hopeBook.model.dao.HopeBookService;
+import com.kh.hopeBook.model.service.HopeBookService;
 import com.kh.hopeBook.model.vo.HopeBook;
 
 /**
@@ -58,6 +58,11 @@ public class HopeBookEnrollFormController extends HttpServlet {
 		System.out.println(h);
 		
 		int result = new HopeBookService().hopeBookInsert(h);
+		
+		if(result>0) {
+			
+		}
+		
 		
 		
 	}

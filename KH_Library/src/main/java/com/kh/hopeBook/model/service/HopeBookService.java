@@ -1,9 +1,9 @@
-package com.kh.hopeBook.model.dao;
+package com.kh.hopeBook.model.service;
 
 import java.sql.Connection;
 
 import com.kh.common.JDBCTemplate;
-import com.kh.hopeBook.model.service.HopeBookDao;
+import com.kh.hopeBook.model.dao.HopeBookDao;
 import com.kh.hopeBook.model.vo.HopeBook;
 
 public class HopeBookService {
