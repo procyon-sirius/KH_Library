@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,41 +27,58 @@
 		<%@include file="/views/common/sideMenu.jsp"%>
 
 		<div id="content-area" align="center">
-			<h2>도서 신청</h2>
-			<form action="/insert.ho" method="post">
+			<h2>도서 신청 현황</h2>
+			<form action="/insert.ho" method="get">
 				<input type="hidden" name="hopeUser" value="1">
-				<table>
+				<table border="1">
 					<tr>
-						<th>희망 도서</th>
+						<th>신청인</th>
 						<td>
-							<input type="text" name="hopeTitle">
+							${h.hopeUser }
+						</td>
+						<td>
+							${h.hopeDate }
+						</td>
+						<td>
+							<c:choose >
+								<c:when test="${h.hopePublic == 'Y'}">
+									<p style="color: green">공개</p>
+								</c:when>
+								<c:otherwise>
+									<p style="color: red">비공개</p>
+								</c:otherwise>
+							</c:choose>
+							
 						</td>
 					</tr>
 					<tr>
+						<th>희망 도서</th>
+						<td>
+							${h.hopeTitle }
+						</td>
 						<th>도서 저자</th>
 						<td>
-							<input type="text" name="hopeAutor">
+							${h.hopeAutor }
 						</td>
 					</tr>
 					<tr>
 						<th>신청 이유</th>
-						<td>
-							<select name="hopePublic">
-								<option value="Y">공개</option>
-								<option value="N">비공개</option>
-							</select>
-						</td>
 					</tr> 
 					<tr>
-						<td colspan="2">
-							<textarea name="hopeContent" rows="10" style="resize: none" required></textarea>
+						<td colspan="4">
+							${h.hopeContent }
 						</td>
 					</tr>
 				</table>
-				<button type="submit">신청하기</button>
-				<input type="reset" value="취소">
+				<br>
+				<button id="deleteList">신청 취소</button>
+				<button type="submit" value="check">신청 확인</button>
 			</form>
 		</div>
+		
+		<script>
+			
+		</script>
 
 	</div>
 	<%@include file="/views/common/footer.jsp"%>

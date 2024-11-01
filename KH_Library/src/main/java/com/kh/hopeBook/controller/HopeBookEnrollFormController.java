@@ -14,7 +14,7 @@ import com.kh.hopeBook.model.vo.HopeBook;
 /**
  * Servlet implementation class HopeBookEnrollFormController
  */
-@WebServlet("/hopeBookInsert.ho")
+@WebServlet("/insert.ho")
 public class HopeBookEnrollFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,21 +45,28 @@ public class HopeBookEnrollFormController extends HttpServlet {
 		String hopeTitle = request.getParameter("hopeTitle");
 		String hopeAutor = request.getParameter("hopeAutor");
 		String hopeContent = request.getParameter("hopeContent");
+		String hopePublic = request.getParameter("hopePublic");
 //		System.out.println(hopeUser);
 //		System.out.println(hopeTitle);
-//		System.out.println(hopeWriter);
+//		System.out.println(hopeAutor);
 //		System.out.println(hopeContent);
+//		System.out.println(hopePublic);
 		
 		HopeBook h = new HopeBook();
 		h.setHopeUser(hopeUser);
 		h.setHopeTitle(hopeTitle);
 		h.setHopeAutor(hopeAutor);
 		h.setHopeContent(hopeContent);
-		System.out.println(h);
+		h.setHopePublic(hopePublic);
+//		System.out.println(h);
 		
 		int result = new HopeBookService().hopeBookInsert(h);
 		
 		if(result>0) {
+			request.setAttribute("alertMsg", "신청 성공");
+			response.sendRedirect(request.getContextPath()+"/insert.ho");
+		}else {
+			request.setAttribute("alertMsg", "신청 실패");
 			
 		}
 		

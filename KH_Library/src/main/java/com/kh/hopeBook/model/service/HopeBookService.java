@@ -1,6 +1,7 @@
 package com.kh.hopeBook.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.hopeBook.model.dao.HopeBookDao;
@@ -23,6 +24,28 @@ public class HopeBookService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+
+	public ArrayList<HopeBook> selectHopeList() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<HopeBook> list = new HopeBookDao().selectHopeList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+	public HopeBook hopeBookDetail(int hno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		HopeBook h = new HopeBookDao().hopeBookDetail(conn, hno);
+		
+		JDBCTemplate.close(conn);
+		
+		return h;
 	}
 
 }

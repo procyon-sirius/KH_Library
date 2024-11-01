@@ -3,15 +3,40 @@
 <properties>
 	<entry key="hopeBookInsert">
 		INSERT INTO HOPE_BOOK(HOPE_NUM,
-							  HOPE_USER,
-							  HOPE_TITLE,
-							  HOPE_AUTHOR,
-							  HOPE_CONTENT)
-				VALUES(SEQ_HNO.NEXTVAL,
-						?,
-						?,
-						?,
-						?);
+					HOPE_USER,
+					HOPE_TITLE,
+					HOPE_AUTHOR,
+					HOPE_CONTENT,
+                    HOPE_PUBLIC)
+		VALUES(SEQ_HNO.NEXTVAL,
+				?,
+				?,
+				?,
+				?,
+                ?)
+	</entry>
+	
+	<entry key="selectHopeList">
+		SELECT HOPE_NUM,
+		       USER_ID,
+		       HOPE_TITLE,
+		       HOPE_DATE,
+		       HOPE_PUBLIC
+		FROM HOPE_BOOK
+		JOIN MEMBER ON(HOPE_USER = USER_NO)
+	</entry>
+	
+	<entry key="hopeBookDetail">
+		SELECT USER_ID,
+		       HOPE_TITLE,
+		       HOPE_AUTHOR,
+		       HOPE_CONTENT,
+		       HOPE_DATE,
+		       HOPE_PUBLIC,
+		       HOPE_STATE
+		FROM HOPE_BOOK
+		JOIN MEMBER ON (USER_NO = HOPE_USER)
+		WHERE HOPE_NUM = ?
 	</entry>
 	
 </properties>
