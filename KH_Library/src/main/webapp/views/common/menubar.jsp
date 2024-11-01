@@ -424,9 +424,20 @@
                                 })
                             </script>
                         </li>
-                        <li><button>로그인</button></li>
-                        <li><button>회원가입</button></li>
+                        <li><button type="button" onclick="loginPage();">로그인</button></li>
+                        <li><button type="button" onclick="enrollPage();">회원가입</button></li>
                     </ul>
+                    <script>
+                        	function loginPage(){
+                        		
+                        		location.href = "//login.me";
+                        	
+                        	}                       
+                        	function enrollPage(){
+                        		
+                        		location.href = "//enrollForm.me";
+                        	}
+                    </script> 
                 </div>
             </div>
         </div>
