@@ -44,15 +44,15 @@
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="hl" items="${list }">
+							<c:forEach var="h" items="${list }">
 								<tr>
-									<td>${hl.hopeNum }</td>
-									<td>${hl.hopeUser }</td>
-									<td>${hl.hopeTitle }</td>
-									<td>${hl.hopeDate }</td>
+									<td>${h.hopeNum }</td>
+									<td>${h.hopeUser }</td>
+									<td>${h.hopeTitle }</td>
+									<td>${h.hopeDate }</td>
 									<td>
 										<c:choose >
-											<c:when test="${hl.hopePublic == 'Y'}">
+											<c:when test="${h.hopePublic == 'Y'}">
 												<p style="color: green">공개</p>
 											</c:when>
 											<c:otherwise>

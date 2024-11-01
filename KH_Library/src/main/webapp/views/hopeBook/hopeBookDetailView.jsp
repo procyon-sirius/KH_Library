@@ -28,7 +28,7 @@
 
 		<div id="content-area" align="center">
 			<h2>도서 신청 현황</h2>
-			<form action="/insert.ho" method="get">
+			<form action="" method="get">
 				<input type="hidden" name="hopeUser" value="1">
 				<table border="1">
 					<tr>
@@ -71,13 +71,22 @@
 					</tr>
 				</table>
 				<br>
-				<button id="deleteList">신청 취소</button>
-				<button type="submit" value="check">신청 확인</button>
 			</form>
+			<button onclick="deleteHope();">신청 취소</button>
+			<button type="button" value="check">신청 확인</button>
 		</div>
 		
 		<script>
-			
+			function deleteHope(){
+				if(confirm("신청을 취소할 경우, 게시물이 삭제됩니다.")){
+					$("<form>",{method : "POST",
+								action : "${contextPath}/delete.ho"
+					}).append($("<input>",{type : "hidden",
+										   name : "hopeNum",
+										   value : "${h.hopeNum}"
+					})).appendTo("body").submit();
+				}
+			}
 		</script>
 
 	</div>
