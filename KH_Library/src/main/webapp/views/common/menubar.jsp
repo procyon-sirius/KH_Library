@@ -442,8 +442,28 @@
                                 })
                             </script>
                         </li>
-                        <li><button type="button" onclick="loginPage();">로그인</button></li>
-                        <li><button type="button" onclick="enrollPage();">회원가입</button></li>
+                        <li>
+                        	<c:choose>
+                        		<c:when test="${empty loginUser}">
+                       				<button type="button" onclick="loginPage();">로그인</button>
+                        		</c:when>
+                        		<c:otherwise>
+                        			${loginUser.userName }님 
+                        		</c:otherwise>
+                       		</c:choose>
+                        </li>
+                        <li>
+                        <c:choose>
+                        		<c:when test="${empty loginUser}">
+                       				<button type="button" onclick="enrollPage();">회원가입</button>	
+                        		</c:when>
+                        		<c:when test="${loginUser.userId eq 'admin'}">
+                       				<button type="button" onclick="enrollPage();">관리자</button>	
+                        		</c:when>
+                        		<c:otherwise>
+                        		</c:otherwise>
+                       		</c:choose>
+                       	</li>
                     </ul>
                     <script>
                         	function loginPage(){
