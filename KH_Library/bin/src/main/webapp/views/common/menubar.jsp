@@ -1,21 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%
-		String contextPath = request.getContextPath();
-		
-		//로그인 유저 정보 추출하기
-		//Member loginUser = (Member)session.getAttribute("loginUser");
-		
-		//loginUser에 담긴 데이터
-		//로그인 전 : null
-		//로그인 후 : 로그인한 회원정보를 담은 Member객체
-		
-		//알림메시지 추출하기
-		String alertMsg = (String)session.getAttribute("alertMsg"); 
-	%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -395,7 +379,6 @@
 </head>
 
 <body>
-	
     <!-- 모달 검색창 -->
     <div id="search-modal">
         <div class="search-div">
@@ -455,15 +438,15 @@
                         <a href="" class="menu-title">도서신청</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="views/hopeBook/hopeBookEnrollForm.jsp">도서 신청</a></li>
+                            <li><a href="">도서 신청</a></li>
                             <li><a href="">도서 신청 현황</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="/input.se" class="menu-title">자료 검색</a>
+                        <a href="" class="menu-title">자료 검색</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="/input.se">통합검색</a></li>
+                            <li><a href="">통합검색</a></li>
                             <li><a href="">카테고리 검색</a></li>
                             <li><a href="">신규 도서</a></li>
                             <li><a href="">추천 도서</a></li>
@@ -481,7 +464,7 @@
                         <a href="" class="menu-title">소통공간</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="/views/board/qnaBoard.jsp">공지 사항</a></li>
+                            <li><a href="">공지 사항</a></li>
                             <li><a href="">문의 게시판</a></li>
                             <li><a href="">한줄평</a></li>
                             <li><a href="">자유게시판</a></li>
