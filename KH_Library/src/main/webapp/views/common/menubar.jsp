@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <%
 		String contextPath = request.getContextPath();
 		
@@ -396,8 +397,8 @@
 </head>
 
 <body>
-    <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-	
+    <%pageContext.setAttribute("scope","page Scope");%>
+	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
     <!-- 모달 검색창 -->
     <div id="search-modal">
         <div class="search-div">
@@ -468,13 +469,22 @@
                     </ul>
                     <script>
                         	function loginPage(){
+<<<<<<< HEAD
                         		
                         		location.href="${contextPath }/login.me";
+=======
+                        		//console.log("${contextPath}/1234");
+                        		location.href="${contextPath}/login.me";
+>>>>>>> refs/remotes/origin/main
                         	
                         	}                       
                         	function enrollPage(){
                         		
+<<<<<<< HEAD
                         		location.href="${contextPath }/enrollForm.me";
+=======
+                        		location.href="${contextPath}/enrollForm.me";
+>>>>>>> refs/remotes/origin/main
                         	}
                     </script> 
                 </div>

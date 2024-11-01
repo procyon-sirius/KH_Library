@@ -12,9 +12,9 @@
 
     #rentBtn{
         border-radius: 10px;
-        width: 80px;
-        height: 40px;
-        font-size: 20px;
+        width: 70px;
+        height: 30px;
+        font-size: 16px;
     }
 
     #bookImg{
@@ -38,36 +38,63 @@
 
             <table id="book-table">
                 <tr>
-                    <td rowspan="8" width="200px" height="300px"><img src="../../resources/img/10/1000.gif" id="bookImg"></td>
-                    
+                    <td rowspan="8" width="200px" height="300px"><img src="../../resources/img/${b.bookId }.gif" id="bookImg"></td>
                 </tr>
                 <tr>
                     <th>책 제목 : </th>
-                    <td>토끼와 거북이</td>
+                    <td>${b.bookTitle }</td>
                 </tr>
                 <tr>
                     <th>저자 : </th>
-                    <td>미상</td>
+                    <td>${b.bookAuthor }</td>
                 </tr>
                 <tr>
                     <th>출판사 : </th>
-                    <td>어린이출판사</td>
+                    <td>${b.publisher }</td>
                 </tr>
                 <tr>
                     <th>출판일 : </th>
-                    <td>201010</td>
+                    <td>${b.publishDate }</td>
                 </tr>
                 <tr>
                     <th>입고일 : </th>
-                    <td>2024-10-31</td>
+                    <td>${b.enrollDate }</td>
                 </tr>
                 <tr>
                     <th>대출/예약 : </th>
-                    <td style="padding-left: 20px;"><button id="rentBtn">대출</button></td>
+                    <td style="padding-left: 10px;">
+                    <c:choose>
+                    	<c:when test="${b.status eq 'Y' }">
+		                    <button id="rentBtn">대출</button>
+                    	</c:when>
+                    	<c:when test="${b.status eq 'B' }">
+		                    <button id="rentBtn" disabled>예약</button>
+                    	</c:when>
+                    	<c:when test="${b.status eq 'R' }">
+		                    <button id="rentBtn">예약</button>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<button id="rentBtn">점검중</button>
+                    	</c:otherwise>
+                    </c:choose>
+                    </td>
                 </tr>
                 <tr>
                     <th>도서현황 : </th>
-                    <td>대출 중</td>
+                    <c:choose>
+                    	<c:when test="${b.status eq 'Y' }">
+		                    <td>대출 가능</td>
+                    	</c:when>
+                    	<c:when test="${b.status eq 'B' }">
+		                    <td>예약 완료</td>
+                    	</c:when>
+                    	<c:when test="${b.status eq 'R' }">
+		                    <td>예약 가능</td>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<td>이용 불가</td>
+                    	</c:otherwise>
+                    </c:choose>
                 </tr>
             </table>
             <br><br>
