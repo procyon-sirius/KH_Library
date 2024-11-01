@@ -17,9 +17,5 @@
 	<classpathentry kind="lib" path="D:/dev/gson-2.10.1.jar"/>
 	<classpathentry kind="lib" path="D:/dev/cos-05Nov2002.jar"/>
 	<classpathentry kind="lib" path="D:/dev/commons-fileupload-1.5.jar"/>
-	<classpathentry kind="lib" path="D:/dev/JSTL/taglibs-standard-compat-1.2.5.jar"/>
-	<classpathentry kind="lib" path="D:/dev/JSTL/taglibs-standard-impl-1.2.5.jar"/>
-	<classpathentry kind="lib" path="D:/dev/JSTL/taglibs-standard-jstlel-1.2.5.jar"/>
-	<classpathentry kind="lib" path="D:/dev/JSTL/taglibs-standard-spec-1.2.5.jar"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

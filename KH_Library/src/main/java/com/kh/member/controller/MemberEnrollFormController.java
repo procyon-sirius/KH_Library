@@ -1,28 +1,23 @@
-package com.kh.search.controller;
+package com.kh.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.book.model.vo.BookCategoryInfo;
-import com.kh.search.model.service.SearchService;
-
 /**
- * Servlet implementation class SearchInputController
+ * Servlet implementation class MemberEnrollFormController
  */
-@WebServlet("/input.se")
-public class SearchInputController extends HttpServlet {
+@WebServlet("/enrollForm.me")
+public class MemberEnrollFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchInputController() {
+    public MemberEnrollFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,9 +26,9 @@ public class SearchInputController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<BookCategoryInfo> bookcList = new SearchService().selectBookCategoryList();
-		request.setAttribute("bookCategoryList", bookcList);
-		request.getRequestDispatcher("/views/search/searchInputView.jsp").forward(request, response);;
+		
+		request.getRequestDispatcher("/views/member/memberEnrollForm.jsp").forward(request,response);
+		
 	}
 
 	/**

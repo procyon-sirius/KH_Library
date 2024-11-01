@@ -49,6 +49,15 @@ public class Book {
 		this.status = status;
 		this.summary = summary;
 	}
+	
+	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.publisher = publisher;
+		this.publishDate = publishDate;
+	}
 
 	public int getBookId() {
 		return bookId;
