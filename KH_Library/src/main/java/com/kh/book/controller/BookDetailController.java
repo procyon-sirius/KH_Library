@@ -35,9 +35,9 @@ public class BookDetailController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		//Book b = new BookService().selectBook(bno);
+		Book b = new BookService().selectBook(bno);
 		
-		//request.setAttribute("b", b);
+		request.setAttribute("b", b);
 		
 	}
 
