@@ -16,7 +16,7 @@
         <div id="content-area">
         	검색결과페이지 <br>
         	<div>
-        		<input type="text" value="${search-result }">
+        		<input type="text" value="${search-result.bookId }">
         	</div>
         </div>
     </div>
