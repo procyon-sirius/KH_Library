@@ -276,7 +276,7 @@
                 		success : function(list){
                 			
                 			console.log("t");
-                			$(".book-list").val(" ");
+                			$(".book-list").html("");
                 			
                 		},
                 		error : function(){
