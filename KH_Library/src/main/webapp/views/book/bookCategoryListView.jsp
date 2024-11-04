@@ -169,21 +169,21 @@
             
             <h2 align="center">카테고리 검색</h2>
             <br><br>
-            <form action="clist.bk">
 	            <div class="list-area">
 	                <div id="category-list">
 	                    <div id="category-area">
 	                        카테고리 : <select name="category" id="category">
-				                            	<option value="0">전체</option>
+				                            	<option value="0" >전체</option>
 				                           <c:forEach items="${bci }" var="c">
 					                           <option value="${c.categoryNo }">${c.categoryName }</option>
 				                           </c:forEach>
 				                     </select>
 	                    </div>
 	                    <div id="cbtn-area">
-	                        <button id="search" type="submit">조회</button>
+	                        <button id="search" onclick="changeCategory();">조회</button>
 	                    </div>
 	                </div>
+	             
 	                <div id="detail-list">
 	                    <div id="age-rank">
 	                        <button class="age-rank">전체도서</button> |
@@ -248,7 +248,6 @@
 		                </c:otherwise>
 	            	</c:choose>
 				</div>
-            </form>
 
             <script>
 	            $(".book-list #book-img").click(function(){
@@ -266,6 +265,28 @@
                     location.href='${contextPath}/detail.bk?bno='+bno;
 
                 });
+                
+                function changeCategory(){
+                	
+                	$.ajax({
+                		url : "changeCategory.bk",
+                		data : {
+                			categoryNo : $("#category").val()
+                		},
+                		success : function(list){
+                			
+                			console.log("t");
+                			$(".book-list").val(" ");
+                			
+                		},
+                		error : function(){
+                			console.log("f");
+                		}
+                	});
+                	
+                	
+                }
+                
                
             </script>
             

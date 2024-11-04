@@ -61,20 +61,19 @@ public class BookCListController extends HttpServlet {
 			endPage=maxPage;
 		}
 		
+		
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
 		
-		int cno = Integer.parseInt(request.getParameter("categoryNo"));
-
-		ArrayList<Book> list = new BookService().selectList(pi, cno);
-		
+		ArrayList<Book> list = new BookService().allList(pi);
 		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
 		
-	
 		
-		request.setAttribute("list", list);
+		
 		request.setAttribute("pi", pi);	
+		request.setAttribute("list", list);	
 		request.setAttribute("bci", bci);
+
 		
 		request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
 	}

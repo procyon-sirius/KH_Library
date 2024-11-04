@@ -60,13 +60,12 @@ public class BookDao {
 		
 		return listCount;
 	}
-
-	public ArrayList<Book> selectList(Connection conn, PageInfo pi) {
-
+	
+	public ArrayList<Book> allList(Connection conn, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Book> list = new ArrayList<>();
-		String sql = prop.getProperty("selectList");
+		String sql = prop.getProperty("allList");
 		
 		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
@@ -95,9 +94,9 @@ public class BookDao {
 			JDBCTemplate.close(pstmt);
 		}
 		
-		
 		return list;
 	}
+	
 	
 	public Book selectBook(Connection conn, int bno) {
 		
@@ -158,33 +157,6 @@ public class BookDao {
 		}
 		
 		return bci;
-	}
-
-
-	public ArrayList<BookCategory> categoryNo(Connection conn, int cno) {
-		
-		PreparedStatement pstmt = null;		
-		ResultSet rset = null;
-		String sql = prop.getProperty("categoryNo");
-		ArrayList<BookCategory> bc = new ArrayList<>();
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cno);
-			
-			while(rset.next()) {
-				bc.add(new BookCategory(rset.getInt("BOOK_ID"),
-										rset.getInt("CATEGORY_NO")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
-		}
-		
-		
-		return bc;
 	}
 	
 	public int insertRentBook(Connection conn, int bookId, int userNo) {
@@ -250,7 +222,42 @@ public class BookDao {
 		}
 		return result;
 	}
-	
+
+
+	public ArrayList<Book> changeCategory(Connection conn, int cno) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("changeCategory");
+		ArrayList<Book> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Book(rset.getInt("BOOK_ID"),
+								  rset.getString("BOOK_TITLE"),
+								  rset.getString("BOOK_AUTHOR"),
+								  rset.getString("PUBLISHER"),
+								  rset.getInt("PUBLISH_DATE"),
+								  rset.getDate("ENROLL_DATE"),
+								  rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+
 	
 	
 	

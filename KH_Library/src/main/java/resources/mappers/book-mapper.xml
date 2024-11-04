@@ -32,7 +32,7 @@
 		FROM BOOK
 	</entry>
 	
-	<entry key="selectList">
+	<entry key="allList">
 		SELECT *
 		FROM (SELECT ROWNUM RNUM, A.*
            	  FROM (SELECT BOOK_ID,
@@ -41,9 +41,22 @@
 				           PUBLISHER,
 				           PUBLISH_DATE,
 				           ENROLL_DATE,
-	           				STATUS
+	           			   STATUS
 					FROM BOOK) A)
 	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="changeCategory">
+		SELECT BOOK_ID,
+			   BOOK_TITLE,
+			   BOOK_AUTHOR,
+			   PUBLISHER,
+			   PUBLISH_DATE,
+			   ENROLL_DATE,
+	           STATUS
+		FROM BOOK B
+		JOIN BOOK_CATEGORY C USING(BOOK_ID)
+		WHERE CATEGORY_NO = ?
 	</entry>
 	
 

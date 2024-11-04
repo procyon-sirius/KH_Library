@@ -23,12 +23,12 @@ public class BookService {
 		
 		return listCount;
 	}
-
-	public ArrayList<Book> selectList(PageInfo pi, int cno) {
-
+	
+	public ArrayList<Book> allList(PageInfo pi) {
+			
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().selectList(conn,pi);
+		ArrayList<Book> list = new BookDao().allList(conn,pi);
 		
 		JDBCTemplate.close(conn);
 		
@@ -57,17 +57,6 @@ public class BookService {
 		return bci;
 	}
 
-	public ArrayList<BookCategory> categoryNo(int cno) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		ArrayList<BookCategory> bc = new BookDao().categoryNo(conn,cno);
-		
-		JDBCTemplate.close(conn);
-		
-		return bc;
-	}
-
 
 	public int insertRentBook(int bookId, int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -92,5 +81,18 @@ public class BookService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	public ArrayList<Book> changeCategory(int cno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().changeCategory(conn,cno);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+
 
 }
