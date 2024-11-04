@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.kh.book.model.dao.BookDao;
 import com.kh.book.model.vo.Book;
+import com.kh.book.model.vo.BookCategory;
+import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
 
@@ -42,5 +44,27 @@ public class BookService {
 		JDBCTemplate.close(conn);
 		
 		return b;
+	}
+
+	public ArrayList<BookCategoryInfo> selectCategory() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BookCategoryInfo> bci = new BookDao().selectCategory(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return bci;
+	}
+
+	public ArrayList<BookCategory> categoryNo(int cno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BookCategory> bc = new BookDao().categoryNo(conn,cno);
+		
+		JDBCTemplate.close(conn);
+		
+		return bc;
 	}
 }

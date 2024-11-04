@@ -10,8 +10,12 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.book.model.vo.Book;
+import com.kh.book.model.vo.BookCategory;
+import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
+
+import oracle.jdbc.proxy.annotation.Pre;
 
 public class BookDao {
 	
@@ -127,6 +131,60 @@ public class BookDao {
 		}
 		
 		return b;
+	}
+
+
+	public ArrayList<BookCategoryInfo> selectCategory(Connection conn) {
+		
+		PreparedStatement pstmt = null;		
+		ResultSet rset = null;
+		ArrayList<BookCategoryInfo> bci = new ArrayList<>();
+		String sql = prop.getProperty("selectCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				bci.add(new BookCategoryInfo(rset.getInt("CATEGORY_NO"),
+											  rset.getString("CATEGORY_NAME")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return bci;
+	}
+
+
+	public ArrayList<BookCategory> categoryNo(Connection conn, int cno) {
+		
+		PreparedStatement pstmt = null;		
+		ResultSet rset = null;
+		String sql = prop.getProperty("categoryNo");
+		ArrayList<BookCategory> bc = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cno);
+			
+			while(rset.next()) {
+				bc.add(new BookCategory(rset.getInt("BOOK_ID"),
+										rset.getInt("CATEGORY_NO")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return bc;
 	}
 	
 	

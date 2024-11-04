@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <!-- Popper JS -->
@@ -16,13 +17,7 @@
         box-sizing: border-box;
     }
 
-    .list-area{
-        margin: auto;
-    }
-
-    .list-area>div{
-        width: 100%;
-    }
+   
 
 
     #category-list{
@@ -118,6 +113,11 @@
 
     .book-list #title:hover{
         text-decoration: underline;
+        cursor: pointer;
+    }
+    
+    .book-list #book-img:hover{
+        cursor: pointer;
     }
     
    .search-result-block {
@@ -169,46 +169,44 @@
             
             <h2 align="center">카테고리 검색</h2>
             <br><br>
-            <div class="list-area">
-                <div id="category-list">
-                    <div id="category-area">
-                        카테고리 : <select name="category" id="category">
-                            <option value="all">전체</option>
-                            <option value="10">동화</option>
-                            <option value="20">문학</option>
-                            <option value="30">과학</option>
-                            <option value="40">역사</option>
-                            <option value="50">경제</option>
-                            <option value="60">자기계발</option>
-                      </select>
-                    </div>
-                    <div id="cbtn-area">
-                        <button id="search">조회</button>
-                    </div>
-                </div>
-                <div id="detail-list">
-                    <div id="age-rank">
-                        <button class="age-rank">전체도서</button> |
-                        <button class="age-rank">일반도서</button> |
-                        <button class="age-rank">청소년도서</button> |
-                        <button class="age-rank">어린이도서</button>
-                    </div>
-                    <div id="order-area">
-                        <select name="order" id="order">
-                            <option value="book-title">도서이름</option>
-                            <option value="book-title">작가이름</option>
-                            <option value="book-title">발행연도</option>
-                            <option value="book-title">등록일</option>
-                        </select>
-                        <select name="desc" id="desc">
-                            <option value="desc">내림차순</option>
-                            <option value="asc">오름차순</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <br><br>
-				<div>
+            <form action="clist.bk">
+	            <div class="list-area">
+	                <div id="category-list">
+	                    <div id="category-area">
+	                        카테고리 : <select name="category" id="category">
+				                            	<option value="0">전체</option>
+				                           <c:forEach items="${bci }" var="c">
+					                           <option value="${c.categoryNo }">${c.categoryName }</option>
+				                           </c:forEach>
+				                     </select>
+	                    </div>
+	                    <div id="cbtn-area">
+	                        <button id="search" type="submit">조회</button>
+	                    </div>
+	                </div>
+	                <div id="detail-list">
+	                    <div id="age-rank">
+	                        <button class="age-rank">전체도서</button> |
+	                        <button class="age-rank">일반도서</button> |
+	                        <button class="age-rank">청소년도서</button> |
+	                        <button class="age-rank">어린이도서</button>
+	                    </div>
+	                    <div id="order-area">
+	                        <select name="order" id="order">
+	                            <option value="book-title">도서이름</option>
+	                            <option value="book-title">작가이름</option>
+	                            <option value="book-title">발행연도</option>
+	                            <option value="book-title">등록일</option>
+	                        </select>
+	                        <select name="desc" id="desc">
+	                            <option value="desc">내림차순</option>
+	                            <option value="asc">오름차순</option>
+	                        </select>
+	                    </div>
+	                </div>
+	            </div>
+	            <br><br>
+				<div class="book-list">
 	            	<c:choose>
 		                <c:when test="${empty list}">
 		                      검색 결과가 존재하지 않습니다.
@@ -217,14 +215,15 @@
 		                    <c:forEach var="b" items="${list}">
 		                        <div class="search-result-block">
 									<div>
+										<input type="hidden" name="bno" value="${b.bookId }">
 										<table>
 												<tr>
-													<td rowspan="5" style="width:160px">
+													<td rowspan="5" style="width:160px" id="book-img">
 														<img src="../../resources/img/${b.bookId}.gif">
 													</td>
 												</tr>
 												<tr>
-													<td class="search-book-title">${b.bookTitle}</td>
+													<td class="search-book-title" id="title">${b.bookTitle}</td>
 													<td class="search-table-right" rowspan="5">
 														${b.status}
 													</td>
@@ -249,23 +248,25 @@
 		                </c:otherwise>
 	            	</c:choose>
 				</div>
+            </form>
 
             <script>
-                $(".book-list>tr>#bookImg").click(function(){
+	            $(".book-list #book-img").click(function(){
+					//console.log($(this).parent().parent().parent().parent().find("input[type=hidden]").val());
+	            	var bno = $(this).closest(".search-result-block").find("input[type=hidden]").val();
 
-                    var bno = $(this);
+	                location.href='${contextPath}/detail.bk?bno='+bno;
+	
+	            });
 
-                    location.href='/library/detail.bk?bno='+bno;
+                $(".book-list #title").click(function(){
+
+                	var bno = $(this).closest(".search-result-block").find("input[type=hidden]").val();
+
+                    location.href='${contextPath}/detail.bk?bno='+bno;
 
                 });
-
-                $(".book-list>#title").click(function(){
-
-                    var bno = $(this).text();
-
-                    location.href='/library/detail.bk?bno='+bno;
-
-                });
+               
             </script>
             
             <br> <br>

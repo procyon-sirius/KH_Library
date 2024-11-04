@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.book.model.service.BookService;
 import com.kh.book.model.vo.Book;
+import com.kh.book.model.vo.BookCategory;
+import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.PageInfo;
 
 /**
@@ -61,11 +63,20 @@ public class BookCListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
+		
+		int cno = Integer.parseInt(request.getParameter("categoryNo"));
+		
+		ArrayList<BookCategory> bc = new BookService().categoryNo(cno);
+		
 		ArrayList<Book> list = new BookService().selectList(pi);
 		
+		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
+		
+	
 		
 		request.setAttribute("list", list);
-		request.setAttribute("pi", pi);						
+		request.setAttribute("pi", pi);	
+		request.setAttribute("bci", bci);
 		
 		request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
 	}

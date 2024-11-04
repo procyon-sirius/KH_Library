@@ -31,8 +31,12 @@
 	           				STATUS
 					FROM BOOK) A)
 	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
 	
-		
+	<entry key="selectCategory">
+		SELECT CATEGORY_NO,
+			   CATEGORY_NAME
+		FROM BOOK_CATEGORY_INFO
 	</entry>
 
 </properties>
