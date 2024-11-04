@@ -24,6 +24,9 @@
 	margin-right: 10px;
 	padding-right: 10px;
 }
+#search-filter-area{
+	display : none;
+}
 option{
 	border-radius: 0;
 }
