@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.kh.hopeBook.model.service.HopeBookService;
 
 /**
  * Servlet implementation class HopeBookDeleteController
@@ -38,7 +41,19 @@ public class HopeBookDeleteController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int hopeNum = Integer.parseInt(request.getParameter("hopeNum"));
-		System.out.println(hopeNum);
+//		System.out.println(hopeNum);
+		
+		int result = new HopeBookService().deleteHope(hopeNum);
+		
+		HttpSession session = request.getSession();
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "취소 성공");
+			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
+		}else {
+			session.setAttribute("alertMsg", "취소 실패");
+			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
+		}
 		
 	}
 

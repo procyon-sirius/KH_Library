@@ -469,25 +469,18 @@
                     </ul>
                     <script>
                         	function loginPage(){
-<<<<<<< HEAD
                         		
                         		location.href="${contextPath }/login.me";
-=======
                         		//console.log("${contextPath}/1234");
-                        		location.href="${contextPath}/login.me";
->>>>>>> refs/remotes/origin/main
+                        		//location.href="${contextPath}/login.me";
                         	
                         	}                       
                         	function enrollPage(){
-                        		
-<<<<<<< HEAD
                         		location.href="${contextPath }/enrollForm.me";
-=======
-                        		location.href="${contextPath}/enrollForm.me";
->>>>>>> refs/remotes/origin/main
+                        		//location.href="${contextPath}/enrollForm.me";
                         	}
-                    </script> 
-                </div>
+                   </script>
+            	</div>
             </div>
         </div>
         <div id="header-down">
@@ -498,13 +491,8 @@
                         <a href="${contextPath }" class="menu-title">도서신청</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-<<<<<<< HEAD
                             <li><a href="${contextPath }/insert.ho">도서 신청</a></li>
-                            <li><a href="${contextPath }/select.ho">도서 신청 현황</a></li>
-=======
-                            <li><a href="views/hopeBook/hopeBookEnrollForm.jsp">도서 신청</a></li>
-                            <li><a href="${contextPath }">도서 신청 현황</a></li>
->>>>>>> branch 'main' of https://github.com/procyon-sirius/KH_Library.git
+                            <li><a href="${contextPath }/select.ho?currentPage=1">도서 신청 현황</a></li>
                         </ul>
                     </li>
                     <li>

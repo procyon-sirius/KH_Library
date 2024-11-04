@@ -17,6 +17,7 @@
 	</entry>
 	
 	<entry key="selectHopeList">
+	<!-- 
 		SELECT HOPE_NUM,
 		       USER_ID,
 		       HOPE_TITLE,
@@ -24,10 +25,25 @@
 		       HOPE_PUBLIC
 		FROM HOPE_BOOK
 		JOIN MEMBER ON(HOPE_USER = USER_NO)
+	 -->
+	 
+		SELECT *
+		FROM (  SELECT ROWNUM RNUM, A.*
+		        FROM (  SELECT HOPE_NUM,
+		                       USER_ID,
+		                       HOPE_TITLE,
+		                       HOPE_DATE,
+		                       HOPE_PUBLIC
+		                FROM hope_book HB
+		                JOIN member on(user_no = hope_user)
+		                ORDER BY hope_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+		
 	</entry>
 	
 	<entry key="hopeBookDetail">
-		SELECT USER_ID,
+		SELECT HOPE_NUM,
+			   USER_ID,
 		       HOPE_TITLE,
 		       HOPE_AUTHOR,
 		       HOPE_CONTENT,
@@ -37,6 +53,16 @@
 		FROM HOPE_BOOK
 		JOIN MEMBER ON (USER_NO = HOPE_USER)
 		WHERE HOPE_NUM = ?
+	</entry>
+	
+	<entry key="deleteHope">
+		DELETE HOPE_BOOK
+		WHERE HOPE_NUM = ?
+	</entry>
+	
+	<entry key="listCount">
+		select count(*) COUNT
+		from hope_book
 	</entry>
 	
 </properties>

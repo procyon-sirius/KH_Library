@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.hopeBook.model.service.HopeBookService;
 import com.kh.hopeBook.model.vo.HopeBook;
@@ -62,15 +63,15 @@ public class HopeBookEnrollFormController extends HttpServlet {
 		
 		int result = new HopeBookService().hopeBookInsert(h);
 		
+		HttpSession session = request.getSession();
+		
 		if(result>0) {
-			request.setAttribute("alertMsg", "신청 성공");
-			response.sendRedirect(request.getContextPath()+"/insert.ho");
+			session.setAttribute("alertMsg", "신청 성공");
+			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
 		}else {
-			request.setAttribute("alertMsg", "신청 실패");
-			
+			session.setAttribute("alertMsg", "신청 실패");
+			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
 		}
-		
-		
 		
 	}
 

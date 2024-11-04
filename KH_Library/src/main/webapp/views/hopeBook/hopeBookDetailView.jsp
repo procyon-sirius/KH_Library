@@ -15,6 +15,9 @@
 		width: 100%;
 		box-sizing: border-box;
 	}
+	p{
+		text-align: right;
+	}
 </style>
 
 </head>
@@ -37,10 +40,7 @@
 							${h.hopeUser }
 						</td>
 						<td>
-							${h.hopeDate }
-						</td>
-						<td>
-							<c:choose >
+						<c:choose >
 								<c:when test="${h.hopePublic == 'Y'}">
 									<p style="color: green">공개</p>
 								</c:when>
@@ -48,7 +48,9 @@
 									<p style="color: red">비공개</p>
 								</c:otherwise>
 							</c:choose>
-							
+						</td>
+						<td>
+							<p>${h.hopeDate }</p>
 						</td>
 					</tr>
 					<tr>
@@ -69,11 +71,24 @@
 							${h.hopeContent }
 						</td>
 					</tr>
+					<tr>
+						<td colspan="4">
+							<c:choose>
+								<c:when test="${h.hopeStatus == 'N' }">
+									<p>진행중</p>
+								</c:when>
+								<c:otherwise>
+									<p style="color: green">완료</p>
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
 				</table>
 				<br>
 			</form>
 			<button onclick="deleteHope();">신청 취소</button>
 			<button type="button" value="check">신청 확인</button>
+			<button onclick="history.back();">뒤로가기</button>
 		</div>
 		
 		<script>

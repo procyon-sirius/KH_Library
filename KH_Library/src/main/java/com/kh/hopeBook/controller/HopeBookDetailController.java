@@ -41,7 +41,8 @@ public class HopeBookDetailController extends HttpServlet {
 			request.setAttribute("h", h);
 			request.getRequestDispatcher("/views/hopeBook/hopeBookDetailView.jsp").forward(request, response);	
 		}else {
-			System.out.println(h+" 실패!");
+//			System.out.println(h+" 실패!");
+			
 		}
 		
 		

@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.hopeBook.model.vo.HopeBook;
+import com.kh.hopeBook.model.vo.PageInfo;
 
 public class HopeBookDao {
 
@@ -53,7 +54,7 @@ public class HopeBookDao {
 		return result;
 	}
 
-	public ArrayList<HopeBook> selectHopeList(Connection conn) {
+	public ArrayList<HopeBook> selectHopeList(Connection conn,PageInfo pi) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -61,8 +62,14 @@ public class HopeBookDao {
 		
 		String sql = prop.getProperty("selectHopeList");
 		
+		int startRow = (pi.getCurrentPage()-1)*(pi.getBoardLimit()+1);
+		int endRow = pi.getCurrentPage() * pi.getBoardLimit();
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,startRow);
+			pstmt.setInt(2,endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -100,7 +107,8 @@ public class HopeBookDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				h = new HopeBook(rset.getString("USER_ID"),
+				h = new HopeBook(rset.getInt("HOPE_NUM"),
+								 rset.getString("USER_ID"),
 								 rset.getString("HOPE_TITLE"),
 								 rset.getString("HOPE_AUTHOR"),
 								 rset.getString("HOPE_CONTENT"),
@@ -117,6 +125,55 @@ public class HopeBookDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return h;
+	}
+
+	public int deleteHope(Connection conn, int hopeNum) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteHope");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, hopeNum);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int listCount(Connection conn) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String sql = prop.getProperty("listCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return listCount;
 	}
 
 }
