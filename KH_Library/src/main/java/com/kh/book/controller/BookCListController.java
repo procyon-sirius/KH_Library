@@ -63,6 +63,7 @@ public class BookCListController extends HttpServlet {
 		
 		ArrayList<Book> list = new BookService().selectList(pi);
 		
+		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);						
 		

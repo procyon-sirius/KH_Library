@@ -21,6 +21,20 @@ public class Book {
 	
 	
 	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
+			String status) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.publisher = publisher;
+		this.publishDate = publishDate;
+		this.enrollDate = enrollDate;
+		this.status = status;
+	}
+
+
+
+	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
 			String status, String summary) {
 		super();
 		this.bookId = bookId;

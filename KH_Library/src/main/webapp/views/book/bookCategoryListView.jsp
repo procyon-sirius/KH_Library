@@ -113,6 +113,11 @@
     .book-list #title:hover{
         text-decoration: underline;
     }
+    
+    .book-list-text{
+    	width:900;
+    	font-size: 20px;
+    }
 
 
 </style>
@@ -169,74 +174,62 @@
             <br><br>
 
             <table class="book-list">
-                    <tr>
-                        <td rowspan="5" width="200"><img width="150px" height="200px" src="../../resources/img/1000.gif" id="bookImg"></td>
-                        <td width="900"></td>
-                        <td rowspan="5" width="100"> <button id="rentBtn">대출</button></td>
-                    </tr>
-                    <tr style="font-size: 20px; text-align: left;" id="title">
-                        <th>토끼</th>
-                    </tr>
-                    <tr width="900" style="font-size: 20px;">
-                        <td>거북이</td>
-                    </tr>
-                    <tr width="900" style="font-size: 20px;">
-                        <td>몰루</td>
-                    </tr>
-                    <tr width="900" style="font-size: 20px;">
-                        <td>2010 | 20241101</td>
-                    </tr>
-                    <tr width="900">
-                        <td></td>
-                    </tr>
+            	<thead>
+            		<tr>
+            			<td></td>
+            			<td></td>
+            			<td></td>
+            		</tr>
+            	</thead>
+            	<tbody>
+	            	<c:choose>
+		                <c:when test="${empty list}">
+		                    <tr>
+		                        <td colspan="3" align="center">조회 결과 없음</td>
+		                    </tr>
+		                </c:when>
+		                <c:otherwise>
+		                    <c:forEach var="b" items="${list}">
+		                        <tr>
+		                           <td rowspan="5" width="200"><img width="150px" height="200px" src="../../resources/img/${b.bookId }.gif" id="bookImg"></td>
+		                           <td width="900"></td>
+		                           <td rowspan="5" width="100"> 
+		                               <c:choose>
+		                                   <c:when test="${b.status eq 'Y' }">
+		                                       <button id="rentBtn">대출</button>
+		                                   </c:when>
+		                                   <c:when test="${b.status eq 'B' }">
+		                                       <button id="rentBtn" disabled>예약</button>
+		                                   </c:when>
+		                                   <c:when test="${b.status eq 'R' }">
+		                                       <button id="rentBtn">예약</button>
+		                                   </c:when>
+		                                   <c:otherwise>
+		                                       <button id="rentBtn">점검중</button>
+		                                   </c:otherwise>
+		                               </c:choose>
+		                           </td>
+		                        </tr>
+		                        <tr style="font-size: 20px; text-align: left;" id="title">
+		                            <th>${b.bookTitle}</th>
+		                        </tr>
+		                        <tr class="book-list-text">
+		                            <td>${b.bookAuthor }</td>
+		                        </tr>
+		                        <tr class="book-list-text">
+		                            <td>${b.publisher }</td>
+		                        </tr>
+		                        <tr class="book-list-text">
+		                            <td>${b.publishDate } | ${b.enrollDate } </td>
+		                        </tr>
+		                        <tr class="book-list-text">
+		                            <td></td>
+		                        </tr>
+		                    </c:forEach>
+		                </c:otherwise>
+	            	</c:choose>
+            	</tbody>
             </table>
-
-            <!-- <table class="book-list">
-                <c:when test="${empty list}">
-                    <tr>
-                        <td colspan="3" align="center">조회 결과 없음</td>
-                    </tr>
-                </c:when>
-                <c:otherwise>
-                    <c:forEach var="b" items="${list}">
-                        <tr>
-                            <td rowspan="5" width="200"><img width="150px" height="200px" src="../../resources/img/${b.bookId }.gif" id="bookImg"></td>
-                            <td width="900"></td>
-                            <td rowspan="5" width="100"> 
-                                <c:choose>
-                                    <c:when test="${b.status eq 'Y' }">
-                                        <button id="rentBtn">대출</button>
-                                    </c:when>
-                                    <c:when test="${b.status eq 'B' }">
-                                        <button id="rentBtn" disabled>예약</button>
-                                    </c:when>
-                                    <c:when test="${b.status eq 'R' }">
-                                        <button id="rentBtn">예약</button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <button id="rentBtn">점검중</button>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                        </tr>
-                        <tr style="font-size: 20px; text-align: left;" id="title">
-                            <th>${b.bookTitle}</th>
-                        </tr>
-                        <tr width="900" style="font-size: 20px;">
-                            <td>${b.bookAuthor }</td>
-                        </tr>
-                        <tr width="900" style="font-size: 20px;">
-                            <td>${b.publisher }</td>
-                        </tr>
-                        <tr width="900" style="font-size: 20px;">
-                            <td>${b.publishDate } | ${b.enrollDate } </td>
-                        </tr>
-                        <tr width="900">
-                            <td></td>
-                        </tr>
-                    </c:forEach>
-                </c:otherwise>
-            </table> -->
 
             <script>
                 $(".book-list>tr>#bookImg").click(function(){
@@ -255,6 +248,36 @@
 
                 });
             </script>
+            
+            <br> <br>
+
+            <div align="center">
+                
+                <c:if test="${pi.currentPage != 1 }">
+                    <button onclick="location.href='clist.bk?currentPage=${pi.currentPage-1}'">이전</button>
+                </c:if>
+                
+                
+                <c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">
+                
+                    <c:choose>
+                        <c:when test="${i !=pi.currentPage }">
+                            <button onclick="location.href='clist.bk?currentPage=${i}'">${i }</button>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- 현재 페이지 버튼 비활성화 -->
+                            <button disabled>${i }</button>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                
+                <c:if test="${pi.currentPage != pi.maxPage }">
+                    <button onclick="location.href='clist.bk?currentPage=${pi.currentPage+1}'">다음</button>
+                </c:if>
+                
+            </div>
+            
+            
 
           
         </div>
