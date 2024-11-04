@@ -27,4 +27,24 @@
 		SET RENT_COUNT = RENT_COUNT + 1
 		WHERE BOOK_ID = ?
 	</entry>
+	<entry key="listCount">
+		SELECT COUNT(*) COUNT
+		FROM BOOK
+	</entry>
+	
+	<entry key="selectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+				           BOOK_TITLE,
+				           BOOK_AUTHOR,
+				           PUBLISHER,
+				           PUBLISH_DATE,
+				           ENROLL_DATE,
+	           				STATUS
+					FROM BOOK) A)
+	    WHERE RNUM BETWEEN ? AND ?
+	
+		
+	</entry>
 </properties>

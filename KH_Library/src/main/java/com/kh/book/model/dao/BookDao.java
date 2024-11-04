@@ -6,10 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.book.model.vo.Book;
 import com.kh.common.JDBCTemplate;
+import com.kh.common.PageInfo;
 
 public class BookDao {
 	
@@ -28,8 +30,73 @@ public class BookDao {
 		}
 	}
 
-	public Book selectBook(Connection conn, int bno) {
 
+	public int listCount(Connection conn) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = prop.getProperty("listCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<Book> selectList(Connection conn, PageInfo pi) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Book> list = new ArrayList<>();
+		String sql = prop.getProperty("selectList");
+		
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Book(rset.getInt("BOOK_ID"),
+								  rset.getString("BOOK_TITLE"),
+								  rset.getString("BOOK_AUTHOR"),
+								  rset.getString("PUBLISHER"),
+								  rset.getInt("PUBLISH_DATE"),
+								  rset.getDate("ENROLL_DATE"),
+								  rset.getString("STATUS")));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return list;
+	}
+	
+	public Book selectBook(Connection conn, int bno) {
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Book b = new Book();
@@ -44,13 +111,13 @@ public class BookDao {
 			
 			if(rset.next()) {
 				b = new Book(rset.getInt("BOOK_ID"),
-							 rset.getString("BOOK_TITLE"),
-							 rset.getString("BOOK_AUTHOR"),
-							 rset.getString("PUBLISHER"),
-							 rset.getInt("PUBLISH_DATE"),
-							 rset.getDate("ENROLL_DATE"),
-							 rset.getString("STATUS"),
-							 rset.getString("SUMMARY"));
+						rset.getString("BOOK_TITLE"),
+						rset.getString("BOOK_AUTHOR"),
+						rset.getString("PUBLISHER"),
+						rset.getInt("PUBLISH_DATE"),
+						rset.getDate("ENROLL_DATE"),
+						rset.getString("STATUS"),
+						rset.getString("SUMMARY"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -125,7 +192,6 @@ public class BookDao {
 		}
 		return result;
 	}
-	
 	
 	
 	

@@ -482,11 +482,12 @@
                         	function loginPage(){
 
                         		location.href="${contextPath}/login.me";
-                        	
+
                         	}                       
                         	function enrollPage(){
 
                         		location.href="${contextPath}/enrollForm.me";
+
                         	}
                     </script> 
                 </div>
@@ -509,7 +510,7 @@
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
                             <li><a href="${contextPath }/input.se">통합검색</a></li>
-                            <li><a href="${contextPath }">카테고리 검색</a></li>
+                            <li><a href="${contextPath }/clist.bk?currentPage=1">카테고리 검색</a></li>
                             <li><a href="${contextPath }">신규 도서</a></li>
                             <li><a href="${contextPath }">추천 도서</a></li>
                         </ul>
