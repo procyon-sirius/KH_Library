@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectBookCategoryList">
+		SELECT * FROM BOOK_CATEGORY_INFO
+	</entry>
+	
+	<entry key="selectSearchResultList">
+		SELECT BOOK_ID
+			, BOOK_TITLE
+			, BOOK_AUTHOR
+			, PUBLISHER
+			, PUBLISH_DATE
+			, ENROLL_DATE
+			, STATUS
+		FROM BOOK
+		JOIN BOOK_CATEGORY USING(BOOK_ID)
+		WHERE ? LIKE '%'||CATEGORY_NO||'%'
+		AND BOOK_TITLE LIKE '%'||?||'%' 
+	</entry>
+</properties>

@@ -9,16 +9,22 @@ public class Book {
 	private String publisher;// PUBLISHER VARCHAR2(100 BYTE)
 	private int publishDate;// PUBLISH_DATE NUMBER
 	private Date enrollDate;// ENROLL_DATE DATE
-	private String status;// STATUS VARCHAR2(1 BYTE)
 	private String ageRank;// AGE_RANK VARCHAR2(1 BYTE)
 	private int rentCount;// RENT_COUNT NUMBER
+	private String status;// STATUS VARCHAR2(1 BYTE)
+	private String summary;
 
 	public Book() {
 		super();
 	}
 
+	
+
+
+
+
 	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
-			String status, String ageRank, int rentCount) {
+			String status, String summary) {
 		super();
 		this.bookId = bookId;
 		this.bookTitle = bookTitle;
@@ -27,9 +33,39 @@ public class Book {
 		this.publishDate = publishDate;
 		this.enrollDate = enrollDate;
 		this.status = status;
+		this.summary = summary;
+	}
+
+
+
+	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
+			String ageRank, int rentCount, String status, String summary) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.publisher = publisher;
+		this.publishDate = publishDate;
+		this.enrollDate = enrollDate;
 		this.ageRank = ageRank;
 		this.rentCount = rentCount;
+		this.status = status;
+		this.summary = summary;
 	}
+	
+	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
+			String status) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.publisher = publisher;
+		this.publishDate = publishDate;
+		this.enrollDate = enrollDate;
+		this.status = status;
+	}
+
+
 
 	public int getBookId() {
 		return bookId;
@@ -79,14 +115,6 @@ public class Book {
 		this.enrollDate = enrollDate;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public String getAgeRank() {
 		return ageRank;
 	}
@@ -103,11 +131,27 @@ public class Book {
 		this.rentCount = rentCount;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [bookId=" + bookId + ", bookTitle=" + bookTitle + ", bookAuthor=" + bookAuthor + ", publisher="
-				+ publisher + ", publishDate=" + publishDate + ", enrollDate=" + enrollDate + ", status=" + status
-				+ ", ageRank=" + ageRank + ", rentCount=" + rentCount + "]";
+				+ publisher + ", publishDate=" + publishDate + ", enrollDate=" + enrollDate + ", ageRank=" + ageRank
+				+ ", rentCount=" + rentCount + ", status=" + status + ", summary=" + summary + "]";
 	}
 
 }

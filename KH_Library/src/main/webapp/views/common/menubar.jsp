@@ -2,19 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    
-    
-<%
-	// 스크립틀릿 영역에서 데이터 추출하기
-	// 컨텍스트 패스(루트) 추출하기
-	String contextPath = request.getContextPath();
-	
-	 Member loginUser = (Member)session.getAttribute("loginUser");
-	 String alertMsg = (String)session.getAttribute("alertMsg");
-	
-%>    
-  
-  
+   
     
 <!DOCTYPE html>
 <html lang="ko">
@@ -327,7 +315,6 @@
         /* 브라우저 width가 800px보다 클 경우 : 가변크기 지정*/
         @media(min-width:800px) {
             #body-wrap {
-                border: 2px solid orange;
                 width: 95%;
             }
         }
@@ -335,7 +322,6 @@
         /* 브라우저 width가 1500px보다 클 경우 : 고정*/
         @media(min-width:1500px) {
             #body-wrap {
-                border: 2px solid orange;
                 width: 1400px;
             }
         }
@@ -395,6 +381,16 @@
 </head>
 
 <body>
+    <%pageContext.setAttribute("scope","page Scope");%>
+	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+	<script>
+		//null이 아닐경우에 alert 띄워주기
+		if(${not empty alertMsg}){
+			alert(alertMsg);
+			//알림창을 띄우고 메시지 지워주기 (안지우면 메뉴바 뜰때마다 알림창 뜸)
+			<%session.removeAttribute("alertMsg");%>
+		}
+	</script>
     <!-- 모달 검색창 -->
     <div id="search-modal">
         <div class="search-div">
@@ -440,9 +436,46 @@
                                 })
                             </script>
                         </li>
-                        <li><button>로그인</button></li>
-                        <li><button>회원가입</button></li>
+                        <li>
+                        	<c:choose>
+                        		<c:when test="${empty loginUser}">
+                       				<button type="button" onclick="loginPage();">로그인</button>
+                        		</c:when>
+                        		<c:otherwise>
+                        			${loginUser.userName }님 
+                        		</c:otherwise>
+                       		</c:choose>
+                        </li>
+                        <li>
+                        <c:choose>
+                        		<c:when test="${empty loginUser}">
+                       				<button type="button" onclick="enrollPage();">회원가입</button>	
+                        		</c:when>
+                        		<c:when test="${loginUser.userId eq 'admin'}">
+                       				<button type="button" onclick="adminPage();">관리자</button>	
+                        		</c:when>
+                        		<c:otherwise>
+                        		</c:otherwise>
+                       		</c:choose>
+                       	</li>
                     </ul>
+                    <script>
+                    		function adminPage(){
+                    			location.href="${contextPath}/admin.me";
+                    			//관리자 페이지
+                    			
+                    		}
+                        	function loginPage(){
+
+                        		location.href="${contextPath}/login.me";
+
+                        	}                       
+                        	function enrollPage(){
+
+                        		location.href="${contextPath}/enrollForm.me";
+
+                        	}
+                    </script> 
                 </div>
             </div>
         </div>
@@ -451,48 +484,48 @@
                 <ul id="navi">
                     <div id="background_menu_mask"></div>
                     <li>
-                        <a href="" class="menu-title">도서신청</a>
+                        <a href="${contextPath }" class="menu-title">도서신청</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="">도서 신청</a></li>
-                            <li><a href="">도서 신청 현황</a></li>
+                            <li><a href="views/hopeBook/hopeBookEnrollForm.jsp">도서 신청</a></li>
+                            <li><a href="${contextPath }">도서 신청 현황</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="" class="menu-title">자료 검색</a>
+                        <a href="${contextPath }/input.se" class="menu-title">자료 검색</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="">통합검색</a></li>
-                            <li><a href="">카테고리 검색</a></li>
-                            <li><a href="">신규 도서</a></li>
-                            <li><a href="">추천 도서</a></li>
+                            <li><a href="${contextPath }/input.se">통합검색</a></li>
+                            <li><a href="${contextPath }/clist.bk?currentPage=1">카테고리 검색</a></li>
+                            <li><a href="${contextPath }">신규 도서</a></li>
+                            <li><a href="${contextPath }">추천 도서</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="" class="menu-title">도서관 안내</a>
+                        <a href="${contextPath }" class="menu-title">도서관 안내</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="">도서관 소개</a></li>
-                            <li><a href="">오시는 길</a></li>
+                            <li><a href="${contextPath }">도서관 소개</a></li>
+                            <li><a href="${contextPath }">오시는 길</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="" class="menu-title">소통공간</a>
+                        <a href="${contextPath }" class="menu-title">소통공간</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="<%=contextPath%>/notice">공지 사항</a></li>
-                            <li><a href="<%=contextPath%>/qnaBoard">문의 게시판</a></li>
-                            <li><a href="<%=contextPath%>/commentBoard">한줄평</a></li>
-                            <li><a href="<%=contextPath%>/freeBoard">자유게시판</a></li>
+                            <li><a href="${contextPath }/notice">공지 사항</a></li>
+                            <li><a href="${contextPath }/qnaBoard">문의 게시판</a></li>
+                            <li><a href="${contextPath }/commentBoard">한줄평</a></li>
+                            <li><a href="${contextPath }/freeBoard">자유게시판</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="" class="menu-title">나만의 서재</a>
+                        <a href="${contextPath }" class="menu-title">나만의 서재</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="">내 정보</a></li>
-                            <li><a href="">신청 내역</a></li>
-                            <li><a href="">도서 관리</a></li>
+                            <li><a href="${contextPath }">내 정보</a></li>
+                            <li><a href="${contextPath }">신청 내역</a></li>
+                            <li><a href="${contextPath }">도서 관리</a></li>
                         </ul>
                     </li>
                 </ul>
