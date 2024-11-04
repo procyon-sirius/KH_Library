@@ -25,11 +25,6 @@
 <style type="text/css">
 
 
-.notice{
-     margin-top: 300px;
-     align: center;
-}
-
 .info {
 	margin-left: 20px;
 }
@@ -40,7 +35,7 @@
 }
 
 .category {
-	margin-left: -1050px;
+	margin-left: -900px;
 	font-size: 16px;
 }
 
@@ -59,9 +54,17 @@
 	margin: 0 10px;
 }
 
-.noticeDetail {
-	margin-left: 400px;
+
+.content{
+	background-color: rgba(128, 128, 128, 0.233);
+	border-radius: 10px;
+	
+
 }
+
+/* .noticeDetail {
+	margin-left: 400px;
+} */
 
 pre {
 	font-family: sans-serif;
@@ -91,117 +94,127 @@ pre {
 
 </head>
 <body>
-
-
-	<%
-	Notice n = (Notice) request.getAttribute("notice");
-	%>
-	<%
-	ArrayList<Notice> preNnext = (ArrayList<Notice>) request.getAttribute("preNnext");
-	%>
-
-
-	 
-	<%@include file="/views/common/menubar.jsp" %>
 	
-
-
-	<div class="notice">
-
-		<div align="center">
-
-			<h2>공지사항</h2>
-			<br>
-			<br>
-			<br>
-
-			<table class="category">
-				<tr>
-					<td><a href="/library">Home</a></td>
-					<td class="separator">></td>
-					<td>소통공간</td>
-					<td class="separator">></td>
-					<td>공지사항</td>
-				</tr>
-			</table>
-		</div>
-
-		<br>
-		<br>
-		<br>
-
-		<div class="noticeDetail">
-
-			<h4 align="center"><%=n.getNoticeTitle()%></h4>
-			<br>
-			<hr class="boarder">
-			<br> <br>
-
-			<table class="info">
-				<tr>
-					<td>등록일:</td>
-					<td class="cell"><%=n.getDate()%></td>
-					<td class="separator">|</td>
-					<td>조회수:</td>
-					<td class="cell"><%=n.getNumber()%></td>
-				</tr>
-			</table>
-			
-			
-			<%-- <%if(loginUser!=null && loginUser.getUserId().equals("admin")) {%> --%>
-				<table class="insert">
+	<%@include file="/views/common/menubar.jsp" %>
+	   <div class="center-img">
+	       <img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
+	   </div>
+	   <div id="body-wrap">
+	<%@include file="/views/common/sideMenu.jsp" %>
+	      <div id="content-area">
+	
+	
+	<p>
+		<% Notice n = (Notice) request.getAttribute("notice"); %>
+		<% ArrayList<Notice> preNnext = (ArrayList<Notice>) request.getAttribute("preNnext");%>
+		<% Member loginUser = (Member)session.getAttribute("loginUser"); %>
+			<div align="center">
+		
+				<h2>공지사항</h2>
+				<br><br><br>
+				<table class="category">
 					<tr>
-						<td><a href="">작성하기</a> </td>
-						<td class="separator">|</td>
-						<td><a href="">수정하기</a> </td>
+						<td><a href="/library">Home</a></td>
+						<td class="separator">></td>
+						<td>소통공간</td>
+						<td class="separator">></td>
+						<td>공지사항</td>
 					</tr>
 				</table>
-		<%-- 	<%} %> --%>
-
-			<br> <br>
-
-			<pre class="content">
+			</div>
+	
+			<br>
+			<br>
+			<br>
+	
+			<div class="noticeDetail">
+	
+				<h4 align="center"><%=n.getNoticeTitle()%></h4>
+				<br>
+				<hr class="boarder">
+				<br> <br>
+	
+				<table class="info">
+					<tr>
+						<td>등록일:</td>
+						<td class="cell"><%=n.getDate()%></td>
+						<td class="separator">|</td>
+						<td>조회수:</td>
+						<td class="cell"><%=n.getNumber()%></td>
+					</tr>
+				</table>
 				
-				<%=n.getNoticeContent()%>
 				
-				통합회원 시스템 점검작업으로 인하여 
-				공공도서관 지원서비스 책바다 서비스/ 공공도서관 기술지원센터 회원가입, 로그인, 
+			<%if(loginUser!=null && loginUser.getUserId().equals("admin")) {%> 
+					<table class="insert">
+						<tr>
+							<td><a href="">작성하기</a> </td>
+							<td class="separator">|</td>
+							<td><a href="">수정하기</a> </td>
+						</tr>
+					</table>
+			 <%} %> 
+	
+				<br> <br>
+	
+				<pre class="content">
+					
+					<%=n.getNoticeContent()%>
+					
+					통합회원 시스템 점검작업으로 인하여 
+					공공도서관 지원서비스 책바다 서비스/ 공공도서관 기술지원센터 회원가입, 로그인, 
+				
+					아이디/비밀번호 찾기에 대한 서비스가 원활하지 않을수 있습니다.
 			
-				아이디/비밀번호 찾기에 대한 서비스가 원활하지 않을수 있습니다.
-		
-
-				ㅇ 점검일시: 2023년 12. 07.(목) 오후 6시 ~2023년 12. 08.(금) 오전 12시
-				ㅇ 점검서비스 : 국립중앙도서관 통합회원시스템
-
-
-				※ 작업상황에 따라 서비스 중단시간은 변동될 수 있사오니 양해 부탁드립니다.
-								
-			</pre>
-
-			<hr>
-
-
-			<br> <br> <br> <a href="/library/notice" class="list">목록으로</a>
-			<br> <br>
-			<hr>
-
-
-			<table class="bnnlist">
-
-					<%
-					if (preNnext.size() == 1) {
-					%>
+	
+					ㅇ 점검일시: 2023년 12. 07.(목) 오후 6시 ~2023년 12. 08.(금) 오전 12시
+					ㅇ 점검서비스 : 국립중앙도서관 통합회원시스템
+	
+	
+					※ 작업상황에 따라 서비스 중단시간은 변동될 수 있사오니 양해 부탁드립니다.
+									
+				</pre>
+	
+				<hr>
+	
+	
+				<br> <br> <br> <a href="/library/notice" class="list">목록으로</a>
+				<br> <br>
+				<hr>
+	
+	
+				<table class="bnnlist">
 	
 						<%
-						if (preNnext.get(0).getPostPostion().equals("next")) {
+						if (preNnext.size() == 1) {
 						%>
 		
-							<tr>
-								<td>▼</td>
-								<td>다음글</td>
-								<td><a
-									href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
-							</tr>
+							<%
+							if (preNnext.get(0).getPostPostion().equals("next")) {
+							%>
+			
+								<tr>
+									<td>▼</td>
+									<td>다음글</td>
+									<td><a
+										href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
+								</tr>
+			
+							<%
+							} else {
+							%>
+			
+								<tr>
+									<td>▲</td>
+									<td>이전글</td>
+									<td><a
+										href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
+								</tr>
+			
+							<%
+							}
+							%>
+		
 		
 						<%
 						} else {
@@ -212,40 +225,27 @@ pre {
 								<td>이전글</td>
 								<td><a
 									href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
+			
+							</tr>
+							<tr>
+								<td>▼</td>
+								<td>다음글</td>
+								<td><a
+									href="/library/detail.no?nno=<%=preNnext.get(1).getNoticeNo()%>"><%=preNnext.get(1).getNoticeTitle()%></a></td>
 							</tr>
 		
 						<%
 						}
 						%>
+				</table>
 	
+				<br> <br>
 	
-					<%
-					} else {
-					%>
+			</div>
+	</p>
+  </div>
+ </div>
 	
-						<tr>
-							<td>▲</td>
-							<td>이전글</td>
-							<td><a
-								href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
-		
-						</tr>
-						<tr>
-							<td>▼</td>
-							<td>다음글</td>
-							<td><a
-								href="/library/detail.no?nno=<%=preNnext.get(1).getNoticeNo()%>"><%=preNnext.get(1).getNoticeTitle()%></a></td>
-						</tr>
-	
-					<%
-					}
-					%>
-			</table>
-
-			<br> <br>
-
-		</div>
-	</div>
-
+	 <%@include file="/views/common/footer.jsp" %>
 </body>
 </html>

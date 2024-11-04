@@ -33,12 +33,14 @@ public class QnAListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		ArrayList<Notice> list = new QnAService().selectNoticeList();
+		ArrayList<Notice> list = new QnAService().selectQnAList();
 		
 		request.setAttribute("list", list);
 		
-		RequestDispatcher view = request.getRequestDispatcher("/views/board/notice/notice.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/views/board/QnABoard/qnaBoard.jsp");
 		view.forward(request, response); 
+		
+		
 	}
 	
 	

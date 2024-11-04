@@ -1,8 +1,10 @@
 package com.kh.board.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.board.model.dao.QnADao;
+import com.kh.board.model.vo.Notice;
 import com.kh.common.JDBCTemplate;
 
 public class QnAService {
@@ -16,6 +18,12 @@ public class QnAService {
 		JDBCTemplate.close(conn);
 		
 		return listCount;
+	}
+	
+	
+	
+	public ArrayList<Notice> selectQnAList() {
+		return null;
 	}
 
 }
