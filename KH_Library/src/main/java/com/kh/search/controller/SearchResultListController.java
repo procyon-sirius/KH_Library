@@ -49,8 +49,8 @@ public class SearchResultListController extends HttpServlet {
 		ArrayList<Book> bookList = new SearchService().selectSearchList(category,keyword);
 		//ArrayList<Board> boardList = new SearchService().searchBoard(category,keyword);
 		
-		request.setAttribute("search-result", bookList);
-		System.out.println(bookList);
+		request.setAttribute("searchResult", bookList);
+		request.setAttribute("keyword", keyword);
 		request.getRequestDispatcher("/views/search/searchResultView.jsp").forward(request, response);;
 		
 	}
