@@ -13,7 +13,20 @@
 		FROM BOOK
 		WHERE BOOK_ID = ?
 	</entry>
-	
+	<entry key="countRentUser">
+		SELECT COUNT(*) RCOUNT
+		FROM RENT
+		WHERE USER_NO = ?
+	</entry>
+	<entry key="insertRentBook">
+		INSERT INTO RENT(BOOK_ID,USER_NO)
+		VALUES(?,?)
+	</entry>
+	<entry key="increaseRentCount">
+		UPDATE BOOK
+		SET RENT_COUNT = RENT_COUNT + 1
+		WHERE BOOK_ID = ?
+	</entry>
 	<entry key="listCount">
 		SELECT COUNT(*) COUNT
 		FROM BOOK
@@ -33,6 +46,7 @@
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+
 	<entry key="selectCategory">
 		SELECT CATEGORY_NO,
 			   CATEGORY_NAME
