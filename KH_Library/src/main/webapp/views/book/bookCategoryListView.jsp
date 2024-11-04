@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
     #content-area>div{
         box-sizing: border-box;
@@ -113,6 +119,41 @@
     .book-list #title:hover{
         text-decoration: underline;
     }
+    
+   .search-result-block {
+		width: 100%;
+		height: 300px;
+		border-top: 1px solid lightgray;
+		border-bottom: 1px solid lightgray;
+	}
+
+	.search-result-block table {
+		width: 100%;
+		margin-top: 40px;
+		font-size: 20px;
+		white-space: noWrap;
+	}
+
+	.search-book-title {
+		white-space: normal;
+		min-width: 600px;
+		max-width: 600px;
+	}
+
+	.search-result-block img {
+		width: 150px;
+	}
+
+	.search-table-right {
+		width: 100px;
+		min-width: 100px;
+		max-width: 100px;
+		text-align: center;
+	}
+	.search-table-btn{
+		width: 80%;
+		margin: 5px auto;
+	}
 
 
 </style>
@@ -167,76 +208,47 @@
                 </div>
             </div>
             <br><br>
-
-            <table class="book-list">
-                    <tr>
-                        <td rowspan="5" width="200"><img width="150px" height="200px" src="../../resources/img/1000.gif" id="bookImg"></td>
-                        <td width="900"></td>
-                        <td rowspan="5" width="100"> <button id="rentBtn">대출</button></td>
-                    </tr>
-                    <tr style="font-size: 20px; text-align: left;" id="title">
-                        <th>토끼</th>
-                    </tr>
-                    <tr width="900" style="font-size: 20px;">
-                        <td>거북이</td>
-                    </tr>
-                    <tr width="900" style="font-size: 20px;">
-                        <td>몰루</td>
-                    </tr>
-                    <tr width="900" style="font-size: 20px;">
-                        <td>2010 | 20241101</td>
-                    </tr>
-                    <tr width="900">
-                        <td></td>
-                    </tr>
-            </table>
-
-            <!-- <table class="book-list">
-                <c:when test="${empty list}">
-                    <tr>
-                        <td colspan="3" align="center">조회 결과 없음</td>
-                    </tr>
-                </c:when>
-                <c:otherwise>
-                    <c:forEach var="b" items="${list}">
-                        <tr>
-                            <td rowspan="5" width="200"><img width="150px" height="200px" src="../../resources/img/${b.bookId }.gif" id="bookImg"></td>
-                            <td width="900"></td>
-                            <td rowspan="5" width="100"> 
-                                <c:choose>
-                                    <c:when test="${b.status eq 'Y' }">
-                                        <button id="rentBtn">대출</button>
-                                    </c:when>
-                                    <c:when test="${b.status eq 'B' }">
-                                        <button id="rentBtn" disabled>예약</button>
-                                    </c:when>
-                                    <c:when test="${b.status eq 'R' }">
-                                        <button id="rentBtn">예약</button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <button id="rentBtn">점검중</button>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                        </tr>
-                        <tr style="font-size: 20px; text-align: left;" id="title">
-                            <th>${b.bookTitle}</th>
-                        </tr>
-                        <tr width="900" style="font-size: 20px;">
-                            <td>${b.bookAuthor }</td>
-                        </tr>
-                        <tr width="900" style="font-size: 20px;">
-                            <td>${b.publisher }</td>
-                        </tr>
-                        <tr width="900" style="font-size: 20px;">
-                            <td>${b.publishDate } | ${b.enrollDate } </td>
-                        </tr>
-                        <tr width="900">
-                            <td></td>
-                        </tr>
-                    </c:forEach>
-                </c:otherwise>
-            </table> -->
+				<div>
+	            	<c:choose>
+		                <c:when test="${empty list}">
+		                      검색 결과가 존재하지 않습니다.
+		                </c:when>
+		                <c:otherwise>
+		                    <c:forEach var="b" items="${list}">
+		                        <div class="search-result-block">
+									<div>
+										<table>
+												<tr>
+													<td rowspan="5" style="width:160px">
+														<img src="../../resources/img/${b.bookId}.gif">
+													</td>
+												</tr>
+												<tr>
+													<td class="search-book-title">${b.bookTitle}</td>
+													<td class="search-table-right" rowspan="5">
+														${b.status}
+													</td>
+													<td class="search-table-right" rowspan="5">
+														<button type="button" class="btn btn-primary search-table-btn">대출</button> <br>
+														<button type="button" class="btn btn-secondary search-table-btn">예약</button>
+													</td>
+												</tr>
+												<tr>
+													<td>${b.bookAuthor}</td>
+												</tr>
+												<tr>
+													<td>${b.publisher}</td>
+												</tr>
+												<tr>
+													<td>${b.publishDate} | ${b.enrollDate}</td>
+												</tr>
+										</table>
+									</div>
+								</div>
+		                    </c:forEach>
+		                </c:otherwise>
+	            	</c:choose>
+				</div>
 
             <script>
                 $(".book-list>tr>#bookImg").click(function(){
@@ -255,6 +267,36 @@
 
                 });
             </script>
+            
+            <br> <br>
+
+            <div align="center">
+                
+                <c:if test="${pi.currentPage != 1 }">
+                    <button onclick="location.href='clist.bk?currentPage=${pi.currentPage-1}'">이전</button>
+                </c:if>
+                
+                
+                <c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">
+                
+                    <c:choose>
+                        <c:when test="${i !=pi.currentPage }">
+                            <button onclick="location.href='clist.bk?currentPage=${i}'">${i }</button>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- 현재 페이지 버튼 비활성화 -->
+                            <button disabled>${i }</button>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                
+                <c:if test="${pi.currentPage != pi.maxPage }">
+                    <button onclick="location.href='clist.bk?currentPage=${pi.currentPage+1}'">다음</button>
+                </c:if>
+                
+            </div>
+            
+            
 
           
         </div>

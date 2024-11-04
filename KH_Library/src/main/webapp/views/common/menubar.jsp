@@ -329,7 +329,6 @@
         /* 브라우저 width가 800px보다 클 경우 : 가변크기 지정*/
         @media(min-width:800px) {
             #body-wrap {
-                border: 2px solid orange;
                 width: 95%;
             }
         }
@@ -337,7 +336,6 @@
         /* 브라우저 width가 1500px보다 클 경우 : 고정*/
         @media(min-width:1500px) {
             #body-wrap {
-                border: 2px solid orange;
                 width: 1400px;
             }
         }
@@ -399,6 +397,14 @@
 <body>
     <%pageContext.setAttribute("scope","page Scope");%>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+	<script>
+		//null이 아닐경우에 alert 띄워주기
+		if(${not empty alertMsg}){
+			alert(alertMsg);
+			//알림창을 띄우고 메시지 지워주기 (안지우면 메뉴바 뜰때마다 알림창 뜸)
+			<%session.removeAttribute("alertMsg");%>
+		}
+	</script>
     <!-- 모달 검색창 -->
     <div id="search-modal">
         <div class="search-div">
@@ -460,7 +466,7 @@
                        				<button type="button" onclick="enrollPage();">회원가입</button>	
                         		</c:when>
                         		<c:when test="${loginUser.userId eq 'admin'}">
-                       				<button type="button" onclick="enrollPage();">관리자</button>	
+                       				<button type="button" onclick="adminPage();">관리자</button>	
                         		</c:when>
                         		<c:otherwise>
                         		</c:otherwise>
@@ -468,16 +474,16 @@
                        	</li>
                     </ul>
                     <script>
+                    		function adminPage(){
+                    			location.href="${contextPath}/admin.me";
+                    			//관리자 페이지
+                    			
+                    		}
                         	function loginPage(){
-                        		
                         		location.href="${contextPath }/login.me";
-                        		//console.log("${contextPath}/1234");
-                        		//location.href="${contextPath}/login.me";
-                        	
                         	}                       
                         	function enrollPage(){
                         		location.href="${contextPath }/enrollForm.me";
-                        		//location.href="${contextPath}/enrollForm.me";
                         	}
                    </script>
             	</div>
@@ -500,7 +506,7 @@
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
                             <li><a href="${contextPath }/input.se">통합검색</a></li>
-                            <li><a href="${contextPath }">카테고리 검색</a></li>
+                            <li><a href="${contextPath }/clist.bk?currentPage=1">카테고리 검색</a></li>
                             <li><a href="${contextPath }">신규 도서</a></li>
                             <li><a href="${contextPath }">추천 도서</a></li>
                         </ul>

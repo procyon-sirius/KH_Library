@@ -73,6 +73,8 @@ public class SearchDao {
 									, rset.getString("BOOK_AUTHOR")
 									, rset.getString("PUBLISHER")
 									, rset.getInt("PUBLISH_DATE")
+									, rset.getDate("ENROLL_DATE")
+									, rset.getString("STATUS")
 									));
 			}
 		} catch (SQLException e) {
