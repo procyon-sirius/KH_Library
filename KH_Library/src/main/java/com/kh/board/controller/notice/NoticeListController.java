@@ -1,27 +1,30 @@
-package com.kh.board.controller.QnABoard;
+package com.kh.board.controller.notice;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.kh.board.model.service.QnAService;
+
+import com.kh.board.model.service.NoticeService;
+import com.kh.board.model.vo.Notice;
 
 /**
- * Servlet implementation class QnADetailController
+ * Servlet implementation class Notice
  */
-@WebServlet("/QnADetailController.bo")
-public class QnADetailController extends HttpServlet {
+@WebServlet("/notice")
+public class NoticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnADetailController() {
-        super();
-        // TODO Auto-generated constructor stub
+    public NoticeListController() {
+    	
     }
 
 	/**
@@ -29,16 +32,12 @@ public class QnADetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		ArrayList<Notice> list = new NoticeService().selectNoticeList();
 		
-		QnAService service = new QnAService();
+		request.setAttribute("list", list);
 		
-		
-		// 조회수 조회
-		int result = service.listCount(bno);
-		
-	
-	
+		RequestDispatcher view = request.getRequestDispatcher("/views/board/notice/notice.jsp");
+		view.forward(request, response); 
 	}
 
 	/**

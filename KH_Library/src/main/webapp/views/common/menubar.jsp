@@ -1,5 +1,21 @@
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    
+    
+<%
+	// 스크립틀릿 영역에서 데이터 추출하기
+	// 컨텍스트 패스(루트) 추출하기
+	String contextPath = request.getContextPath();
+	
+	 Member loginUser = (Member)session.getAttribute("loginUser");
+	 String alertMsg = (String)session.getAttribute("alertMsg");
+	
+%>    
+  
+  
+    
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -464,10 +480,10 @@
                         <a href="" class="menu-title">소통공간</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="/views/board/qnaBoard.jsp">공지 사항</a></li>
-                            <li><a href="">문의 게시판</a></li>
-                            <li><a href="">한줄평</a></li>
-                            <li><a href="">자유게시판</a></li>
+                            <li><a href="<%=contextPath%>/notice">공지 사항</a></li>
+                            <li><a href="<%=contextPath%>/qnaBoard">문의 게시판</a></li>
+                            <li><a href="<%=contextPath%>/commentBoard">한줄평</a></li>
+                            <li><a href="<%=contextPath%>/freeBoard">자유게시판</a></li>
                         </ul>
                     </li>
                     <li>
