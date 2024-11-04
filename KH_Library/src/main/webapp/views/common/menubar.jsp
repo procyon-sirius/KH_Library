@@ -329,7 +329,6 @@
         /* 브라우저 width가 800px보다 클 경우 : 가변크기 지정*/
         @media(min-width:800px) {
             #body-wrap {
-                border: 2px solid orange;
                 width: 95%;
             }
         }
@@ -337,7 +336,6 @@
         /* 브라우저 width가 1500px보다 클 경우 : 고정*/
         @media(min-width:1500px) {
             #body-wrap {
-                border: 2px solid orange;
                 width: 1400px;
             }
         }
