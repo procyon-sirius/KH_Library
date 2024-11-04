@@ -87,13 +87,16 @@
 				<br>
 			</form>
 			<button onclick="deleteHope();">신청 취소</button>
-			<button type="button" value="check">신청 확인</button>
+			<c:if test="loginUser != null && loginUser.getUserId().equals('admin')">
+				<button type="button" onclick="${contextPath}/hopeCheck.ho">신청 확인</button>
+			</c:if>
+			<button type="button" onclick="location.href='${contextPath}/hopeCheck.ho'">신청 확인</button>
 			<button onclick="history.back();">뒤로가기</button>
 		</div>
 		
 		<script>
 			function deleteHope(){
-				if(confirm("신청을 취소할 경우, 게시물이 삭제됩니다.")){
+				if(confirm("신청을 취소할 경우 게시물이 삭제됩니다. 복구가 불가능합니다.")){
 					$("<form>",{method : "POST",
 								action : "${contextPath}/delete.ho"
 					}).append($("<input>",{type : "hidden",

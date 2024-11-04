@@ -176,4 +176,21 @@ public class HopeBookDao {
 		return listCount;
 	}
 
+	public int hopeCheck(Connection conn) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("hopeCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
 }

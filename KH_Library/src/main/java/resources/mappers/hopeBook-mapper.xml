@@ -65,4 +65,10 @@
 		from hope_book
 	</entry>
 	
+	<entry key="hopeCheck">
+		UPDATE HOPE_BOOK
+		SET HOPE_STATE = 'Y'
+		WHERE HOPE_NUM = ?
+	</entry>
+	
 </properties>
