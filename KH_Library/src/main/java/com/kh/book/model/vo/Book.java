@@ -19,7 +19,10 @@ public class Book {
 	}
 
 	
-	
+
+
+
+
 	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
 			String status, String summary) {
 		super();
