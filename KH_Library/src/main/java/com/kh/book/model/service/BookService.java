@@ -24,7 +24,7 @@ public class BookService {
 		return listCount;
 	}
 
-	public ArrayList<Book> selectList(PageInfo pi) {
+	public ArrayList<Book> selectList(PageInfo pi, int cno) {
 
 		Connection conn = JDBCTemplate.getConnection();
 		

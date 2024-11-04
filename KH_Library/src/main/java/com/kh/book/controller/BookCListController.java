@@ -65,10 +65,8 @@ public class BookCListController extends HttpServlet {
 		
 		
 		int cno = Integer.parseInt(request.getParameter("categoryNo"));
-		
-		ArrayList<BookCategory> bc = new BookService().categoryNo(cno);
-		
-		ArrayList<Book> list = new BookService().selectList(pi);
+
+		ArrayList<Book> list = new BookService().selectList(pi, cno);
 		
 		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
 		
