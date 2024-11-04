@@ -61,6 +61,70 @@ public class BookDao {
 		
 		return b;
 	}
+
+	public int insertRentBook(Connection conn, int bookId, int userNo) {
+
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertRentBook");
+		int result = 0;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bookId);
+			pstmt.setInt(2, userNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int countRentUser(Connection conn, int userNo) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countRentUser");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset=pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("RCOUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int increaseRentCount(Connection conn, int bookId) {
+
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseRentCount");
+		int result = 0;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bookId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	
