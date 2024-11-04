@@ -467,22 +467,15 @@
                     </ul>
                     <script>
                         	function loginPage(){
-<<<<<<< HEAD
-                        		
-                        		location.href="${contextPath }/login.me";
-=======
-                        		//console.log("${contextPath}/1234");
+
                         		location.href="${contextPath}/login.me";
->>>>>>> refs/remotes/origin/main
+
                         	
                         	}                       
                         	function enrollPage(){
-                        		
-<<<<<<< HEAD
-                        		location.href="${contextPath }/enrollForm.me";
-=======
+
                         		location.href="${contextPath}/enrollForm.me";
->>>>>>> refs/remotes/origin/main
+
                         	}
                     </script> 
                 </div>
