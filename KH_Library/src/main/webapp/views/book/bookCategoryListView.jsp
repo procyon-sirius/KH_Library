@@ -218,7 +218,7 @@
 		                    <c:forEach var="b" items="${list}">
 		                        <div class="search-result-block">
 									<div>
-										<input type="hidden" name="bno" value="${b.bookId }">
+										<input type="hidden" name="bookId" value="${b.bookId }">
 										<table>
 												<tr>
 													<td rowspan="5" style="width:160px" id="book-img">
@@ -255,17 +255,17 @@
             <script>
 	            $(".book-list #book-img").click(function(){
 					//console.log($(this).parent().parent().parent().parent().find("input[type=hidden]").val());
-	            	var bno = $(this).closest(".search-result-block").find("input[type=hidden]").val();
+	            	var bookId = $(this).closest(".search-result-block").find("input[name=bookId]").val();
 
-	                location.href='${contextPath}/detail.bk?bno='+bno;
+	                location.href='${contextPath}/detail.bk?bookId='+bookId;
 	
 	            });
 
                 $(".book-list #title").click(function(){
 
-                	var bno = $(this).closest(".search-result-block").find("input[type=hidden]").val();
+                	var bookId = $(this).closest(".search-result-block").find("input[name=bookId]").val();
 
-                    location.href='${contextPath}/detail.bk?bno='+bno;
+                    location.href='${contextPath}/detail.bk?bookId='+bookId;
 
                 });
                 
