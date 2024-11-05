@@ -16,7 +16,8 @@
 		
 		//알림메시지 추출하기
 		String alertMsg = (String)session.getAttribute("alertMsg");
-	%> 
+
+	%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -396,6 +397,16 @@
 </head>
 
 <body>
+	<script>
+	var msg = "<%=alertMsg%>"; 
+	
+	if(msg != "null"){ //로그인 성공 또는 회원가입 성공
+		alert(msg);
+		
+		<%session.removeAttribute("alertMsg");%>
+	}
+	</script>
+		
     <%pageContext.setAttribute("scope","page Scope");%>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 	<script>
@@ -467,12 +478,10 @@
                         		<c:when test="${empty loginUser}">
                        				<button type="button" onclick="enrollPage();">회원가입</button>	
                         		</c:when>
-                        		<c:when test="${loginUser.userId eq 'admin'}">
-                       				<button type="button" onclick="adminPage();">관리자</button>	
-                        		</c:when>
                         		<c:otherwise>
+                        			<button type="button" onclick="logoutPage();">로그아웃</button>
                         		</c:otherwise>
-                       		</c:choose>
+                       	</c:choose>
                        	</li>
                     </ul>
                     <script>
@@ -489,6 +498,11 @@
                         	function enrollPage(){
 
                         		location.href="${contextPath}/enrollForm.me";
+
+                        	}
+                        	function logoutPage(){
+                        		
+                        		location.href="${contextPath}/logout.me";
 
                         	}
                     </script> 
