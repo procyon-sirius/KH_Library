@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.book.model.service.BookService;
 import com.kh.book.model.vo.Book;
+import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.PageInfo;
 
 /**
@@ -67,6 +68,8 @@ public class ChangeCategory extends HttpServlet {
 		
 		int cno = Integer.parseInt(request.getParameter("categoryNo"));
 		
+		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
+		
 		ArrayList<Book> list = new ArrayList<>();
 		
 		if(cno==0) {
@@ -82,6 +85,9 @@ public class ChangeCategory extends HttpServlet {
 			request.setAttribute("list", list);	
 		}
 		
+		request.setAttribute("bci", bci);
+		
+		request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
 		
 	}
 
