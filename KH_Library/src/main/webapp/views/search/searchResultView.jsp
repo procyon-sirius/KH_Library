@@ -92,8 +92,10 @@
 														<td class="search-book-title"><a class="book-info atag">${r.bookTitle}</a></td>
 														<td class="search-table-right book-status" rowspan="5"></td>
 														<td class="search-table-right" rowspan="5">
-															<button type="button" class="btn btn-success search-table-btn rent-btn">대출</button> <br>
-															<button type="button" class="btn btn-primary search-table-btn reserve-btn">예약</button>
+															<c:if test="${not empty loginUser }">
+																<button type="button" class="btn btn-success search-table-btn rent-btn">대출</button> <br>
+																<button type="button" class="btn btn-primary search-table-btn reserve-btn">예약</button>
+															</c:if>
 														</td>
 														<script>
 															function reserveDisabled(){
@@ -193,16 +195,19 @@
 						$(function(){
 							$(".book-info").click(function(){
 								var bookId = $(this).closest(".search-result-block").find("input[name=bookId]").val();
-								location.href="${contextPath}/detail.bk"
+								location.href="${contextPath}/detail.bk?bookId="+bookId;
 							});
 							$(".rent-btn").click(function(){
-								$(this).closest(".book-rent-form").attr("action","${contextPath}/rent.bk");
-								$(this).closest(".book-rent-form").submit();
-								
+								if($(this).closest(".search-result-block").find(".book-status").text()=="대출가능"){
+									$(this).closest(".book-rent-form").attr("action","${contextPath}/rent.bk");
+									$(this).closest(".book-rent-form").submit();
+								};
 							});
 							$(".reserve-btn").click(function(){
-								$(this).closest(".book-rent-form").attr("action","${contextPath}/reserve.bk");
-								$(this).closest(".book-rent-form").submit();
+								if($(this).closest(".search-result-block").find(".book-status").text()=="예약가능"){
+									$(this).closest(".book-rent-form").attr("action","${contextPath}/reserve.bk");
+									$(this).closest(".book-rent-form").submit();
+								};
 							});
 						});
 					</script>
