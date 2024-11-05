@@ -59,6 +59,21 @@
 				color : black;
 				text-decoration: underline;
 			}
+			.pagingbar button{
+				padding : 0 8px;
+				border-radius: 30px;
+				background-color: white;
+				border: 2px solid rgb(160, 160, 160);
+				color: rgb(160, 160, 160);
+			}
+			.pagingbar button:hover{
+				border: 2px solid black;
+				color: black;
+			}
+			#pagingbar-select{
+				border: 2px solid black;
+				color: black;
+			}
 		</style>
 	</head>
 
@@ -70,19 +85,20 @@
 			<div id="body-wrap">
 				<%@include file="/views/common/sideMenu.jsp" %>
 					<div id="content-area">
+						<%@include file="/views/search/searchBar.jsp"%>
 						<c:choose>
 							<c:when test="${empty searchResult}">
-								"${keyword}"에 대한 검색 결과가 존재하지 않습니다.
+								<div style="border-bottom:1px solid lightgray;"><br>"${keyword}"에 대한 검색 결과가 존재하지 않습니다.<br><br></div>
 							</c:when>
 							<c:otherwise>
-								"${keyword}"에 대한 검색 결과입니다. <br><br>
+								<div style="border-bottom:1px solid lightgray;"><br>"${keyword}"에 대한 검색 결과입니다.<br><br></div>
 								<c:forEach items="${searchResult}" var="r">
 									<form class="book-rent-form" action="" method="post">
 										<div class="search-result-block">
 											<div>
 												<input type="hidden" name="bookId" value="${r.bookId}">
 												<input type="hidden" name="userNo" value="${loginUser.userNo}">
-												<table border="1">
+												<table>
 													<tr>
 														<td rowspan="5" style="width:160px">
 															<img class="book-img book-info" src="${contextPath }/resources/img/${r.bookId}.gif">
@@ -158,7 +174,8 @@
 						
 						<c:choose>
 							<c:when test="${not empty searchResult}">
-								<div class="pagingbar-btn" align="center">
+								<br>
+								<div class="pagingbar" align="center">
                 
 					                <c:if test="${pi.currentPage != 1 }">
 					                    <button onclick="changePage(${pi.currentPage-1});">이전</button>
@@ -172,7 +189,7 @@
 					                        </c:when>
 					                        <c:when test="${i eq pi.currentPage }">
 					                            <!-- 현재 페이지 버튼 비활성화 -->
-					                            <button disabled>${i}</button>
+					                            <button id="pagingbar-select">${i}</button>
 					                        </c:when>
 					                    </c:choose>
 					                </c:forEach>
@@ -189,7 +206,8 @@
 					<script>
 						function changePage(i){
 							var url = location.href
-							var temp = url.slice(0,-1);
+							var cPageLength = ("${pi.currentPage}").length;
+							var temp = url.slice(0,-cPageLength);
 							location.href = temp + i;
 						};
 						$(function(){
