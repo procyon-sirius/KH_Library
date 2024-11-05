@@ -42,7 +42,10 @@ public class HopeBookEnrollFormController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String hopeUser = request.getParameter("hopeUser");
+		String userId = request.getParameter("hopeUser");
+		String userNo = new HopeBookService().hopeUserNum(userId);
+		
+		String hopeUser = userNo;
 		String hopeTitle = request.getParameter("hopeTitle");
 		String hopeAutor = request.getParameter("hopeAutor");
 		String hopeContent = request.getParameter("hopeContent");

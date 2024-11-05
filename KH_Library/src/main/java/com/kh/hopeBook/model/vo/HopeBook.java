@@ -43,13 +43,14 @@ public class HopeBook {
 		this.hopeStatus = hopeStatus;
 	}
 
-	public HopeBook(int hopeNum, String hopeUser, String hopeTitle, Date hopeDate, String hopePublic) {
+	public HopeBook(int hopeNum, String hopeUser, String hopeTitle, Date hopeDate, String hopePublic, String hopeStatus) {
 		super();
 		this.hopeNum = hopeNum;
 		this.hopeUser = hopeUser;
 		this.hopeTitle = hopeTitle;
 		this.hopeDate = hopeDate;
 		this.hopePublic = hopePublic;
+		this.hopeStatus = hopeStatus;
 	}
 
 	public int getHopeNum() {

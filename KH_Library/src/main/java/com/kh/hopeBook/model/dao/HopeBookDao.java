@@ -27,7 +27,36 @@ public class HopeBookDao {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public String hopeUserNum(Connection conn, String userId) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String userNo = null;
+		
+		String sql = prop.getProperty("hopeUserNum");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				userNo = rset.getString("user_no");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return userNo;
+	}
+
 	public int hopeBookInsert(Connection conn, HopeBook h) {
 		
 		PreparedStatement pstmt = null;
@@ -77,7 +106,8 @@ public class HopeBookDao {
 									  rset.getString("USER_ID"),
 									  rset.getString("HOPE_TITLE"),
 									  rset.getDate("HOPE_DATE"),
-									  rset.getString("HOPE_PUBLIC")
+									  rset.getString("HOPE_PUBLIC"),
+									  rset.getString("HOPE_STATE")
 									 ));
 			}
 			

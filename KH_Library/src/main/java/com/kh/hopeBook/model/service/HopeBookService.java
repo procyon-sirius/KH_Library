@@ -10,6 +10,18 @@ import com.kh.hopeBook.model.vo.PageInfo;
 
 public class HopeBookService {
 
+
+	public String hopeUserNum(String userId) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		String userNo = new HopeBookDao().hopeUserNum(conn, userId);
+		
+		JDBCTemplate.close(conn);
+		
+		return userNo;
+	}
+	
 	public int hopeBookInsert(HopeBook h) {
 		
 		Connection conn = JDBCTemplate.getConnection();
