@@ -75,10 +75,17 @@ public class SearchResultListController extends HttpServlet {
 		
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
+		
 		pageLimit = 10;
 		boardLimit = 10;
 		
 		maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		
+		if(currentPage > maxPage) {
+			request.setAttribute("errorMsg", "잘못된 접근입니다.");
+			request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+		}
+		
 		
 		startPage = (currentPage-1) / pageLimit * pageLimit +1;
 		
