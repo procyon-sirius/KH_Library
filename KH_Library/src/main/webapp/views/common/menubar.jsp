@@ -3,21 +3,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-<%
-		String contextPath = request.getContextPath();
-		
-		//로그인 유저 정보 추출하기
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		
-		//loginUser에 담긴 데이터
-		//로그인 전 : null
-		//로그인 후 : 로그인한 회원정보를 담은 Member객체
-		
-		//알림메시지 추출하기
-		String alertMsg = (String)session.getAttribute("alertMsg"); 
-	%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
+    
+   
+    
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -26,6 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    
 
     <!--
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -527,10 +518,10 @@
                         <a href="${contextPath }" class="menu-title">소통공간</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="/views/board/qnaBoard.jsp">공지 사항</a></li>
-                            <li><a href="${contextPath }">문의 게시판</a></li>
-                            <li><a href="${contextPath }">한줄평</a></li>
-                            <li><a href="${contextPath }">자유게시판</a></li>
+                            <li><a href="${contextPath }/notice">공지 사항</a></li>
+                            <li><a href="${contextPath }/qnaBoard">문의 게시판</a></li>
+                            <li><a href="${contextPath }/commentBoard">한줄평</a></li>
+                            <li><a href="${contextPath }/freeBoard">자유게시판</a></li>
                         </ul>
                     </li>
                     <li>
