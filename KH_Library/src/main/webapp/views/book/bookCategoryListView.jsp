@@ -83,7 +83,7 @@
         list-style-type: none;
     }
 
-    #category,#order, #desc{
+    #category,#order, #ud{
         vertical-align: middle;
         height: 40px;
         width: 100px;
@@ -100,15 +100,6 @@
     }
     #detail-list{
         list-style-type: none;
-    }
-
-    .age-rank{
-        border: none;
-        font-size: 15px;
-    }
-
-    .age-rank:hover{
-        text-decoration: underline;
     }
 
     .book-list #title:hover{
@@ -171,7 +162,7 @@
             <br><br>
 
 	            <div class="list-area">
-	            	<form action="${contextPath }/changeCategory.bk">
+	            	<form id="category-search-form" action="${contextPath }/changeCategory.bk">
 	            		<input type="hidden" name="currentPage" value="${pi.currentPage }">
 		                <div id="category-list">
 		                    <div id="category-area">
@@ -182,30 +173,46 @@
 					                           </c:forEach>
 					                     </select>
 		                    </div>
+		                    	<c:if test="${cno ne ''}">
+		                    		<script>
+		                    			$("select[name=categoryNo]").val("${cno}").prop("selected", true);
+		                    		</script>
+		                    	</c:if>
 		                    <div id="cbtn-area">
-		                        <button type="submit" id="search">조회</button>
+		                        <button type="button" id="search">조회</button>
+		                        <script>
+		                        	$("#search").click(function(){
+		                        		$("#category-search-form").find("input[name=currentPage]").val(1);
+										$("#category-search-form").submit();
+									});
+		                        </script>
 		                    </div>
 		                </div>
 	            	</form>
 	             
 	                <div id="detail-list">
 	                    <div id="age-rank">
-	                        <button class="age-rank">전체도서</button> |
-	                        <button class="age-rank">일반도서</button> |
-	                        <button class="age-rank">청소년도서</button> |
-	                        <button class="age-rank">어린이도서</button>
+	                    	<input type="radio" name="age" value="Z" checked><label for="Z">전체도서</label> &nbsp;
+	                    	<input type="radio" name="age" value="T"><label for="T">청소년도서</label> &nbsp;
+	                    	<input type="radio" name="age" value="A"><label for="A">어린이도서</label> &nbsp;
 	                    </div>
 	                    <div id="order-area">
 	                        <select name="order" id="order">
-	                            <option value="book-title">도서이름</option>
-	                            <option value="book-title">작가이름</option>
-	                            <option value="book-title">발행연도</option>
-	                            <option value="book-title">등록일</option>
-	                        </select>
-	                        <select name="desc" id="desc">
+	                            <option value="b">도서이름</option>
+	                            <option value="a">작가이름</option>
+	                            <option value="p">발행연도</option>
+	                            <option value="e">등록일</option>
+	                        </select> &nbsp;
+	                        
+	                        <select name="ud" id="ud">
 	                            <option value="desc">내림차순</option>
 	                            <option value="asc">오름차순</option>
 	                        </select>
+	                        <script>
+	                        	console.log($("#age-rank").val());
+	                        	console.log($("#order").val());
+	                        	console.log($("#ud").val());
+	                        </script>
 	                    </div>
 	                </div>
 	            </div>

@@ -113,7 +113,7 @@ public class ChangeCategory extends HttpServlet {
 		
 		request.setAttribute("cno", cno);
 		
-		response.sendRedirect(request.getContextPath()+"/changeCategory.bk?currentPage=1&categoryNo="+cno);
+//		response.sendRedirect(request.getContextPath()+"/changeCategory.bk?currentPage=1&categoryNo="+cno);
 		
 		request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
 	}
