@@ -81,7 +81,7 @@ public class SearchResultListController extends HttpServlet {
 		
 		maxPage = (int)Math.ceil((double)listCount/boardLimit);
 		
-		if(currentPage > maxPage) {
+		if(currentPage != 1 && currentPage > maxPage) {
 			request.setAttribute("errorMsg", "잘못된 접근입니다.");
 			request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
 		}

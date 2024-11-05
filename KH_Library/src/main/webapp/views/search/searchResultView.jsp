@@ -4,7 +4,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>KH Library</title>
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 		<!-- Popper JS -->
@@ -16,7 +16,6 @@
 			.search-result-block {
 				width: 100%;
 				height: 300px;
-				border-top: 1px solid lightgray;
 				border-bottom: 1px solid lightgray;
 			}
 
@@ -82,9 +81,9 @@
 			<div class="center-img">
 				<img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
 			</div>
-			<div id="body-wrap">
+			<div id="body-wrap" style="border : 0">
 				<%@include file="/views/common/sideMenu.jsp" %>
-					<div id="content-area">
+					<div id="content-area" style="border : 0">
 						<%@include file="/views/search/searchBar.jsp"%>
 						<c:choose>
 							<c:when test="${empty searchResult}">

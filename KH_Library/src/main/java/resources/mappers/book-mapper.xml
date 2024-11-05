@@ -18,8 +18,22 @@
 		FROM RENT
 		WHERE USER_NO = ?
 	</entry>
+	<entry key="countRentLimit">
+		SELECT RENT_LIMIT
+		FROM MEMBER
+		WHERE USER_NO = ?
+	</entry>
+	<entry key="countReserveUser">
+		SELECT COUNT(*) RESCOUNT
+		FROM RESERVE
+		WHERE USER_NO = ?
+	</entry>
 	<entry key="insertRentBook">
 		INSERT INTO RENT(BOOK_ID,USER_NO)
+		VALUES(?,?)
+	</entry>
+	<entry key="insertReserveBook">
+		INSERT INTO RESERVE(BOOK_ID,USER_NO)
 		VALUES(?,?)
 	</entry>
 	<entry key="statusY">

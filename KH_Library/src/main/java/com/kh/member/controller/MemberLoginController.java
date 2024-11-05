@@ -31,7 +31,9 @@ public class MemberLoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+		String url = request.getHeader("referer");
+		request.setAttribute("beforeUrl",url);
 		request.getRequestDispatcher("/views/member/memberLoginForm.jsp").forward(request,response);
 		
 	}
@@ -58,8 +60,8 @@ public class MemberLoginController extends HttpServlet {
 		}else {
 			session.setAttribute("alertMsg","로그인 실패!");
 		}
-		
-		response.sendRedirect(request.getContextPath());
+		String url = request.getParameter("beforeUrl");
+		response.sendRedirect(url);
 		
 	
 		

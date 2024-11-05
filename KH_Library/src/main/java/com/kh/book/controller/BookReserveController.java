@@ -11,16 +11,16 @@ import javax.servlet.http.HttpSession;
 import com.kh.book.model.service.BookService;
 
 /**
- * Servlet implementation class BookRentController
+ * Servlet implementation class BookReserveController
  */
-@WebServlet("/rent.bk")
-public class BookRentController extends HttpServlet {
+@WebServlet("/reserve.bk")
+public class BookReserveController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookRentController() {
+    public BookReserveController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,16 +40,18 @@ public class BookRentController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-
-		int result = new BookService().insertRentBook(bookId,userNo);
+		System.out.println(bookId);
+		System.out.println(userNo);
+		
+		int result = new BookService().insertReserveBook(bookId,userNo);
 		
 		String alertMsg = "";
 		if(result == -1) {
-			alertMsg = "대출 실패. 현재 대출중인 책과 예약중인 책의 개수 합이 대출 상한을 넘을 수 없습니다.";
+			alertMsg = "예약 실패. 현재 대출중인 책과 예약중인 책의 개수 합이 대출 상한을 넘을 수 없습니다.";
 		}else if(result == 0) {
-			alertMsg = "대출 실패. 관리자에게 문의하세요.";
+			alertMsg = "예약 실패. 관리자에게 문의하세요.";
 		}else if(result > 0){
-			alertMsg = "대출 완료";
+			alertMsg = "예약 완료";
 		}
 		System.out.println(alertMsg);
 		HttpSession session = request.getSession();
@@ -57,6 +59,7 @@ public class BookRentController extends HttpServlet {
 
 		String url = request.getHeader("referer");
 		response.sendRedirect(url); //이전 경로 재요청
+		
 	}
 
 }
