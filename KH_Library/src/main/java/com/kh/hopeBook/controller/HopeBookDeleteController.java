@@ -1,7 +1,6 @@
 package com.kh.hopeBook.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.hopeBook.model.service.HopeBookService;
-import com.kh.hopeBook.model.vo.HopeBook;
 
 /**
- * Servlet implementation class HopeBookEnrollFormController
+ * Servlet implementation class HopeBookDeleteController
  */
-@WebServlet("/insert.ho")
-public class HopeBookEnrollFormController extends HttpServlet {
+@WebServlet("/delete.ho")
+public class HopeBookDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HopeBookEnrollFormController() {
+    public HopeBookDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +30,7 @@ public class HopeBookEnrollFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/hopeBook/hopeBookEnrollForm.jsp").forward(request, response);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -42,34 +40,18 @@ public class HopeBookEnrollFormController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String hopeUser = request.getParameter("hopeUser");
-		String hopeTitle = request.getParameter("hopeTitle");
-		String hopeAutor = request.getParameter("hopeAutor");
-		String hopeContent = request.getParameter("hopeContent");
-		String hopePublic = request.getParameter("hopePublic");
-//		System.out.println(hopeUser);
-//		System.out.println(hopeTitle);
-//		System.out.println(hopeAutor);
-//		System.out.println(hopeContent);
-//		System.out.println(hopePublic);
+		int hopeNum = Integer.parseInt(request.getParameter("hopeNum"));
+//		System.out.println(hopeNum);
 		
-		HopeBook h = new HopeBook();
-		h.setHopeUser(hopeUser);
-		h.setHopeTitle(hopeTitle);
-		h.setHopeAutor(hopeAutor);
-		h.setHopeContent(hopeContent);
-		h.setHopePublic(hopePublic);
-//		System.out.println(h);
-		
-		int result = new HopeBookService().hopeBookInsert(h);
+		int result = new HopeBookService().deleteHope(hopeNum);
 		
 		HttpSession session = request.getSession();
 		
 		if(result>0) {
-			session.setAttribute("alertMsg", "신청 성공");
+			session.setAttribute("alertMsg", "취소 성공");
 			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
 		}else {
-			session.setAttribute("alertMsg", "신청 실패");
+			session.setAttribute("alertMsg", "취소 실패");
 			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
 		}
 		
