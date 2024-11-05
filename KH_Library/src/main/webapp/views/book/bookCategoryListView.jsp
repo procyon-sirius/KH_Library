@@ -169,6 +169,7 @@
             
             <h2 align="center">카테고리 검색</h2>
             <br><br>
+
 	            <div class="list-area">
 	            	<form action="${contextPath }/changeCategory.bk">
 	            		<input type="hidden" name="currentPage" value="${pi.currentPage }">
@@ -222,7 +223,7 @@
 										<table>
 												<tr>
 													<td rowspan="5" style="width:160px" id="book-img">
-														<img src="${contextPath }/resources/img/${b.bookId}.gif">
+														<img name="book-img" src="${contextPath }/resources/img/${b.bookId}.gif">
 													</td>
 												</tr>
 												<tr>
