@@ -4,9 +4,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
-    
-   
-    
+<%
+		String contextPath = request.getContextPath();
+		
+		//로그인 유저 정보 추출하기
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		//loginUser에 담긴 데이터
+		//로그인 전 : null
+		//로그인 후 : 로그인한 회원정보를 담은 Member객체
+		
+		//알림메시지 추출하기
+		String alertMsg = (String)session.getAttribute("alertMsg");
+	%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -386,6 +396,16 @@
 </head>
 
 <body>
+	<script>
+	var msg = "<%=alertMsg%>"; 
+	
+	if(msg != "null"){ //로그인 성공 또는 회원가입 성공
+		alert(msg);
+		
+		<%session.removeAttribute("alertMsg");%>
+	}
+	</script>
+		
     <%pageContext.setAttribute("scope","page Scope");%>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 	<script>
@@ -456,12 +476,10 @@
                         		<c:when test="${empty loginUser}">
                        				<button type="button" onclick="enrollPage();">회원가입</button>	
                         		</c:when>
-                        		<c:when test="${loginUser.userId eq 'admin'}">
-                       				<button type="button" onclick="adminPage();">관리자</button>	
-                        		</c:when>
                         		<c:otherwise>
+                        			<button type="button" onclick="logoutPage();">로그아웃</button>
                         		</c:otherwise>
-                       		</c:choose>
+                       	</c:choose>
                        	</li>
                     </ul>
                     <script>
@@ -478,6 +496,11 @@
                         	function enrollPage(){
 
                         		location.href="${contextPath}/enrollForm.me";
+
+                        	}
+                        	function logoutPage(){
+                        		
+                        		location.href="${contextPath}/logout.me";
 
                         	}
                     </script> 

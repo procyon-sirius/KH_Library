@@ -22,7 +22,7 @@
 }
 
 .login-area {
-	border: 1px solid black;
+	border: 1px solid cadetblue;
 	width: 500px;
 	height: 400px;
 	border-radius: 12px;
@@ -54,6 +54,7 @@
 	width: 350px;
 	height: 45px;
 	border-radius: 12px;
+	background-color: cadetblue;
 }
 </style>
 </head>
