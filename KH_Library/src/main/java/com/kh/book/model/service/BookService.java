@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.kh.book.model.dao.BookDao;
 import com.kh.book.model.vo.Book;
+import com.kh.book.model.vo.BookCategory;
+import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
 
@@ -21,12 +23,12 @@ public class BookService {
 		
 		return listCount;
 	}
-
-	public ArrayList<Book> selectList(PageInfo pi) {
-
+	
+	public ArrayList<Book> allList(PageInfo pi) {
+			
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().selectList(conn,pi);
+		ArrayList<Book> list = new BookDao().allList(conn,pi);
 		
 		JDBCTemplate.close(conn);
 		
@@ -43,6 +45,18 @@ public class BookService {
 		
 		return b;
 	}
+
+	public ArrayList<BookCategoryInfo> selectCategory() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BookCategoryInfo> bci = new BookDao().selectCategory(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return bci;
+	}
+
 
 	public int insertRentBook(int bookId, int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -69,4 +83,18 @@ public class BookService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	public ArrayList<Book> changeCategory(int cno, PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+
+
 }

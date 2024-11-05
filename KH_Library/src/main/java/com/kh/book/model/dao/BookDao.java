@@ -10,8 +10,12 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.book.model.vo.Book;
+import com.kh.book.model.vo.BookCategory;
+import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
+
+import oracle.jdbc.proxy.annotation.Pre;
 
 public class BookDao {
 	
@@ -56,13 +60,12 @@ public class BookDao {
 		
 		return listCount;
 	}
-
-	public ArrayList<Book> selectList(Connection conn, PageInfo pi) {
-
+	
+	public ArrayList<Book> allList(Connection conn, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Book> list = new ArrayList<>();
-		String sql = prop.getProperty("selectList");
+		String sql = prop.getProperty("allList");
 		
 		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
@@ -91,9 +94,9 @@ public class BookDao {
 			JDBCTemplate.close(pstmt);
 		}
 		
-		
 		return list;
 	}
+	
 	
 	public Book selectBook(Connection conn, int bno) {
 		
@@ -129,6 +132,33 @@ public class BookDao {
 		return b;
 	}
 
+
+	public ArrayList<BookCategoryInfo> selectCategory(Connection conn) {
+		
+		PreparedStatement pstmt = null;		
+		ResultSet rset = null;
+		ArrayList<BookCategoryInfo> bci = new ArrayList<>();
+		String sql = prop.getProperty("selectCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				bci.add(new BookCategoryInfo(rset.getInt("CATEGORY_NO"),
+											  rset.getString("CATEGORY_NAME")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return bci;
+	}
+	
 	public int insertRentBook(Connection conn, int bookId, int userNo) {
 
 		PreparedStatement pstmt = null;
@@ -213,15 +243,44 @@ public class BookDao {
 		return result;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public ArrayList<Book> changeCategory(Connection conn, int cno, PageInfo pi) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("changeCategory");
+		ArrayList<Book> list = new ArrayList<>();
+		
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cno);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Book(rset.getInt("BOOK_ID"),
+								  rset.getString("BOOK_TITLE"),
+								  rset.getString("BOOK_AUTHOR"),
+								  rset.getString("PUBLISHER"),
+								  rset.getInt("PUBLISH_DATE"),
+								  rset.getDate("ENROLL_DATE"),
+								  rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
+
 	
 	
 	
