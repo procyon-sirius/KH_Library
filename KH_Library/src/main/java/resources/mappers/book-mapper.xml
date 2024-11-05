@@ -13,5 +13,38 @@
 		FROM BOOK
 		WHERE BOOK_ID = ?
 	</entry>
-
+	<entry key="countRentUser">
+		SELECT COUNT(*) RCOUNT
+		FROM RENT
+		WHERE USER_NO = ?
+	</entry>
+	<entry key="insertRentBook">
+		INSERT INTO RENT(BOOK_ID,USER_NO)
+		VALUES(?,?)
+	</entry>
+	<entry key="increaseRentCount">
+		UPDATE BOOK
+		SET RENT_COUNT = RENT_COUNT + 1
+		WHERE BOOK_ID = ?
+	</entry>
+	<entry key="listCount">
+		SELECT COUNT(*) COUNT
+		FROM BOOK
+	</entry>
+	
+	<entry key="selectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+				           BOOK_TITLE,
+				           BOOK_AUTHOR,
+				           PUBLISHER,
+				           PUBLISH_DATE,
+				           ENROLL_DATE,
+	           				STATUS
+					FROM BOOK) A)
+	    WHERE RNUM BETWEEN ? AND ?
+	
+		
+	</entry>
 </properties>
