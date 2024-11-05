@@ -31,15 +31,15 @@ public class BookDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		//int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		request.setCharacterEncoding("UTF-8");
+		//request.setCharacterEncoding("UTF-8");
 		
-		Book b = new BookService().selectBook(bno);
+		//Book b = new BookService().selectBook(bno);
 		
-		request.setAttribute("b", b);
+		//request.setAttribute("b", b);
 		
-		request.getRequestDispatcher("/views/book/bookDetail.jsp").forward(request, response);
+		//request.getRequestDispatcher("/views/book/bookDetail.jsp").forward(request, response);
 
 	}
 

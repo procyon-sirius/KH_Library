@@ -192,6 +192,26 @@ public class BookDao {
 		}
 		return result;
 	}
+
+
+	public int updateBookStatusB(Connection conn, int bookId) {
+
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("statusB");
+		int result = 0;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bookId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

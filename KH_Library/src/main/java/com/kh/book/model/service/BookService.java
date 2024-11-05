@@ -55,10 +55,12 @@ public class BookService {
 			result = new BookDao().insertRentBook(conn, bookId, userNo);
 			//book의 rentcount 1증가
 			int increaseRentBook = new BookDao().increaseRentCount(conn, bookId); 
+			//book의 status를 B(예약가능)로 변경
+			int updateBookStatusB = new BookDao().updateBookStatusB(conn, bookId);
 			
-			if(result*increaseRentBook>0) {//둘다 정상처리
+			if(result*increaseRentBook*updateBookStatusB>0) {//셋다 정상처리
 				JDBCTemplate.commit(conn);
-			}else {	//둘중 하나라도 오류일경우
+			}else {	//셋중 하나라도 오류일경우
 				JDBCTemplate.rollback(conn);
 			}
 		}else {
