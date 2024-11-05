@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.kh.book.model.dao.BookDao;
 import com.kh.book.model.vo.Book;
+import com.kh.book.model.vo.BookCategory;
+import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
 
@@ -21,12 +23,12 @@ public class BookService {
 		
 		return listCount;
 	}
-
-	public ArrayList<Book> selectList(PageInfo pi) {
-
+	
+	public ArrayList<Book> allList(PageInfo pi) {
+			
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().selectList(conn,pi);
+		ArrayList<Book> list = new BookDao().allList(conn,pi);
 		
 		JDBCTemplate.close(conn);
 		
@@ -44,6 +46,18 @@ public class BookService {
 		return b;
 	}
 
+	public ArrayList<BookCategoryInfo> selectCategory() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BookCategoryInfo> bci = new BookDao().selectCategory(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return bci;
+	}
+
+
 	public int insertRentBook(int bookId, int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		int rCount = new BookDao().countRentUser(conn, userNo);
@@ -55,10 +69,12 @@ public class BookService {
 			result = new BookDao().insertRentBook(conn, bookId, userNo);
 			//book의 rentcount 1증가
 			int increaseRentBook = new BookDao().increaseRentCount(conn, bookId); 
+			//book의 status를 B(예약가능)로 변경
+			int updateBookStatusB = new BookDao().updateBookStatusB(conn, bookId);
 			
-			if(result*increaseRentBook>0) {//둘다 정상처리
+			if(result*increaseRentBook*updateBookStatusB>0) {//셋다 정상처리
 				JDBCTemplate.commit(conn);
-			}else {	//둘중 하나라도 오류일경우
+			}else {	//셋중 하나라도 오류일경우
 				JDBCTemplate.rollback(conn);
 			}
 		}else {
@@ -67,4 +83,18 @@ public class BookService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	public ArrayList<Book> changeCategory(int cno, PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+
+
 }

@@ -66,6 +66,7 @@ option{
 						<option value="all">통합</option>
 						<option value="title">제목</option>
 						<option value="author">저자</option>
+						<option value="publisher">출판사</option>
 					</select> 
 					
 					<input type="text" id="main-search-input" name="search-keyword"> 
@@ -81,6 +82,7 @@ option{
                        	</c:forEach>
 					</div>
 					<br>
+					<input type="hidden" name="currentPage" value="1">
 				</form> 
 				<script>
 					$(function(){
@@ -90,7 +92,6 @@ option{
 					});
 					function sEmptyCk(){
 						if($("#main-search-input").val()==""){
-							console.log("공백");
 							return false;
 						}
 					}

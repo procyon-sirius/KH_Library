@@ -48,6 +48,17 @@
 				margin: 5px auto;
 				z-index: -1;
 			}
+			.book-info:hover{
+				cursor: pointer;
+			}
+			.atag{
+				text-decoration: none;
+				color : black;
+			}
+			.atag:hover{
+				color : black;
+				text-decoration: underline;
+			}
 		</style>
 	</head>
 
@@ -71,20 +82,20 @@
 											<div>
 												<input type="hidden" name="bookId" value="${r.bookId}">
 												<input type="hidden" name="userNo" value="${loginUser.userNo}">
-												<table>
+												<table border="1">
 													<tr>
 														<td rowspan="5" style="width:160px">
-															<img class="book-img book-info" src="../../resources/img/${r.bookId}.gif">
+															<img class="book-img book-info" src="${contextPath }/resources/img/${r.bookId}.gif">
 														</td>
 													</tr>
 													<tr>
-														<td class="search-book-title book-info">${r.bookTitle}</td>
+														<td class="search-book-title"><a class="book-info atag">${r.bookTitle}</a></td>
+														<td class="search-table-right book-status" rowspan="5"></td>
 														<td class="search-table-right" rowspan="5">
-															${r.status}
-														</td>
-														<td class="search-table-right" rowspan="5">
-															<button type="button" class="btn btn-success search-table-btn rent-btn">대출</button> <br>
-															<button type="button" class="btn btn-primary search-table-btn reserve-btn">예약</button>
+															<c:if test="${not empty loginUser }">
+																<button type="button" class="btn btn-success search-table-btn rent-btn">대출</button> <br>
+																<button type="button" class="btn btn-primary search-table-btn reserve-btn">예약</button>
+															</c:if>
 														</td>
 														<script>
 															function reserveDisabled(){
@@ -100,23 +111,30 @@
 															<c:when test="${r.status eq 'Y'}">
 																<script>
 																	reserveDisabled();
+																	$(".search-result-block").last().find(".book-status").text("대출가능");
+																	$(".search-result-block").last().find(".book-status").css("color","green");
 																</script>
 															</c:when>
 															<c:when test="${r.status eq 'B'}">
 																<script>
 																	rentDisabled();
+																	$(".search-result-block").last().find(".book-status").text("예약가능");
+																	$(".search-result-block").last().find(".book-status").css("color","skyblue");
 																</script>
 															</c:when>
 															<c:when test="${r.status eq 'R'}">
 																<script>
 																	reserveDisabled();
 																	rentDisabled();
+																	$(".search-result-block").last().find(".book-status").text("예약중");
 																</script>
 															</c:when>
 															<c:otherwise>
 																<script>
 																	reserveDisabled();
 																	rentDisabled();
+																	$(".search-result-block").last().find(".book-status").text("이용불가");
+																	$(".search-result-block").last().find(".book-status").css("color","red");
 																</script>
 															</c:otherwise>
 														</c:choose>
@@ -137,21 +155,59 @@
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
+						
+						<c:choose>
+							<c:when test="${not empty searchResult}">
+								<div class="pagingbar-btn" align="center">
+                
+					                <c:if test="${pi.currentPage != 1 }">
+					                    <button onclick="changePage(${pi.currentPage-1});">이전</button>
+					                </c:if>
+					                
+					                
+					                <c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">
+					                    <c:choose>
+					                        <c:when test="${i !=pi.currentPage }">
+					                            <button onclick="changePage(${i});">${i}</button>
+					                        </c:when>
+					                        <c:when test="${i eq pi.currentPage }">
+					                            <!-- 현재 페이지 버튼 비활성화 -->
+					                            <button disabled>${i}</button>
+					                        </c:when>
+					                    </c:choose>
+					                </c:forEach>
+					                
+					                <c:if test="${pi.currentPage != pi.maxPage }">
+					                    <button onclick="changePage(${pi.currentPage+1})">다음</button>
+					                </c:if>
+					                
+					            </div>
+							</c:when>
+							<c:otherwise></c:otherwise>
+						</c:choose>
 					</div>
 					<script>
+						function changePage(i){
+							var url = location.href
+							var temp = url.slice(0,-1);
+							location.href = temp + i;
+						};
 						$(function(){
 							$(".book-info").click(function(){
 								var bookId = $(this).closest(".search-result-block").find("input[name=bookId]").val();
-								location.href="${contextPath}/detail.bk"
+								location.href="${contextPath}/detail.bk?bookId="+bookId;
 							});
 							$(".rent-btn").click(function(){
-								$(this).closest(".book-rent-form").attr("action","${contextPath}/rent.bk");
-								$(this).closest(".book-rent-form").submit();
-								
+								if($(this).closest(".search-result-block").find(".book-status").text()=="대출가능"){
+									$(this).closest(".book-rent-form").attr("action","${contextPath}/rent.bk");
+									$(this).closest(".book-rent-form").submit();
+								};
 							});
 							$(".reserve-btn").click(function(){
-								$(this).closest(".book-rent-form").attr("action","${contextPath}/reserve.bk");
-								$(this).closest(".book-rent-form").submit();
+								if($(this).closest(".search-result-block").find(".book-status").text()=="예약가능"){
+									$(this).closest(".book-rent-form").attr("action","${contextPath}/reserve.bk");
+									$(this).closest(".book-rent-form").submit();
+								};
 							});
 						});
 					</script>
