@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH Library</title>
 <style>
 #main-search-area {
 	border-bottom: 2px solid green;

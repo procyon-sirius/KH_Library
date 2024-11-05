@@ -71,11 +71,12 @@
 		<div class="login-area">
 
 			<form action="${contextPath}/login.me" method="post" id="login_form">
+				<input type="hidden" name="beforeUrl" value="${beforeUrl}">
 				<div id="id-area">
 					<input type="text" id="userId" name="userId" placeholder="아이디">
 				</div>
 				<div id="pw-area">
-					<input type="pasword" id="userPwd" name="userPwd"
+					<input type="password" id="userPwd" name="userPwd"
 						placeholder="비밀번호">
 				</div>
 				<br>
