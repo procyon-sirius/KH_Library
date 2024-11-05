@@ -9,23 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.book.model.service.BookService;
 import com.kh.book.model.vo.Book;
-import com.kh.book.model.vo.BookCategory;
 import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.PageInfo;
 
 /**
- * Servlet implementation class BookCListController
+ * Servlet implementation class ChangeCategory
  */
-@WebServlet("/clist.bk")
-public class BookCListController extends HttpServlet {
+@WebServlet("/changeCategory.bk")
+public class ChangeCategory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookCListController() {
+    public ChangeCategory() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,6 +34,8 @@ public class BookCListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
 		
 		int listCount;
 		int currentPage;
@@ -64,18 +66,29 @@ public class BookCListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
+		int cno = Integer.parseInt(request.getParameter("categoryNo"));
 		
-		ArrayList<Book> list = new BookService().allList(pi);
 		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
 		
+		ArrayList<Book> list = new ArrayList<>();
 		
+		if(cno==0) {
+			
+			list = new BookService().allList(pi);
+			request.setAttribute("pi", pi);	
+			request.setAttribute("list", list);	
+			
+		}else {
+			
+			list = new BookService().changeCategory(cno,pi);
+			request.setAttribute("pi", pi);	
+			request.setAttribute("list", list);	
+		}
 		
-		request.setAttribute("pi", pi);	
-		request.setAttribute("list", list);	
 		request.setAttribute("bci", bci);
-
 		
 		request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
+		
 	}
 
 	/**
