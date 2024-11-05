@@ -12,6 +12,7 @@ import java.util.Properties;
 import com.kh.book.model.vo.Book;
 import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
+import com.kh.common.PageInfo;
 
 public class SearchDao {
 
@@ -56,15 +57,24 @@ public class SearchDao {
 	}
 
 
-	public ArrayList<Book> selectSearchList(Connection conn, String category, String keyword) {
+	public ArrayList<Book> selectSearchList(Connection conn, String[] keyCategory, String category, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ArrayList<Book> bookList = new ArrayList<>();
 		String sql = prop.getProperty("selectSearchResultList");
 		ResultSet rset = null;
+		
+
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, category);
-			pstmt.setString(2, keyword);
+			pstmt.setString(2, keyCategory[0]);
+			pstmt.setString(3, keyCategory[1]);
+			pstmt.setString(4, keyCategory[2]);
+			pstmt.setInt(5, startRow);
+			pstmt.setInt(6, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -85,6 +95,35 @@ public class SearchDao {
 		}
 		
 		return bookList;
+	}
+
+
+	public int listCount(Connection conn, String[] keyCategory, String category) {
+		PreparedStatement pstmt = null;
+		ArrayList<Book> bookList = new ArrayList<>();
+		String sql = prop.getProperty("listCount");
+		ResultSet rset = null;
+		int count = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.setString(2, keyCategory[0]);
+			pstmt.setString(3, keyCategory[1]);
+			pstmt.setString(4, keyCategory[2]);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return count;
 	}
 	
 }

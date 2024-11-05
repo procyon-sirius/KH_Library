@@ -73,5 +73,40 @@ public class MemberDao {
 		
 	}
 	
+	//회원가입 메소드
+	public int insertMember(Connection conn, Member m) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPwd());
+			pstmt.setString(3, m.getUserName());
+			pstmt.setString(4, m.getUserNno());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getEmail());
+			pstmt.setString(7, m.getAddress());
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(pstmt);
+			
+		}
+		
+		
+		
+		return result;
+	}
+	
 
 }

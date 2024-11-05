@@ -3,8 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
 <%
 		String contextPath = request.getContextPath();
 		
@@ -16,7 +15,8 @@
 		//로그인 후 : 로그인한 회원정보를 담은 Member객체
 		
 		//알림메시지 추출하기
-		String alertMsg = (String)session.getAttribute("alertMsg"); 
+		//String alertMsg = (String)session.getAttribute("alertMsg");
+
 	%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -26,6 +26,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    
 
     <!--
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -398,9 +400,10 @@
     <%pageContext.setAttribute("scope","page Scope");%>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 	<script>
+		var msg = "${alertMsg}";
 		//null이 아닐경우에 alert 띄워주기
-		if(${not empty alertMsg}){
-			alert(alertMsg);
+		if(msg!=""){
+			alert(msg);
 			//알림창을 띄우고 메시지 지워주기 (안지우면 메뉴바 뜰때마다 알림창 뜸)
 			<%session.removeAttribute("alertMsg");%>
 		}
@@ -455,6 +458,9 @@
                         		<c:when test="${empty loginUser}">
                        				<button type="button" onclick="loginPage();">로그인</button>
                         		</c:when>
+                        		<c:when test="${loginUser.userId eq 'admin'}">
+                       				<button type="button" onclick="adminPage();">관리자</button>	
+                        		</c:when>
                         		<c:otherwise>
                         			${loginUser.userName }님 
                         		</c:otherwise>
@@ -465,12 +471,10 @@
                         		<c:when test="${empty loginUser}">
                        				<button type="button" onclick="enrollPage();">회원가입</button>	
                         		</c:when>
-                        		<c:when test="${loginUser.userId eq 'admin'}">
-                       				<button type="button" onclick="adminPage();">관리자</button>	
-                        		</c:when>
                         		<c:otherwise>
+                        			<button type="button" onclick="logoutPage();">로그아웃</button>
                         		</c:otherwise>
-                       		</c:choose>
+                       	</c:choose>
                        	</li>
                     </ul>
                     <script>
@@ -480,13 +484,22 @@
                     			
                     		}
                         	function loginPage(){
-                        		location.href="${contextPath }/login.me";
+
+                        		location.href="${contextPath}/login.me";
+
                         	}                       
                         	function enrollPage(){
-                        		location.href="${contextPath }/enrollForm.me";
+
+                        		location.href="${contextPath}/enrollForm.me";
+
                         	}
-                   </script>
-            	</div>
+                        	function logoutPage(){
+                        		
+                        		location.href="${contextPath}/logout.me";
+
+                        	}
+                    </script> 
+                </div>
             </div>
         </div>
         <div id="header-down">
@@ -523,10 +536,10 @@
                         <a href="${contextPath }" class="menu-title">소통공간</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="/views/board/qnaBoard.jsp">공지 사항</a></li>
-                            <li><a href="${contextPath }">문의 게시판</a></li>
-                            <li><a href="${contextPath }">한줄평</a></li>
-                            <li><a href="${contextPath }">자유게시판</a></li>
+                            <li><a href="${contextPath }/notice">공지 사항</a></li>
+                            <li><a href="${contextPath }/qnaBoard">문의 게시판</a></li>
+                            <li><a href="${contextPath }/commentBoard">한줄평</a></li>
+                            <li><a href="${contextPath }/freeBoard">자유게시판</a></li>
                         </ul>
                     </li>
                     <li>

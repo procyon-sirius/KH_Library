@@ -1,4 +1,4 @@
-package com.kh.board.controller.QnABoard;
+package com.kh.member.controller;
 
 import java.io.IOException;
 
@@ -7,19 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.kh.board.model.service.QnAService;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class QnADetailController
+ * Servlet implementation class MemberLogoutController
  */
-@WebServlet("/QnADetailController.bo")
-public class QnADetailController extends HttpServlet {
+@WebServlet("/logout.me")
+public class MemberLogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnADetailController() {
+    public MemberLogoutController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,16 +29,14 @@ public class QnADetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		HttpSession session = request.getSession();
 		
-		QnAService service = new QnAService();
+		session.removeAttribute("loginUser");
 		
+		String url = request.getHeader("referer");
 		
-		// 조회수 조회
-		int result = service.listCount(bno);
+		response.sendRedirect(url);
 		
-	
-	
 	}
 
 	/**
