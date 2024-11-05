@@ -28,7 +28,7 @@
 
 		<div id="content-area" align="center">
 			<h2>도서 신청</h2>
-			<form action="/hopeBookInsert.ho" method="post">
+			<form action="/insert.ho" method="post">
 				<input type="hidden" name="hopeUser" value="1">
 				<table>
 					<tr>
@@ -45,6 +45,12 @@
 					</tr>
 					<tr>
 						<th>신청 이유</th>
+						<td align="right">
+							<select name="hopePublic">
+								<option value="Y">공개</option>
+								<option value="N">비공개</option>
+							</select>
+						</td>
 					</tr> 
 					<tr>
 						<td colspan="2">

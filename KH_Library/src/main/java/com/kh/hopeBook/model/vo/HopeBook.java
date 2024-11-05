@@ -28,6 +28,29 @@ public class HopeBook {
 		this.hopePublic = hopePublic;
 		this.hopeStatus = hopeStatus;
 	}
+	
+	
+	
+	public HopeBook(String hopeUser, String hopeTitle, String hopeAutor, String hopeContent, Date hopeDate,
+			String hopePublic, String hopeStatus) {
+		super();
+		this.hopeUser = hopeUser;
+		this.hopeTitle = hopeTitle;
+		this.hopeAutor = hopeAutor;
+		this.hopeContent = hopeContent;
+		this.hopeDate = hopeDate;
+		this.hopePublic = hopePublic;
+		this.hopeStatus = hopeStatus;
+	}
+
+	public HopeBook(int hopeNum, String hopeUser, String hopeTitle, Date hopeDate, String hopePublic) {
+		super();
+		this.hopeNum = hopeNum;
+		this.hopeUser = hopeUser;
+		this.hopeTitle = hopeTitle;
+		this.hopeDate = hopeDate;
+		this.hopePublic = hopePublic;
+	}
 
 	public int getHopeNum() {
 		return hopeNum;

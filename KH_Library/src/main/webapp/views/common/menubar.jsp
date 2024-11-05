@@ -15,7 +15,7 @@
 		//로그인 후 : 로그인한 회원정보를 담은 Member객체
 		
 		//알림메시지 추출하기
-		String alertMsg = (String)session.getAttribute("alertMsg");
+		//String alertMsg = (String)session.getAttribute("alertMsg");
 
 	%>
 <!DOCTYPE html>
@@ -397,22 +397,12 @@
 </head>
 
 <body>
-	<script>
-	var msg = "<%=alertMsg%>"; 
-	
-	if(msg != "null"){ //로그인 성공 또는 회원가입 성공
-		alert(msg);
-		
-		<%session.removeAttribute("alertMsg");%>
-	}
-	</script>
-		
     <%pageContext.setAttribute("scope","page Scope");%>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 	<script>
-		var msg = "<%=alertMsg%>";
+		var msg = "${alertMsg}";
 		//null이 아닐경우에 alert 띄워주기
-		if(msg!="null"){
+		if(msg!=""){
 			alert(msg);
 			//알림창을 띄우고 메시지 지워주기 (안지우면 메뉴바 뜰때마다 알림창 뜸)
 			<%session.removeAttribute("alertMsg");%>
@@ -468,6 +458,9 @@
                         		<c:when test="${empty loginUser}">
                        				<button type="button" onclick="loginPage();">로그인</button>
                         		</c:when>
+                        		<c:when test="${loginUser.userId eq 'admin'}">
+                       				<button type="button" onclick="adminPage();">관리자</button>	
+                        		</c:when>
                         		<c:otherwise>
                         			${loginUser.userName }님 
                         		</c:otherwise>
@@ -514,11 +507,11 @@
                 <ul id="navi">
                     <div id="background_menu_mask"></div>
                     <li>
-                        <a href="${contextPath }" class="menu-title">도서신청</a>
+                        <a href="${contextPath }/insert.ho" class="menu-title">도서신청</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="views/hopeBook/hopeBookEnrollForm.jsp">도서 신청</a></li>
-                            <li><a href="${contextPath }">도서 신청 현황</a></li>
+                            <li><a href="${contextPath }/insert.ho">도서 신청</a></li>
+                            <li><a href="${contextPath }/select.ho?currentPage=1">도서 신청 현황</a></li>
                         </ul>
                     </li>
                     <li>
