@@ -52,6 +52,13 @@
 		FROM BOOK
 	</entry>
 	
+	<entry key="clistCount">
+		SELECT COUNT(*) COUNT
+		FROM BOOK
+		JOIN BOOK_CATEGORY USING(BOOK_ID)
+		WHERE CATEGORY_NO = ?
+	</entry>
+	
 	<entry key="allList">
 		SELECT *
 		FROM (SELECT ROWNUM RNUM, A.*

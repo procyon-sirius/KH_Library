@@ -282,9 +282,9 @@
             <br> <br>
 
             <div align="center">
-                
+                <input type="hidden" name="categoryNo" value="${c.categoryNo }">
                 <c:if test="${pi.currentPage != 1 }">
-                    <button onclick="location.href='clist.bk?currentPage=${pi.currentPage-1}'">이전</button>
+                    <button onclick="location.href='changeCategory.bk?currentPage=${pi.currentPage-1}&categoryNo=${cno }'">이전</button>
                 </c:if>
                 
                 
@@ -292,7 +292,7 @@
                 
                     <c:choose>
                         <c:when test="${i !=pi.currentPage }">
-                            <button onclick="location.href='clist.bk?currentPage=${i}'">${i }</button>
+                            <button onclick="location.href='changeCategory.bk?currentPage=${i}&categoryNo=${cno }'">${i }</button>
                         </c:when>
                         <c:otherwise>
                             <button disabled>${i }</button>
@@ -301,7 +301,7 @@
                 </c:forEach>
                 
                 <c:if test="${pi.currentPage != pi.maxPage }">
-                    <button onclick="location.href='clist.bk?currentPage=${pi.currentPage+1}'">다음</button>
+                    <button onclick="location.href='changeCategory.bk?currentPage=${pi.currentPage+1}&categoryNo=${cno }'">다음</button>
                 </c:if>
                 
             </div>

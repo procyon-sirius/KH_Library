@@ -37,6 +37,8 @@ public class ChangeCategory extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		int cno = Integer.parseInt(request.getParameter("categoryNo"));
+		
 		int listCount;
 		int currentPage;
 		int pageLimit;
@@ -46,49 +48,73 @@ public class ChangeCategory extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		listCount = new BookService().listCount();
-		
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		
-		pageLimit = 10;
-		boardLimit = 10;
-		
-		maxPage = (int)Math.ceil((double)listCount/boardLimit);
-		
-		startPage = (currentPage-1) / pageLimit * pageLimit +1;
-		
-		endPage = startPage + pageLimit -1;
-		
-		if(maxPage<endPage) {
-			endPage=maxPage;
-		}
-		
-		
-		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-		
-		int cno = Integer.parseInt(request.getParameter("categoryNo"));
-		
-		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
-		
-		ArrayList<Book> list = new ArrayList<>();
-		
 		if(cno==0) {
+			listCount = new BookService().listCount();
 			
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			
+			pageLimit = 10;
+			boardLimit = 10;
+			
+			maxPage = (int)Math.ceil((double)listCount/boardLimit);
+			
+			startPage = (currentPage-1) / pageLimit * pageLimit +1;
+			
+			endPage = startPage + pageLimit -1;
+			
+			if(maxPage<endPage) {
+				endPage=maxPage;
+			}
+			
+			
+			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+			ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
+			
+			ArrayList<Book> list = new ArrayList<>();
+			
+			
+				
 			list = new BookService().allList(pi);
 			request.setAttribute("pi", pi);	
 			request.setAttribute("list", list);	
+		
+			request.setAttribute("bci", bci);
 			
 		}else {
+			listCount = new BookService().clistCount(cno);
+			
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			
+			pageLimit = 10;
+			boardLimit = 10;
+			
+			maxPage = (int)Math.ceil((double)listCount/boardLimit);
+			
+			startPage = (currentPage-1) / pageLimit * pageLimit +1;
+			
+			endPage = startPage + pageLimit -1;
+			
+			if(maxPage<endPage) {
+				endPage=maxPage;
+			}
+			
+			
+			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+			ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
+			
+			ArrayList<Book> list = new ArrayList<>();
 			
 			list = new BookService().changeCategory(cno,pi);
 			request.setAttribute("pi", pi);	
 			request.setAttribute("list", list);	
+			request.setAttribute("bci", bci);
+			
 		}
 		
-		request.setAttribute("bci", bci);
+		request.setAttribute("cno", cno);
 		
 		request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
-		
+
 	}
 
 	/**

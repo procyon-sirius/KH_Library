@@ -281,6 +281,34 @@ public class BookDao {
 	}
 
 
+	public int clistCount(Connection conn, int cno) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int clistCount = 0;
+		String sql = prop.getProperty("clistCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				clistCount = rset.getInt("COUNT");
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return clistCount;
+	}
+
+
 	
 	
 	

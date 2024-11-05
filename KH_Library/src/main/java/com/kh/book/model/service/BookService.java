@@ -95,6 +95,17 @@ public class BookService {
 		return list;
 	}
 
+	public int clistCount(int cno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int clistCount = new BookDao().clistCount(conn, cno);
+		
+		JDBCTemplate.close(conn);
+		
+		return clistCount;
+	}
+
 
 
 }
