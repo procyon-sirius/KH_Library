@@ -75,11 +75,11 @@ public class HopeBookService {
 		return listCount;
 	}
 
-	public int hopeCheck() {
+	public int hopeCheck(int hopeNum) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new HopeBookDao().hopeCheck(conn);
+		int result = new HopeBookDao().hopeCheck(conn, hopeNum);
 		
 		if(result>0) {
 			JDBCTemplate.commit(conn);

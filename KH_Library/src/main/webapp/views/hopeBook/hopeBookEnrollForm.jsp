@@ -45,7 +45,7 @@
 					</tr>
 					<tr>
 						<th>신청 이유</th>
-						<td>
+						<td align="right">
 							<select name="hopePublic">
 								<option value="Y">공개</option>
 								<option value="N">비공개</option>

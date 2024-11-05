@@ -176,7 +176,7 @@ public class HopeBookDao {
 		return listCount;
 	}
 
-	public int hopeCheck(Connection conn) {
+	public int hopeCheck(Connection conn, int hopeNum) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -184,13 +184,18 @@ public class HopeBookDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, hopeNum);
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
 		}
 		
-		return 0;
+		return result;
 	}
 
 }

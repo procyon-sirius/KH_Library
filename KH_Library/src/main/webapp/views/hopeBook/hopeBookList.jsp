@@ -14,6 +14,12 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+<style>
+	table{
+		width: 90%;
+	}
+</style>
+
 </head>
 <body>
 	<%@include file="/views/common/menubar.jsp"%>
@@ -88,23 +94,37 @@
 				</tbody>
 			</table>
 			
-			<script>
-			$("#hopeListTable>tbody>.publicY").click(function(){
-				//console.log($(this));
-				var hno = $(this).children().first().text();
-				//console.log(hno);
-				
-				location.href = "detail.ho?hno="+hno;
-				
-			});
 			
-			$("#hopeListTable>tbody>.publicN").click(function(){
-				alert("비공개 글입니다.");
-			});
-			</script>
-			
-			
-			
+			<c:choose>
+				<c:when test="${loginUser != null && loginUser.getUserId().equals('admin') || loginUser.getUserId().equals(h.hopeUser)}">
+					<script>
+						$("#hopeListTable>tbody>tr").click(function(){
+							//console.log($(this));
+							var hno = $(this).children().first().text();
+							//console.log(hno);
+							
+							location.href = "detail.ho?hno="+hno;
+							
+						});
+					</script>
+				</c:when>
+				<c:otherwise>
+					<script>
+						$("#hopeListTable>tbody>.publicY").click(function(){
+							//console.log($(this));
+							var hno = $(this).children().first().text();
+							//console.log(hno);
+							
+							location.href = "detail.ho?hno="+hno;
+							
+						});
+						
+						$("#hopeListTable>tbody>.publicN").click(function(){
+							alert("비공개 글입니다.");
+						});
+					</script>
+				</c:otherwise>
+			</c:choose>
 			
 			
 			<div align="center" class="">
@@ -130,6 +150,14 @@
 			
 		</div>
 		
+		<script>
+			var message = '<%= alertMsg %>';
+			if(message != "null"){
+				alert(message);
+				    		
+				<%session.removeAttribute("alertMsg");%>
+			}
+		</script>
 		
 		
 
