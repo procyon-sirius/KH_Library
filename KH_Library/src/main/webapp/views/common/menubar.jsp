@@ -458,6 +458,9 @@
                         		<c:when test="${empty loginUser}">
                        				<button type="button" onclick="loginPage();">로그인</button>
                         		</c:when>
+                        		<c:when test="${loginUser.userId eq 'admin'}">
+                       				<button type="button" onclick="adminPage();">관리자</button>	
+                        		</c:when>
                         		<c:otherwise>
                         			${loginUser.userName }님 
                         		</c:otherwise>
