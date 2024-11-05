@@ -507,7 +507,7 @@
                 <ul id="navi">
                     <div id="background_menu_mask"></div>
                     <li>
-                        <a href="${contextPath }" class="menu-title">도서신청</a>
+                        <a href="${contextPath }/insert.ho" class="menu-title">도서신청</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
                             <li><a href="${contextPath }/insert.ho">도서 신청</a></li>
