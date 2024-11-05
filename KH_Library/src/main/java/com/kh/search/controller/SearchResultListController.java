@@ -92,6 +92,9 @@ public class SearchResultListController extends HttpServlet {
 		
 		
 		
+		ArrayList<BookCategoryInfo> cList = new SearchService().selectBookCategoryList();
+		
+		request.setAttribute("bookCategoryList", cList);
 		
 		ArrayList<Book> bookList = new SearchService().selectSearchList(keyCategory,category,pi);
 		//ArrayList<Board> boardList = new SearchService().searchBoard(category,keyword);
