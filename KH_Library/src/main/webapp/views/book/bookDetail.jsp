@@ -38,7 +38,7 @@
 
 	            <table id="book-table">
 	                <tr>
-	                    <td rowspan="8" width="200px" height="300px"><img src="../../resources/img/${b.bookId }.gif" id="bookImg"></td>
+	                    <td rowspan="8" width="200px" height="300px"><img src="${contextPath }/resources/img/${b.bookId }.gif" id="bookImg"></td>
 	                </tr>
 	                <tr>
 	                    <th>책 제목 : </th>

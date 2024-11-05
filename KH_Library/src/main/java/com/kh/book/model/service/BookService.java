@@ -82,11 +82,11 @@ public class BookService {
 		return result;
 	}
 
-	public ArrayList<Book> changeCategory(int cno) {
+	public ArrayList<Book> changeCategory(int cno, PageInfo pi) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().changeCategory(conn,cno);
+		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,pi);
 		
 		JDBCTemplate.close(conn);
 		

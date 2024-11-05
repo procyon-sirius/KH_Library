@@ -170,19 +170,22 @@
             <h2 align="center">카테고리 검색</h2>
             <br><br>
 	            <div class="list-area">
-	                <div id="category-list">
-	                    <div id="category-area">
-	                        카테고리 : <select name="category" id="category">
-				                            	<option value="0" >전체</option>
-				                           <c:forEach items="${bci }" var="c">
-					                           <option value="${c.categoryNo }">${c.categoryName }</option>
-				                           </c:forEach>
-				                     </select>
-	                    </div>
-	                    <div id="cbtn-area">
-	                        <button id="search" onclick="changeCategory();">조회</button>
-	                    </div>
-	                </div>
+	            	<form action="${contextPath }/changeCategory.bk">
+	            		<input type="hidden" name="currentPage" value="${pi.currentPage }">
+		                <div id="category-list">
+		                    <div id="category-area">
+		                        카테고리 : <select name="categoryNo" id="category">
+					                            	<option value="0" >전체</option>
+					                           <c:forEach items="${bci }" var="c">
+						                           <option value="${c.categoryNo }">${c.categoryName }</option>
+					                           </c:forEach>
+					                     </select>
+		                    </div>
+		                    <div id="cbtn-area">
+		                        <button type="submit" id="search">조회</button>
+		                    </div>
+		                </div>
+	            	</form>
 	             
 	                <div id="detail-list">
 	                    <div id="age-rank">
@@ -219,7 +222,7 @@
 										<table>
 												<tr>
 													<td rowspan="5" style="width:160px" id="book-img">
-														<img src="../../resources/img/${b.bookId}.gif">
+														<img src="${contextPath }/resources/img/${b.bookId}.gif">
 													</td>
 												</tr>
 												<tr>
@@ -268,28 +271,14 @@
                 
                 function changeCategory(){
                 	
-                	$.ajax({
-                		url : "changeCategory.bk",
-                		data : {
-                			categoryNo : $("#category").val()
-                		},
-                		success : function(list){
-                			
-                			console.log("t");
-                			$(".book-list").html("");
-                			
-                		},
-                		error : function(){
-                			console.log("f");
-                		}
-                	});
+                	
                 	
                 	
                 }
                 
                
             </script>
-            
+         
             <br> <br>
 
             <div align="center">
@@ -306,7 +295,6 @@
                             <button onclick="location.href='clist.bk?currentPage=${i}'">${i }</button>
                         </c:when>
                         <c:otherwise>
-                            <!-- 현재 페이지 버튼 비활성화 -->
                             <button disabled>${i }</button>
                         </c:otherwise>
                     </c:choose>
@@ -317,9 +305,6 @@
                 </c:if>
                 
             </div>
-            
-            
-
           
         </div>
     </div>

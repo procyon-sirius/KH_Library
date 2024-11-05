@@ -224,16 +224,21 @@ public class BookDao {
 	}
 
 
-	public ArrayList<Book> changeCategory(Connection conn, int cno) {
+	public ArrayList<Book> changeCategory(Connection conn, int cno, PageInfo pi) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("changeCategory");
 		ArrayList<Book> list = new ArrayList<>();
 		
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, cno);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			

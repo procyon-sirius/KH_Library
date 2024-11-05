@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.book.model.service.BookService;
 import com.kh.book.model.vo.Book;
+import com.kh.common.PageInfo;
 
 /**
  * Servlet implementation class ChangeCategory
@@ -35,17 +36,53 @@ public class ChangeCategory extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		listCount = new BookService().listCount();
+		
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		pageLimit = 10;
+		boardLimit = 10;
+		
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		
+		startPage = (currentPage-1) / pageLimit * pageLimit +1;
+		
+		endPage = startPage + pageLimit -1;
+		
+		if(maxPage<endPage) {
+			endPage=maxPage;
+		}
+		
+		
+		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+		
 		int cno = Integer.parseInt(request.getParameter("categoryNo"));
 		
-		System.out.println(cno);
+		ArrayList<Book> list = new ArrayList<>();
 		
-		ArrayList<Book> list = new BookService().changeCategory(cno);
+		if(cno==0) {
+			
+			list = new BookService().allList(pi);
+			request.setAttribute("pi", pi);	
+			request.setAttribute("list", list);	
+			
+		}else {
+			
+			list = new BookService().changeCategory(cno,pi);
+			request.setAttribute("pi", pi);	
+			request.setAttribute("list", list);	
+		}
 		
-		System.out.println(list);
 		
-		response.setContentType("json/application;charset=UTF-8");
-		
-		new Gson().toJson(list,response.getWriter());
 	}
 
 	/**

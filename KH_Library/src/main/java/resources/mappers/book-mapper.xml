@@ -47,16 +47,19 @@
 	</entry>
 	
 	<entry key="changeCategory">
-		SELECT BOOK_ID,
-			   BOOK_TITLE,
-			   BOOK_AUTHOR,
-			   PUBLISHER,
-			   PUBLISH_DATE,
-			   ENROLL_DATE,
-	           STATUS
-		FROM BOOK B
-		JOIN BOOK_CATEGORY C USING(BOOK_ID)
-		WHERE CATEGORY_NO = ?
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+						BOOK_TITLE,
+						BOOK_AUTHOR,
+						PUBLISHER,
+						PUBLISH_DATE,
+						ENROLL_DATE,
+						STATUS
+					FROM BOOK B
+					JOIN BOOK_CATEGORY C USING(BOOK_ID)
+					WHERE CATEGORY_NO = ?) A)
+	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 
