@@ -206,7 +206,8 @@
 					<script>
 						function changePage(i){
 							var url = location.href
-							var temp = url.slice(0,-1);
+							var cPageLength = ("${pi.currentPage}").length;
+							var temp = url.slice(0,-cPageLength);
 							location.href = temp + i;
 						};
 						$(function(){
