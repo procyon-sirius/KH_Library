@@ -18,6 +18,20 @@ public class Member {
 	public Member() {
 		super();
 	}
+	
+
+	public Member(String userId, String userPwd, String userName, String userNno, String phone, String email,
+			String address) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userNno = userNno;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+	}
+
 
 	public Member(int userNo, String userId, String userPwd, String userName, String userNno, String phone,
 			String email, String address, Date emrollDate, Date modifyDate, String status) {
