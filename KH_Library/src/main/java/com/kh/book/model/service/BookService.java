@@ -24,11 +24,11 @@ public class BookService {
 		return listCount;
 	}
 	
-	public ArrayList<Book> allList(PageInfo pi) {
+	public ArrayList<Book> allList(PageInfo pi, String age, String order, String ud) {
 			
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().allList(conn,pi);
+		ArrayList<Book> list = new BookDao().allList(conn,pi,age,order,ud);
 		
 		JDBCTemplate.close(conn);
 		
@@ -84,11 +84,11 @@ public class BookService {
 		return result;
 	}
 
-	public ArrayList<Book> changeCategory(int cno, PageInfo pi) {
+	public ArrayList<Book> changeCategory(int cno, PageInfo pi, String age, String order, String ud) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,pi);
+		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,pi,age,order,ud);
 		
 		JDBCTemplate.close(conn);
 		

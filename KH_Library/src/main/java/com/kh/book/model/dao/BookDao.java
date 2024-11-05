@@ -6,16 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.book.model.vo.Book;
-import com.kh.book.model.vo.BookCategory;
 import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
-
-import oracle.jdbc.proxy.annotation.Pre;
 
 public class BookDao {
 	
@@ -61,21 +59,26 @@ public class BookDao {
 		return listCount;
 	}
 	
-	public ArrayList<Book> allList(Connection conn, PageInfo pi) {
-		PreparedStatement pstmt = null;
+	public ArrayList<Book> allList(Connection conn, PageInfo pi, String age, String order, String ud) {
+		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Book> list = new ArrayList<>();
-		String sql = prop.getProperty("allList");
 		
 		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
 		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
+		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+		String sql ="SELECT *";
+		   sql +="FROM (SELECT ROWNUM RNUM, A.*";
+		   sql += "FROM (SELECT BOOK_ID,BOOK_TITLE,BOOK_AUTHOR,PUBLISHER,PUBLISH_DATE,ENROLL_DATE,STATUS";
+		   sql +=			"FROM BOOK";
+		   sql +=			"JOIN BOOK_CATEGORY USING(BOOK_ID)";
+		   sql +=			"WHERE AGE_RANK ='"+age+"'ORDER BY '||"+order+" "+ud+"||') A)";
+		   sql +=    "WHERE RNUM BETWEEN"+startRow+" AND" +endRow;
+
+	    try {
+	    	stmt = conn.createStatement();
+	    	
+			rset = stmt.executeQuery(sql);
 			
 			while(rset.next()) {
 				list.add(new Book(rset.getInt("BOOK_ID"),
@@ -85,13 +88,12 @@ public class BookDao {
 								  rset.getInt("PUBLISH_DATE"),
 								  rset.getDate("ENROLL_DATE"),
 								  rset.getString("STATUS")));
-				
-			}
-		} catch (SQLException e) {
+		}
+	}catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(stmt);
 		}
 		
 		return list;
@@ -243,23 +245,28 @@ public class BookDao {
 		return result;
 	}
 	
-	public ArrayList<Book> changeCategory(Connection conn, int cno, PageInfo pi) {
+	public ArrayList<Book> changeCategory(Connection conn, int cno, PageInfo pi, String age, String order, String ud) {
 
-		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("changeCategory");
 		ArrayList<Book> list = new ArrayList<>();
 		
 		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
 		
+		
+		String sql ="SELECT *";
+			   sql +="FROM (SELECT ROWNUM RNUM, A.*";
+			   sql += "FROM (SELECT BOOK_ID,BOOK_TITLE,BOOK_AUTHOR,PUBLISHER,PUBLISH_DATE,ENROLL_DATE,STATUS";
+			   sql +=			"FROM BOOK";
+			   sql +=			"JOIN BOOK_CATEGORY USING(BOOK_ID)";
+			   sql +=			"WHERE CATEGORY_NO ="+ cno+"AND AGE_RANK ='"+age+"'ORDER BY '||"+order+" "+ud+"||') A)";
+			   sql +=    "WHERE RNUM BETWEEN"+startRow+" AND" +endRow;
+
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cno);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			stmt = conn.createStatement();
 			
-			rset = pstmt.executeQuery();
+			rset = stmt.executeQuery(sql);
 			
 			while(rset.next()) {
 				list.add(new Book(rset.getInt("BOOK_ID"),
@@ -274,7 +281,7 @@ public class BookDao {
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(stmt);
 		}
 		
 		return list;

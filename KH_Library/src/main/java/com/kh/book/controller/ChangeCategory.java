@@ -38,6 +38,13 @@ public class ChangeCategory extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int cno = Integer.parseInt(request.getParameter("categoryNo"));
+		String age = request.getParameter("age");
+		String order = request.getParameter("order");
+		String ud = request.getParameter("ud");
+		
+		System.out.println(age);
+		System.out.println(order);
+		System.out.println(ud);
 		
 		int listCount;
 		int currentPage;
@@ -47,6 +54,10 @@ public class ChangeCategory extends HttpServlet {
 		int maxPage;
 		int startPage;
 		int endPage;
+		
+		ArrayList<Book> list = new ArrayList<>();
+		
+		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
 		
 		if(cno==0) {
 			listCount = new BookService().listCount();
@@ -58,6 +69,11 @@ public class ChangeCategory extends HttpServlet {
 			
 			maxPage = (int)Math.ceil((double)listCount/boardLimit);
 			
+			if(currentPage != 1 && currentPage > maxPage) {
+				request.setAttribute("errorMsg", "잘못된 접근입니다.");
+				request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+			}
+			
 			startPage = (currentPage-1) / pageLimit * pageLimit +1;
 			
 			endPage = startPage + pageLimit -1;
@@ -68,17 +84,15 @@ public class ChangeCategory extends HttpServlet {
 			
 			
 			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-			ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
 			
-			ArrayList<Book> list = new ArrayList<>();
+			list = new BookService().allList(pi,age,order,ud);
 			
-			
-				
-			list = new BookService().allList(pi);
 			request.setAttribute("pi", pi);	
 			request.setAttribute("list", list);	
-		
 			request.setAttribute("bci", bci);
+			request.setAttribute("age", age);
+			request.setAttribute("order", order);
+			request.setAttribute("ud", ud);
 			
 		}else {
 			listCount = new BookService().clistCount(cno);
@@ -90,6 +104,11 @@ public class ChangeCategory extends HttpServlet {
 			
 			maxPage = (int)Math.ceil((double)listCount/boardLimit);
 			
+			if(currentPage != 1 && currentPage > maxPage) {
+				request.setAttribute("errorMsg", "잘못된 접근입니다.");
+				request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+			}
+			
 			startPage = (currentPage-1) / pageLimit * pageLimit +1;
 			
 			endPage = startPage + pageLimit -1;
@@ -100,14 +119,15 @@ public class ChangeCategory extends HttpServlet {
 			
 			
 			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-			ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
 			
-			ArrayList<Book> list = new ArrayList<>();
 			
-			list = new BookService().changeCategory(cno,pi);
+			list = new BookService().changeCategory(cno,pi,age,order,ud);
 			request.setAttribute("pi", pi);	
 			request.setAttribute("list", list);	
 			request.setAttribute("bci", bci);
+			request.setAttribute("age", age);
+			request.setAttribute("order", order);
+			request.setAttribute("ud", ud);
 			
 		}
 		

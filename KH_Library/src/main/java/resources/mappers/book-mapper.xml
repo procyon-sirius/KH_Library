@@ -69,7 +69,9 @@
 				           PUBLISH_DATE,
 				           ENROLL_DATE,
 	           			   STATUS
-					FROM BOOK) A)
+					FROM BOOK
+					WHERE AGE_RANK = ?
+					ORDER BY '||?||') A)
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
@@ -85,7 +87,9 @@
 						STATUS
 					FROM BOOK
 					JOIN BOOK_CATEGORY USING(BOOK_ID)
-					WHERE CATEGORY_NO = ?) A)
+					WHERE CATEGORY_NO = ?
+					AND AGE_RANK = ?
+					ORDER BY '||?||') A)
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
