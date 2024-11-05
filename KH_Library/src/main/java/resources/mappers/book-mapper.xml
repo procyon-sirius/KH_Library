@@ -22,6 +22,26 @@
 		INSERT INTO RENT(BOOK_ID,USER_NO)
 		VALUES(?,?)
 	</entry>
+	<entry key="statusY">
+		UPDATE BOOK
+		SET STATUS = 'Y'
+		WHERE BOOK_ID = ?
+	</entry>
+	<entry key="statusB">
+		UPDATE BOOK
+		SET STATUS = 'B'
+		WHERE BOOK_ID = ?
+	</entry>
+	<entry key="statusR">
+		UPDATE BOOK
+		SET STATUS = 'R'
+		WHERE BOOK_ID = ?
+	</entry>
+	<entry key="statusN">
+		UPDATE BOOK
+		SET STATUS = 'N'
+		WHERE BOOK_ID = ?
+	</entry>
 	<entry key="increaseRentCount">
 		UPDATE BOOK
 		SET RENT_COUNT = RENT_COUNT + 1

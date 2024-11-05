@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.vo.Board;
+import com.kh.book.model.service.BookService;
 import com.kh.book.model.vo.Book;
 import com.kh.book.model.vo.BookCategoryInfo;
+import com.kh.common.PageInfo;
 import com.kh.search.model.service.SearchService;
 
 /**
@@ -33,7 +35,20 @@ public class SearchResultListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+
+		String keywordCategory = request.getParameter("search-keyword-category");
 		String keyword = request.getParameter("search-keyword");
+		
+		String[] keyCategory = null;
+		if(keywordCategory.equals("all")) {//검색 키워드 카테고리
+			keyCategory = new String[]{keyword,keyword,keyword};
+		}else if(keywordCategory.equals("title")) {
+			keyCategory = new String[]{keyword,"@#","@#"};
+		}else if(keywordCategory.equals("author")) {
+			keyCategory = new String[]{"@#",keyword,"@#"};
+		}else if(keywordCategory.equals("publisher")) {
+			keyCategory = new String[]{"@#","@#",keyword};
+		}
 		String[] bookcList = (String[]) request.getParameterValues("search-book-category");
 		String category = "";
 		if(bookcList!=null) {
@@ -46,9 +61,41 @@ public class SearchResultListController extends HttpServlet {
 			}
 		}
 		
-		ArrayList<Book> bookList = new SearchService().selectSearchList(category,keyword);
-		//ArrayList<Board> boardList = new SearchService().searchBoard(category,keyword);
 		
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		listCount = new SearchService().listCount(keyCategory,category);
+		
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		pageLimit = 10;
+		boardLimit = 10;
+		
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		
+		startPage = (currentPage-1) / pageLimit * pageLimit +1;
+		
+		endPage = startPage + pageLimit -1;
+		
+		if(maxPage<endPage) {
+			endPage=maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+		
+		
+		
+		
+		ArrayList<Book> bookList = new SearchService().selectSearchList(keyCategory,category,pi);
+		//ArrayList<Board> boardList = new SearchService().searchBoard(category,keyword);
+		request.setAttribute("pi", pi);					
 		request.setAttribute("searchResult", bookList);
 		request.setAttribute("keyword", keyword);
 		request.getRequestDispatcher("/views/search/searchResultView.jsp").forward(request, response);;

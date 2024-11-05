@@ -43,14 +43,16 @@ public class BookRentController extends HttpServlet {
 		System.out.println(bookId);
 		System.out.println(userNo);
 		int result = new BookService().insertRentBook(bookId,userNo);
+		System.out.println(result);
 		String alertMsg = "";
 		if(result == -1) {
-			alertMsg = "최대 대출 권수를 넘겼습니다. \n인당 대출 가능 권수는 5권입니다.";
+			alertMsg = "최대 대출 권수를 넘겼습니다. 인당 대출 가능 권수는 5권입니다.";
 		}else if(result == 0) {
 			alertMsg = "대출 실패. 관리자에게 문의하세요.";
-		}else {
+		}else if(result > 0){
 			alertMsg = "대출 완료";
 		}
+		System.out.println(alertMsg);
 		HttpSession session = request.getSession();
 		session.setAttribute("alertMsg", alertMsg);
 		response.sendRedirect(request.getContextPath());
