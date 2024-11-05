@@ -12,5 +12,18 @@
 	
 	
 	</entry>
+	<!-- 회원가입 구문 -->
+	<entry key="insertMember">
+	INSERT INTO MEMBER(USER_NO
+                   ,USER_ID
+                   ,USER_PWD
+                   ,USER_NAME
+                   ,USER_NNO
+                   ,PHONE
+                   ,EMAIL
+                   ,ADDRESS) 
+    VALUES (SEQ_UNO.NEXTVAL,?,?,?,?,?,?,?)
+	
+	</entry>
 
 </properties>

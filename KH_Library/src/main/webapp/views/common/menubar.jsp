@@ -397,6 +397,16 @@
 </head>
 
 <body>
+	<script>
+	var msg = "<%=alertMsg%>"; 
+	
+	if(msg != "null"){ //로그인 성공 또는 회원가입 성공
+		alert(msg);
+		
+		<%session.removeAttribute("alertMsg");%>
+	}
+	</script>
+		
     <%pageContext.setAttribute("scope","page Scope");%>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
     <!-- 모달 검색창 -->
@@ -459,32 +469,25 @@
                         		<c:when test="${empty loginUser}">
                        				<button type="button" onclick="enrollPage();">회원가입</button>	
                         		</c:when>
-                        		<c:when test="${loginUser.userId eq 'admin'}">
-                       				<button type="button" onclick="enrollPage();">관리자</button>	
-                        		</c:when>
                         		<c:otherwise>
+                        			<button type="button" onclick="logoutPage();">로그아웃</button>
                         		</c:otherwise>
-                       		</c:choose>
+                       	</c:choose>
                        	</li>
                     </ul>
                     <script>
                         	function loginPage(){
-<<<<<<< HEAD
                         		
-                        		location.href="${contextPath }/login.me";
-=======
                         		//console.log("${contextPath}/1234");
                         		location.href="${contextPath}/login.me";
->>>>>>> refs/remotes/origin/main
-                        	
                         	}                       
                         	function enrollPage(){
                         		
-<<<<<<< HEAD
-                        		location.href="${contextPath }/enrollForm.me";
-=======
                         		location.href="${contextPath}/enrollForm.me";
->>>>>>> refs/remotes/origin/main
+                        	}
+                        	function logoutPage(){
+                        		
+                        		location.href="${contextPath}/logout.me";
                         	}
                     </script> 
                 </div>

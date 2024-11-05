@@ -1,23 +1,25 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class MemberEnrollFormController
+ * Servlet implementation class MemberLogoutController
  */
-@WebServlet("/enrollForm.me")
-public class MemberEnrollFormController extends HttpServlet {
+@WebServlet("/logout.me")
+public class MemberLogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberEnrollFormController() {
+    public MemberLogoutController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +29,13 @@ public class MemberEnrollFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/views/member/memberAgreeForm.jsp").forward(request,response);
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("loginUser");
+		
+		String url = request.getHeader("referer");
+		
+		response.sendRedirect(url);
 		
 	}
 
