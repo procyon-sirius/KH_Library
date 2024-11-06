@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
-	<entry key="hopeUserNum">
-		select user_no
-		from member
-		where user_id = ?
-	</entry>
 	
 	<entry key="hopeBookInsert">
 		INSERT INTO HOPE_BOOK(HOPE_NUM,
@@ -49,8 +43,10 @@
 		
 	</entry>
 	
+	<!-- 상세보기 -->
 	<entry key="hopeBookDetail">
 		SELECT HOPE_NUM,
+			   HOPE_USER,
 			   USER_ID,
 		       HOPE_TITLE,
 		       HOPE_AUTHOR,

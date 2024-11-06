@@ -32,7 +32,8 @@
 			<h2>도서 신청</h2>
 			<br><br>
 			<form action="/insert.ho" method="post">
-				<input type="hidden" name="hopeUser" value="${loginUser.userId }">
+				<input type="hidden" name="hopeUser" value="${loginUser.userNo }">
+				
 				<table class="table table-bordered" style="width: 70%;" align="center">
 					<tr>
 						<th>희망 도서</th>

@@ -62,18 +62,19 @@
 							<c:forEach var="h" items="${list }">
 								<c:choose>
 								<c:when test="${h.hopePublic == 'Y'}">
-									<tr class="publicY ${h.hopeStatus eq 'Y' && loginUser.userId eq 'admin' ? 'trBackground' : ''}">
+									<tr class="${h.hopeStatus eq 'Y' && loginUser.userId eq 'admin' ? 'trBackground' : ''}">
 										<td>${h.hopeNum }</td>
-										<td>${h.hopeUser }</td>
+										<td>${h.userId }</td>
+										<!-- <td>${loginUser.userId }</td> 왜 안나오지-->
 										<td>${h.hopeTitle }</td>
 										<td>${h.hopeDate }</td>
 										<td><p style="color: green">공개</p></td>
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<tr class="publicN ${h.hopeStatus eq 'Y' && loginUser.userId eq 'admin' ? 'trBackground' : ''}">
+									<tr class="${h.hopeStatus eq 'Y' && loginUser.userId eq 'admin' ? 'trBackground' : ''}">
 										<td>${h.hopeNum }</td>
-										<td>${h.hopeUser }</td>
+										<td>${h.userId }</td>
 										<td>${h.hopeTitle }</td>
 										<td>${h.hopeDate }</td>
 										<td><p style="color: red">비공개</p></td>
@@ -87,36 +88,16 @@
 			</table>
 			
 			
-			<c:choose>
-				<c:when test="${loginUser != null && (loginUser.userId eq 'admin' || loginUser.userId eq h.hopeUser)}"> 
-					<script>
-						$("#hopeListTable>tbody>tr").click(function(){
-							//console.log($(this));
-							var hno = $(this).children().first().text();
-							//console.log(hno);
+			<script>
+				$("#hopeListTable>tbody>tr").click(function(){
+					//console.log($(this));
+					var hopeNum = $(this).children().first().text();
+					//console.log(hopeNum);
 							
-							location.href = "detail.ho?hno="+hno;
+					location.href = "detail.ho?hopeNum="+hopeNum;
 							
-						});
-					</script>
-				</c:when>
-				<c:otherwise>
-					<script>
-						$("#hopeListTable>tbody>.publicY").click(function(){
-							//console.log($(this));
-							var hno = $(this).children().first().text();
-							//console.log(hno);
-							
-							location.href = "detail.ho?hno="+hno;
-							
-						});
-						
-						$("#hopeListTable>tbody>.publicN").click(function(){
-							alert("비공개 글입니다.");
-						});
-					</script>
-				</c:otherwise>
-			</c:choose>
+				});
+			</script>
 			
 			<br><br>
 			<div align="center" class="">

@@ -30,13 +30,21 @@
 		<div id="content-area" align="center">
 			<h2>도서 신청 상세</h2>
 			<br><br>
-			 <!-- form : method X -->
-				<input type="hidden" name="hopeUser" value="1">
+			 
+			 <c:if test="${h.hopePublic == 'N' && (loginUser.userId eq 'admin' || h.userId != loginUser.userId) }">
+				 <script type="text/javascript">
+				 	alert("비공개 글입니다.");
+				 	location.href = "select.ho?currentPage=1";
+				 </script>
+			 	
+			 </c:if>
+			 
+				<input type="hidden" name="hopeNum" value="${h.hopeNum }">
 				<table class="table table-bordered" style="width: 70%;" align="center">
 					<tr>
 						<th>신청인</th>
 						<td colspan="2">
-							${h.hopeUser }
+							${h.userId }
 						</td>
 						
 						<td>
@@ -94,7 +102,7 @@
 				</table>
 				<br>
 			
-			<c:if test="${loginUser != null && (loginUser.userId eq 'admin' || loginUser.userId eq h.hopeUser)}">
+			<c:if test="${loginUser != null && (loginUser.userId eq 'admin' || loginUser.userNo eq h.hopeUser)}">
 				<button onclick="deleteHope();">신청 취소</button>
 			</c:if>
 			

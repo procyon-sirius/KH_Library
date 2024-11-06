@@ -10,18 +10,7 @@ import com.kh.hopeBook.model.vo.PageInfo;
 
 public class HopeBookService {
 
-
-	public String hopeUserNum(String userId) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		String userNo = new HopeBookDao().hopeUserNum(conn, userId);
-		
-		JDBCTemplate.close(conn);
-		
-		return userNo;
-	}
-	
+	//책 신청
 	public int hopeBookInsert(HopeBook h) {
 		
 		Connection conn = JDBCTemplate.getConnection();
@@ -39,6 +28,7 @@ public class HopeBookService {
 		return result;
 	}
 
+	//신청 현황 리스트 뽑기
 	public ArrayList<HopeBook> selectHopeList(PageInfo pi) {
 		
 		Connection conn = JDBCTemplate.getConnection();
@@ -50,17 +40,19 @@ public class HopeBookService {
 		return list;
 	}
 
-	public HopeBook hopeBookDetail(int hno) {
+	//상세보기
+	public HopeBook hopeBookDetail(int hopeNum) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		HopeBook h = new HopeBookDao().hopeBookDetail(conn, hno);
+		HopeBook h = new HopeBookDao().hopeBookDetail(conn, hopeNum);
 		
 		JDBCTemplate.close(conn);
 		
 		return h;
 	}
 
+	//게시글 삭제
 	public int deleteHope(int hopeNum) {
 		
 		Connection conn = JDBCTemplate.getConnection();
@@ -87,6 +79,7 @@ public class HopeBookService {
 		return listCount;
 	}
 
+	//신청확인(관리자)
 	public int hopeCheck(int hopeNum) {
 		
 		Connection conn = JDBCTemplate.getConnection();
