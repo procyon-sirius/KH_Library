@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CommentController
  */
-@WebServlet("/CommentController")
-public class CommentController extends HttpServlet {
+@WebServlet("/commentBoard")
+public class CommentListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentController() {
+    public CommentListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,9 +28,10 @@ public class CommentController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		//RequestDispatcher view = request.getRequestDispatcher("/views/member/memberEnrollForm.jsp");
-		//view.forward(request, response); // 위임하기 (포워딩)
+		
+		
+		RequestDispatcher view = request.getRequestDispatcher("/views/board/commentBoard/commentBoard.jsp");
+		view.forward(request, response); // 위임하기 (포워딩)
 	
 	}
 
