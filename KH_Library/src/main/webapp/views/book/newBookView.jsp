@@ -17,17 +17,42 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
+	#content-area{
+		text-align: center;
+	}
 	.select-time{
 		border-top: 2px solid black;
 		border-bottom: 1px solid gray;
 		height: 60px;
 		width:100%;
-		text-align: center;
 	}
 	.select-time td{
 		padding-top: 5px;
 		padding-left:20px;
 	}
+	
+	#btn{
+		display :inline-block;
+	}
+	
+	.pagingbar button {
+	padding: 0 8px;
+	border-radius: 30px;
+	background-color: white;
+	border: 2px solid rgb(160, 160, 160);
+	color: rgb(160, 160, 160);
+	}
+
+	.pagingbar button:hover {
+		border: 2px solid black;
+		color: black;
+	}
+	
+	#pagingbar-select {
+		border: 2px solid black;
+		color: black;
+	}	
+	
 </style>
 </head>
 <body>
@@ -40,7 +65,6 @@
         <div id="content-area">
            <h2 align="center">신규 도서</h2>
            <br>
-           <form action="${contextPath }/newBook.bk">
 	           <table class="select-time">
 	           		<tr>
 	           			<th>간편 검색</th>
@@ -51,10 +75,70 @@
 	           			</td>
 	           		</tr>
 	           </table>
-           </form>
+	           <br>
+	           	<button type="button" id="btn" class="btn btn-primary search" onclick="location.href='${contextPath }/newBook.bk'">검색</button>
+
            
+           <script>
+				$(".book-list #book-img").click(
+						function() {
+							var bookId = $(this).closest(".search-result-block").find("input[name=bookId]").val();
+
+							location.href = '${contextPath}/detail.bk?bookId='+ bookId;
+						});
+			</script>
            
+           <div class="book-list">
+	        	<c:forEach items="${list }" var="b">
+		 			<div class="thumbnail" align="center">
+		 				<input type="hidden" value="${b.bookId }">
+		 				<img src="${contextPath }/resources/img/${b.bookId}.gif" width="150px" height="200px">
+		 			</div>               	
+	        	</c:forEach>
+          </div>
            
+           <br> <br>
+			<c:choose>
+				<c:when test="${not empty list}">
+					<br>
+					<div class="pagingbar" align="center">
+						<input type="hidden" name="categoryNo" value="${c.categoryNo }">
+
+						<c:if test="${pi.currentPage != 1 }">
+							<button onclick="changePage(${pi.currentPage-1});">이전</button>
+						</c:if>
+
+
+						<c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">
+
+							<c:choose>
+								<c:when test="${i !=pi.currentPage }">
+									<button
+										onclick="changePage(${i});">${i }</button>
+								</c:when>
+								<c:when test="${i eq pi.currentPage }">
+									<!-- 현재 페이지 버튼 비활성화 -->
+									<button id="pagingbar-select">${i}</button>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+
+						<c:if test="${pi.currentPage != pi.maxPage }">
+							<button
+								onclick="changePage(${pi.currentPage+1})">다음</button>
+						</c:if>
+						</div>
+				</c:when>
+			</c:choose>
+           
+        <script>
+			function changePage(i){
+				var url = location.href
+				var cPageLength = ("${pi.currentPage}").length;
+				var temp = url.slice(0,-cPageLength);
+				location.href = temp + i;
+			};
+		</script>
         </div>
     </div>
     <%@include file="/views/common/footer.jsp" %>
