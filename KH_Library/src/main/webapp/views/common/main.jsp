@@ -73,6 +73,7 @@
 	.recommend-cover{
 		height: 250px;
 		width : 180px;
+		border: 1px solid lightgray;
 	}
 	.recommend-title{
 		width : 180px;
@@ -114,7 +115,7 @@
 				$.ajax({
 					url : "${contextPath}/recommend.bk",
 					success : function(result){
-						$("#recommend-book-area").html("<h2><br>도서 추천</h2><br>")
+						$("#recommend-book-area").html("<h2><br>인기 도서</h2><br>")
 						for(var b of result){
 							var book = $("<div>").addClass("recommend-book");
 							book.append($("<input>",{
