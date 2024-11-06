@@ -24,11 +24,22 @@ public class BookService {
 		return listCount;
 	}
 	
-	public ArrayList<Book> allList(PageInfo pi, String age, String order, String ud) {
+	public ArrayList<Book> allList(String age, String order, String ad, PageInfo pi) {
 			
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().allList(conn,pi,age,order,ud);
+		ArrayList<Book> list = new BookDao().allList(conn,age,order,ad,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Book> changeCategory(int cno, String age, String order, String ad, PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,age,order,ad,pi);
 		
 		JDBCTemplate.close(conn);
 		
@@ -88,16 +99,7 @@ public class BookService {
 		return result;
 	}
 
-	public ArrayList<Book> changeCategory(int cno, PageInfo pi, String age, String order, String ud) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,pi,age,order,ud);
-		
-		JDBCTemplate.close(conn);
-		
-		return list;
-	}
+	
 
 	public int clistCount(int cno) {
 		

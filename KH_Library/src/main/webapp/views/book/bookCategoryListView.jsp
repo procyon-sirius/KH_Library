@@ -81,7 +81,7 @@
 	list-style-type: none;
 }
 
-#category, #order, #ud {
+#category, #order, #ad {
 	vertical-align: middle;
 	height: 40px;
 	width: 100px;
@@ -182,31 +182,24 @@
 					<div id="category-list">
 						<div id="category-area">
 							카테고리 : <select name="categoryNo" id="category">
-								<option value="0">전체</option>
-								<c:forEach items="${bci }" var="c">
-									<option value="${c.categoryNo }">${c.categoryName }</option>
-								</c:forEach>
-							</select>
+											<option value="0">전체</option>
+										<c:forEach items="${bci }" var="c">
+											<option value="${c.categoryNo }">${c.categoryName }</option>
+										</c:forEach>
+									</select>
 						</div>
-						<c:if test="${cno ne ''}">
+						<c:if test="${cno != -1}">
 							<script>
-								$("select[name=categoryNo]").val("${cno}")
-										.prop("selected", true);
+								$("select[name=categoryNo]").val("${cno}").prop("selected", true);
 							</script>
 						</c:if>
 						<div id="cbtn-area">
 							<button type="button" id="search">조회</button>
 							<script>
-								$("#search")
-										.click(
-												function() {
-													$("#category-search-form")
-															.find(
-																	"input[name=currentPage]")
-															.val(1);
-													$("#category-search-form")
-															.submit();
-												});
+								$("#search").click(function() {
+										$("#category-search-form").find("input[name=currentPage]").val(1);
+										$("#category-search-form").submit();
+								});
 							</script>
 						</div>
 					</div>
@@ -224,36 +217,33 @@
 								<option value="PUBLISH_DATE">발행연도</option>
 								<option value="ENROLL_DATE">등록일</option>
 							</select> &nbsp; 
-							<select name="ud" id="ud">
-								<option value="desc">내림차순</option>
-								<option value="asc">오름차순</option>
+							<select name="ad" id="ad">
+								<option value="DESC">내림차순</option>
+								<option value="ASC">오름차순</option>
 							</select>
 
 						</div>
 					</div>
 					<input type="hidden" name="currentPage" value="${pi.currentPage }">
-					<!--  
-					<input type="hidden" name="categoryNo" value="${c.categoryNO }">
-					<input type="hidden" name="age" value="${age }">
-					<input type="hidden" name="order" value="${order }">
-					<input type="hidden" name="ud" value="${ud }">
-					-->
 				</form>
 				<c:choose>
-					<c:when test="${cno ne ''}">
+					<c:when test="${cno != -1}">
 						<script>
-							$("input[name=age][value=${age}]").prop("checked",
-									true);
-							$("select[name=ud]").val("${ud}").prop("selected",
-									true);
-							$("select[name=order]").val("${order}").prop(
-									"selected", true);
+							$("select[name=categoryNo][value=0]").prop("selected", true);
+							$("input[name=age][value=AGE_RANK]").prop("checked", true);
+							$("select[name=order][value=BOOK_TITLE]").prop("selected", true);
+							$("select[name=ad][value=ASC]").prop("selected", true);	
+							$("input[name=age][value=${age}]").prop("checked",true);
+							$("#ad").val("${ad}").prop("selected",true);
+							$("#order").val("${order}").prop("selected", true);
 						</script>
 					</c:when>
 					<c:otherwise>
 						<script>
-							$("input[name=age][value=Z]").prop("checked", true);
-							//console.log($("input[name=age]"))
+							$("select[name=categoryNo][value=0]").prop("selected", true);
+							$("input[name=age][value=AGE_RANK]").prop("checked", true);
+							$("select[name=order][value=BOOK_TITLE]").prop("selected", true);
+							$("select[name=ad][value=ASC]").prop("selected", true);
 						</script>
 					</c:otherwise>
 				</c:choose>

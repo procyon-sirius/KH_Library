@@ -38,13 +38,17 @@ public class ChangeCategory extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int cno = Integer.parseInt(request.getParameter("categoryNo"));
+
+		System.out.println(cno);
+		if(cno==-1){
+			ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
+			request.setAttribute("bci", bci);
+			request.setAttribute("cno", cno);
+			request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
+		}else {
 		String age = request.getParameter("age");
 		String order = request.getParameter("order");
-		String ud = request.getParameter("ud");
-		
-		System.out.println(age);
-		System.out.println(order);
-		System.out.println(ud);
+		String ad = request.getParameter("ad");
 		
 		int listCount;
 		int currentPage;
@@ -85,14 +89,15 @@ public class ChangeCategory extends HttpServlet {
 			
 			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 			
-			list = new BookService().allList(pi,age,order,ud);
+			list = new BookService().allList(age,order,ad,pi);
 			
 			request.setAttribute("pi", pi);	
 			request.setAttribute("bci", bci);
 			request.setAttribute("age", age);
 			request.setAttribute("order", order);
-			request.setAttribute("ud", ud);
-			request.setAttribute("list", list);	
+			request.setAttribute("ad", ad);
+			request.setAttribute("list", list)	;	
+			
 			
 		}else {
 			listCount = new BookService().clistCount(cno);
@@ -121,22 +126,21 @@ public class ChangeCategory extends HttpServlet {
 			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 			
 			
-			list = new BookService().changeCategory(cno,pi,age,order,ud);
-			
+			list = new BookService().changeCategory(cno,age,order,ad,pi);
 			request.setAttribute("pi", pi);	
 			request.setAttribute("bci", bci);
 			request.setAttribute("age", age);
 			request.setAttribute("order", order);
-			request.setAttribute("ud", ud);
+			request.setAttribute("ad", ad);
 			request.setAttribute("list", list);	
+			
 			
 		}
 		
 		request.setAttribute("cno", cno);
 		
-//		response.sendRedirect(request.getContextPath()+"/changeCategory.bk?currentPage=1&categoryNo="+cno);
-		
 		request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
+		}
 	}
 
 	/**

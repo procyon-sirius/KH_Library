@@ -59,7 +59,7 @@ public class BookDao {
 		return listCount;
 	}
 	
-	public ArrayList<Book> allList(Connection conn, PageInfo pi, String age, String order, String ud) {
+	public ArrayList<Book> allList(Connection conn, String age, String order, String ad, PageInfo pi) {
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Book> list = new ArrayList<>();
@@ -67,15 +67,32 @@ public class BookDao {
 		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 		
 		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
-		
-		String sql ="SELECT * " +
-			   		"FROM (SELECT ROWNUM AS RNUM, A.* " +
-			   			  "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS " +
-			       			    "FROM BOOK " +
-			       			    "JOIN BOOK_CATEGORY USING(BOOK_ID) " +
-			       			    "WHERE AGE_RANK ='" + age + "' " + 
-			       			    "ORDER BY " + order + " " + ud + ") A) " +
-			       	"WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
+
+		System.out.println("age : "+age);
+		System.out.println("ad : "+ad);
+		System.out.println("order : "+order);
+		String sql = "";
+		if(age.equals("AGE_RANK")) {
+			sql ="SELECT * "
+				+ "FROM (SELECT ROWNUM RNUM, Z.* "
+				+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS "
+						+ "FROM BOOK "
+						+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
+						+ "WHERE AGE_RANK = AGE_RANK ORDER BY "+order+" "+ad+")"
+					+ " Z) "
+				+ "WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
+			
+		}else {
+			sql ="SELECT * "
+					+ "FROM (SELECT ROWNUM RNUM, Z.* "
+					+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS "
+							+ "FROM BOOK "
+							+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
+							+ "WHERE AGE_RANK = '"+age+"' ORDER BY "+order+" "+ad+")"
+						+ " Z) "
+					+ "WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
+				
+		}
 
 	    try {
 	    	stmt = conn.createStatement();
@@ -90,8 +107,8 @@ public class BookDao {
 								  rset.getInt("PUBLISH_DATE"),
 								  rset.getDate("ENROLL_DATE"),
 								  rset.getString("STATUS")));
-		}
-	}catch (SQLException e) {
+			}
+	    }catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(rset);
@@ -101,7 +118,7 @@ public class BookDao {
 		return list;
 	}
 	
-	public ArrayList<Book> changeCategory(Connection conn, int cno, PageInfo pi, String age, String order, String ud) {
+	public ArrayList<Book> changeCategory(Connection conn, int cno, String age, String order, String ad, PageInfo pi) {
 
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -110,15 +127,28 @@ public class BookDao {
 		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
 		
-		String sql ="SELECT * " +
-			   		"FROM (SELECT ROWNUM AS RNUM, A.* " +
-			   			  "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS " +
-			       			    "FROM BOOK " +
-			       			    "JOIN BOOK_CATEGORY USING(BOOK_ID) " +
-			       			    "WHERE CATEGORY_NO =" + cno + "AGE_RANK ='" + age + "' " + 
-			       			    "ORDER BY " + order + " " + ud + ") A) " +
-			       	"WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
-	
+		String sql ="";
+		if(age.equals("AGE_RANK")) {
+			sql ="SELECT * "
+				+ "FROM (SELECT ROWNUM RNUM, Z.* "
+				+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS "
+						+ "FROM BOOK "
+						+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
+						+ "WHERE CATEGORY_NO = "+cno+" AND AGE_RANK = AGE_RANK ORDER BY "+order+" "+ad+")"
+					+ " Z) "
+				+ "WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
+			
+		}else {
+			sql ="SELECT * "
+					+ "FROM (SELECT ROWNUM RNUM, Z.* "
+					+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS "
+							+ "FROM BOOK "
+							+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
+							+ "WHERE CATEGORY_NO = "+cno+" AND AGE_RANK = '"+age+"' ORDER BY "+order+" "+ad+")"
+						+ " Z) "
+					+ "WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
+				
+		}
 
 		try {
 			stmt = conn.createStatement();
