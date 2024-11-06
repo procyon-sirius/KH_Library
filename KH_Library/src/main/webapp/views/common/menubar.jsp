@@ -237,7 +237,7 @@
             width: 100%;
             height: 300px;
             z-index: -1;
-            margin-top: -28px;
+            margin-top: -31px;
             background-color: white;
         }
 

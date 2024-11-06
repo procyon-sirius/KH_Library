@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
 #main-search-area {
-	border-bottom: 2px solid lightgray;
+	border-bottom: 1px solid lightgray;
 }
 
 #search-bar {

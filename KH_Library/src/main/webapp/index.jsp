@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KH_Library</title>
+<title>KH Library</title>
 </head>
 <body>
 	<%@include file="/views/common/menubar.jsp" %>
