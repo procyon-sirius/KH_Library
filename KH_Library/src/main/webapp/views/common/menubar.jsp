@@ -4,7 +4,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
-    
+ 
+ 
+ <%
+		String contextPath = request.getContextPath();
+		
+		//로그인 유저 정보 추출하기
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		//loginUser에 담긴 데이터
+		//로그인 전 : null
+		//로그인 후 : 로그인한 회원정보를 담은 Member객체
+		
+		//알림메시지 추출하기
+		String alertMsg = (String)session.getAttribute("alertMsg");
+	%>   
    
     
 <!DOCTYPE html>

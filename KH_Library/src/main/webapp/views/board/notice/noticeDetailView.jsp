@@ -3,6 +3,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+
+
+<!DOCTYPE html>
+<html>
+<head>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -16,9 +21,8 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!DOCTYPE html>
-<html>
-<head>
+
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -107,7 +111,6 @@ pre {
 	<p>
 		<% Notice n = (Notice) request.getAttribute("notice"); %>
 		<% ArrayList<Notice> preNnext = (ArrayList<Notice>) request.getAttribute("preNnext");%>
-		<% Member loginUser = (Member)session.getAttribute("loginUser"); %>
 			<div align="center">
 		
 				<h2>공지사항</h2>
@@ -168,7 +171,7 @@ pre {
 			
 	
 					ㅇ 점검일시: 2023년 12. 07.(목) 오후 6시 ~2023년 12. 08.(금) 오전 12시
-					ㅇ 점검서비스 : 국립중앙도서관 통합회원시스템
+					ㅇ 점검서비스 : KH도서관 통합회원시스템
 	
 	
 					※ 작업상황에 따라 서비스 중단시간은 변동될 수 있사오니 양해 부탁드립니다.
