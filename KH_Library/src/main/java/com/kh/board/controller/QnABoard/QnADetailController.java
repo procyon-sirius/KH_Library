@@ -35,7 +35,7 @@ public class QnADetailController extends HttpServlet {
 		
 		
 		// 조회수 조회
-		int result = service.listCount(bno);
+		int result = service.increaseCount(bno);
 		
 	
 	

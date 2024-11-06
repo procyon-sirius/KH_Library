@@ -4,7 +4,8 @@ import java.sql.Date;
 
 public class HopeBook {
 	private int hopeNum;//	HOPE_NUM	NUMBER '게시글 번호'
-	private String hopeUser;//	HOPE_USER	NUMBER '유저 번호(아이디)'
+	private int hopeUser;//	HOPE_USER	NUMBER '유저 번호'
+	private String userId; // 유저 아이디
 	private String hopeTitle;//	HOPE_TITLE	VARCHAR2(100 BYTE) '책 제목'
 	private String hopeAutor;//	HOPE_AUTHOR	VARCHAR2(100 BYTE) '책 저자'
 	private String hopeContent;//	HOPE_CONTENT	VARCHAR2(4000 BYTE) '신청 이유'
@@ -16,25 +17,12 @@ public class HopeBook {
 		super();
 	}
 
-	public HopeBook(int hopeNum, String hopeUser, String hopeTitle, String hopeAutor, String hopeContent, Date hopeDate,
-			String hopePublic, String hopeStatus) {
+	public HopeBook(int hopeNum, int hopeUser, String userId, String hopeTitle, String hopeAutor, String hopeContent,
+			Date hopeDate, String hopePublic, String hopeStatus) {
 		super();
 		this.hopeNum = hopeNum;
 		this.hopeUser = hopeUser;
-		this.hopeTitle = hopeTitle;
-		this.hopeAutor = hopeAutor;
-		this.hopeContent = hopeContent;
-		this.hopeDate = hopeDate;
-		this.hopePublic = hopePublic;
-		this.hopeStatus = hopeStatus;
-	}
-	
-	
-	
-	public HopeBook(String hopeUser, String hopeTitle, String hopeAutor, String hopeContent, Date hopeDate,
-			String hopePublic, String hopeStatus) {
-		super();
-		this.hopeUser = hopeUser;
+		this.userId = userId;
 		this.hopeTitle = hopeTitle;
 		this.hopeAutor = hopeAutor;
 		this.hopeContent = hopeContent;
@@ -43,29 +31,39 @@ public class HopeBook {
 		this.hopeStatus = hopeStatus;
 	}
 
-	public HopeBook(int hopeNum, String hopeUser, String hopeTitle, Date hopeDate, String hopePublic) {
+	//신청 리스트
+	public HopeBook(int hopeNum, String userId, String hopeTitle, Date hopeDate, String hopePublic, String hopeStatus) {
 		super();
 		this.hopeNum = hopeNum;
-		this.hopeUser = hopeUser;
+		this.userId = userId;
 		this.hopeTitle = hopeTitle;
 		this.hopeDate = hopeDate;
 		this.hopePublic = hopePublic;
+		this.hopeStatus = hopeStatus;
 	}
-
+	
 	public int getHopeNum() {
 		return hopeNum;
 	}
-
+	
 	public void setHopeNum(int hopeNum) {
 		this.hopeNum = hopeNum;
 	}
 
-	public String getHopeUser() {
+	public int getHopeUser() {
 		return hopeUser;
 	}
 
-	public void setHopeUser(String hopeUser) {
+	public void setHopeUser(int hopeUser) {
 		this.hopeUser = hopeUser;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getHopeTitle() {
@@ -118,8 +116,11 @@ public class HopeBook {
 
 	@Override
 	public String toString() {
-		return "HopeBook [hopeNum=" + hopeNum + ", hopeUser=" + hopeUser + ", hopeTitle=" + hopeTitle + ", hopeAutor="
-				+ hopeAutor + ", hopeContent=" + hopeContent + ", hopeDate=" + hopeDate + ", hopePublic=" + hopePublic
-				+ ", hopeStatus=" + hopeStatus + "]";
+		return "HopeBook [hopeNum=" + hopeNum + ", hopeUser=" + hopeUser + ", userId=" + userId + ", hopeTitle="
+				+ hopeTitle + ", hopeAutor=" + hopeAutor + ", hopeContent=" + hopeContent + ", hopeDate=" + hopeDate
+				+ ", hopePublic=" + hopePublic + ", hopeStatus=" + hopeStatus + "]";
 	}
+	
+	
+	
 }
