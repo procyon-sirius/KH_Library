@@ -2,6 +2,7 @@ package com.kh.member.controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +14,16 @@ import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberLoginController
+ * Servlet implementation class MemberInsertController
  */
-@WebServlet("/login.me")
-public class MemberLoginController extends HttpServlet {
+@WebServlet("/insert.me")
+public class MemberInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberLoginController() {
+    public MemberInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,10 +32,8 @@ public class MemberLoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String url = request.getHeader("referer");
-		request.setAttribute("beforeUrl",url);
-		request.getRequestDispatcher("/views/member/memberLoginForm.jsp").forward(request,response);
+		
+		request.getRequestDispatcher("/views/member/memberEnrollForm.jsp").forward(request, response);
 		
 	}
 
@@ -47,25 +46,34 @@ public class MemberLoginController extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
+		String userName = request.getParameter("userName");
+		String userNno = request.getParameter("userNno");
+		String phone = request.getParameter("phone");
+		String email = request.getParameter("email");
+		String address = request.getParameter("address");
 		
-		Member loginUser = new MemberService().loginMember(userId,userPwd);
+		Member m = new Member(userId,userPwd,userName,userNno,phone,email,address);
+		
+		int result = new MemberService().insertMember(m);
 		
 		HttpSession session = request.getSession();
 		
-		if(loginUser!=null) {
+		if(result>0) {
 			
-			session.setAttribute( "loginUser", loginUser);
-			session.setAttribute("alertMsg", "로그인 성공!");
+			session.setAttribute("alertMsg", "회원이 되신것을 환영합니다.");
+			
+			response.sendRedirect(request.getContextPath());
+			
 			
 		}else {
-			session.setAttribute("alertMsg","로그인 실패!");
+			
+			request.setAttribute("alertMsg", "회원가입에 실패하셨습니다.");
+			
+			response.sendRedirect(request.getContextPath());
+			
 		}
-		String url = request.getParameter("beforeUrl");
-		response.sendRedirect(url);
 		
 	
-		
-		
 	}
 
 }

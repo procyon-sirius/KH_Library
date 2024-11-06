@@ -22,7 +22,7 @@
 }
 
 .login-area {
-	border: 1px solid black;
+	border: 1px solid cadetblue;
 	width: 500px;
 	height: 400px;
 	border-radius: 12px;
@@ -54,6 +54,7 @@
 	width: 350px;
 	height: 45px;
 	border-radius: 12px;
+	background-color: cadetblue;
 }
 </style>
 </head>
@@ -70,11 +71,12 @@
 		<div class="login-area">
 
 			<form action="${contextPath}/login.me" method="post" id="login_form">
+				<input type="hidden" name="beforeUrl" value="${beforeUrl}">
 				<div id="id-area">
 					<input type="text" id="userId" name="userId" placeholder="아이디">
 				</div>
 				<div id="pw-area">
-					<input type="pasword" id="userPwd" name="userPwd"
+					<input type="password" id="userPwd" name="userPwd"
 						placeholder="비밀번호">
 				</div>
 				<br>

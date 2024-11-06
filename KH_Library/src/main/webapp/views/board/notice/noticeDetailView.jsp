@@ -22,7 +22,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 

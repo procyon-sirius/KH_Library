@@ -18,9 +18,43 @@
 		FROM RENT
 		WHERE USER_NO = ?
 	</entry>
+	<entry key="countRentLimit">
+		SELECT RENT_LIMIT
+		FROM MEMBER
+		WHERE USER_NO = ?
+	</entry>
+	<entry key="countReserveUser">
+		SELECT COUNT(*) RESCOUNT
+		FROM RESERVE
+		WHERE USER_NO = ?
+	</entry>
 	<entry key="insertRentBook">
 		INSERT INTO RENT(BOOK_ID,USER_NO)
 		VALUES(?,?)
+	</entry>
+	<entry key="insertReserveBook">
+		INSERT INTO RESERVE(BOOK_ID,USER_NO)
+		VALUES(?,?)
+	</entry>
+	<entry key="statusY">
+		UPDATE BOOK
+		SET STATUS = 'Y'
+		WHERE BOOK_ID = ?
+	</entry>
+	<entry key="statusB">
+		UPDATE BOOK
+		SET STATUS = 'B'
+		WHERE BOOK_ID = ?
+	</entry>
+	<entry key="statusR">
+		UPDATE BOOK
+		SET STATUS = 'R'
+		WHERE BOOK_ID = ?
+	</entry>
+	<entry key="statusN">
+		UPDATE BOOK
+		SET STATUS = 'N'
+		WHERE BOOK_ID = ?
 	</entry>
 	<entry key="increaseRentCount">
 		UPDATE BOOK
@@ -32,7 +66,7 @@
 		FROM BOOK
 	</entry>
 	
-	<entry key="selectList">
+	<entry key="allList">
 		SELECT *
 		FROM (SELECT ROWNUM RNUM, A.*
            	  FROM (SELECT BOOK_ID,
@@ -41,10 +75,32 @@
 				           PUBLISHER,
 				           PUBLISH_DATE,
 				           ENROLL_DATE,
-	           				STATUS
+	           			   STATUS
 					FROM BOOK) A)
 	    WHERE RNUM BETWEEN ? AND ?
-	
-		
 	</entry>
+	
+	<entry key="changeCategory">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+						BOOK_TITLE,
+						BOOK_AUTHOR,
+						PUBLISHER,
+						PUBLISH_DATE,
+						ENROLL_DATE,
+						STATUS
+					FROM BOOK
+					JOIN BOOK_CATEGORY USING(BOOK_ID)
+					WHERE CATEGORY_NO = ?) A)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+
+	<entry key="selectCategory">
+		SELECT CATEGORY_NO,
+			   CATEGORY_NAME
+		FROM BOOK_CATEGORY_INFO
+	</entry>
+
 </properties>

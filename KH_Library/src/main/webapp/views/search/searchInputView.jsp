@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH Library</title>
 <style>
 #main-search-area {
 	border-bottom: 2px solid green;
@@ -57,45 +57,7 @@ option{
 	<div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp"%>
 		<div id="content-area">
-			<div id="main-search-area" align="center">
-
-				<h2>통합검색</h2>
-				<form id="main-search-form" action="list.se">
-					<div id=search-bar>
-					<select name="search-keyword-category" id="search-select">
-						<option value="all">통합</option>
-						<option value="title">제목</option>
-						<option value="author">저자</option>
-					</select> 
-					
-					<input type="text" id="main-search-input" name="search-keyword"> 
-					<button type="submit" class="material-icons icons" onclick="return sEmptyCk();">search</button>
-					<button type="button" id="main-search-filter-icon" class="material-icons icons">filter_list</button>
-
-					
-					</div>
-					<div id="search-filter-area">
-						카테고리 &nbsp;<br>
-						<c:forEach items="${bookCategoryList}" var="c">
-							<input type="checkbox" name="search-book-category" value="${c.categoryNo}">${c.categoryName} &nbsp;
-                       	</c:forEach>
-					</div>
-					<br>
-				</form> 
-				<script>
-					$(function(){
-						$("#main-search-filter-icon").click(function(){
-							$("#search-filter-area").toggle();
-						});
-					});
-					function sEmptyCk(){
-						if($("#main-search-input").val()==""){
-							console.log("공백");
-							return false;
-						}
-					}
-				</script>
-			</div>
+			<%@include file="/views/search/searchBar.jsp"%>
 		</div>
 	</div>
 	<%@include file="/views/common/footer.jsp"%>

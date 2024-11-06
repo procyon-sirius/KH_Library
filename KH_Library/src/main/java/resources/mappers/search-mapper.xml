@@ -5,17 +5,30 @@
 		SELECT * FROM BOOK_CATEGORY_INFO
 	</entry>
 	
-	<entry key="selectSearchResultList">
-		SELECT BOOK_ID
-			, BOOK_TITLE
-			, BOOK_AUTHOR
-			, PUBLISHER
-			, PUBLISH_DATE
-			, ENROLL_DATE
-			, STATUS
+	<entry key="listCount">
+		SELECT COUNT(*) COUNT
 		FROM BOOK
 		JOIN BOOK_CATEGORY USING(BOOK_ID)
 		WHERE ? LIKE '%'||CATEGORY_NO||'%'
-		AND BOOK_TITLE LIKE '%'||?||'%' 
+		AND (BOOK_TITLE LIKE '%'||?||'%' OR BOOK_AUTHOR LIKE '%'||?||'%' OR PUBLISHER LIKE '%'||?||'%') 
 	</entry>
+
+	<entry key="selectSearchResultList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID
+						, BOOK_TITLE
+						, BOOK_AUTHOR
+						, PUBLISHER
+						, PUBLISH_DATE
+						, ENROLL_DATE
+	        	   		, STATUS
+					FROM BOOK
+					JOIN BOOK_CATEGORY USING(BOOK_ID)
+				    WHERE ? LIKE '%'||CATEGORY_NO||'%'
+				    AND (BOOK_TITLE LIKE '%'||?||'%' OR BOOK_AUTHOR LIKE '%'||?||'%' OR PUBLISHER LIKE '%'||?||'%')
+	    			) A)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
 </properties>
