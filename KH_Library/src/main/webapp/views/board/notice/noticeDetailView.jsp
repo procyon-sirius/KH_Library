@@ -20,6 +20,8 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -168,7 +170,7 @@ pre {
 			
 	
 					ㅇ 점검일시: 2023년 12. 07.(목) 오후 6시 ~2023년 12. 08.(금) 오전 12시
-					ㅇ 점검서비스 : 국립중앙도서관 통합회원시스템
+					ㅇ 점검서비스 : KH도서관 통합회원시스템
 	
 	
 					※ 작업상황에 따라 서비스 중단시간은 변동될 수 있사오니 양해 부탁드립니다.

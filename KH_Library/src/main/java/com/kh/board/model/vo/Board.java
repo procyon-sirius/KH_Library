@@ -19,13 +19,168 @@ public class Board {
 	
 	private int boardNo; 
 	private int boardTypeNo; 
-	private int userNo; 
+	private String userNo; 
 	private int bookId; 
 	private String boardTitle; 
 	private String boardContent; 
 	private Date date; 
 	private int count; 
-	private String status; 
+	private String status;
+	
+	
+	
+	public Board() {
+		super();
+	}
+
+
+
+	public Board(int boardNo, int boardTypeNo, String userNo, int bookId, String boardTitle, String boardContent,
+			Date date, int count, String status) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTypeNo = boardTypeNo;
+		this.userNo = userNo;
+		this.bookId = bookId;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.date = date;
+		this.count = count;
+		this.status = status;
+	}
+
+	
+	
+
+	public Board(int boardNo, int boardTypeNo, String userNo, String boardTitle, String boardContent, Date date,
+			int count) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTypeNo = boardTypeNo;
+		this.userNo = userNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.date = date;
+		this.count = count;
+	}
+
+
+
+	public int getBoardNo() {
+		return boardNo;
+	}
+
+
+
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
+	}
+
+
+
+	public int getBoardTypeNo() {
+		return boardTypeNo;
+	}
+
+
+
+	public void setBoardTypeNo(int boardTypeNo) {
+		this.boardTypeNo = boardTypeNo;
+	}
+
+
+
+	public String getUserNo() {
+		return userNo;
+	}
+
+
+
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
+	}
+
+
+
+	public int getBookId() {
+		return bookId;
+	}
+
+
+
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
+
+
+
+	public String getBoardTitle() {
+		return boardTitle;
+	}
+
+
+
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
+	}
+
+
+
+	public String getBoardContent() {
+		return boardContent;
+	}
+
+
+
+	public void setBoardContent(String boardContent) {
+		this.boardContent = boardContent;
+	}
+
+
+
+	public Date getDate() {
+		return date;
+	}
+
+
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+
+
+	public int getCount() {
+		return count;
+	}
+
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Board [boardNo=" + boardNo + ", boardTypeNo=" + boardTypeNo + ", userNo=" + userNo + ", bookId="
+				+ bookId + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", date=" + date
+				+ ", count=" + count + ", status=" + status + "]";
+	} 
+	
 	
 	
 	
