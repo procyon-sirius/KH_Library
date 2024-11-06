@@ -73,40 +73,6 @@
 		WHERE CATEGORY_NO = ?
 	</entry>
 	
-	<entry key="allList">
-		SELECT *
-		FROM (SELECT ROWNUM RNUM, A.*
-           	  FROM (SELECT BOOK_ID,
-				           BOOK_TITLE,
-				           BOOK_AUTHOR,
-				           PUBLISHER,
-				           PUBLISH_DATE,
-				           ENROLL_DATE,
-	           			   STATUS
-					FROM BOOK
-					WHERE AGE_RANK = ?
-					ORDER BY '||?||') A)
-	    WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	
-	<entry key="changeCategory">
-		SELECT *
-		FROM (SELECT ROWNUM RNUM, A.*
-           	  FROM (SELECT BOOK_ID,
-						BOOK_TITLE,
-						BOOK_AUTHOR,
-						PUBLISHER,
-						PUBLISH_DATE,
-						ENROLL_DATE,
-						STATUS
-					FROM BOOK
-					JOIN BOOK_CATEGORY USING(BOOK_ID)
-					WHERE CATEGORY_NO = ?
-					AND AGE_RANK = ?
-					ORDER BY '||?||') A)
-	    WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	
 
 	<entry key="selectCategory">
 		SELECT CATEGORY_NO,
