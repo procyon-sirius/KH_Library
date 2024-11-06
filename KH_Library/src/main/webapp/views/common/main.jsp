@@ -56,11 +56,12 @@
 	}
 	#recommend-book-area h2{
 		text-align: center;
+		margin: 50px 0;
 	}
 	.recommend-book{
 		display : inline-block;
 		border : 2px solid lightgray;
-		border-radius: 10px;
+		border-radius: 5px;
 		padding : 10px;
 		margin : 0 10px;
 	}
@@ -95,6 +96,11 @@
 		cursor: pointer;
 		text-decoration: underline;
 	}
+	.sizeUp{
+  		transform: scale(1.08);
+		transition-property: all;
+		transition-duration: 0.3s;
+	}
 </style>
 </head>
 
@@ -115,7 +121,7 @@
 				$.ajax({
 					url : "${contextPath}/recommend.bk",
 					success : function(result){
-						$("#recommend-book-area").html("<h2><br>인기 도서</h2><br>")
+						$("#recommend-book-area").html("<h2>인기 도서</h2>")
 						for(var b of result){
 							var book = $("<div>").addClass("recommend-book");
 							book.append($("<input>",{
@@ -144,6 +150,13 @@
 				$("#recommend-book-area").on("click",".rec-book-info",function(){
 					var bookId = $(this).closest(".recommend-book").find("input[name=bookId]").val();
 					location.href = "${contextPath}/detail.bk?bookId="+bookId;
+				});
+
+				$("#recommend-book-area").on("mouseenter",".recommend-book", function(){
+						$(this).addClass("sizeUp");
+				});
+				$("#recommend-book-area").on("mouseleave",".recommend-book", function(){
+						$(this).removeClass("sizeUp");
 				});
 			})
 		</script>
