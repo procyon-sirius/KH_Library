@@ -67,13 +67,15 @@ public class BookDao {
 		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 		
 		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
-		String sql ="SELECT *";
-		   sql +="FROM (SELECT ROWNUM RNUM, A.*";
-		   sql += "FROM (SELECT BOOK_ID,BOOK_TITLE,BOOK_AUTHOR,PUBLISHER,PUBLISH_DATE,ENROLL_DATE,STATUS";
-		   sql +=			"FROM BOOK";
-		   sql +=			"JOIN BOOK_CATEGORY USING(BOOK_ID)";
-		   sql +=			"WHERE AGE_RANK ='"+age+"'ORDER BY '||"+order+" "+ud+"||') A)";
-		   sql +=    "WHERE RNUM BETWEEN"+startRow+" AND" +endRow;
+		
+		String sql ="SELECT * " +
+			   		"FROM (SELECT ROWNUM AS RNUM, A.* " +
+			   			  "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS " +
+			       			    "FROM BOOK " +
+			       			    "JOIN BOOK_CATEGORY USING(BOOK_ID) " +
+			       			    "WHERE AGE_RANK ='" + age + "' " + 
+			       			    "ORDER BY " + order + " " + ud + ") A) " +
+			       	"WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
 
 	    try {
 	    	stmt = conn.createStatement();
@@ -90,6 +92,49 @@ public class BookDao {
 								  rset.getString("STATUS")));
 		}
 	}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<Book> changeCategory(Connection conn, int cno, PageInfo pi, String age, String order, String ud) {
+
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Book> list = new ArrayList<>();
+		
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+		
+		String sql ="SELECT * " +
+			   		"FROM (SELECT ROWNUM AS RNUM, A.* " +
+			   			  "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS " +
+			       			    "FROM BOOK " +
+			       			    "JOIN BOOK_CATEGORY USING(BOOK_ID) " +
+			       			    "WHERE CATEGORY_NO =" + cno + "AGE_RANK ='" + age + "' " + 
+			       			    "ORDER BY " + order + " " + ud + ") A) " +
+			       	"WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
+	
+
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				list.add(new Book(rset.getInt("BOOK_ID"),
+								  rset.getString("BOOK_TITLE"),
+								  rset.getString("BOOK_AUTHOR"),
+								  rset.getString("PUBLISHER"),
+								  rset.getInt("PUBLISH_DATE"),
+								  rset.getDate("ENROLL_DATE"),
+								  rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(rset);
@@ -245,47 +290,7 @@ public class BookDao {
 		return result;
 	}
 	
-	public ArrayList<Book> changeCategory(Connection conn, int cno, PageInfo pi, String age, String order, String ud) {
 
-		Statement stmt = null;
-		ResultSet rset = null;
-		ArrayList<Book> list = new ArrayList<>();
-		
-		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
-		
-		
-		String sql ="SELECT *";
-			   sql +="FROM (SELECT ROWNUM RNUM, A.*";
-			   sql += "FROM (SELECT BOOK_ID,BOOK_TITLE,BOOK_AUTHOR,PUBLISHER,PUBLISH_DATE,ENROLL_DATE,STATUS";
-			   sql +=			"FROM BOOK";
-			   sql +=			"JOIN BOOK_CATEGORY USING(BOOK_ID)";
-			   sql +=			"WHERE CATEGORY_NO ="+ cno+"AND AGE_RANK ='"+age+"'ORDER BY '||"+order+" "+ud+"||') A)";
-			   sql +=    "WHERE RNUM BETWEEN"+startRow+" AND" +endRow;
-
-		try {
-			stmt = conn.createStatement();
-			
-			rset = stmt.executeQuery(sql);
-			
-			while(rset.next()) {
-				list.add(new Book(rset.getInt("BOOK_ID"),
-								  rset.getString("BOOK_TITLE"),
-								  rset.getString("BOOK_AUTHOR"),
-								  rset.getString("PUBLISHER"),
-								  rset.getInt("PUBLISH_DATE"),
-								  rset.getDate("ENROLL_DATE"),
-								  rset.getString("STATUS")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
-		}
-		
-		return list;
-	}
 
 
 	public int clistCount(Connection conn, int cno) {

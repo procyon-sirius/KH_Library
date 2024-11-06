@@ -213,7 +213,7 @@
 
 					<div id="detail-list">
 						<div id="age-rank">
-							<input type="radio" name="age" value="IN('A','T','R')"><label for="IN('A','T','R')">전체도서</label> &nbsp; 
+							<input type="radio" name="age" value="AGE_RANK"><label for="AGE_RANK">전체도서</label> &nbsp; 
 							<input type="radio" name="age" value="T"><label for="T">청소년도서</label> &nbsp; 
 							<input type="radio" name="age" value="A"><label for="A">어린이도서</label> &nbsp;
 						</div>

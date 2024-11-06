@@ -88,11 +88,11 @@ public class ChangeCategory extends HttpServlet {
 			list = new BookService().allList(pi,age,order,ud);
 			
 			request.setAttribute("pi", pi);	
-			request.setAttribute("list", list);	
 			request.setAttribute("bci", bci);
 			request.setAttribute("age", age);
 			request.setAttribute("order", order);
 			request.setAttribute("ud", ud);
+			request.setAttribute("list", list);	
 			
 		}else {
 			listCount = new BookService().clistCount(cno);
@@ -122,12 +122,13 @@ public class ChangeCategory extends HttpServlet {
 			
 			
 			list = new BookService().changeCategory(cno,pi,age,order,ud);
+			
 			request.setAttribute("pi", pi);	
-			request.setAttribute("list", list);	
 			request.setAttribute("bci", bci);
 			request.setAttribute("age", age);
 			request.setAttribute("order", order);
 			request.setAttribute("ud", ud);
+			request.setAttribute("list", list);	
 			
 		}
 		
