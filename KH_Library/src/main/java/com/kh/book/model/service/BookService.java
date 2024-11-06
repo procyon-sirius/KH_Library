@@ -125,6 +125,16 @@ public class BookService {
 		return result;
 	}
 
+	public ArrayList<Book> bookRecommend() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> blist = new BookDao().bookRecommend(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return blist;
+	}
+
 
 
 }
