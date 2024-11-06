@@ -10,6 +10,10 @@ ArrayList<Board> blist = (ArrayList<Board>)request.getAttribute("bList"); %>
 <% // 조회된 목록 선언(A)
 ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>  
     
+      
+<!DOCTYPE html>
+<html>
+<head>
 <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -17,10 +21,7 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>      
-<!DOCTYPE html>
-<html>
-<head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 

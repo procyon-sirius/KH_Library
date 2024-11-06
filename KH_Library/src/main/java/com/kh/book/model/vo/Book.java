@@ -65,6 +65,18 @@ public class Book {
 		this.status = status;
 	}
 
+	
+
+	public Book(int bookId, String bookTitle, String bookAuthor) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+	}
+
+
+
+
 
 
 	public int getBookId() {
