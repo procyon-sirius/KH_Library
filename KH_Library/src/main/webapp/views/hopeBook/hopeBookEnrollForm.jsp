@@ -30,6 +30,18 @@
 
 		<div id="content-area"align="center">
 			<h2>도서 신청</h2>
+			
+			<!-- 필터 -->
+			<c:if test="${loginUser eq null }">
+				<script type="text/javascript">
+			        if (confirm("회원만 이용할 수 있습니다. 회원가입 페이지로 이동하시겠습니까?")) {
+			            location.href = "${contextPath}/enrollForm.me";
+			        } else {
+			            history.back();
+			        }
+			    </script>
+			</c:if>
+			
 			<br><br>
 			<form action="/insert.ho" method="post">
 				<input type="hidden" name="hopeUser" value="${loginUser.userNo }">

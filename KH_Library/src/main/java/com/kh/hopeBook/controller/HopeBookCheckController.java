@@ -48,6 +48,9 @@ public class HopeBookCheckController extends HttpServlet {
 		if(result>0) {
 			session.setAttribute("alertMsg", "확인 완료");
 			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
+		}else {
+			session.setAttribute("alertMsg", "확인 실패");
+			response.sendRedirect(request.getContextPath()+"/detail.ho?hopeNum="+hopeNum);
 		}
 	}
 
