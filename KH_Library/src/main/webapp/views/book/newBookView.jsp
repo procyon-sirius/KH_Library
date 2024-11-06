@@ -53,6 +53,10 @@
 		color: black;
 	}	
 	
+	#book-img:hover{
+		cursor: pointer;
+	}
+	
 </style>
 </head>
 <body>
@@ -78,24 +82,25 @@
 	           <br>
 	           	<button type="button" id="btn" class="btn btn-primary search" onclick="location.href='${contextPath }/newBook.bk'">검색</button>
 
-           
-           <script>
-				$(".book-list #book-img").click(
-						function() {
-							var bookId = $(this).closest(".search-result-block").find("input[name=bookId]").val();
-
-							location.href = '${contextPath}/detail.bk?bookId='+ bookId;
-						});
-			</script>
-           
            <div class="book-list">
 	        	<c:forEach items="${list }" var="b">
 		 			<div class="thumbnail" align="center">
 		 				<input type="hidden" value="${b.bookId }">
-		 				<img src="${contextPath }/resources/img/${b.bookId}.gif" width="150px" height="200px">
+		 				<img src="${contextPath }/resources/img/${b.bookId }.gif"  id="book-img" width="200px" height="300px">
 		 			</div>               	
 	        	</c:forEach>
           </div>
+          
+          <script>
+				$(".thumbnail>#book-img").click(function() {
+					
+					var bookId = $(this).val();
+							
+					console.log($(this).val());
+
+					location.href = '${contextPath}/detail.bk?bookId='+ bookId;
+				});
+			</script>
            
            <br> <br>
 			<c:choose>

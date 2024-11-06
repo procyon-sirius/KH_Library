@@ -15,6 +15,8 @@ import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
 
+import oracle.jdbc.proxy.annotation.Pre;
+
 public class BookDao {
 	
 	private Properties prop = new Properties();
@@ -68,9 +70,6 @@ public class BookDao {
 		
 		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
 
-		System.out.println("age : "+age);
-		System.out.println("ad : "+ad);
-		System.out.println("order : "+order);
 		String sql = "";
 		if(age.equals("AGE_RANK")) {
 			sql ="SELECT * "
@@ -472,6 +471,49 @@ public class BookDao {
 		}
 		
 		return blist;
+	}
+
+
+	public ArrayList<Book> newList(Connection conn, String time, PageInfo pi) {
+	
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Book> list = new ArrayList<>();
+		
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+		
+		String sql = "";
+		
+		if(time=="D") {
+			sql = prop.getProperty("newListD");
+		}else if(time=="W") {
+			sql = prop.getProperty("newListW");
+		}else {
+			sql = prop.getProperty("newListY");
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2,endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Book(rset.getInt("BOOK_ID")
+								, rset.getString("BOOK_TITLE")
+								, rset.getString("BOOK_AUTHOR")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
 	}
 
 

@@ -150,5 +150,16 @@ public class BookService {
 		return blist;
 	}
 
+	public ArrayList<Book> newList(String time, PageInfo pi) {
+
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().newList(conn, time, pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
 
 }

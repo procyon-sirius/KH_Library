@@ -74,9 +74,9 @@ public class NewBookController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
-		list = new BookService().newList(pi);
+		list = new BookService().newList(time,pi);
 		
-
+		request.setAttribute("time", time);
 		request.setAttribute("pi", pi);	
 		request.setAttribute("list", list);
 		

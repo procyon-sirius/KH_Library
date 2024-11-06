@@ -86,5 +86,38 @@
 		ORDER BY RENT_COUNT DESC)
 		WHERE ROWNUM BETWEEN 1 AND 5
 	</entry>
+	
+	<entry key="newListD">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+				           BOOK_TITLE,
+				           BOOK_AUTHOR
+					FROM BOOK
+					WHERE (SYSDATE-ENROLL_DATE) BETWEEN 0 AND 1) A)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="newListW">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+				           BOOK_TITLE,
+				           BOOK_AUTHOR
+					FROM BOOK
+					WHERE (SYSDATE-ENROLL_DATE) BETWEEN 0 AND 7) A)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="newListY">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+				           BOOK_TITLE,
+				           BOOK_AUTHOR
+					FROM BOOK
+					WHERE (SYSDATE-ENROLL_DATE) BETWEEN 0 AND 30) A)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
 
 </properties>
