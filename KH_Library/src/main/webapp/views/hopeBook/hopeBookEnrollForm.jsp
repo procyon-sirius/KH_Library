@@ -62,6 +62,7 @@
 						</td>
 					</tr>
 				</table>
+				<br>
 				<button type="submit">신청하기</button>
 				<input type="reset" value="취소">
 			</form>

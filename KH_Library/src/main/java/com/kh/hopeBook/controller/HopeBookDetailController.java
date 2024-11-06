@@ -35,7 +35,7 @@ public class HopeBookDetailController extends HttpServlet {
 //		System.out.println(hno);
 		
 		HopeBook h = new HopeBookService().hopeBookDetail(hopeNum);
-		System.out.println(h);
+//		System.out.println(h);
 		
 		if(h != null) {
 			request.setAttribute("h", h);

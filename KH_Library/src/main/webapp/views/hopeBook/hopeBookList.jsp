@@ -65,7 +65,6 @@
 									<tr class="${h.hopeStatus eq 'Y' && loginUser.userId eq 'admin' ? 'trBackground' : ''}">
 										<td>${h.hopeNum }</td>
 										<td>${h.userId }</td>
-										<!-- <td>${loginUser.userId }</td> 왜 안나오지-->
 										<td>${h.hopeTitle }</td>
 										<td>${h.hopeDate }</td>
 										<td><p style="color: green">공개</p></td>

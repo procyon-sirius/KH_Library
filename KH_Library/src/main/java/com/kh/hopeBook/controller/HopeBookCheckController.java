@@ -40,7 +40,7 @@ public class HopeBookCheckController extends HttpServlet {
 		
 		int hopeNum = Integer.parseInt(request.getParameter("hopeNum"));
 //		System.out.println(hopeNum);
-		
+			
 		int result = new HopeBookService().hopeCheck(hopeNum);
 		
 		HttpSession session = request.getSession();

@@ -31,12 +31,11 @@
 			<h2>도서 신청 상세</h2>
 			<br><br>
 			 
-			 <c:if test="${h.hopePublic == 'N' && (loginUser.userId eq 'admin' || h.userId != loginUser.userId) }">
+			 <c:if test="${h.hopePublic == 'N' && loginUser.userId != 'admin' && h.userId != loginUser.userId }">
 				 <script type="text/javascript">
 				 	alert("비공개 글입니다.");
-				 	location.href = "select.ho?currentPage=1";
+				 	history.back();
 				 </script>
-			 	
 			 </c:if>
 			 
 				<input type="hidden" name="hopeNum" value="${h.hopeNum }">
@@ -132,10 +131,11 @@
 				if(confirm("확인 완료 처리를 하시겠습니까?")){
 					$("<form>",{method : "POST",
 								action : "${contextPath}/checkHope.ho"
-					}).append($("<input>",{type : "hidden",
-										   name : "hopeNum",
-										   value : "${h.hopeNum}"
-					})).appendTo("body").submit();
+					}).append($("<input>", {type: "hidden",
+							                name: "hopeNum",
+							                value: "${h.hopeNum}"
+							            })
+		            ).appendTo("body").submit();
 				}
 			}
 		</script>
