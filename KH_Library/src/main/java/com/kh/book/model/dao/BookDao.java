@@ -281,6 +281,104 @@ public class BookDao {
 	}
 
 
+	public int countRentLimit(Connection conn, int userNo) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countRentLimit");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("RENT_LIMIT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int countReserveUser(Connection conn, int userNo) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countReserveUser");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("RESCOUNT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertReserveBook(Connection conn, int bookId, int userNo) {
+
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReserveBook");
+		int result = 0;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bookId);
+			pstmt.setInt(2, userNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int updateBookStatusR(Connection conn, int bookId) {
+
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("statusR");
+		int result = 0;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bookId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+
 	
 	
 	
