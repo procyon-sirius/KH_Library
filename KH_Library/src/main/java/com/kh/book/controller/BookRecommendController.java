@@ -1,6 +1,7 @@
-package com.kh.hopeBook.controller;
+package com.kh.book.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.hopeBook.model.service.HopeBookService;
-import com.kh.hopeBook.model.vo.HopeBook;
+import com.google.gson.Gson;
+import com.kh.book.model.service.BookService;
+import com.kh.book.model.vo.Book;
 
 /**
- * Servlet implementation class HopeBookDetailView
+ * Servlet implementation class BookRecommendController
  */
-@WebServlet("/detail.ho")
-public class HopeBookDetailController extends HttpServlet {
+@WebServlet("/recommend.bk")
+public class BookRecommendController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HopeBookDetailController() {
+    public BookRecommendController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +32,9 @@ public class HopeBookDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int hopeNum = Integer.parseInt(request.getParameter("hopeNum"));
-//		System.out.println(hno);
-		
-		HopeBook h = new HopeBookService().hopeBookDetail(hopeNum);
-//		System.out.println(h);
-		
-		if(h != null) {
-			request.setAttribute("h", h);
-			request.getRequestDispatcher("/views/hopeBook/hopeBookDetailView.jsp").forward(request, response);	
-		}else {
-//			System.out.println(h+" 실패!");
-			
-		}
-		
-		
+		ArrayList<Book> blist = new BookService().bookRecommend();
+		response.setContentType("json/application;charset=UTF-8");
+		new Gson().toJson(blist,response.getWriter());
 	}
 
 	/**

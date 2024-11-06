@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
 <style>
 
 	#content-area table{
@@ -26,21 +28,23 @@
 	<div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp"%>
 
-		<div id="content-area" align="center">
+		<div id="content-area"align="center">
 			<h2>도서 신청</h2>
+			<br><br>
 			<form action="/insert.ho" method="post">
-				<input type="hidden" name="hopeUser" value="1">
-				<table>
+				<input type="hidden" name="hopeUser" value="${loginUser.userNo }">
+				
+				<table class="table table-bordered" style="width: 70%;" align="center">
 					<tr>
 						<th>희망 도서</th>
 						<td>
-							<input type="text" name="hopeTitle">
+							<input class="form-control" type="text" name="hopeTitle">
 						</td>
 					</tr>
 					<tr>
 						<th>도서 저자</th>
 						<td>
-							<input type="text" name="hopeAutor">
+							<input class="form-control" type="text" name="hopeAutor">
 						</td>
 					</tr>
 					<tr>
@@ -54,10 +58,11 @@
 					</tr> 
 					<tr>
 						<td colspan="2">
-							<textarea name="hopeContent" rows="10" style="resize: none" required></textarea>
+							<textarea class="form-control" name="hopeContent" rows="10" style="resize: none" required></textarea>
 						</td>
 					</tr>
 				</table>
+				<br>
 				<button type="submit">신청하기</button>
 				<input type="reset" value="취소">
 			</form>

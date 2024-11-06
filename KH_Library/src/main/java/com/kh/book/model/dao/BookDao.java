@@ -448,6 +448,33 @@ public class BookDao {
 	}
 
 
+	public ArrayList<Book> bookRecommend(Connection conn) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("bookRecommend");
+		ArrayList<Book> blist = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				blist.add(new Book(rset.getInt("BOOK_ID")
+								, rset.getString("BOOK_TITLE")
+								, rset.getString("BOOK_AUTHOR")
+							));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return blist;
+	}
+
+
 	
 	
 	

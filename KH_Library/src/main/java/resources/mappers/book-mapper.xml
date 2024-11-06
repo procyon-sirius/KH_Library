@@ -79,5 +79,12 @@
 			   CATEGORY_NAME
 		FROM BOOK_CATEGORY_INFO
 	</entry>
+	
+	<entry key="bookRecommend">
+		SELECT *
+		FROM (SELECT * FROM BOOK
+		ORDER BY RENT_COUNT DESC)
+		WHERE ROWNUM BETWEEN 1 AND 5
+	</entry>
 
 </properties>

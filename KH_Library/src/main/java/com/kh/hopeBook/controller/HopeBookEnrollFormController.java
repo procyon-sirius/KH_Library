@@ -42,7 +42,7 @@ public class HopeBookEnrollFormController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String hopeUser = request.getParameter("hopeUser");
+		int hopeUser = Integer.parseInt(request.getParameter("hopeUser"));
 		String hopeTitle = request.getParameter("hopeTitle");
 		String hopeAutor = request.getParameter("hopeAutor");
 		String hopeContent = request.getParameter("hopeContent");
@@ -72,7 +72,6 @@ public class HopeBookEnrollFormController extends HttpServlet {
 			session.setAttribute("alertMsg", "신청 실패");
 			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
 		}
-		
 	}
 
 }
