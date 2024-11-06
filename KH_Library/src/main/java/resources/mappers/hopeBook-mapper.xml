@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	
 	<entry key="hopeBookInsert">
 		INSERT INTO HOPE_BOOK(HOPE_NUM,
 					HOPE_USER,
@@ -33,7 +34,8 @@
 		                       USER_ID,
 		                       HOPE_TITLE,
 		                       HOPE_DATE,
-		                       HOPE_PUBLIC
+		                       HOPE_PUBLIC,
+		                       HOPE_STATE
 		                FROM hope_book HB
 		                JOIN member on(user_no = hope_user)
 		                ORDER BY hope_DATE DESC) A)
@@ -41,8 +43,10 @@
 		
 	</entry>
 	
+	<!-- 상세보기 -->
 	<entry key="hopeBookDetail">
 		SELECT HOPE_NUM,
+			   HOPE_USER,
 			   USER_ID,
 		       HOPE_TITLE,
 		       HOPE_AUTHOR,

@@ -31,10 +31,10 @@ public class HopeBookDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int hno = Integer.parseInt(request.getParameter("hno"));
+		int hopeNum = Integer.parseInt(request.getParameter("hopeNum"));
 //		System.out.println(hno);
 		
-		HopeBook h = new HopeBookService().hopeBookDetail(hno);
+		HopeBook h = new HopeBookService().hopeBookDetail(hopeNum);
 //		System.out.println(h);
 		
 		if(h != null) {

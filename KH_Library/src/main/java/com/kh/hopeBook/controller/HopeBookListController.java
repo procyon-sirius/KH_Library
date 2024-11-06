@@ -68,6 +68,7 @@ public class HopeBookListController extends HttpServlet {
 //		System.out.println("pi : "+pi);
 		
 		ArrayList<HopeBook> list = new HopeBookService().selectHopeList(pi);
+//		System.out.println(list);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);

@@ -28,6 +28,7 @@ public class HopeBookDao {
 		}
 	}
 	
+	//책 신청
 	public int hopeBookInsert(Connection conn, HopeBook h) {
 		
 		PreparedStatement pstmt = null;
@@ -36,7 +37,7 @@ public class HopeBookDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, Integer.parseInt(h.getHopeUser()));
+			pstmt.setInt(1, h.getHopeUser());
 			pstmt.setString(2, h.getHopeTitle());
 			pstmt.setString(3, h.getHopeAutor());
 			pstmt.setString(4, h.getHopeContent());
@@ -54,6 +55,7 @@ public class HopeBookDao {
 		return result;
 	}
 
+	//신청현황 리스트 뽑기
 	public ArrayList<HopeBook> selectHopeList(Connection conn,PageInfo pi) {
 		
 		PreparedStatement pstmt = null;
@@ -77,7 +79,8 @@ public class HopeBookDao {
 									  rset.getString("USER_ID"),
 									  rset.getString("HOPE_TITLE"),
 									  rset.getDate("HOPE_DATE"),
-									  rset.getString("HOPE_PUBLIC")
+									  rset.getString("HOPE_PUBLIC"),
+									  rset.getString("HOPE_STATE")
 									 ));
 			}
 			
@@ -92,7 +95,8 @@ public class HopeBookDao {
 		return list;
 	}
 
-	public HopeBook hopeBookDetail(Connection conn, int hno) {
+	//상세보기
+	public HopeBook hopeBookDetail(Connection conn, int hopeNum) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -102,12 +106,13 @@ public class HopeBookDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, hno);
+			pstmt.setInt(1, hopeNum);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				h = new HopeBook(rset.getInt("HOPE_NUM"),
+								 rset.getInt("HOPE_USER"),
 								 rset.getString("USER_ID"),
 								 rset.getString("HOPE_TITLE"),
 								 rset.getString("HOPE_AUTHOR"),
@@ -127,6 +132,7 @@ public class HopeBookDao {
 		return h;
 	}
 
+	//게시글 삭제
 	public int deleteHope(Connection conn, int hopeNum) {
 		
 		PreparedStatement pstmt = null;
@@ -176,6 +182,7 @@ public class HopeBookDao {
 		return listCount;
 	}
 
+	//신청 확인(관리자)
 	public int hopeCheck(Connection conn, int hopeNum) {
 		
 		PreparedStatement pstmt = null;
