@@ -1,3 +1,4 @@
+
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -85,7 +86,6 @@
                 width: 1400px;
             }
         }
-
 
 
 
@@ -485,7 +485,7 @@
                     			
                     		}
                         	function loginPage(){
-
+                        		
                         		location.href="${contextPath}/login.me";
 
                         	}                       
@@ -544,10 +544,10 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="${contextPath }" class="menu-title">나만의 서재</a>
+                        <a href="${contextPath}/mypage.me" class="menu-title">나만의 서재</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="${contextPath }">내 정보</a></li>
+                            <li><a href="${contextPath}/mypage.me">내 정보</a></li>
                             <li><a href="${contextPath }">신청 내역</a></li>
                             <li><a href="${contextPath }">도서 관리</a></li>
                         </ul>
