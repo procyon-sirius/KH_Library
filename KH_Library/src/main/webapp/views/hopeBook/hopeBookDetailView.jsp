@@ -116,7 +116,7 @@
 			<c:if test="${h.hopeStatus == 'N' && loginUser != null && loginUser.userId == 'admin' }">
 				<button class="btn btn-outline-danger" type="button" onclick="checkHope();">신청 확인</button>
 			</c:if>
-			<button class="btn btn-outline-primary" onclick="history.back();">뒤로가기</button>
+			<button class="btn btn-outline-primary" onclick="location.href='${contextPath}/select.ho?currentPage=${currentPage}'">뒤로가기</button>
 		</div>
 		
 		<script>
