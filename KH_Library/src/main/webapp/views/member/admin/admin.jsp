@@ -64,7 +64,7 @@
     
                         </c:when>
                         <c:when test="">
-    
+    						<%@include file="/views/member/admin/memberManagement.jsp" %>
                         </c:when>
                         <c:when test="">
     
