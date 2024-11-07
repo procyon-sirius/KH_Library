@@ -9,23 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.book.model.service.BookService;
 import com.kh.book.model.vo.Book;
-import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.PageInfo;
 
 /**
- * Servlet implementation class ChangeCategory
+ * Servlet implementation class NewBookController
  */
-@WebServlet("/changeCategory.bk")
-public class ChangeCategory extends HttpServlet {
+@WebServlet("/newBook.bk")
+public class NewBookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChangeCategory() {
+    public NewBookController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,18 +34,16 @@ public class ChangeCategory extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+//		
+//		int bookId = Integer.parseInt(request.getParameter("bookId"));
+//		String bookTitle = request.getParameter("bookTitle");
+//		String bookAuthor = request.getParameter("bookAuthor");
+//		
+//		Book b = new Book(bookId,bookTitle,bookAuthor);
 		
-		int cno = Integer.parseInt(request.getParameter("categoryNo"));
-
-		if(cno==-1){
-			ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
-			request.setAttribute("bci", bci);
-			request.setAttribute("cno", cno);
-			request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
-		}else {
-		String age = request.getParameter("age");
-		String order = request.getParameter("order");
-		String ad = request.getParameter("ad");
+		ArrayList<Book> list = new ArrayList<>();
+		
+		String time = request.getParameter("time");
 		
 		int listCount;
 		int currentPage;
@@ -58,17 +54,14 @@ public class ChangeCategory extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		ArrayList<Book> list = new ArrayList<>();
 		
-		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
-		if(cno==0) {
-			listCount = new BookService().listCount();
-			
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-			
-			pageLimit = 10;
-			boardLimit = 10;
+		pageLimit = 10;
+		boardLimit = 20;
+		
+		if(time.equals("D")) {
+			listCount = new BookService().dayListCount();
 			
 			maxPage = (int)Math.ceil((double)listCount/boardLimit);
 			
@@ -88,23 +81,39 @@ public class ChangeCategory extends HttpServlet {
 			
 			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 			
-			list = new BookService().allList(age,order,ad,pi);
+			list = new BookService().dayNewList(pi);
 			
+			request.setAttribute("time", time);
 			request.setAttribute("pi", pi);	
-			request.setAttribute("bci", bci);
-			request.setAttribute("age", age);
-			request.setAttribute("order", order);
-			request.setAttribute("ad", ad);
-			request.setAttribute("list", list)	;	
+			request.setAttribute("list", list);
+		}else if(time.equals("W")) {
+			listCount = new BookService().weekListCount();
+			
+			maxPage = (int)Math.ceil((double)listCount/boardLimit);
+			
+			if(currentPage != 1 && currentPage > maxPage) {
+				request.setAttribute("errorMsg", "잘못된 접근입니다.");
+				request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+			}
+			
+			startPage = (currentPage-1) / pageLimit * pageLimit +1;
+			
+			endPage = startPage + pageLimit -1;
+			
+			if(maxPage<endPage) {
+				endPage=maxPage;
+			}
 			
 			
+			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+			
+			list = new BookService().weekNewList(pi);
+			
+			request.setAttribute("time", time);
+			request.setAttribute("pi", pi);	
+			request.setAttribute("list", list);
 		}else {
-			listCount = new BookService().clistCount(cno);
-			
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-			
-			pageLimit = 10;
-			boardLimit = 10;
+			listCount = new BookService().monthListCount();
 			
 			maxPage = (int)Math.ceil((double)listCount/boardLimit);
 			
@@ -124,22 +133,14 @@ public class ChangeCategory extends HttpServlet {
 			
 			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 			
+			list = new BookService().monthNewBook(pi);
 			
-			list = new BookService().changeCategory(cno,age,order,ad,pi);
+			request.setAttribute("time", time);
 			request.setAttribute("pi", pi);	
-			request.setAttribute("bci", bci);
-			request.setAttribute("age", age);
-			request.setAttribute("order", order);
-			request.setAttribute("ad", ad);
-			request.setAttribute("list", list);	
-			
-			
+			request.setAttribute("list", list);
 		}
 		
-		request.setAttribute("cno", cno);
-		
-		request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
-		}
+		request.getRequestDispatcher("/views/book/newBookView.jsp").forward(request, response);
 	}
 
 	/**
