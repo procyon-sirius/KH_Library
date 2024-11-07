@@ -40,7 +40,7 @@ public class SearchResultListController extends HttpServlet {
 		String keyword = request.getParameter("search-keyword");
 		
 		String[] keyCategory = null;
-		if(keywordCategory.equals("all")) {//검색 키워드 카테고리
+		if(keywordCategory==null||keywordCategory.equals("all")) {//검색 키워드 카테고리
 			keyCategory = new String[]{keyword,keyword,keyword};
 		}else if(keywordCategory.equals("title")) {
 			keyCategory = new String[]{keyword,"@#","@#"};
