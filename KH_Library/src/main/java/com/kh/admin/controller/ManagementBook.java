@@ -26,6 +26,7 @@ public class ManagementBook extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("mode", "book");
 		request.getRequestDispatcher("/views/member/admin/admin.jsp").forward(request, response);
 	}
 
