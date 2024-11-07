@@ -182,6 +182,36 @@ public class BookService {
 		
 		return list;
 	}
+
+	public int dayListCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int dayListCount = new BookDao().dayListCount(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return dayListCount;
+	}
+
+	public int weekListCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int weekListCount = new BookDao().weekListCount(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return weekListCount;
+	}
+
+	public int monthListCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int monthListCount = new BookDao().monthListCount(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return monthListCount;
+	}
 	
 
 

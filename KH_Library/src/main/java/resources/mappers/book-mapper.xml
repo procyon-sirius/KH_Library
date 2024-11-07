@@ -66,6 +66,24 @@
 		FROM BOOK
 	</entry>
 	
+	<entry key="dayListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOOK
+		WHERE TO_CHAR(SYSDATE)=TO_CHAR(ENROLL_DATE)
+	</entry>
+	
+	<entry key="weekListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOOK
+		WHERE ENROLL_DATE BETWEEN TRUNC(SYSDATE,'iw') AND (TRUNC(SYSDATE,'iw')+6)
+	</entry>
+	
+	<entry key="monthListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOOK
+		WHERE TO_CHAR(SYSDATE,'MM')=TO_CHAR(ENROLL_DATE,'MM')
+	</entry>
+	
 	<entry key="clistCount">
 		SELECT COUNT(*) COUNT
 		FROM BOOK

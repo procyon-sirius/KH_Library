@@ -54,46 +54,85 @@ public class NewBookController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		listCount = new BookService().listCount();
 		
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		
-//		System.out.println(currentPage);
 		
 		pageLimit = 10;
 		boardLimit = 20;
 		
-		maxPage = (int)Math.ceil((double)listCount/boardLimit);
-		
-		if(currentPage != 1 && currentPage > maxPage) {
-			request.setAttribute("errorMsg", "잘못된 접근입니다.");
-			request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
-		}
-		
-		startPage = (currentPage-1) / pageLimit * pageLimit +1;
-		
-		endPage = startPage + pageLimit -1;
-		
-		if(maxPage<endPage) {
-			endPage=maxPage;
-		}
-		
-		
-		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-		
 		if(time.equals("D")) {
+			listCount = new BookService().dayListCount();
+			
+			maxPage = (int)Math.ceil((double)listCount/boardLimit);
+			
+			if(currentPage != 1 && currentPage > maxPage) {
+				request.setAttribute("errorMsg", "잘못된 접근입니다.");
+				request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+			}
+			
+			startPage = (currentPage-1) / pageLimit * pageLimit +1;
+			
+			endPage = startPage + pageLimit -1;
+			
+			if(maxPage<endPage) {
+				endPage=maxPage;
+			}
+			
+			
+			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+			
 			list = new BookService().dayNewList(pi);
 			
 			request.setAttribute("time", time);
 			request.setAttribute("pi", pi);	
 			request.setAttribute("list", list);
 		}else if(time.equals("W")) {
+			listCount = new BookService().weekListCount();
+			
+			maxPage = (int)Math.ceil((double)listCount/boardLimit);
+			
+			if(currentPage != 1 && currentPage > maxPage) {
+				request.setAttribute("errorMsg", "잘못된 접근입니다.");
+				request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+			}
+			
+			startPage = (currentPage-1) / pageLimit * pageLimit +1;
+			
+			endPage = startPage + pageLimit -1;
+			
+			if(maxPage<endPage) {
+				endPage=maxPage;
+			}
+			
+			
+			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+			
 			list = new BookService().weekNewList(pi);
 			
 			request.setAttribute("time", time);
 			request.setAttribute("pi", pi);	
 			request.setAttribute("list", list);
 		}else {
+			listCount = new BookService().monthListCount();
+			
+			maxPage = (int)Math.ceil((double)listCount/boardLimit);
+			
+			if(currentPage != 1 && currentPage > maxPage) {
+				request.setAttribute("errorMsg", "잘못된 접근입니다.");
+				request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+			}
+			
+			startPage = (currentPage-1) / pageLimit * pageLimit +1;
+			
+			endPage = startPage + pageLimit -1;
+			
+			if(maxPage<endPage) {
+				endPage=maxPage;
+			}
+			
+			
+			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+			
 			list = new BookService().monthNewBook(pi);
 			
 			request.setAttribute("time", time);

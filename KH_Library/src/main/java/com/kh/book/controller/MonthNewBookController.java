@@ -46,7 +46,7 @@ public class MonthNewBookController extends HttpServlet {
 		
 		
 		
-		listCount = new BookService().listCount();
+		listCount = new BookService().monthListCount();
 		
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
