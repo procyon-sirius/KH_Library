@@ -40,14 +40,20 @@ public class HopeBookCheckController extends HttpServlet {
 		
 		int hopeNum = Integer.parseInt(request.getParameter("hopeNum"));
 //		System.out.println(hopeNum);
-			
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+//		System.out.println(currentPage);
+		
+		
 		int result = new HopeBookService().hopeCheck(hopeNum);
 		
 		HttpSession session = request.getSession();
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "확인 완료");
-			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
+			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage="+currentPage);
+		}else {
+			session.setAttribute("alertMsg", "확인 실패");
+			response.sendRedirect(request.getContextPath()+"/detail.ho?hopeNum="+hopeNum);
 		}
 	}
 
