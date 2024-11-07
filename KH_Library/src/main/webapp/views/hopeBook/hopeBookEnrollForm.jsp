@@ -62,8 +62,8 @@
 					<tr>
 						<th>신청 이유</th>
 						<td align="right">
-							<select name="hopePublic">
-								<option value="Y">공개</option>
+							<select  class="custom-select" aria-label="Default select example" style="width: 100px;" name="hopePublic">
+								<option value="Y" selected>공개</option>
 								<option value="N">비공개</option>
 							</select>
 						</td>
@@ -84,3 +84,6 @@
 	<%@include file="/views/common/footer.jsp"%>
 </body>
 </html>
+<!-- 일반 사용자, 신청 유저 아이디 뒷부분 * 처리
+	 신청 확인시 있엇ㄸㄴ더 currentPage로 이도ㅛㅇ 처리
+	  -->
