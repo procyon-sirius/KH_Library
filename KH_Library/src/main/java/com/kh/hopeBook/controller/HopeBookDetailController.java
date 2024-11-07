@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.kh.hopeBook.model.service.HopeBookService;
 import com.kh.hopeBook.model.vo.HopeBook;
@@ -32,17 +34,22 @@ public class HopeBookDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int hopeNum = Integer.parseInt(request.getParameter("hopeNum"));
-//		System.out.println(hno);
+//		System.out.println(hopeNum);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+//		System.out.println(currentPage);
 		
 		HopeBook h = new HopeBookService().hopeBookDetail(hopeNum);
 //		System.out.println(h);
 		
+		HttpSession session = request.getSession();
+		
 		if(h != null) {
 			request.setAttribute("h", h);
+			request.setAttribute("currentPage", currentPage);
 			request.getRequestDispatcher("/views/hopeBook/hopeBookDetailView.jsp").forward(request, response);	
 		}else {
-//			System.out.println(h+" 실패!");
-			
+			session.setAttribute("alert", "접근 실패");
+			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage="+currentPage);
 		}
 		
 		
