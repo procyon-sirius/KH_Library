@@ -20,10 +20,11 @@
 		margin: 0 auto;
 		padding: 50px 0;
 		overflow: hidden;
+		z-index : 0;
 	}
 	
 	.index-content-block {
-		height: 500px;
+		height: 600px;
 	}
 	
 	.index-bgc {
@@ -54,9 +55,9 @@
 			width: 1400px;
 		}
 	}
-	#recommend-book-area h2{
+	#recommend-book-area h1{
 		text-align: center;
-		margin: 50px 0;
+		margin: 70px 0;
 	}
 	.recommend-book{
 		display : inline-block;
@@ -65,15 +66,20 @@
 		padding : 10px;
 		margin : 0 10px;
 	}
-	@media ( min-width :1180px) {
+	@media ( min-width :1280px) {
 		.recommend-book{
 			display : inline-block;
-			margin : 0 calc((100% - 1000px) / 10);
+			margin : 0 calc((100% - 1100px) / 10);
 		}
 	}
+	
+	.recommend-book:hover{
+		background-color : white;
+		box-shadow: 3px 3px 3px darkgray;
+	}
 	.recommend-cover{
-		height: 250px;
-		width : 180px;
+		width : 200px;
+		height : 275px;
 		border: 1px solid lightgray;
 	}
 	.recommend-title{
@@ -121,7 +127,7 @@
 				$.ajax({
 					url : "${contextPath}/recommend.bk",
 					success : function(result){
-						$("#recommend-book-area").html("<h2>인기 도서</h2>")
+						$("#recommend-book-area").html("<h1>인기 도서</h1>")
 						for(var b of result){
 							var book = $("<div>").addClass("recommend-book");
 							book.append($("<input>",{

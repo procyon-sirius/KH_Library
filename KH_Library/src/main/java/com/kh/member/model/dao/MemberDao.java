@@ -102,9 +102,38 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 			
 		}
+			
+		return result;
+	}
+	
+	//정보수정
+	public int updateMember(Connection conn, Member m) {
 		
+		PreparedStatement pstmt = null;
+		int result = 0;
 		
+		String sql = prop.getProperty("updateMember");
 		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getUserName());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getEmail());
+			pstmt.setString(4, m.getAddress());
+			pstmt.setString(5, m.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(pstmt);
+			
+		}
+				
 		return result;
 	}
 	
