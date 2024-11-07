@@ -25,5 +25,15 @@
     VALUES (SEQ_UNO.NEXTVAL,?,?,?,?,?,?,?)
 	
 	</entry>
+	<!-- 정보수정 구문 -->
+	<entry key="updateMember">
+	UPDATE MEMBER
+	SET USER_NAME= ?
+    	,PHONE= ?
+    	,EMAIL= ?
+    	,ADDRESS= ?
+	WHERE USER_ID= ?
+	
+	</entry>
 
 </properties>
