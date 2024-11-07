@@ -66,6 +66,24 @@
 		FROM BOOK
 	</entry>
 	
+	<entry key="dayListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOOK
+		WHERE TO_CHAR(SYSDATE)=TO_CHAR(ENROLL_DATE)
+	</entry>
+	
+	<entry key="weekListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOOK
+		WHERE ENROLL_DATE BETWEEN TRUNC(SYSDATE,'iw') AND (TRUNC(SYSDATE,'iw')+6)
+	</entry>
+	
+	<entry key="monthListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOOK
+		WHERE TO_CHAR(SYSDATE,'MM')=TO_CHAR(ENROLL_DATE,'MM')
+	</entry>
+	
 	<entry key="clistCount">
 		SELECT COUNT(*) COUNT
 		FROM BOOK
@@ -85,6 +103,39 @@
 		FROM (SELECT * FROM BOOK
 		ORDER BY RENT_COUNT DESC)
 		WHERE ROWNUM BETWEEN 1 AND 5
+	</entry>
+	
+	<entry key="newListD">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+				           BOOK_TITLE,
+				           BOOK_AUTHOR
+					FROM BOOK
+					WHERE TO_CHAR(SYSDATE)=TO_CHAR(ENROLL_DATE)) A)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="newListW">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+				           BOOK_TITLE,
+				           BOOK_AUTHOR
+					FROM BOOK
+					WHERE ENROLL_DATE BETWEEN TRUNC(SYSDATE,'iw') AND (TRUNC(SYSDATE,'iw')+6)) A)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="newListM">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+				           BOOK_TITLE,
+				           BOOK_AUTHOR
+					FROM BOOK
+					WHERE TO_CHAR(SYSDATE,'MM')=TO_CHAR(ENROLL_DATE,'MM')) A)
+	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 
 </properties>

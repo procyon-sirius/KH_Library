@@ -546,6 +546,7 @@
                     </li>
                     <li>
                         <a href="${contextPath }/input.se" class="menu-title">자료 검색</a>
+
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
                                 <li><a href="${contextPath }/input.se"  class="submenu-text">통합검색</a></li>
@@ -554,6 +555,7 @@
                                 <li><a href="${contextPath }"  class="submenu-text">추천 도서</a></li>
                             </ul>
                         </div>
+
                     </li>
                     <li>
                         <a href="${contextPath }" class="menu-title">도서관 안내</a>
