@@ -3,9 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <%
 		String contextPath = request.getContextPath();
+	
+		String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -58,12 +59,20 @@
 }
 </style>
 </head>
-<body>
-
+<body>	
 	<%
 	pageContext.setAttribute("scope", "page Scope");
 	%>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+	<script>
+		var msg = "${alertMsg}";
+		//null이 아닐경우에 alert 띄워주기
+		if(msg!=""){
+			alert(msg);
+			//알림창을 띄우고 메시지 지워주기 (안지우면 메뉴바 뜰때마다 알림창 뜸)
+			<%session.removeAttribute("alertMsg");%>
+		}
+	</script>
 	<div class="outer" align="center">
 		<h1 align="center">회원 로그인</h1>
 
