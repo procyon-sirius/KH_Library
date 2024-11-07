@@ -43,7 +43,7 @@
 	
 	<div class="outer" align="center">
         <br>
-        <h1>회원가입</h1 align="center">
+        <h1 align="center">회원가입</h1 >
 
 
             <div class="enroll-area">
