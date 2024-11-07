@@ -39,7 +39,6 @@ public class ChangeCategory extends HttpServlet {
 		
 		int cno = Integer.parseInt(request.getParameter("categoryNo"));
 
-		System.out.println(cno);
 		if(cno==-1){
 			ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
 			request.setAttribute("bci", bci);

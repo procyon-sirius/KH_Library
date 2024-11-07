@@ -94,7 +94,7 @@
 				           BOOK_TITLE,
 				           BOOK_AUTHOR
 					FROM BOOK
-					WHERE (SYSDATE-ENROLL_DATE) BETWEEN 0 AND 1) A)
+					WHERE SYSDATE=ENROLL_DATE) A)
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
@@ -105,18 +105,18 @@
 				           BOOK_TITLE,
 				           BOOK_AUTHOR
 					FROM BOOK
-					WHERE (SYSDATE-ENROLL_DATE) BETWEEN 0 AND 7) A)
+					WHERE ENROLL_DATE BETWEEN TRUNC(SYSDATE,'iw') AND (TRUNC(SYSDATE,'iw')+6)) A)
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
-	<entry key="newListY">
+	<entry key="newListM">
 		SELECT *
 		FROM (SELECT ROWNUM RNUM, A.*
            	  FROM (SELECT BOOK_ID,
 				           BOOK_TITLE,
 				           BOOK_AUTHOR
 					FROM BOOK
-					WHERE (SYSDATE-ENROLL_DATE) BETWEEN 0 AND 30) A)
+					WHERE TO_CHAR(SYSDATE,'MM')=TO_CHAR(ENROLL_DATE,'MM')) A)
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 

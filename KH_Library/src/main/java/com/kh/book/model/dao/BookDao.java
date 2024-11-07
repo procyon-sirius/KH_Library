@@ -491,7 +491,7 @@ public class BookDao {
 		}else if(time=="W") {
 			sql = prop.getProperty("newListW");
 		}else {
-			sql = prop.getProperty("newListY");
+			sql = prop.getProperty("newListM");
 		}
 		
 		try {

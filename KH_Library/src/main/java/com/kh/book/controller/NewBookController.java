@@ -34,11 +34,18 @@ public class NewBookController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+//		
+//		int bookId = Integer.parseInt(request.getParameter("bookId"));
+//		String bookTitle = request.getParameter("bookTitle");
+//		String bookAuthor = request.getParameter("bookAuthor");
+//		
+//		Book b = new Book(bookId,bookTitle,bookAuthor);
 		
 		ArrayList<Book> list = new ArrayList<>();
 		
-//		String bookId = request.getParameter("bookId");
 		String time = request.getParameter("time");
+		System.out.println(time);
+		System.out.println(list);
 		
 		int listCount;
 		int currentPage;
@@ -54,7 +61,7 @@ public class NewBookController extends HttpServlet {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
 		pageLimit = 10;
-		boardLimit = 10;
+		boardLimit = 20;
 		
 		maxPage = (int)Math.ceil((double)listCount/boardLimit);
 		
@@ -79,6 +86,10 @@ public class NewBookController extends HttpServlet {
 		request.setAttribute("time", time);
 		request.setAttribute("pi", pi);	
 		request.setAttribute("list", list);
+		
+		System.out.println(time);
+		System.out.println(pi);
+		System.out.println(list);
 		
 		request.getRequestDispatcher("/views/book/newBookView.jsp").forward(request, response);
 	}
