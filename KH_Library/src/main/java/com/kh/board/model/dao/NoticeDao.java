@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.kh.board.model.vo.Notice;
 import com.kh.common.JDBCTemplate;
+import com.kh.common.PageInfo;
 
 public class NoticeDao {
 
@@ -31,17 +32,29 @@ public class NoticeDao {
 	}
 	
 	
-	public ArrayList<Notice> selectNoticeList(Connection conn) {
+	public ArrayList<Notice> selectNoticeList(Connection conn, PageInfo pi) {
 	
 		ArrayList<Notice> list = new ArrayList<>();
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectNoticeList");
 		
+		
+		// 시작번호 : (currentPage-1)*게시글 보여줄 수+1
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+
+		// 끝번호 : 현재페이지 수 * 게시글 보여줄 수
+		int endRow = pi.getCurrentPage() * pi.getBoardLimit();
+		
+		
 		try {
-			stmt = conn.createStatement();
-			rset= stmt.executeQuery(sql);
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset= pstmt.executeQuery();
 			
 			
 			while(rset.next()) {
@@ -63,7 +76,7 @@ public class NoticeDao {
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
+			JDBCTemplate.close(pstmt);
 			
 		}
 		
@@ -172,6 +185,109 @@ public class NoticeDao {
 		
 		
 		return preNnext;
+	}
+
+	
+	// 게시글 수 조회
+	public int listCount(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = prop.getProperty("listCount");
+		
+		
+		
+		try {
+			stmt = conn.createStatement();
+			rset= stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		
+		
+		return listCount;
+	}
+
+	
+	
+	// 공지사항 글 수정
+	public int updateNotice(Connection conn, String title, String content, int nno) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, nno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+	
+	
+	
+	
+	// 공지사항 삭제
+	public int deleteNotice(Connection conn, int noticeNo) {
+	
+		
+		
+		return 0;
+	}
+
+	
+	
+	
+	
+	
+	// 공지사항 게시글 등록
+	public int insertNotice(Connection conn, String title, String content) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertNotice");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
 	}
 	
 
