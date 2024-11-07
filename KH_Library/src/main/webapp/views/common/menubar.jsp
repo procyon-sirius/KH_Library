@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     
 
     <!--
@@ -140,7 +141,9 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-
+		#menu-admin-page-btn{
+            color: navy;
+		}
         #header-top-search-icon {
             text-decoration: none;
             font-size: 30px;
@@ -157,7 +160,19 @@
         #navi {
             width: 740px;
         }
+        .submenu-text{
+            color: black;
+            font-size: 15px;
+            font-weight: bold;
+        }
 
+        .submenu-text:hover {
+            color: rgb(0, 0, 180);
+        }
+		.menu-title{
+            font-size: 18px;
+            font-weight: 600;
+		}
         /* 브라우저 width가 800px보다 클 경우 : 가변크기 지정*/
         @media(min-width:800px) {
             #navi {
@@ -194,8 +209,6 @@
             height: 100%;
             text-align: center;
             /*그 영역 안에서 텍스트 가운데 정렬*/
-            font-size: 18px;
-            font-weight: 600;
             position: relative;
         }
 
@@ -223,15 +236,7 @@
             margin-bottom: 20px;
         }
 
-        .sub_menu a {
-            color: black;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .sub_menu a:hover {
-            color: rgb(0, 0, 180);
-        }
+        
 
         .sub_menu_mask{
             border-top: 2px solid rgb(238, 238, 238);
@@ -285,14 +290,13 @@
             border-radius: 15px;
             top: 60px;
             left: 65%;
-            z-index: 10;
+            z-index: 15;
             display: none;
         }
 
         #modal-search-box {
             border: 1px solid lightgray;
             border-radius: 5px;
-            padding: 5px;
         }
 
         #modal-search-box a {
@@ -301,17 +305,22 @@
         }
 
         #modal-search-box>p {
-            vertical-align: bottom;
         }
 
         #header-top-search-icon:hover {
             cursor: pointer;
         }
-
-        #modal-search-box>input {
-            vertical-align: 5px;
+        #search-icon{
+			float : right;
+            font-size: 30px;
+        }
+		#search-icon:hover{
+            cursor: pointer;
+		}
+        #modal-search-input {
             border: 0;
-            width: 86%;
+            width: 200px;
+            padding : 4px;
             outline: 0;
         }
 
@@ -420,15 +429,30 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <p class="modal-title">통합검색</p>
+                    <p class="modal-title">간편 검색</p>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div id="modal-search-box">
-                        <input type="text" placeholder="검색어 입력">
-                        <a href="" id="search-icon" class="material-icons" data-toggle="modal"
-                            data-target="#myModal">search</a>
+                    	<form action="list.se" id="modal-search-form">
+                        	<input type="hidden" name="search-keyword-category" value="all">
+                        	<input type="text" name="search-keyword" placeholder="검색어 입력" id="modal-search-input">
+                        	<input type="hidden" name="currentPage" value="1">
+                        	<a id="search-icon" class="material-icons" data-toggle="modal" data-target="#myModal">search</a>
+                    	</form>
+                        
+                    	<script>
+                    		$(function(){
+                    			$("#search-icon").click(function(){
+                    				var keyword = $("#modal-search-form").find("input[name=search-keyword]").val();
+                    				if(!(keyword=="" || keyword==" ")){
+                    					console.log("submit")
+                    					$("#modal-search-form").submit();
+                    				}
+                    			})
+                    		})
+                    	</script>
                     </div>
                 </div>
 
@@ -440,7 +464,7 @@
             <div id="header-top-inner">
                 <div id="header-top-left"></div>
                 <div id="index-title" align="center">
-                    <a href="">KH Library</a>
+                    <a href="${contextPath}">KH Library</a>
                 </div>
                 <div id="header-top-right">
                     <ul>
@@ -464,7 +488,7 @@
                        				<button type="button" onclick="loginPage();">로그인</button>
                         		</c:when>
                         		<c:when test="${loginUser.userId eq 'admin'}">
-                       				<button type="button" onclick="adminPage();">관리자</button>	
+                       				<button type="button" onclick="adminPage();" id="menu-admin-page-btn">관리자</button>	
                         		</c:when>
                         		<c:otherwise>
                         			${loginUser.userName }님 
@@ -515,28 +539,30 @@
                         <a href="${contextPath }/insert.ho" class="menu-title">도서신청</a>
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
-                                <li><a href="${contextPath }/insert.ho">도서 신청</a></li>
-                                <li><a href="${contextPath }/select.ho?currentPage=1">도서 신청 현황</a></li>
+                                <li><a href="${contextPath }/insert.ho"  class="submenu-text">도서 신청</a></li>
+                                <li><a href="${contextPath }/select.ho?currentPage=1"  class="submenu-text">도서 신청 현황</a></li>
                             </ul>
                         </div>
                     </li>
                     <li>
                         <a href="${contextPath }/input.se" class="menu-title">자료 검색</a>
+
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
-                                <li><a href="${contextPath }/input.se">통합검색</a></li>
-                                <li><a href="${contextPath }/changeCategory.bk?currentPage=1&categoryNo=-1">카테고리 검색</a></li>
-                                <li><a href="${contextPath }">신규 도서</a></li>
-                                <li><a href="${contextPath }">추천 도서</a></li>
+                                <li><a href="${contextPath }/input.se"  class="submenu-text">통합검색</a></li>
+                                <li><a href="${contextPath }/changeCategory.bk?currentPage=1&categoryNo=-1"  class="submenu-text">카테고리 검색</a></li>
+                                <li><a href="${contextPath }"  class="submenu-text">신규 도서</a></li>
+                                <li><a href="${contextPath }"  class="submenu-text">추천 도서</a></li>
                             </ul>
                         </div>
+
                     </li>
                     <li>
                         <a href="${contextPath }" class="menu-title">도서관 안내</a>
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
-                                <li><a href="${contextPath }">도서관 소개</a></li>
-                                <li><a href="${contextPath }">오시는 길</a></li>
+                                <li><a href="${contextPath }" class="submenu-text">도서관 소개</a></li>
+                                <li><a href="${contextPath }" class="submenu-text">오시는 길</a></li>
                             </ul>
                         </div>
                     </li>
@@ -544,10 +570,10 @@
                         <a href="${contextPath }" class="menu-title">소통공간</a>
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
-                                <li><a href="${contextPath }/notice">공지 사항</a></li>
-                                <li><a href="${contextPath }/qnaBoard">문의 게시판</a></li>
-                                <li><a href="${contextPath }/commentBoard">한줄평</a></li>
-                                <li><a href="${contextPath }/freeBoard">자유게시판</a></li>
+                                <li><a href="${contextPath }/notice"  class="submenu-text">공지 사항</a></li>
+                                <li><a href="${contextPath }/qnaBoard"  class="submenu-text">문의 게시판</a></li>
+                                <li><a href="${contextPath }/commentBoard"  class="submenu-text">한줄평</a></li>
+                                <li><a href="${contextPath }/freeBoard"  class="submenu-text">자유게시판</a></li>
                             </ul>
                         </div>
                     </li>
@@ -555,9 +581,9 @@
                         <a href="${contextPath }" class="menu-title">나만의 서재</a>
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
-                            <li><a href="${contextPath}/mypage.me">내 정보</a></li>
-                                <li><a href="${contextPath }">신청 내역</a></li>
-                                <li><a href="${contextPath }">도서 관리</a></li>
+                            <li><a href="${contextPath}/mypage.me"  class="submenu-text">내 정보</a></li>
+                                <li><a href="${contextPath }"  class="submenu-text">신청 내역</a></li>
+                                <li><a href="${contextPath }"  class="submenu-text">도서 관리</a></li>
                             </ul>
                         </div>
                     </li>
