@@ -64,7 +64,20 @@
 								<c:when test="${h.hopePublic == 'Y'}">
 									<tr class="${h.hopeStatus eq 'Y' && loginUser.userId eq 'admin' ? 'trBackground' : ''}">
 										<td>${h.hopeNum }</td>
-										<td>${h.userId }</td>
+										<td>
+											<!-- ${h.userId } -->
+											<c:choose>
+											<c:when test="${loginUser.userId eq 'admin' }">
+												${h.userId }
+											</c:when>
+											<c:otherwise>
+												<script>
+							                        var userId = "${h.userId}";
+							                        document.write(userId.substring(0, 3) + "*".repeat(userId.length - 3));
+							                    </script>
+						                    </c:otherwise>
+						                    </c:choose>
+										</td>
 										<td>${h.hopeTitle }</td>
 										<td>${h.hopeDate }</td>
 										<td><p style="color: green">공개</p></td>
@@ -73,7 +86,20 @@
 								<c:otherwise>
 									<tr class="${h.hopeStatus eq 'Y' && loginUser.userId eq 'admin' ? 'trBackground' : ''}">
 										<td>${h.hopeNum }</td>
-										<td>${h.userId }</td>
+										<td>
+											<!-- ${h.userId } -->
+											<c:choose>
+											<c:when test="${loginUser.userId eq 'admin' }">
+												${h.userId }
+											</c:when>
+											<c:otherwise>
+												<script>
+							                        var userId = "${h.userId}";
+							                        document.write(userId.substring(0, 3) + "*".repeat(userId.length - 3));
+							                    </script>
+						                    </c:otherwise>
+						                    </c:choose>
+										</td>
 										<td>${h.hopeTitle }</td>
 										<td>${h.hopeDate }</td>
 										<td><p style="color: red">비공개</p></td>
@@ -86,14 +112,17 @@
 				</tbody>
 			</table>
 			
-			
+			<input type="hidden" id="currentPage" value="${pi.currentPage}" />
 			<script>
 				$("#hopeListTable>tbody>tr").click(function(){
 					//console.log($(this));
 					var hopeNum = $(this).children().first().text();
 					//console.log(hopeNum);
-							
-					location.href = "detail.ho?hopeNum="+hopeNum;
+					var currentPage = $("#currentPage").val();
+					//console.log(currentPage);
+					
+					//location.href = "detail.ho?hopeNum="+hopeNum;
+					location.href = "detail.ho?hopeNum="+hopeNum + "&currentPage=" + currentPage;
 							
 				});
 			</script>

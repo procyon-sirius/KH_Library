@@ -43,7 +43,11 @@
 					<tr>
 						<th>신청인</th>
 						<td colspan="2">
-							${h.userId }
+							<!-- ${h.userId } -->
+							<script>
+							    var userId = "${h.userId}";
+							    document.write(userId.substring(0, 3) + "*".repeat(userId.length - 3));
+						    </script>
 						</td>
 						
 						<td>
@@ -101,18 +105,18 @@
 				</table>
 				<br>
 			
-			<c:if test="${loginUser != null && (loginUser.userId eq 'admin' || loginUser.userNo eq h.hopeUser)}">
-				<button onclick="deleteHope();">신청 취소</button>
+			<c:if test="${h.hopeStatus eq 'N' && loginUser != null && (loginUser.userId eq 'admin' || loginUser.userNo eq h.hopeUser)}">
+				<button class="btn btn-outline-danger" onclick="deleteHope();">신청 취소</button>
 			</c:if>
 			
 			<c:if test="${h.hopeStatus eq 'Y' && loginUser != null && loginUser.userId eq 'admin' }">
-				<button onclick="deleteHope();">신청 삭제</button>
+				<button class="btn btn-outline-danger" onclick="deleteHope();">신청 삭제</button>
 			</c:if>
 			
 			<c:if test="${h.hopeStatus == 'N' && loginUser != null && loginUser.userId == 'admin' }">
-				<button type="button" onclick="checkHope();">신청 확인</button>
+				<button class="btn btn-outline-danger" type="button" onclick="checkHope();">신청 확인</button>
 			</c:if>
-			<button onclick="history.back();">뒤로가기</button>
+			<button class="btn btn-outline-primary" onclick="history.back();">뒤로가기</button>
 		</div>
 		
 		<script>
@@ -134,6 +138,10 @@
 					}).append($("<input>", {type: "hidden",
 							                name: "hopeNum",
 							                value: "${h.hopeNum}"
+							            }),
+							  $("<input>", {type: "hidden",
+							                name: "currentPage",
+							                value: "${currentPage}"
 							            })
 		            ).appendTo("body").submit();
 				}
@@ -144,3 +152,13 @@
 	<%@include file="/views/common/footer.jsp"%>
 </body>
 </html>
+
+<!-- 
+	회망도서 작성, 신청 완료
+	희망도서 리스트 완료
+	비곤개 게시물 접근 처리 완료
+	관리자는 유저 아이디를 전부 볼 수 있도록 처리, 일반 유저는 3글자 완료
+	비회원 신청 불가 처리 완료
+	
+	ㄷ졸려서 집중이 안돼 미칠것같다
+ -->
