@@ -26,6 +26,7 @@ public class ManagementMember extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("mode", "member");
 		request.getRequestDispatcher("/views/member/admin/admin.jsp").forward(request, response);
 	}
 
