@@ -37,7 +37,7 @@ public class MyPageController extends HttpServlet {
 		if(session.getAttribute("loginUser")==null) {
 			
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath()+"/login.me");
 		}else {
 			
 			request.getRequestDispatcher("/views/member/myPage.jsp").forward(request, response);
