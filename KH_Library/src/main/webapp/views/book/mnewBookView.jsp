@@ -113,11 +113,11 @@
 			
             <div class="book-list">
             	<c:choose>
-	            	<c:when test="${empty list }">
+	            	<c:when test="${empty mlist }">
 	            		<div align="center">검색 결과가 존재하지 않습니다</div>
 	            	</c:when>
 	            	<c:otherwise>
-			        	<c:forEach items="${list }" var="b">
+			        	<c:forEach items="${mlist }" var="b">
 				 			<div class="thumbnail" align="center">
 				 				<input type="hidden" value="${b.bookId }" name="bookId">
 				 				<input type="hidden" value="${b.bookTitle }" name="bookTitle">
@@ -140,7 +140,7 @@
            
            <br> <br>
 			<c:choose>
-				<c:when test="${not empty list}">
+				<c:when test="${not empty mlist}">
 					<br>
 					<div class="pagingbar" align="center">
 
