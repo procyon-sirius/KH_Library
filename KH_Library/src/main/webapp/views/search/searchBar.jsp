@@ -69,7 +69,8 @@ option {
 					<option value="title">제목</option>
 					<option value="author">저자</option>
 					<option value="publisher">출판사</option>
-				</select> <input type="text" id="main-search-input" name="search-keyword">
+				</select> 
+				<input type="text" id="main-search-input" name="search-keyword">
 				<button type="submit" class="material-icons icons"
 					onclick="return sEmptyCk();">search</button>
 				<button type="button" id="main-search-filter-icon"

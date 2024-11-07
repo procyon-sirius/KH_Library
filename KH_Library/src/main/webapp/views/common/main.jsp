@@ -128,23 +128,27 @@
 					url : "${contextPath}/recommend.bk",
 					success : function(result){
 						$("#recommend-book-area").html("<h1>인기 도서</h1>")
-						for(var b of result){
-							var book = $("<div>").addClass("recommend-book");
-							book.append($("<input>",{
-								type : "hidden",
-								name : "bookId",
-								value : b.bookId
-								}));
-							book.append($("<img>",{
-								src : "${contextPath}/resources/img/"+b.bookId+".gif"
-							}).addClass("recommend-cover rec-book-info"));
-							book.append($("<div>").addClass("recommend-title rec-book-info").text(b.bookTitle));
-							book.append($("<div>").addClass("recommend-author").text(b.bookAuthor));
-							$("#recommend-book-area").append(book);
+						if(result == null){
+							$("#recommend-book-area").append("<div>등록된 도서가 없습니다.</div>")
+						}else{
+							for(var b of result){
+								var book = $("<div>").addClass("recommend-book");
+								book.append($("<input>",{
+									type : "hidden",
+									name : "bookId",
+									value : b.bookId
+									}));
+								book.append($("<img>",{
+									src : "${contextPath}/resources/img/"+b.bookId+".gif"
+								}).addClass("recommend-cover rec-book-info"));
+								book.append($("<div>").addClass("recommend-title rec-book-info").text(b.bookTitle));
+								book.append($("<div>").addClass("recommend-author").text(b.bookAuthor));
+								$("#recommend-book-area").append(book);
+							}
 						}
 					},
 					error : function(){
-						console.log("통신오류");
+						console.log("error:ajax");
 					}
 				});
 				
