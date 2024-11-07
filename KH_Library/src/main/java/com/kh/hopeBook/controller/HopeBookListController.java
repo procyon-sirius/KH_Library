@@ -1,4 +1,4 @@
-package com.kh.book.controller;
+package com.kh.hopeBook.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,23 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.book.model.service.BookService;
-import com.kh.book.model.vo.Book;
-import com.kh.book.model.vo.BookCategory;
-import com.kh.book.model.vo.BookCategoryInfo;
-import com.kh.common.PageInfo;
+import com.kh.hopeBook.model.service.HopeBookService;
+import com.kh.hopeBook.model.vo.HopeBook;
+import com.kh.hopeBook.model.vo.PageInfo;
 
 /**
- * Servlet implementation class BookCListController
+ * Servlet implementation class HopeBookList
  */
-@WebServlet("/clist.bk")
-public class BookCListController extends HttpServlet {
+@WebServlet("/select.ho")
+public class HopeBookListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookCListController() {
+    public HopeBookListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,6 +32,9 @@ public class BookCListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+//		ArrayList<HopeBook> list = new HopeBookService().selectHopeList();
+//		System.out.println(list);
 		
 		int listCount;
 		int currentPage;
@@ -44,38 +45,35 @@ public class BookCListController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		listCount = new BookService().listCount();
+		listCount = new HopeBookService().listCount();
+//		System.out.println(listCount);
 		
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+//		System.out.println(currentPage);
 		
-		pageLimit = 10;
+		pageLimit = 5;
 		boardLimit = 10;
 		
 		maxPage = (int)Math.ceil((double)listCount/boardLimit);
 		
-		startPage = (currentPage-1) / pageLimit * pageLimit +1;
+		startPage = (currentPage-1)/pageLimit * pageLimit + 1;
 		
-		endPage = startPage + pageLimit -1;
+		endPage = startPage+pageLimit-1;
 		
-		if(maxPage<endPage) {
-			endPage=maxPage;
+		if(maxPage < endPage) {
+			endPage = maxPage;
 		}
 		
-		
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+//		System.out.println("pi : "+pi);
 		
+		ArrayList<HopeBook> list = new HopeBookService().selectHopeList(pi);
+//		System.out.println(list);
 		
-		ArrayList<Book> list = new BookService().allList(pi);
-		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
+		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
+		request.getRequestDispatcher("/views/hopeBook/hopeBookList.jsp").forward(request, response);
 		
-		
-		
-		request.setAttribute("pi", pi);	
-		request.setAttribute("list", list);	
-		request.setAttribute("bci", bci);
-
-		
-		request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
 	}
 
 	/**

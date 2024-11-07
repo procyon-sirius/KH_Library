@@ -4,8 +4,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
-<%
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>     
+ 
+ <%
 		String contextPath = request.getContextPath();
 		
 		//로그인 유저 정보 추출하기
@@ -16,9 +17,9 @@
 		//로그인 후 : 로그인한 회원정보를 담은 Member객체
 		
 		//알림메시지 추출하기
-		//String alertMsg = (String)session.getAttribute("alertMsg");
-
-	%>
+		String alertMsg = (String)session.getAttribute("alertMsg");
+	%>   
+   
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -237,7 +238,7 @@
             width: 100%;
             height: 300px;
             z-index: -1;
-            margin-top: -28px;
+            margin-top: -31px;
             background-color: white;
         }
 
@@ -507,11 +508,11 @@
                 <ul id="navi">
                     <div id="background_menu_mask"></div>
                     <li>
-                        <a href="${contextPath }" class="menu-title">도서신청</a>
+                        <a href="${contextPath }/insert.ho" class="menu-title">도서신청</a>
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
-                            <li><a href="views/hopeBook/hopeBookEnrollForm.jsp">도서 신청</a></li>
-                            <li><a href="${contextPath }">도서 신청 현황</a></li>
+                            <li><a href="${contextPath }/insert.ho">도서 신청</a></li>
+                            <li><a href="${contextPath }/select.ho?currentPage=1">도서 신청 현황</a></li>
                         </ul>
                     </li>
                     <li>
@@ -519,7 +520,7 @@
                         <ul class="sub_menu"><br>
                             <div class="sub_menu_mask"></div>
                             <li><a href="${contextPath }/input.se">통합검색</a></li>
-                            <li><a href="${contextPath }/clist.bk?currentPage=1">카테고리 검색</a></li>
+                            <li><a href="${contextPath }/changeCategory.bk?currentPage=1&categoryNo=-1">카테고리 검색</a></li>
                             <li><a href="${contextPath }">신규 도서</a></li>
                             <li><a href="${contextPath }">추천 도서</a></li>
                         </ul>

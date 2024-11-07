@@ -1,7 +1,6 @@
-package com.kh.member.controller;
+package com.kh.hopeBook.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,20 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.kh.hopeBook.model.service.HopeBookService;
 
 /**
- * Servlet implementation class MemberLoginController
+ * Servlet implementation class HopeBookDeleteController
  */
-@WebServlet("/login.me")
-public class MemberLoginController extends HttpServlet {
+@WebServlet("/delete.ho")
+public class HopeBookDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberLoginController() {
+    public HopeBookDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,11 +29,8 @@ public class MemberLoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String url = request.getHeader("referer");
-		request.setAttribute("beforeUrl",url);
-		request.getRequestDispatcher("/views/member/memberLoginForm.jsp").forward(request,response);
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -45,26 +40,20 @@ public class MemberLoginController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		int hopeNum = Integer.parseInt(request.getParameter("hopeNum"));
+//		System.out.println(hopeNum);
 		
-		Member loginUser = new MemberService().loginMember(userId,userPwd);
+		int result = new HopeBookService().deleteHope(hopeNum);
 		
 		HttpSession session = request.getSession();
 		
-		if(loginUser!=null) {
-			
-			session.setAttribute( "loginUser", loginUser);
-			session.setAttribute("alertMsg", "로그인 성공!");
-			
+		if(result>0) {
+			session.setAttribute("alertMsg", "취소 성공");
+			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
 		}else {
-			session.setAttribute("alertMsg","로그인 실패!");
+			session.setAttribute("alertMsg", "취소 실패");
+			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
 		}
-		String url = request.getParameter("beforeUrl");
-		response.sendRedirect(url);
-		
-	
-		
 		
 	}
 

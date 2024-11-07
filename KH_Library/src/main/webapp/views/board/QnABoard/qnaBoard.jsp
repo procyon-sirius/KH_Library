@@ -1,11 +1,19 @@
+<%@page import="com.kh.board.model.vo.Reply"%>
+<%@page import="com.kh.board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.board.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<% // 조회된 목록 선언
-ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>  
+<% // 조회된 목록 선언(Q)
+ArrayList<Board> blist = (ArrayList<Board>)request.getAttribute("bList"); %>  
+<% // 조회된 목록 선언(A)
+ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>  
     
+      
+<!DOCTYPE html>
+<html>
+<head>
 <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -13,10 +21,7 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>      
-<!DOCTYPE html>
-<html>
-<head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -41,7 +46,7 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 		
 		
 		.regular tr{
-			height: 80px
+			height: 100px
 		}
 		
 		
@@ -56,6 +61,10 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 		
 		.answer {
 		    display: none; /* 초기에는 보이지 않도록 설정 */
+		}
+		
+		.aList{
+			display: none;
 		}
 	      
 	
@@ -86,7 +95,7 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 									<td>문의게시판</td>
 								</tr>
 							</table>
-					        	
+					 </div>        	
 			        		
 			        		<hr class="boarder">
 			        
@@ -97,8 +106,8 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 		                    </tr>
 		                    
 		                    <tr>
-		                    	<td colspan="6">[자료대출] 연장신청은 어떻게 하나요?</td>
-		                    	<td class="q">▼</td>
+		                    	<td colspan="5">[자료대출] 연장신청은 어떻게 하나요?</td>
+		                    	<td colspan="2" ><button class="q">▼</button> </td>
 		                    </tr>
 		                    
 		                    <tr>
@@ -123,37 +132,79 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 			                </thead>
 			                <tbody>
 			               
-			                <%if(list.isEmpty()) {%>
+			                <%if(blist.isEmpty() || rList.isEmpty()) {%>
 			                	<tr>
-			                		<td colspan="6">공지사항이 없습니다.</td>
+			                		<td colspan="6">문의사항이 없습니다.</td>
 			                	</tr>
 			                <%}else {
-			                		for( Notice n: list) {	
+			                		for(Board b: blist) {	
+			                			boolean Reply = false;
+			                			
+			                			for( Reply r: rList) {
+			                			
+			                				if(b.getBoardNo()==r.getBoardNo()){
+			                					 Reply = true; 
+			                			
 			                %>
-			                    <tr>
-			                        <td width="150"><%=n.getNoticeNo() %></td>
-			                        <td width="500"><%=n.getNoticeTitle() %></td>
-			                        <td width="150"><%=n.getUserNo() %></td>
-			                        <td width="150"><%=n.getDate() %></td>
-			                         <td width="150">첨부파일</td>
-			                        <td width="150"><%=n.getNumber() %></td>
-			                    </tr>
+							                    <tr class="qList">
+							                        <td width="150"><%=b.getBoardNo() %></td>
+							                        <td width="150"><b>Q</b></td>
+							                        <td width="500"><%=b.getBoardTitle() %></td>
+							                        <td width="150"><%=b.getUserNo() %></td>
+							                        <td width="150"><%=b.getDate() %></td>
+							                        <td width="150">첨부파일</td>
+							                        <td width="150"><%=b.getCount() %></td>
+							                        <td colspan="2" ><button class="qListb" data-boardno="<%=b.getBoardNo() %>">▼</button> </td>
+							                    </tr>
+							                    <tr class="aList" data-boardno="<%=b.getBoardNo() %>">
+							                        <td width="150"><%=r.getBoardNo() %></td>
+							                        <td width="150"><b>A</b></td>
+							                        <td width="500"><%=r.getReplyContent() %></td>
+							                        <td width="150"><%=r.getUserNo() %></td>
+							                        <td width="150"><%=r.getDate() %></td>
+							                    </tr>
+			                    		<%} %>
+			                    		
+			                    	 <%} if(Reply==false){%>
+			                    		
+		                   				<tr>
+					                        <td width="150"><%=b.getBoardNo() %></td>
+					                        <td width="150"><b>A</b></td>
+					                        <td width="500"><%=b.getBoardTitle() %></td>
+					                        <td width="150"><%=b.getUserNo() %></td>
+					                         <td width="150"><%=b.getDate() %></td>
+					                        <td width="150">첨부파일</td>
+					                        <td width="150"><%=b.getCount() %></td>
+					                    </tr>
+	                    		
+	                    			  <%} %>
 			      				  <%} %>
 			      			<%} %>
-			                    
 			                </tbody>
 			            </table>
-				</div>
+				
 				
 				
 				<script>
+				
+				
 					$(function(){
 						
-						$(".q").click(function(){
+							$(".q").click(function(){
+								
+									console.log($(".q"));
+								
+								 $(".answer").toggle();
+								
+							});
 							
-							$(".answer").style.diplay == "";
+							
+							$(".qListb").click(function(){
+								 var boardNo = $(this).data("boardno");
+								$(".aList[data-boardno='" + boardNo + "']").toggle();
 							
 						});
+						
 					});
 					
 				</script>

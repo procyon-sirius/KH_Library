@@ -1,25 +1,29 @@
-package com.kh.board.controller.QnABoard;
+package com.kh.book.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.kh.board.model.service.QnAService;
+
+import com.google.gson.Gson;
+import com.kh.book.model.service.BookService;
+import com.kh.book.model.vo.Book;
 
 /**
- * Servlet implementation class QnADetailController
+ * Servlet implementation class BookRecommendController
  */
-@WebServlet("/QnADetailController.bo")
-public class QnADetailController extends HttpServlet {
+@WebServlet("/recommend.bk")
+public class BookRecommendController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnADetailController() {
+    public BookRecommendController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,17 +32,9 @@ public class QnADetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		
-		QnAService service = new QnAService();
-		
-		
-		// 조회수 조회
-		int result = service.increaseCount(bno);
-		
-	
-	
+		ArrayList<Book> blist = new BookService().bookRecommend();
+		response.setContentType("json/application;charset=UTF-8");
+		new Gson().toJson(blist,response.getWriter());
 	}
 
 	/**

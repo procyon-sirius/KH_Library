@@ -24,11 +24,22 @@ public class BookService {
 		return listCount;
 	}
 	
-	public ArrayList<Book> allList(PageInfo pi) {
+	public ArrayList<Book> allList(String age, String order, String ad, PageInfo pi) {
 			
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().allList(conn,pi);
+		ArrayList<Book> list = new BookDao().allList(conn,age,order,ad,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Book> changeCategory(int cno, String age, String order, String ad, PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,age,order,ad,pi);
 		
 		JDBCTemplate.close(conn);
 		
@@ -63,8 +74,12 @@ public class BookService {
 		int rCount = new BookDao().countRentUser(conn, userNo);
 		int result = 0;
 		
-		//인당 대출권수 최대 5권
-		if(rCount<5) {
+		//인당 대출권수
+		
+		int rLimit = new BookDao().countRentLimit(conn, userNo);
+		int resCount = new BookDao().countReserveUser(conn,userNo);
+		
+		if(resCount+rCount < rLimit) {
 			//rent테이블에 추가
 			result = new BookDao().insertRentBook(conn, bookId, userNo);
 			//book의 rentcount 1증가
@@ -84,17 +99,56 @@ public class BookService {
 		return result;
 	}
 
-	public ArrayList<Book> changeCategory(int cno, PageInfo pi) {
+	
+
+	public int clistCount(int cno) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,pi);
+		int clistCount = new BookDao().clistCount(conn, cno);
 		
 		JDBCTemplate.close(conn);
 		
-		return list;
+		return clistCount;
 	}
 
+
+
+	public int insertReserveBook(int bookId, int userNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		int resCount = new BookDao().countReserveUser(conn,userNo);
+
+		int rCount = new BookDao().countRentUser(conn, userNo);
+		int rLimit = new BookDao().countRentLimit(conn, userNo);
+		if(resCount+rCount < rLimit) {
+			
+			result = new BookDao().insertReserveBook(conn, bookId, userNo);
+			//book의 status를 R(예약중)로 변경
+			int updateBookStatusR = new BookDao().updateBookStatusR(conn, bookId);
+			
+			if(result*updateBookStatusR>0) {//둘다 정상처리
+				JDBCTemplate.commit(conn);
+			}else {	//둘중 하나라도 오류일경우
+				JDBCTemplate.rollback(conn);
+			}
+		}else {
+			result = -1; //예약 최대치 초과 (예약 최대치 = 현재 예약건수 + 현재 대출 권수)
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public ArrayList<Book> bookRecommend() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> blist = new BookDao().bookRecommend(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return blist;
+	}
 
 
 }
