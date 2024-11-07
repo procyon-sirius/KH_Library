@@ -527,19 +527,10 @@
 	                        <ul class="sub_menu"><br>
 	                            <li><a href="${contextPath }/input.se">통합검색</a></li>
 	                            <li><a href="${contextPath }/changeCategory.bk?currentPage=1&categoryNo=-1">카테고리 검색</a></li>
-	                            <li><a href="${contextPath }/newBook.bk?currentPage=1">신규 도서</a></li>
+	                            <li><a href="${contextPath }/mnewBook.bk?currentPage=1">신규 도서</a></li>
 	                            <li><a href="${contextPath }/">추천 도서</a></li>
 	                        </ul>
 	                    </div>
-
-                        <div class="sub_menu_mask">
-                            <ul class="sub_menu"><br>
-                                <li><a href="${contextPath }/input.se">통합검색</a></li>
-                                <li><a href="${contextPath }/changeCategory.bk?currentPage=1&categoryNo=-1">카테고리 검색</a></li>
-                                <li><a href="${contextPath }">신규 도서</a></li>
-                                <li><a href="${contextPath }">추천 도서</a></li>
-                            </ul>
-                        </div>
 
                     </li>
                     <li>
