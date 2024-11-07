@@ -37,6 +37,19 @@ public class ChangeCategory extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		int cno = Integer.parseInt(request.getParameter("categoryNo"));
+
+		System.out.println(cno);
+		if(cno==-1){
+			ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
+			request.setAttribute("bci", bci);
+			request.setAttribute("cno", cno);
+			request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
+		}else {
+		String age = request.getParameter("age");
+		String order = request.getParameter("order");
+		String ad = request.getParameter("ad");
+		
 		int listCount;
 		int currentPage;
 		int pageLimit;
@@ -46,49 +59,88 @@ public class ChangeCategory extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		listCount = new BookService().listCount();
-		
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		
-		pageLimit = 10;
-		boardLimit = 10;
-		
-		maxPage = (int)Math.ceil((double)listCount/boardLimit);
-		
-		startPage = (currentPage-1) / pageLimit * pageLimit +1;
-		
-		endPage = startPage + pageLimit -1;
-		
-		if(maxPage<endPage) {
-			endPage=maxPage;
-		}
-		
-		
-		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-		
-		int cno = Integer.parseInt(request.getParameter("categoryNo"));
+		ArrayList<Book> list = new ArrayList<>();
 		
 		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
 		
-		ArrayList<Book> list = new ArrayList<>();
-		
 		if(cno==0) {
+			listCount = new BookService().listCount();
 			
-			list = new BookService().allList(pi);
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			
+			pageLimit = 10;
+			boardLimit = 10;
+			
+			maxPage = (int)Math.ceil((double)listCount/boardLimit);
+			
+			if(currentPage != 1 && currentPage > maxPage) {
+				request.setAttribute("errorMsg", "잘못된 접근입니다.");
+				request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+			}
+			
+			startPage = (currentPage-1) / pageLimit * pageLimit +1;
+			
+			endPage = startPage + pageLimit -1;
+			
+			if(maxPage<endPage) {
+				endPage=maxPage;
+			}
+			
+			
+			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+			
+			list = new BookService().allList(age,order,ad,pi);
+			
 			request.setAttribute("pi", pi);	
-			request.setAttribute("list", list);	
+			request.setAttribute("bci", bci);
+			request.setAttribute("age", age);
+			request.setAttribute("order", order);
+			request.setAttribute("ad", ad);
+			request.setAttribute("list", list)	;	
+			
 			
 		}else {
+			listCount = new BookService().clistCount(cno);
 			
-			list = new BookService().changeCategory(cno,pi);
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			
+			pageLimit = 10;
+			boardLimit = 10;
+			
+			maxPage = (int)Math.ceil((double)listCount/boardLimit);
+			
+			if(currentPage != 1 && currentPage > maxPage) {
+				request.setAttribute("errorMsg", "잘못된 접근입니다.");
+				request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+			}
+			
+			startPage = (currentPage-1) / pageLimit * pageLimit +1;
+			
+			endPage = startPage + pageLimit -1;
+			
+			if(maxPage<endPage) {
+				endPage=maxPage;
+			}
+			
+			
+			PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+			
+			
+			list = new BookService().changeCategory(cno,age,order,ad,pi);
 			request.setAttribute("pi", pi);	
+			request.setAttribute("bci", bci);
+			request.setAttribute("age", age);
+			request.setAttribute("order", order);
+			request.setAttribute("ad", ad);
 			request.setAttribute("list", list);	
+			
+			
 		}
 		
-		request.setAttribute("bci", bci);
+		request.setAttribute("cno", cno);
 		
 		request.getRequestDispatcher("/views/book/bookCategoryListView.jsp").forward(request, response);
-		
+		}
 	}
 
 	/**

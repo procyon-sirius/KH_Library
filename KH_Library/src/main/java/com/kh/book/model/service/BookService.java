@@ -24,11 +24,22 @@ public class BookService {
 		return listCount;
 	}
 	
-	public ArrayList<Book> allList(PageInfo pi) {
+	public ArrayList<Book> allList(String age, String order, String ad, PageInfo pi) {
 			
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().allList(conn,pi);
+		ArrayList<Book> list = new BookDao().allList(conn,age,order,ad,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Book> changeCategory(int cno, String age, String order, String ad, PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,age,order,ad,pi);
 		
 		JDBCTemplate.close(conn);
 		
@@ -88,16 +99,20 @@ public class BookService {
 		return result;
 	}
 
-	public ArrayList<Book> changeCategory(int cno, PageInfo pi) {
+	
+
+	public int clistCount(int cno) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> list = new BookDao().changeCategory(conn,cno,pi);
+		int clistCount = new BookDao().clistCount(conn, cno);
 		
 		JDBCTemplate.close(conn);
 		
-		return list;
+		return clistCount;
 	}
+
+
 
 	public int insertReserveBook(int bookId, int userNo) {
 		
@@ -125,6 +140,15 @@ public class BookService {
 		return result;
 	}
 
+	public ArrayList<Book> bookRecommend() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> blist = new BookDao().bookRecommend(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return blist;
+	}
 
 
 }

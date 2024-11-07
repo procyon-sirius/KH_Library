@@ -1,3 +1,4 @@
+
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -52,6 +53,7 @@
             height: 140px;
             background-color: white;
             position: fixed;
+            z-index : 10;
         }
 
         #index-title {
@@ -85,7 +87,6 @@
                 width: 1400px;
             }
         }
-
 
 
 
@@ -195,6 +196,7 @@
             /*그 영역 안에서 텍스트 가운데 정렬*/
             font-size: 18px;
             font-weight: 600;
+            position: relative;
         }
 
         #navi>li>a:hover {
@@ -207,14 +209,13 @@
             left: 0;
             width: 100vw;
             height: 300px;
-            z-index: -1;
-            margin-top: 66px;
-            background-color: white;
+            margin-top: 70px;
+            background-color: rgb(255, 255, 255);
             display: none;
         }
 
         .sub_menu {
-            position: relative;
+        	position : relative;
             display: none;
         }
 
@@ -232,20 +233,21 @@
             color: rgb(0, 0, 180);
         }
 
-        .sub_menu_mask {
+        .sub_menu_mask{
             border-top: 2px solid rgb(238, 238, 238);
             position: absolute;
             width: 100%;
             height: 300px;
-            z-index: -1;
-            margin-top: -31px;
-            background-color: white;
+            display: none;
         }
-
         .menu-mouseEnter {
             border-top: 3px solid navy;
+            width: 100%;
+            height: 300px;
+            margin-top: -1px;
             background-color: rgb(230, 230, 230);
         }
+
 
 
         /* 메인페이지 배경 이미지 */
@@ -271,6 +273,7 @@
         }
     </style>
 
+
     <!-- 검색 모달창 -->
     <style>
         #search-modal {
@@ -282,7 +285,7 @@
             border-radius: 15px;
             top: 60px;
             left: 65%;
-            z-index: 5;
+            z-index: 10;
             display: none;
         }
 
@@ -389,6 +392,7 @@
                 $(this).find(".sub_menu_mask").addClass("menu-mouseEnter");
             }, function () {
                 $(".sub_menu_mask").removeClass("menu-mouseEnter");
+                $(".sub_menu_mask").hide();
                 $(".sub_menu").hide();
                 $(this).find(".sub_menu_mask").hide();
                 $("#background_menu_mask").hide();
@@ -485,7 +489,7 @@
                     			
                     		}
                         	function loginPage(){
-
+                        		
                         		location.href="${contextPath}/login.me";
 
                         	}                       
@@ -505,52 +509,57 @@
         </div>
         <div id="header-down">
             <div id="menubar" align="center">
+                <div id="background_menu_mask"></div>
                 <ul id="navi">
-                    <div id="background_menu_mask"></div>
                     <li>
                         <a href="${contextPath }/insert.ho" class="menu-title">도서신청</a>
-                        <ul class="sub_menu"><br>
-                            <div class="sub_menu_mask"></div>
-                            <li><a href="${contextPath }/insert.ho">도서 신청</a></li>
-                            <li><a href="${contextPath }/select.ho?currentPage=1">도서 신청 현황</a></li>
-                        </ul>
+                        <div class="sub_menu_mask">
+                            <ul class="sub_menu"><br>
+                                <li><a href="${contextPath }/insert.ho">도서 신청</a></li>
+                                <li><a href="${contextPath }/select.ho?currentPage=1">도서 신청 현황</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a href="${contextPath }/input.se" class="menu-title">자료 검색</a>
-                        <ul class="sub_menu"><br>
-                            <div class="sub_menu_mask"></div>
-                            <li><a href="${contextPath }/input.se">통합검색</a></li>
-                            <li><a href="${contextPath }/clist.bk?currentPage=1">카테고리 검색</a></li>
-                            <li><a href="${contextPath }">신규 도서</a></li>
-                            <li><a href="${contextPath }">추천 도서</a></li>
-                        </ul>
+                        <div class="sub_menu_mask">
+                            <ul class="sub_menu"><br>
+                                <li><a href="${contextPath }/input.se">통합검색</a></li>
+                                <li><a href="${contextPath }/changeCategory.bk?currentPage=1&categoryNo=-1">카테고리 검색</a></li>
+                                <li><a href="${contextPath }">신규 도서</a></li>
+                                <li><a href="${contextPath }">추천 도서</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a href="${contextPath }" class="menu-title">도서관 안내</a>
-                        <ul class="sub_menu"><br>
-                            <div class="sub_menu_mask"></div>
-                            <li><a href="${contextPath }">도서관 소개</a></li>
-                            <li><a href="${contextPath }">오시는 길</a></li>
-                        </ul>
+                        <div class="sub_menu_mask">
+                            <ul class="sub_menu"><br>
+                                <li><a href="${contextPath }">도서관 소개</a></li>
+                                <li><a href="${contextPath }">오시는 길</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a href="${contextPath }" class="menu-title">소통공간</a>
-                        <ul class="sub_menu"><br>
-                            <div class="sub_menu_mask"></div>
-                            <li><a href="${contextPath }/notice">공지 사항</a></li>
-                            <li><a href="${contextPath }/qnaBoard">문의 게시판</a></li>
-                            <li><a href="${contextPath }/commentBoard">한줄평</a></li>
-                            <li><a href="${contextPath }/freeBoard">자유게시판</a></li>
-                        </ul>
+                        <div class="sub_menu_mask">
+                            <ul class="sub_menu"><br>
+                                <li><a href="${contextPath }/notice">공지 사항</a></li>
+                                <li><a href="${contextPath }/qnaBoard">문의 게시판</a></li>
+                                <li><a href="${contextPath }/commentBoard">한줄평</a></li>
+                                <li><a href="${contextPath }/freeBoard">자유게시판</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a href="${contextPath }" class="menu-title">나만의 서재</a>
-                        <ul class="sub_menu"><br>
-                            <div class="sub_menu_mask"></div>
-                            <li><a href="${contextPath }">내 정보</a></li>
-                            <li><a href="${contextPath }">신청 내역</a></li>
-                            <li><a href="${contextPath }">도서 관리</a></li>
-                        </ul>
+                        <div class="sub_menu_mask">
+                            <ul class="sub_menu"><br>
+                            <li><a href="${contextPath}/mypage.me">내 정보</a></li>
+                                <li><a href="${contextPath }">신청 내역</a></li>
+                                <li><a href="${contextPath }">도서 관리</a></li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
