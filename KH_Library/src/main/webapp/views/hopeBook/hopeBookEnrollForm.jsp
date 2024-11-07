@@ -84,6 +84,3 @@
 	<%@include file="/views/common/footer.jsp"%>
 </body>
 </html>
-<!-- 일반 사용자, 신청 유저 아이디 뒷부분 * 처리
-	 신청 확인시 있엇ㄸㄴ더 currentPage로 이도ㅛㅇ 처리
-	  -->
