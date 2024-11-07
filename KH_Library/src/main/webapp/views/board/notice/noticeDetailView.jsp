@@ -202,7 +202,7 @@ pre {
 						%>
 		
 							<%
-							if (preNnext.get(0).getPostPostion().equals("next")) {
+							if (preNnext.get(0).getPostPostion().equals("previous")) {
 							%>
 			
 								<tr>
@@ -236,14 +236,14 @@ pre {
 								<td>▲</td>
 								<td>이전글</td>
 								<td><a
-									href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
+									href="/library/detail.no?nno=<%=preNnext.get(1).getNoticeNo()%>"><%=preNnext.get(1).getNoticeTitle()%></a></td>
 			
 							</tr>
 							<tr>
 								<td>▼</td>
 								<td>다음글</td>
 								<td><a
-									href="/library/detail.no?nno=<%=preNnext.get(1).getNoticeNo()%>"><%=preNnext.get(1).getNoticeTitle()%></a></td>
+									href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
 							</tr>
 		
 						<%
@@ -274,10 +274,11 @@ pre {
 								var inputEl = $("<input>", {
 									type : "hidden",
 									name : "noticeNo",
-									value : "<%=n.getNoticeNo() %>"
+									value : <%= n.getNoticeNo() %>
 									
 								
 								});
+								
 								
 								form.append(inputEl);
 
@@ -285,7 +286,7 @@ pre {
 								form.submit();	
 								
 								
-							});
+							};
 						});
 					});
 				

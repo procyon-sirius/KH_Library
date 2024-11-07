@@ -154,14 +154,10 @@ public class NoticeDao {
 		
 		String sql = prop.getProperty("preNnext");
 		
-		int b = nno-1;
-		int a = nno+1;
-		
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, b);
-			pstmt.setInt(2, a);
+			pstmt.setInt(1, nno);
+			pstmt.setInt(2, nno);
 			
 			rset = pstmt.executeQuery();
 			
@@ -254,10 +250,26 @@ public class NoticeDao {
 	
 	// 공지사항 삭제
 	public int deleteNotice(Connection conn, int noticeNo) {
-	
 		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteNotice");
 		
-		return 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
 	}
 
 	
@@ -275,6 +287,7 @@ public class NoticeDao {
 		try {
 			
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
 			
