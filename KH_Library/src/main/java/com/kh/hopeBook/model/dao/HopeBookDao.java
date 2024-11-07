@@ -64,7 +64,7 @@ public class HopeBookDao {
 		
 		String sql = prop.getProperty("selectHopeList");
 		
-		int startRow = (pi.getCurrentPage()-1)*(pi.getBoardLimit()+1);
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 		int endRow = pi.getCurrentPage() * pi.getBoardLimit();
 		
 		try {
