@@ -154,23 +154,35 @@ public class BookService {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Book> mlist = new BookDao().monthNewBook(conn,pi);
-		
-		JDBCTemplate.close(conn);
-		
-		return mlist;
-	}
-
-	public ArrayList<Book> newList(String time, PageInfo pi) {
-
-		Connection conn = JDBCTemplate.getConnection();
-		
-		ArrayList<Book> list = new BookDao().newList(conn, time, pi);
+		ArrayList<Book> list = new BookDao().monthNewBook(conn,pi);
 		
 		JDBCTemplate.close(conn);
 		
 		return list;
 	}
+
+	public ArrayList<Book> dayNewList(PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().dayNewBook(conn,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Book> weekNewList(PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().weekNewBook(conn,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+	
 
 
 

@@ -78,8 +78,8 @@
         <div id="content-area">
            <h2 align="center">신규 도서</h2>
            <br>
-           <form action="${contextPath }/newBook.bk">
-	           	<div class="filter-div">
+           <div class="filter-div">
+           	<form action="${contextPath }/newBook.bk?time='+ ${time}+'&currentPage=1" id="day-form">
 		           <table class="select-time">
 		           		<tr>
 		           			<th>간편 검색</th>
@@ -91,23 +91,20 @@
 		           		</tr>
 		           </table>
 		           <br>
-				   <input type="hidden" name="currentPage" value="${pi.currentPage}">
-		           <button type="button" id="btn" class="btn btn-primary search">검색</button>
+		           <script>
+		           		$("input[name=time][value=${time}]").prop("checked",true);
+		           </script>
+				   
+		           <button type="submit" id="btn" class="btn btn-primary search">검색</button>
+		           <input type="hidden" name="currentPage" value="${pi.currentPage}">
 		           <script>
 			           $("#btn").click(function() {
-			        	   	var time = $(".select-time").find("input[name=time]:checked").val();
-			        	   
-							$(".filter-div").find("input[name=currentPage]").val(1);
-							$("filter-div").submit();
-							console.log($("input[name=time]:checked").val());
-					   });
+							$("#day-form").find("input[name=currentPage]").val(1);
+							$("#day-form").submit();
+						});
 		           </script>
-	           	</div>
-	           	<script>
-	           		$("input[name=time]").val("${time}").prop("checked",true);
-					console.log($("input[name=time]:checked").val());
-	           	</script>
-           </form>
+           	</form>
+	       </div>
            	
 			<br><br>
 			
@@ -128,18 +125,10 @@
 	            	</c:otherwise>
             	</c:choose>
            </div>
-          
-          <script>
-				$(".book-list #book-img").click(function() {
-					
-					var bookId = $(this).closest(".thumbnail").find("input[name=bookId]").val();
-							
-					location.href = '${contextPath}/detail.bk?bookId='+ bookId;
-				});
-			</script>
-           
+
            <br> <br>
 			<c:choose>
+				
 				<c:when test="${not empty list}">
 					<br>
 					<div class="pagingbar" align="center">
@@ -178,6 +167,13 @@
 				var temp = url.slice(0,-cPageLength);
 				location.href = temp + i;
 			};
+			
+			$(".book-list #book-img").click(function() {
+				
+				var bookId = $(this).closest(".thumbnail").find("input[name=bookId]").val();
+						
+				location.href = '${contextPath}/detail.bk?bookId='+ bookId;
+			});
 		</script>
         </div>
     </div>

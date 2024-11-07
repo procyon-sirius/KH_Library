@@ -33,7 +33,7 @@ public class MonthNewBookController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		ArrayList<Book> mlist = new ArrayList<>();
+		ArrayList<Book> list = new ArrayList<>();
 		
 		int listCount;
 		int currentPage;
@@ -43,6 +43,8 @@ public class MonthNewBookController extends HttpServlet {
 		int maxPage;
 		int startPage;
 		int endPage;
+		
+		
 		
 		listCount = new BookService().listCount();
 		
@@ -68,12 +70,11 @@ public class MonthNewBookController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
-		mlist = new BookService().monthNewBook(pi);
-		
+		list = new BookService().monthNewBook(pi);
 		
 		request.setAttribute("pi", pi);
-		request.setAttribute("mlist", mlist);
-		request.getRequestDispatcher("/views/book/mnewBookView.jsp").forward(request, response);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/views/book/newBookView.jsp").forward(request, response);
 	}
 
 	/**

@@ -94,7 +94,7 @@
 				           BOOK_TITLE,
 				           BOOK_AUTHOR
 					FROM BOOK
-					WHERE SYSDATE=ENROLL_DATE) A)
+					WHERE TO_CHAR(SYSDATE)=TO_CHAR(ENROLL_DATE)) A)
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	

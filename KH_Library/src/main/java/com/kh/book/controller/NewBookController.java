@@ -44,8 +44,6 @@ public class NewBookController extends HttpServlet {
 		ArrayList<Book> list = new ArrayList<>();
 		
 		String time = request.getParameter("time");
-		System.out.println(time);
-		System.out.println(list);
 		
 		int listCount;
 		int currentPage;
@@ -59,6 +57,8 @@ public class NewBookController extends HttpServlet {
 		listCount = new BookService().listCount();
 		
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+//		System.out.println(currentPage);
 		
 		pageLimit = 10;
 		boardLimit = 20;
@@ -81,15 +81,25 @@ public class NewBookController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
-		list = new BookService().newList(time,pi);
-		
-		request.setAttribute("time", time);
-		request.setAttribute("pi", pi);	
-		request.setAttribute("list", list);
-		
-		System.out.println(time);
-		System.out.println(pi);
-		System.out.println(list);
+		if(time.equals("D")) {
+			list = new BookService().dayNewList(pi);
+			
+			request.setAttribute("time", time);
+			request.setAttribute("pi", pi);	
+			request.setAttribute("list", list);
+		}else if(time.equals("W")) {
+			list = new BookService().weekNewList(pi);
+			
+			request.setAttribute("time", time);
+			request.setAttribute("pi", pi);	
+			request.setAttribute("list", list);
+		}else {
+			list = new BookService().monthNewBook(pi);
+			
+			request.setAttribute("time", time);
+			request.setAttribute("pi", pi);	
+			request.setAttribute("list", list);
+		}
 		
 		request.getRequestDispatcher("/views/book/newBookView.jsp").forward(request, response);
 	}

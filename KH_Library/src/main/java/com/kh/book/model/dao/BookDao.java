@@ -478,56 +478,12 @@ public class BookDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		ArrayList<Book> mlist = new ArrayList<>();
+		ArrayList<Book> list = new ArrayList<>();
 
 		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
 		
 		String sql = prop.getProperty("newListM");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2,endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				mlist.add(new Book(rset.getInt("BOOK_ID")
-								, rset.getString("BOOK_TITLE")
-								, rset.getString("BOOK_AUTHOR")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return mlist;
-		
-	}
-
-
-	public ArrayList<Book> newList(Connection conn, String time, PageInfo pi) {
-	
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		ArrayList<Book> list = new ArrayList<>();
-		
-		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
-		
-		String sql = "";
-		
-		if(time=="D") {
-			sql = prop.getProperty("newListD");
-		}else if(time=="W") {
-			sql = prop.getProperty("newListW");
-		}else {
-			sql = prop.getProperty("newListM");
-		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -549,13 +505,78 @@ public class BookDao {
 		}
 		
 		return list;
+		
+	}
+	
+	public ArrayList<Book> dayNewBook(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Book> list = new ArrayList<>();
+
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+		
+		String sql = prop.getProperty("newListD");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2,endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Book(rset.getInt("BOOK_ID")
+								, rset.getString("BOOK_TITLE")
+								, rset.getString("BOOK_AUTHOR")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+		
 	}
 
 
-	
+	public ArrayList<Book> weekNewBook(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Book> list = new ArrayList<>();
 
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+		
+		String sql = prop.getProperty("newListW");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2,endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Book(rset.getInt("BOOK_ID")
+								, rset.getString("BOOK_TITLE")
+								, rset.getString("BOOK_AUTHOR")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+		
+	}
 
-	
 	
 	
 }
