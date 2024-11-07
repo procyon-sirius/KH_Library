@@ -472,6 +472,41 @@ public class BookDao {
 		
 		return blist;
 	}
+	
+	public ArrayList<Book> monthNewBook(Connection conn, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Book> mlist = new ArrayList<>();
+
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+		
+		String sql = prop.getProperty("newListM");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2,endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				mlist.add(new Book(rset.getInt("BOOK_ID")
+								, rset.getString("BOOK_TITLE")
+								, rset.getString("BOOK_AUTHOR")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return mlist;
+		
+	}
 
 
 	public ArrayList<Book> newList(Connection conn, String time, PageInfo pi) {
@@ -515,6 +550,9 @@ public class BookDao {
 		
 		return list;
 	}
+
+
+	
 
 
 	

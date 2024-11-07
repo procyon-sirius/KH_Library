@@ -149,6 +149,17 @@ public class BookService {
 		
 		return blist;
 	}
+	
+	public ArrayList<Book> monthNewBook(PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> mlist = new BookDao().monthNewBook(conn,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return mlist;
+	}
 
 	public ArrayList<Book> newList(String time, PageInfo pi) {
 
@@ -160,6 +171,7 @@ public class BookService {
 		
 		return list;
 	}
+
 
 
 }
