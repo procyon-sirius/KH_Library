@@ -37,7 +37,7 @@
 		<%@include file="/views/common/sideMenu.jsp" %>
         <div id="content-area">
             <div id="admin-page-area">
-                <h2>관리자 페이지</h2>
+                <h2>관리자 페이지</h2><br>
                 <div id="admin-btn-area">
                 	<input type="hidden" name="admin-mode" value="default">
                     <button id="admin-fnc1" class="admin-menu-button">도서관리</button>
@@ -58,19 +58,19 @@
 						})
                     </script>
                 </div>
+                <br>
                 <div class="admin-content-area">
                     <c:choose>
-                        <c:when test="">
-    
+                        <c:when test="${mode == 'book'}">
+                        	<%@include file="/views/member/admin/managementBook.jsp" %>
                         </c:when>
-                        <c:when test="">
-    
+                        <c:when test="${mode == 'member'}">
+                        	<%@include file="/views/member/admin/managementMember.jsp" %>
                         </c:when>
-                        <c:when test="">
-    
+                        <c:when test="${mode == 'board'}">
+                        	<%@include file="/views/member/admin/managementBoard.jsp" %>
                         </c:when>
                         <c:otherwise>
-                            
                         </c:otherwise>
                     </c:choose>
                 </div>
