@@ -581,10 +581,10 @@
                         <a href="${contextPath }" class="menu-title">나만의 서재</a>
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
-                            <li><a href="${contextPath}/mypage.me"  class="submenu-text">내 정보</a></li>
+								<li><a href="${contextPath}/mypage.me"  class="submenu-text">내 정보</a></li>
                                 <li><a href="${contextPath }"  class="submenu-text">신청 내역</a></li>
-                                <li><a href="${contextPath }"  class="submenu-text">도서 관리</a></li>
-                            </ul>
+                                <li><a href="${contextPath }/mybook.me"  class="submenu-text">도서 관리</a></li>
+							</ul>
                         </div>
                     </li>
                 </ul>
