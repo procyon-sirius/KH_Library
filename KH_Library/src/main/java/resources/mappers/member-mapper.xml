@@ -33,9 +33,27 @@
     	,EMAIL= ?
     	,ADDRESS= ?
 	WHERE USER_ID= ?
-	
 	</entry>
 	
+
+	<entry key="memberList">
+		SELECT *
+		FROM MEMBER
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE MEMBER
+		SET STATUS = 'N'
+		WHERE USER_NO = ?
+	</entry>
+	
+	<entry key="rollbackMember">
+		UPDATE MEMBER
+		SET STATUS = 'Y'
+		WHERE USER_NO = ?
+	</entry>
+
+	<!-- 대출정보 구문 -->
 	<entry key="selectMyRent">
 	SELECT BOOK_ID
        	   ,RETURN_DATE
@@ -45,8 +63,30 @@
 	FROM RENT
 	JOIN BOOK USING(BOOK_ID)
 	WHERE USER_NO= ?
+	</entry>
 	
-	
+	<entry key="findUserId">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_Id LIKE '%'||?||'%'
+	</entry>
+
+	<entry key="findUserName">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_NAME LIKE '%'||?||'%'
+	</entry>
+
+
+	<!-- 아이디 중복 구문 -->
+	<entry key="idCheck">
+	SELECT USER_ID
+	FROM MEMBER
+	WHERE USER_ID= ?
+	</entry>
+	<entry key="realDelete">
+		DELETE FROM MEMBER
+		WHERE USER_ID = ?
 	</entry>
 
 </properties>
