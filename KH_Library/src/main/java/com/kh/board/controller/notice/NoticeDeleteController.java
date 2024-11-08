@@ -6,11 +6,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.kh.board.model.service.NoticeService;
 
 /**
  * Servlet implementation class NoticeDeleteController
  */
-@WebServlet("/NoticeDeleteController")
+@WebServlet("/delete.no")
 public class NoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,8 +37,21 @@ public class NoticeDeleteController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		request.setCharacterEncoding("UTF-8");
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		System.out.println(noticeNo);
+		
+		int result = new NoticeService().deleteNotice(noticeNo);
+		HttpSession session = request.getSession();
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "공지글이 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath()+"/notice?currentPage=1");
+		}else {
+			session.setAttribute("alertMsg", "공지글 삭제에 실패하였습니다.");
+			response.sendRedirect(request.getContextPath()+"/");
+		}
 	}
 
 }

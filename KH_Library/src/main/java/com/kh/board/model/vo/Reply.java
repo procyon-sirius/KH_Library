@@ -33,11 +33,9 @@ public class Reply {
 		this.date = date;
 		this.status = status;
 	}
+	
 
-	
-	
-	
-	
+
 	public Reply(int boardNo, String userNo, String replyContent, Date date) {
 		super();
 		this.boardNo = boardNo;
@@ -113,6 +111,5 @@ public class Reply {
 		return "Reply [boardNo=" + boardNo + ", userNo=" + userNo + ", replyContent=" + replyContent + ", date=" + date
 				+ ", status=" + status + "]";
 	}
-	
 	
 }
