@@ -95,6 +95,27 @@
 			});
 			*/
 		});
+		
+		$("#sbtn").click(function(){
+			
+			var category = $("select[name=user]").val();
+			var search = $("#search").val();
+			console.log(category);
+			console.log(search);
+			
+			$.ajax({
+				url : "find.me",
+				data : {
+					category : category
+				},
+				success : function(find){
+					
+				},
+				error : function(){
+					
+				}
+			});
+		});
 	</script>
 	<script>
 		$(function(){
