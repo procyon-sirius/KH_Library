@@ -557,7 +557,7 @@
                             <ul class="sub_menu"><br>
                             <li><a href="${contextPath}/mypage.me">내 정보</a></li>
                                 <li><a href="${contextPath }">신청 내역</a></li>
-                                <li><a href="${contextPath }">도서 관리</a></li>
+                                <li><a href="${contextPath }/mybook.me">도서 관리</a></li>
                             </ul>
                         </div>
                     </li>

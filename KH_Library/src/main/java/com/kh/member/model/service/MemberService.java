@@ -1,10 +1,12 @@
 package com.kh.member.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
+import com.kh.member.model.vo.MyRent;
 
 public class MemberService {
 	
@@ -56,6 +58,19 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+	
+	//나의 대출 정보 조회
+	public ArrayList<MyRent> selectMyRent(int userNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<MyRent> list = new MemberDao().selectMyRent(conn,userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		
+		return list;
 	}
 	
 	
