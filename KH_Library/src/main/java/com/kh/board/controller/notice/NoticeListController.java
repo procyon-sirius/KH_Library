@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.NoticeService;
 import com.kh.board.model.vo.Notice;
+import com.kh.book.model.service.BookService;
+import com.kh.common.PageInfo;
 
 /**
  * Servlet implementation class Notice
@@ -32,9 +34,44 @@ public class NoticeListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Notice> list = new NoticeService().selectNoticeList();
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
 		
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		
+		currentPage = 1; // 기본값 설정
+
+		if (request.getParameter("currentPage") != null) {
+		    currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		listCount = new NoticeService().listCount();
+		
+		pageLimit = 10;
+		boardLimit = 10;
+		
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		
+		startPage = (currentPage-1) / pageLimit * pageLimit +1;
+		
+		endPage = startPage + pageLimit -1;
+		
+		if(maxPage<endPage) {
+			endPage=maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+		request.setAttribute("pi", pi);
+		
+		
+		ArrayList<Notice> list = new NoticeService().selectNoticeList(pi);
 		request.setAttribute("list", list);
+		
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/board/notice/notice.jsp");
 		view.forward(request, response); 
