@@ -6,16 +6,17 @@ import java.util.ArrayList;
 import com.kh.board.model.dao.NoticeDao;
 import com.kh.board.model.vo.Notice;
 import com.kh.common.JDBCTemplate;
+import com.kh.common.PageInfo;
 
 public class NoticeService {
 
 	
 	
 	// 게시글 조회
-	public ArrayList<Notice> selectNoticeList() {
+	public ArrayList<Notice> selectNoticeList(PageInfo pi) {
 		
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn);
+		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn,pi);
 		JDBCTemplate.close(conn);
 		
 		return list;		
@@ -61,10 +62,75 @@ public class NoticeService {
 		return preNnext;
 		
 	}
+
+	
+	// 게시글 수 조회
+	public int listCount() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int listCount = new NoticeDao().listCount(conn);
+		
+		
+		if(listCount>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		return listCount;
+	}
+
 	
 	
+	// 공지사항 수정
+	public int updateNotice(String title, String content, int nno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new NoticeDao().updateNotice(conn,title,content,nno);
+	
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		return result;
+	}
+
 	
 	
+	// 공지사항 삭제
+	public int deleteNotice(int noticeNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new NoticeDao().deleteNotice(conn,noticeNo);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		return result;
+	}
+
+	
+	
+	// 공지사항 작성
+	public int insertNotice(String title, String content) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new NoticeDao().insertNotice(conn,title,content);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
+		return result;
+	}
 	
 	
 	
