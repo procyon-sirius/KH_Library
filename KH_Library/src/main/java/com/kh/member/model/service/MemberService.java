@@ -74,7 +74,7 @@ public class MemberService {
 
 	public int deleteMember(int userNo) {
 
-		Connection conn = null;
+		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = new MemberDao().deleteMember(conn,userNo);
 		
@@ -90,7 +90,7 @@ public class MemberService {
 	}
 
 	public int rollbackMember(int userNo) {
-		Connection conn = null;
+		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = new MemberDao().rollbackMember(conn,userNo);
 		

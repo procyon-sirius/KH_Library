@@ -44,18 +44,28 @@ public class MemberDeleteController extends HttpServlet {
 		String status = request.getParameter("status");
 		
 		int result = 0;
+		String answer = "";
 		
 		if(status.equals("Y")) {
 			result = new MemberService().deleteMember(userNo);
-			response.setContentType("json/application;charset=UTF-8");
-			new Gson().toJson(result,response.getWriter());
+
+			if(result>0) {
+				answer = "o";
+			}else {
+				answer="x";
+			}
+			response.getWriter().print(answer);
 			
 		}else {
 			result = new MemberService().rollbackMember(userNo);
-			response.setContentType("json/application;charset=UTF-8");
-			new Gson().toJson(result,response.getWriter());
+			
+			if(result>0) {
+				answer = "o";
+			}else {
+				answer="x";
+			}
+			response.getWriter().print(answer);
 		}
-		
 		
 	}
 

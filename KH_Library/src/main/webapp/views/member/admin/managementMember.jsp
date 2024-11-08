@@ -36,15 +36,19 @@
 
 	<div class="member">
 		<div class="member-controller">
+			<select name="user" id="user">
+				<option value="userId">아이디</option>
+				<option value="userName">이름</option>
+			</select>
 			<input type="text" id="search">
 			<button id="sbtn">조회</button>
-			<button id="yn">상태값(Y/N)</button>
+			<button id="yn" onclick="yn();">상태값(Y/N)</button>
 		</div>
 		<br>
 		<table class="member-list">
 			<thead>
 				<tr>
-					<th style="width:5%"><input type="checkbox" id="all" onclick="chkAll();"></th>
+					<th style="width:5%"><input type="checkbox" name="all" id="all"></th>
 					<th style="width:5%">회원번호</th>
 					<th style="width:10%">회원아이디</th>
 					<th style="width:10%">회원비밀번호</th>
@@ -67,25 +71,47 @@
 				</c:when>
 				<c:otherwise>
 					<tbody>
-								
+							
 					</tbody>
 				</c:otherwise>
 			</c:choose>
 		</table>
 	</div>
 	<script>
-		
+		$(function() {
+			$("input[name=all]").click(function(){
+				if($(this).prop("checked")==true){
+					$("input[name=one]").prop("checked",true);
+				}else{
+					$("input[name=one]").prop("checked",false);
+				}
+			})
+			
+			
+			/*
+			$(".member-list").on("click","input[name=one]",function(){
+				console.log($(this).parents("tr").find("th"));
+				console.log($(this).parents("tr").find("#st").text());
+			});
+			*/
+		});
+	</script>
+	<script>
 		$(function(){
+			updatelist();
+		});
+		
+		
+		function updatelist(){
 			
 			$.ajax({
 				url : "mlist.me",
 				success : function(list){
 					var tr = "";
-					console.log(list);
 					
 					for(var m of list){
 						tr += "<tr>"
-							+"<td><input type='checkbox' id='one'></td>"
+							+"<td><input type='checkbox' id='one' name='one'></td>"
 							+"<th>"+m.userNo+"</th>"
 							+"<td>"+m.userId+"</td>"
 							+"<td>"+m.userPwd+"</td>"
@@ -97,57 +123,48 @@
 							+"<td>"+m.enrollDate+"</td>"
 							+"<td>"+m.modifyDate+"</td>"
 							+"<td>"+m.rentLimit+"</td>"
-							+"<td>"+m.status+"</td>"
+							+"<td id='st'>"+m.status+"</td>"
 					}
 					$(".member-list tbody").html(tr);
 				},
-				error : function(){
-					console.log("fail");
-				}
+			 error : function(){
+				console.log("fail");
+			 }
 				
 			});
-			
-			
-			
-			$("#yn").click(function(){
-				if(confirm("상태값을 변경하시겠습니까?")){
-					$.ajax({
-						url : "delete.me",
-						type : "post",
-						data : {
-							userNo : "${m.userNo}"
-						}
-						success : function(yn){
-							console.log(yn);
-							
+		}
+		
+		
+		function yn(){
+			$("input[name=one]").each(function(){
+				if($(this).prop("checked")== true){
+					var userno = $(this).parents("tr").find("th").text();
+					var st = $(this).parents("tr").find("#st").text();
+					
+						$.ajax({
+							url : "delete.me",
+							type : "post",
+							data : {
+								userNo : userno,
+								status : st
+							},
+							success : function(yn){
 	
-						},
-						error : function(){
-							
-						}
+								if(yn=='o'){
+									alert("변경완료");
+								}else{
+									alert("변경실패")
+								}
+								updatelist();
+							},
+							error : function(){
+								
+							}
+							});
 				}else{
 					return false;
 				}
-				});	
 			});
-		});
-		
-		function chkAll(){
-
-			var all = $("input[type:checkbox][name:all]");
-			
-			var one = $("input[type:checkbox][name:one]");
-
-			if(all.checked){
-				for(var i=0;i<one.length;i++){
-					one[i].checked = true;
-				}
-			}else{
-				for(var i=0;i<one.length;i++){
-					one[i].checked = false;
-				}		
-			}
-
 		}
 	</script>
 
