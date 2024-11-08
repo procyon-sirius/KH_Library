@@ -187,12 +187,14 @@
 		
 		
 		function yn(){
-			console.log($("input[name=one]"));
-			console.log($("tbody>tr").children().has("#one").children())
-			$("tbody>tr").children().has("#one").children().each(function(){
-				if($(this).prop("checked")== true){
+			//console.log($("input[name=one]"));
+			//console.log($("tbody>tr").children().has("#one").children())
+					$("input[name=one]:checked").each(function(){
+						
+					
 					var userno = $(this).parents("tr").find("th").text();
 					var st = $(this).parents("tr").find("#st").text();
+					console.log($(this));
 					
 						$.ajax({
 							url : "delete.me",
@@ -214,9 +216,6 @@
 								
 							}
 							});
-				}else{
-					return false;
-				}
 			});
 		}
 		
