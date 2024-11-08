@@ -68,7 +68,7 @@
                         	<%@include file="/views/member/admin/managementMember.jsp" %>
                         </c:when>
                         <c:when test="${mode == 'board'}">
-                        	<%@include file="/views/member/admin/managementBoard.jsp" %>
+                        	<%@include file="/views/member/admin/managementMember.jsp" %>
                         </c:when>
                         <c:otherwise>
                         </c:otherwise>
