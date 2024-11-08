@@ -1,6 +1,9 @@
 package com.kh.member.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+
+import org.apache.tomcat.dbcp.dbcp2.Jdbc41Bridge;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.dao.MemberDao;
@@ -46,6 +49,50 @@ public class MemberService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = new MemberDao().updateMember(conn,m);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<Member> memberList() {
+		
+		Connection conn= JDBCTemplate.getConnection();
+		
+		ArrayList<Member> list = new MemberDao().memberList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+	public int deleteMember(int userNo) {
+
+		Connection conn = null;
+		
+		int result = new MemberDao().deleteMember(conn,userNo);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	public int rollbackMember(int userNo) {
+		Connection conn = null;
+		
+		int result = new MemberDao().rollbackMember(conn,userNo);
 		
 		if(result>0) {
 			JDBCTemplate.commit(conn);

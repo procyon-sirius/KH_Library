@@ -35,5 +35,22 @@
 	WHERE USER_ID= ?
 	
 	</entry>
+	
+	<entry key="memberList">
+		SELECT *
+		FROM MEMBER
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE MEMBER
+		SET STATUS = 'N'
+		WHERE USER_NO = ?
+	</entry>
+	
+	<entry key="rollbackMember">
+		UPDATE MEMBER
+		SET STATUS = 'Y'
+		WHERE USER_NO = ?
+	</entry>
 
 </properties>
