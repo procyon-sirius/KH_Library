@@ -22,7 +22,7 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 
 	<style type="text/css">
 	      
-	      .category {
+	     .category {
 			margin-left: -950px;
 			font-size: 16px;
 			
@@ -38,10 +38,41 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 			border: none; /* 기본 테두리 제거 */
 			background-color: #333333c4;
 		}
-						
-			      
-	      
-	
+		
+		
+		.list {
+			color: #333;
+			border: 1px solid #3333335d;
+			border-radius: 5px;
+			padding: 5px 20px;
+			font-size: 16px;
+			cursor: pointer;
+			position: relative;
+			left: 500px;
+		}
+		
+		
+		.noticeList tr{
+			height: 100px;
+		    border-top: 1px solid #ddd;  
+		  	border-bottom: 1px solid #ddd; 
+		 	border-left: none; 
+		  	border-right: none;
+			
+		}
+		
+		.noticeList td:nth-child(1),td:nth-child(3),td:last-child{
+			padding-left: 10px
+		}
+		
+		
+		.pageBtn button{
+			border: none;
+		    width: 50px;   
+    		height: 50px;
+    		background-color: gainsboroy;   
+		}
+		
 	</style>
 </head>
 <body>
@@ -53,10 +84,9 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 	    <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
 	    <div id="content-area">
-
 			<p>
+			
 			        <div align="center" >
-			        
 			  	        	<h2>공지사항</h2>
 			  	        	<br><br><br>
 			        
@@ -70,15 +100,24 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 								</tr>
 							</table>
 					        	
+   		 <%if(loginUser!=null && loginUser.getUserId().equals("admin")) { %>
+		
+			<div align="center">
+				<br>
+				<a href="<%=contextPath %>/insert.no" class="list">글작성</a>
+			</div>
+			
+		<%} %>
+		    	
 			        		
 			        		<hr class="boarder">
 			        
 			        
-			            <table border="1px" class="noticeList">
+			            <table border="1px" class="noticeList" style="border: none;">
 			                <thead>
 			                    <tr>
 			                        <th width="150">번호</th>
-			                        <th width="400">제목</th>            
+			                        <th width="600">제목</th>            
 			                        <th width="150">작성자</th>
 			                        <th width="150">작성일</th>
 			                        <th width="150">첨부</th>
@@ -96,10 +135,10 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 			                %>
 			                    <tr>
 			                        <td width="150"><%=n.getNoticeNo() %></td>
-			                        <td width="500"><%=n.getNoticeTitle() %></td>
+			                        <td width="600"><%=n.getNoticeTitle() %></td>
 			                        <td width="150"><%=n.getUserNo() %></td>
 			                        <td width="150"><%=n.getDate() %></td>
-			                         <td width="150">첨부파일</td>
+			                        <td width="150">첨부파일</td>
 			                        <td width="150"><%=n.getNumber() %></td>
 			                    </tr>
 			      				  <%} %>
@@ -108,7 +147,6 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 			                </tbody>
 			            </table>
 				</div>
-				
 				
 				<script>
 					$(function(){
@@ -125,6 +163,35 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 					});
 					
 				</script>
+				
+				<br><br><br>
+		    <div align="center" class="pageBtn">
+                
+                <c:if test="${pi.currentPage != 1 }">
+                    <button onclick="location.href='notice?currentPage=${pi.currentPage-1}'">이전</button>
+                </c:if>
+                
+                <c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">
+                    <c:choose>
+                        <c:when test="${i !=pi.currentPage }">
+                            <button onclick="location.href='notice?currentPage=${i}'">${i }</button>
+                        </c:when>
+                        <c:otherwise>
+                            <button disabled>${i }</button>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                
+                <c:if test="${pi.currentPage != pi.maxPage }">
+                    <button onclick="location.href='notice?currentPage=${pi.currentPage+1}'">다음</button>
+                </c:if>
+            </div>
+				
+				
+				
+				
+			</div>
+			
 			</p>
 	    </div>
    </div>

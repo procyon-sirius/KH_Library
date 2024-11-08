@@ -56,22 +56,26 @@
 	margin: 0 10px;
 }
 
+.title {
+    width: 100%;            
+    height: 40px;           
+    background-color: rgba(128, 128, 128, 0.233);          
+    border: 1px solid #black; 
+    padding: 8px;           
+    font-size: 16px;       
+}
+
+
 
 .content{
 	background-color: rgba(128, 128, 128, 0.233);
-	border-radius: 10px;
-	
-	
-}
-
-/* .noticeDetail {
-	margin-left: 400px;
-} */
-
-pre {
 	font-family: sans-serif;
 	font-size: 18px;
 	color: #333;
+	width: 100%;
+	height: 800px;
+	resize: none;
+	
 }
 
 .list {
@@ -120,8 +124,7 @@ pre {
 			
 			
 			<div align="center">
-
-				<h2>공지사항</h2>
+				<h2>공지사항 수정</h2>
 				<br><br><br>
 				<table class="category">
 					<tr>
@@ -137,10 +140,13 @@ pre {
 			<br>
 			<br>
 			<br>
-	
+		
+		<form action="<%=contextPath%>/update.no" method="post">
+			
+			<input type="hidden" name="nno" value="<%=n.getNoticeNo()%>">
+		
 			<div class="noticeDetail">
-	
-				<h4 align="center"><%=n.getNoticeTitle()%></h4>
+				<input type="text" name="title" class="title" value="<%=n.getNoticeTitle()%>"></input>
 				<br>
 				<hr class="boarder">
 				<br> <br>
@@ -155,21 +161,10 @@ pre {
 					</tr>
 				</table>
 				
-				
-			<%if(loginUser!=null && loginUser.getUserId().equals("admin")) {%> 
-					<table class="insert">
-						<tr>
-							<td><button type="button" class="m"
-							onclick="location.href='${contextPath}/update.no?nno=<%=n.getNoticeNo()%>'">수정하기</button></td>
-							<td class="separator">|</td>
-							<td><button type="button" class="m" id="deleteBtn">삭제하기</button> </td>
-						</tr>
-					</table>
-			 <%} %> 
 	
 				<br> <br>
 	
-				<pre class="content">
+				<textarea class="content" name="content">
 					
 					<%=n.getNoticeContent()%>
 					
@@ -185,120 +180,19 @@ pre {
 	
 					※ 작업상황에 따라 서비스 중단시간은 변동될 수 있사오니 양해 부탁드립니다.
 									
-				</pre>
+				</textarea>
 	
 				<hr>
 	
-	
-				<br> <br> <br> <a href="/library/notice" class="list">목록으로</a>
-				<br> <br>
+				<br> <br> <br> <button type="submit" class="list">수정하기</button>
+				<a href="/library/notice" class="list">목록으로</a>
 				<hr>
-	
-	
-				<table class="bnnlist">
-	
-						<%
-						if (preNnext.size() == 1) {
-						%>
-		
-							<%
-							if (preNnext.get(0).getPostPostion().equals("previous")) {
-							%>
-			
-								<tr>
-									<td>▼</td>
-									<td>다음글</td>
-									<td><a
-										href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
-								</tr>
-			
-							<%
-							} else {
-							%>
-			
-								<tr>
-									<td>▲</td>
-									<td>이전글</td>
-									<td><a
-										href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
-								</tr>
-			
-							<%
-							}
-							%>
-		
-		
-						<%
-						} else {
-						%>
-		
-							<tr>
-								<td>▲</td>
-								<td>이전글</td>
-								<td><a
-									href="/library/detail.no?nno=<%=preNnext.get(1).getNoticeNo()%>"><%=preNnext.get(1).getNoticeTitle()%></a></td>
-			
-							</tr>
-							<tr>
-								<td>▼</td>
-								<td>다음글</td>
-								<td><a
-									href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
-							</tr>
-		
-						<%
-						}
-						%>
-				</table>
-				<br> <br>
+		</form>	
 				
-				
-				<script>
-				
-					$(function(){
-						
-						$("#deleteBtn").click(function(){
-							
-							if(confirm("정말 삭제하시겠습니까?")){
-								
-								/* var form = $("<form>");
-								form.attr("method", "POST").attr("action","${contextPath}/delete.no"); */
-								
-								
-								var form = $("<form>", {
-									method : "POST",
-									action : "${contextPath}/delete.no"
-								});
-
-								
-								var inputEl = $("<input>", {
-									type : "hidden",
-									name : "noticeNo",
-									value : <%= n.getNoticeNo() %>
-									
-								
-								});
-								
-								
-								form.append(inputEl);
-
-								$("body").append(form);
-								form.submit();	
-								
-								
-							};
-						});
-					});
-				
-				
-				
-				</script>
-				
-
-			
 	</p>
   </div>
  </div>
-	<%@include file="/views/common/footer.jsp" %>
+	
+	 <%@include file="/views/common/footer.jsp" %>
 </body>
 </html>

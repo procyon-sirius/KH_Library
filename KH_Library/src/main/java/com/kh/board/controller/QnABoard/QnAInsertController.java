@@ -1,4 +1,4 @@
-package com.kh.board.controller.notice;
+package com.kh.board.controller.QnABoard;
 
 import java.io.IOException;
 
@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.board.model.service.NoticeService;
+import com.kh.board.model.service.QnAService;
 
 /**
- * Servlet implementation class NoticeInsertController
+ * Servlet implementation class QnAInsertController
  */
-@WebServlet("/insert.no")
-public class NoticeInsertController extends HttpServlet {
+@WebServlet("/insert.qna")
+public class QnAInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeInsertController() {
+    public QnAInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,8 +30,8 @@ public class NoticeInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		request.getRequestDispatcher("/views/board/notice/noticeEnrollForm.jsp").forward(request, response);
-
+		request.getRequestDispatcher("/views/board/QnABoard/qnaEnrollForm.jsp").forward(request, response);
+		
 	}
 
 	/**
@@ -41,20 +41,26 @@ public class NoticeInsertController extends HttpServlet {
 	
 		request.setCharacterEncoding("UTF-8");
 		
+		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
-		int result = new NoticeService().insertNotice(title,content);
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		int result = new QnAService().insertQnA(title,content,userId);
 		
 		if(result>0) {
-			request.getSession().setAttribute("alertMsg", "공지글 작성 성공!");
+			request.getSession().setAttribute("alertMsg", "문의글 작성 성공!");
 			response.sendRedirect(request.getContextPath());
 			
 		}else {
-			request.setAttribute("errorMsg", "공지글 작성 실패");
+			request.setAttribute("errorMsg", "문의글 작성 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	
 	}
+	
+	
+	
+	
+	
 
 }

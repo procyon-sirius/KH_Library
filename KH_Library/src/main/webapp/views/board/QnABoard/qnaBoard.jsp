@@ -8,12 +8,8 @@
 <% // 조회된 목록 선언(Q)
 ArrayList<Board> blist = (ArrayList<Board>)request.getAttribute("bList"); %>  
 <% // 조회된 목록 선언(A)
-ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>  
+ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
     
-      
-<!DOCTYPE html>
-<html>
-<head>
 <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -21,17 +17,43 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>      
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
 	<style type="text/css">
 	      
-	      .category {
+        .category {
 			margin-left: -950px;
 			font-size: 16px;
 			
 		}
+		
+		.list {
+			color: #333;
+			border: 1px solid #3333335d;
+			border-radius: 5px;
+			padding: 5px 20px;
+			font-size: 16px;
+			cursor: pointer;
+			position: relative;
+			left: 520px;
+		}
+		
+		.replyWriter{
+		
+			color: #333;
+			border: 1px solid #3333335d;
+			border-radius: 5px;
+			width: 80px;
+			height : 40px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		
 		
 		
 		.separator {
@@ -45,8 +67,48 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 		}
 		
 		
-		.regular tr{
-			height: 100px
+		.QnAList tr{
+			height: 100px;
+		    border-top: 1px solid #ddd;  
+		  	border-bottom: 1px solid #ddd; 
+		 	border-left: none; 
+		  	border-right: none;
+		}
+		
+		
+		.QnAList td:nth-child(1),td:nth-child(5){
+			padding-left: 15px;
+		}
+		
+		.ox{
+			padding-left: 25px;
+		}
+		
+		.qListb{
+			padding-left: 20px;
+			text-align: left;
+		}
+		
+	
+		#aList{
+			height: 200px;
+		    border-top: 1px solid #ddd;  
+		  	border-bottom: 1px solid #ddd; 
+		 	border-left: none; 
+		  	border-right: none;	
+		}
+		
+		#aList td:nth-child(3){
+		  padding-right: 100px;
+		  padding-top: 50px;    /* 텍스트 상단에 10px 여백 */
+		  padding-bottom: 50px; /* 텍스트 하단에 10px 여백 */
+		
+		}
+		
+		
+		.aListDml{
+			padding-left: 50px;
+		
 		}
 		
 		
@@ -66,8 +128,16 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 		.aList{
 			display: none;
 		}
+		
+		
+		
+		.pageBtn button{
+		border: none;
+	    width: 50px;   
+   		height: 50px;
+   		background-color: gainsboroy;   
+		}
 	      
-	
 	</style>
 </head>
 <body>
@@ -95,39 +165,29 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 									<td>문의게시판</td>
 								</tr>
 							</table>
+							
+				   		 <%if(loginUser!=null) { %>
+	
+							<div align="center">
+								<br>
+								<a href="<%=contextPath %>/insert.qna" class="list">글작성</a>
+							</div>
+							
+						<%} %>	
+													
 					 </div>        	
 			        		
 			        		<hr class="boarder">
-			        
-			        (글번호, 글카테고리,글제목, 처리상태, 작성자(아이디 뒤에 마스킹),작성일, 조회수) 
-			          <table class="regular">
-		                    <tr>
-		                    	<th colspan="7">Q . 자주하는 질문</th>
-		                    </tr>
-		                    
-		                    <tr>
-		                    	<td colspan="5">[자료대출] 연장신청은 어떻게 하나요?</td>
-		                    	<td colspan="2" ><button class="q">▼</button> </td>
-		                    </tr>
-		                    
-		                    <tr>
-					           <td class="answer" colspan="7"> 
-					           	공공도서관 자료에 한해 반납일 하루전까지 연장신청 가능합니다. <br>
-								로그인 > 책 서비스 > 내정보 > 신청내역확인 > 신청진행도서에 연장신청 버튼을 누르시거나 도서관에 요청하시기 바랍니다. 
-					           </td>         
-		                    </tr>
-	                   	</table>
-	                   	
 	                     <table border="1px" class="qnalist">
 			                <thead>
 			                    <tr>
 			                        <th width="150">번호</th>
 			                        <th width="150">QnA</th>
-			                        <th width="400">제목</th>            
+			                        <th width="1200">제목</th>            
 			                        <th width="150">작성자</th>
-			                        <th width="150">작성일</th>
-			                        <th width="150">첨부</th>
-			                        <th width="150">조회수</th>
+			                        <th width="200">작성일</th>
+			                         <th colspan="2"></th>
+			                        <th width="150">처리상태</th>
 			                    </tr>
 			                </thead>
 			                <tbody>
@@ -144,50 +204,89 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 			                			
 			                				if(b.getBoardNo()==r.getBoardNo()){
 			                					 Reply = true; 
-			                			
+			                				
+			                					 // 아이디 선언
+			                					 String boardId = b.getUserNo();
+			                					 String maskedBid = boardId.substring(0, boardId.length() - 3).replaceAll(".", "*") + boardId.substring(boardId.length() - 3);
+			                					 
+			                					 String replyId = r.getUserNo();
+			                					 String maskedRid = boardId.substring(0, replyId.length() - 3).replaceAll(".", "*") + replyId.substring(replyId.length() - 3);
+			                					 
 			                %>
 							                    <tr class="qList">
 							                        <td width="150"><%=b.getBoardNo() %></td>
 							                        <td width="150"><b>Q</b></td>
-							                        <td width="500"><%=b.getBoardTitle() %></td>
-							                        <td width="150"><%=b.getUserNo() %></td>
-							                        <td width="150"><%=b.getDate() %></td>
-							                        <td width="150">첨부파일</td>
-							                        <td width="150"><%=b.getCount() %></td>
+							                        <td width="1200"><%=b.getBoardTitle() %></td>
+							                        <td width="150"><%=maskedBid %></td>
+							                        <td width="200"><%=b.getDate() %></td>
 							                        <td colspan="2" ><button class="qListb" data-boardno="<%=b.getBoardNo() %>">▼</button> </td>
+							                    	<td width="150" class="ox">O</td>
+							                    	
 							                    </tr>
-							                    <tr class="aList" data-boardno="<%=b.getBoardNo() %>">
+							                    <tr class="aList" id="aList" data-boardno="<%=r.getBoardNo() %>">
 							                        <td width="150"><%=r.getBoardNo() %></td>
 							                        <td width="150"><b>A</b></td>
-							                        <td width="500"><%=r.getReplyContent() %></td>
-							                        <td width="150"><%=r.getUserNo() %></td>
-							                        <td width="150"><%=r.getDate() %></td>
+							                        <td width="1200"><%=r.getReplyContent() %></td>
+							                        <td width="150"><%=maskedRid %></td>
+							                        <td width="200"><%=r.getDate() %></td>
+							                        
+							                        <td class="aListDml">
+					                        		    <%if(loginUser!=null && loginUser.getUserId().equals("admin")) { %>
+															<form action="<%=contextPath %>/update.rp">
+																<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+																<button type="submit" class="replyWriter">답변수정</button>
+													 		</form>
+												 			<form action="<%=contextPath %>/delete.rp" method="post">
+																<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+																<button type="submit" class="replyWriter">답변삭제</button>
+													 		</form>
+													 		
+													  	<%} %>
+							                        </td>
+							                        
+							                        
+							                        
+							                        
 							                    </tr>
 			                    		<%} %>
 			                    		
-			                    	 <%} if(Reply==false){%>
+			                    	 <%} if(Reply==false){
+			                    	 		
+			                    		 String boardId = b.getUserNo();
+	                					 String maskedBid = boardId.substring(0, boardId.length() - 3).replaceAll(".", "*") + boardId.substring(boardId.length() - 3);
+			                    	 	
+			                    	 %>
 			                    		
 		                   				<tr>
 					                        <td width="150"><%=b.getBoardNo() %></td>
-					                        <td width="150"><b>A</b></td>
+					                        <td width="150"><b>Q</b></td>
 					                        <td width="500"><%=b.getBoardTitle() %></td>
-					                        <td width="150"><%=b.getUserNo() %></td>
-					                         <td width="150"><%=b.getDate() %></td>
-					                        <td width="150">첨부파일</td>
-					                        <td width="150"><%=b.getCount() %></td>
+					                        <td width="150"><%=maskedBid  %></td>
+					                        <td width="150"><%=b.getDate() %></td>
+					                        <td colspan="2"></td>
+					                        <td width="150" class="ox">X</td>
+					                        
+					                        
+					                        <td>
+					                        	  <%if(loginUser!=null && loginUser.getUserId().equals("admin")) { %>
+														<form action="<%=contextPath %>/insert.rp">
+															<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+															<button type="submit" class="replyWriter">답변작성</button>
+												 		</form>
+												  <%} %>
+					                        </td>
 					                    </tr>
-	                    		
+		                    		
 	                    			  <%} %>
 			      				  <%} %>
 			      			<%} %>
+			      			
+			      			
 			                </tbody>
 			            </table>
 				
 				
-				
 				<script>
-				
-				
 					$(function(){
 						
 							$(".q").click(function(){
@@ -202,12 +301,40 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 							$(".qListb").click(function(){
 								 var boardNo = $(this).data("boardno");
 								$(".aList[data-boardno='" + boardNo + "']").toggle();
-							
+								
 						});
 						
 					});
-					
 				</script>
+				
+				
+			<br><br><br>
+		    <div align="center" class="pageBtn">
+                
+                <c:if test="${pi.currentPage != 1 }">
+                    <button onclick="location.href='qnaBoard?currentPage=${pi.currentPage-1}'">이전</button>
+                </c:if>
+                
+                <c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">
+                    <c:choose>
+                        <c:when test="${i !=pi.currentPage }">
+                            <button onclick="location.href='qnaBoard?currentPage=${i}'">${i }</button>
+                        </c:when>
+                        <c:otherwise>
+                            <button disabled>${i }</button>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                
+                <c:if test="${pi.currentPage != pi.maxPage }">
+                    <button onclick="location.href='qnaBoard?currentPage=${pi.currentPage+1}'">다음</button>
+                </c:if>
+            </div>
+				
+				
+				
+				
+				
 			</p>
 	    </div>
    </div>

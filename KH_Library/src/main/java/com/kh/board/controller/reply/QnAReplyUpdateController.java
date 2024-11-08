@@ -1,7 +1,6 @@
-package com.kh.board.controller.notice;
+package com.kh.board.controller.reply;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,18 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.NoticeService;
+import com.kh.board.model.service.ReplyService;
 
 /**
- * Servlet implementation class NoticeInsertController
+ * Servlet implementation class QnAReplyUpdateController
  */
-@WebServlet("/insert.no")
-public class NoticeInsertController extends HttpServlet {
+@WebServlet("/update.rp")
+public class QnAReplyUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeInsertController() {
+    public QnAReplyUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,8 +30,11 @@ public class NoticeInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		request.getRequestDispatcher("/views/board/notice/noticeEnrollForm.jsp").forward(request, response);
-
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		request.setAttribute("boardNo", boardNo);
+		request.getRequestDispatcher("/views/board/QnABoard/qnaReplyUpdateForm.jsp").forward(request, response);
+	
+	
 	}
 
 	/**
@@ -41,19 +44,23 @@ public class NoticeInsertController extends HttpServlet {
 	
 		request.setCharacterEncoding("UTF-8");
 		
-		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
-		int result = new NoticeService().insertNotice(title,content);
 		
+		int result = new ReplyService().updateReply(content,boardNo);
+		
+		String alertMsg = "";
 		if(result>0) {
-			request.getSession().setAttribute("alertMsg", "공지글 작성 성공!");
-			response.sendRedirect(request.getContextPath());
-			
+			alertMsg = "문의 글 답변을 수정하였습니다.";
 		}else {
-			request.setAttribute("errorMsg", "공지글 작성 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			alertMsg = "문의 글 답변을 수정하지못했습니다.";
 		}
+		
+		request.getSession().setAttribute("alertMsg", alertMsg);
+		response.sendRedirect(request.getContextPath()+"/qnaBoard?nno="+boardNo);
+		
+	
 	
 	}
 
