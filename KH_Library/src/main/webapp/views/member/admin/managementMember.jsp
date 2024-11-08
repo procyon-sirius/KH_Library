@@ -145,6 +145,7 @@
 				}
 			});
 		});
+		
 	</script>
 	<script>
 		$(function(){
@@ -186,7 +187,9 @@
 		
 		
 		function yn(){
-			$("input[name=one]").each(function(){
+			console.log($("input[name=one]"));
+			console.log($("tbody>tr").children().has("#one").children())
+			$("tbody>tr").children().has("#one").children().each(function(){
 				if($(this).prop("checked")== true){
 					var userno = $(this).parents("tr").find("th").text();
 					var st = $(this).parents("tr").find("#st").text();
@@ -216,6 +219,39 @@
 				}
 			});
 		}
+		
+		$("#delete").click(function(){
+			$("input[name=one]").each(function(){
+				if($(this).prop("checked")== true){
+					var userno = $(this).parents("tr").find("th").text();
+					var st = $(this).parents("tr").find("#st").text();
+					
+						if(st == 'N'){
+							$.ajax({
+								url : "delete.me",
+								type : "get",
+								data : {
+									userNo : userno,
+								},
+								success : function(del){
+		
+									if(del>0){
+										alert("삭제 성공")
+									}else{
+										alert("변경실패")
+									}
+									updatelist();
+								},
+								error : function(){
+								}
+							});
+					}else{
+						return alert("'Y'인 회원이 있습니다");			
+					}
+					return false;
+				}
+			});
+		});
 	</script>
 
 </body>

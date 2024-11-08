@@ -74,5 +74,10 @@
 		FROM MEMBER
 		WHERE USER_NAME LIKE '%'||?||'%'
 	</entry>
+	
+	<entry key="realDelete">
+		DELETE FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
 
 </properties>

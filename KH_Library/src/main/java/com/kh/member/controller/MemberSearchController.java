@@ -40,7 +40,6 @@ public class MemberSearchController extends HttpServlet {
 		
 		if(category.equals("userId")) {
 			list = new MemberService().findUserId(search);
-			System.out.println(list);
 		}else {
 			list = new MemberService().findUserName(search);
 		}

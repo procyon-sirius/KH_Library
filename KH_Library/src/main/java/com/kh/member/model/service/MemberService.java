@@ -141,6 +141,22 @@ public class MemberService {
 		
 		return list;
 	}
+
+	public int realDelete(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().realDelete(conn,userNo);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 	
 	
 

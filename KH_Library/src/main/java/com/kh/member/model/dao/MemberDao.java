@@ -330,6 +330,28 @@ public class MemberDao {
 		
 		return list;
 	}
+
+	public int realDelete(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("realDelete");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 	
 
 }
