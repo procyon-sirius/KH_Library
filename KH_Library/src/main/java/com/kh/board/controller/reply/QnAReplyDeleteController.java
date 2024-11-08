@@ -1,4 +1,4 @@
-package com.kh.board.controller.QnABoard;
+package com.kh.board.controller.reply;
 
 import java.io.IOException;
 
@@ -7,19 +7,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.kh.board.model.service.QnAService;
+import javax.servlet.http.HttpSession;
+
+import com.kh.board.model.service.ReplyService;
 
 /**
- * Servlet implementation class QnADetailController
+ * Servlet implementation class QnAReplyDeleteController
  */
-@WebServlet("/QnADetailController.bo")
-public class QnADetailController extends HttpServlet {
+@WebServlet("/delete.rp")
+public class QnAReplyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnADetailController() {
+    public QnAReplyDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,15 +30,6 @@ public class QnADetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		
-		QnAService service = new QnAService();
-		
-		
-		// 조회수 조회
-		int result = service.increaseCount(bno);
-		
 	
 	
 	}
@@ -45,8 +38,24 @@ public class QnADetailController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+	
+	
+		request.setCharacterEncoding("UTF-8");
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		System.out.println(boardNo);
+		
+		int result = new ReplyService().deleteReply(boardNo);
+		HttpSession session = request.getSession();
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "답변이 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath()+"/qnaBoard?currentPage=1");
+		}else {
+			session.setAttribute("alertMsg", "답변 삭제에 실패하였습니다.");
+			response.sendRedirect(request.getContextPath()+"/");
+		}
 
 }
+	
+}
+
