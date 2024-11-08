@@ -44,10 +44,17 @@
 						<th>신청인</th>
 						<td colspan="2">
 							<!-- ${h.userId } -->
-							<script>
-							    var userId = "${h.userId}";
-							    document.write(userId.substring(0, 3) + "*".repeat(userId.length - 3));
-						    </script>
+							<c:choose>
+								<c:when test="${loginUser.userId eq 'admin' }">
+									${h.userId }
+								</c:when>
+								<c:otherwise>
+									<script>
+								        var userId = "${h.userId}";
+								        document.write(userId.substring(0, 3) + "*".repeat(userId.length - 3));
+							        </script>
+						        </c:otherwise>
+							 </c:choose>
 						</td>
 						
 						<td>
@@ -127,7 +134,12 @@
 					}).append($("<input>",{type : "hidden",
 										   name : "hopeNum",
 										   value : "${h.hopeNum}"
-					})).appendTo("body").submit();
+										}),
+							  $("<input>", {type: "hidden",
+								            name: "currentPage",
+								            value: "${currentPage}"
+								        })
+					).appendTo("body").submit();
 				}
 			}
 			

@@ -80,7 +80,9 @@
 										</td>
 										<td>${h.hopeTitle }</td>
 										<td>${h.hopeDate }</td>
-										<td><p style="color: green">공개</p></td>
+										<td style="text-align: center;">
+											<img src="<c:url value='/resources/hopeImg/hopelistUnlock.png' />" alt="공개 이미지" style="width: 15px; height: 15px;">
+										</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
@@ -102,7 +104,10 @@
 										</td>
 										<td>${h.hopeTitle }</td>
 										<td>${h.hopeDate }</td>
-										<td><p style="color: red">비공개</p></td>
+										<!-- <td><p style="color: red">비공개</p></td> -->
+										<td style="text-align: center;">
+											<img src="<c:url value='/resources/hopeImg/hopelistLock.png' />" alt="비공개 이미지" style="width: 15px; height: 15px;">
+										</td>
 									</tr>
 								</c:otherwise>
 								</c:choose>
