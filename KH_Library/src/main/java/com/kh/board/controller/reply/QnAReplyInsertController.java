@@ -1,13 +1,14 @@
 package com.kh.board.controller.reply;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.board.model.service.QnAService;
+import com.kh.board.model.service.ReplyService;
 
 /**
  * Servlet implementation class QnAReplyInsertController
@@ -42,21 +43,20 @@ public class QnAReplyInsertController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		
-		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		int userId = Integer.parseInt(request.getParameter("userId"));
 		
-		// int result = new QnAService().insertQnA(title,content,userId);
+		int result = new ReplyService().insertReply(content,boardNo);
 		
-		/*
-		 * if(result>0) { request.getSession().setAttribute("alertMsg", "공지글 작성 성공!");
-		 * response.sendRedirect(request.getContextPath());
-		 * 
-		 * }else { request.setAttribute("errorMsg", "공지글 작성 실패");
-		 * request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,
-		 * response); }
-		 */
+		if(result>0) {
+			request.getSession().setAttribute("alertMsg", "문의글 답변 작성이 완료되었습니다");
+			response.sendRedirect(request.getContextPath());
+			
+		}else {
+			request.setAttribute("errorMsg", "문의글 답변 작성에 실패하였습니다");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
 	
 	
 	

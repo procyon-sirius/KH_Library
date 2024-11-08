@@ -100,13 +100,13 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 								</tr>
 							</table>
 							<br> <br>
-							<h5>QnA 답변작성하기</h5>
+							<h5>QnA 답변수정하기</h5>
 													
 					 </div>        	
 			        		
 	        		<hr class="boarder">
 	      
-    	<form action="<%=contextPath%>/insert.rp" method="post">
+    	<form action="<%=contextPath%>/update.rp" method="post">
 			
 			<div class="qnaDetail">
 				<input type="hidden" name="boardNo" value="${boardNo }"/>
@@ -118,7 +118,7 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 	
 				<hr>
 	
-				<br> <br> <br> <button type="submit" class="list">등록하기</button>
+				<br> <br> <br> <button type="submit" class="list">수정하기</button>
 				<a href="/library/qnaBoard" class="list">목록으로</a>
 				<hr>
 		</form>	

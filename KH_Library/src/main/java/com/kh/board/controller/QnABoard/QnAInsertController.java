@@ -48,11 +48,11 @@ public class QnAInsertController extends HttpServlet {
 		int result = new QnAService().insertQnA(title,content,userId);
 		
 		if(result>0) {
-			request.getSession().setAttribute("alertMsg", "공지글 작성 성공!");
+			request.getSession().setAttribute("alertMsg", "문의글 작성 성공!");
 			response.sendRedirect(request.getContextPath());
 			
 		}else {
-			request.setAttribute("errorMsg", "공지글 작성 실패");
+			request.setAttribute("errorMsg", "문의글 작성 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	

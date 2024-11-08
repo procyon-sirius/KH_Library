@@ -1,7 +1,6 @@
-package com.kh.board.controller.notice;
+package com.kh.board.controller.reply;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,19 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.NoticeService;
-import com.kh.board.model.vo.Notice;
+import com.kh.board.model.service.ReplyService;
 
 /**
- * Servlet implementation class NoticeUpdateController
+ * Servlet implementation class QnAReplyUpdateController
  */
-@WebServlet("/update.no")
-public class NoticeUpdateController extends HttpServlet {
+@WebServlet("/update.rp")
+public class QnAReplyUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeUpdateController() {
+    public QnAReplyUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +30,10 @@ public class NoticeUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		int nno = Integer.parseInt(request.getParameter("nno"));
-		Notice n = new NoticeService().selectNotice(nno);
-		
-		request.setAttribute("notice", n);
-		request.getRequestDispatcher("views/board/notice/noticeUpdateForm.jsp").forward(request, response);
-		
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		request.setAttribute("boardNo", boardNo);
+		request.getRequestDispatcher("/views/board/QnABoard/qnaReplyUpdateForm.jsp").forward(request, response);
+	
 	
 	}
 
@@ -47,24 +44,23 @@ public class NoticeUpdateController extends HttpServlet {
 	
 		request.setCharacterEncoding("UTF-8");
 		
-		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		int nno = Integer.parseInt(request.getParameter("nno"));
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
-		System.out.println(content);
 		
-		int result = new NoticeService().updateNotice(title,content,nno);
+		int result = new ReplyService().updateReply(content,boardNo);
 		
 		String alertMsg = "";
 		if(result>0) {
-			alertMsg = "공지글 수정성공";
+			alertMsg = "문의 글 답변을 수정하였습니다.";
 		}else {
-			alertMsg = "공지글 수정실패";
+			alertMsg = "문의 글 답변을 수정하지못했습니다.";
 		}
 		
 		request.getSession().setAttribute("alertMsg", alertMsg);
-		response.sendRedirect(request.getContextPath()+"/detail.no?nno="+nno);
+		response.sendRedirect(request.getContextPath()+"/qnaBoard?nno="+boardNo);
 		
+	
 	
 	}
 

@@ -106,6 +106,12 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 		}
 		
 		
+		.aListDml{
+			padding-left: 50px;
+		
+		}
+		
+		
 		pre {
 		 	text-align: left; /* 텍스트 정렬 */
 			padding: 10px;
@@ -223,6 +229,24 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 							                        <td width="1200"><%=r.getReplyContent() %></td>
 							                        <td width="150"><%=maskedRid %></td>
 							                        <td width="200"><%=r.getDate() %></td>
+							                        
+							                        <td class="aListDml">
+					                        		    <%if(loginUser!=null && loginUser.getUserId().equals("admin")) { %>
+															<form action="<%=contextPath %>/update.rp">
+																<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+																<button type="submit" class="replyWriter">답변수정</button>
+													 		</form>
+												 			<form action="<%=contextPath %>/delete.rp" method="post">
+																<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+																<button type="submit" class="replyWriter">답변삭제</button>
+													 		</form>
+													 		
+													  	<%} %>
+							                        </td>
+							                        
+							                        
+							                        
+							                        
 							                    </tr>
 			                    		<%} %>
 			                    		
