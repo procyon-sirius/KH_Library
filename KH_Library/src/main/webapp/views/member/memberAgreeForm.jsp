@@ -47,7 +47,7 @@
               <textarea cols="100" rows="12" disabled>
 제1장 총 칙
 제 1조 목적
-이 약관은 마포구립도서관이 제공하는 모든 서비스의 이용조건 및 절차에 관한 사항과 기타 필요한 사항을 규정함을 목적으로 한다.
+이 약관은 KH도서관이 제공하는 모든 서비스의 이용조건 및 절차에 관한 사항과 기타 필요한 사항을 규정함을 목적으로 한다.
 
 제 2조 약관의 효력과 변경
 이 약관은 서비스 화면에 게시하거나 기타의 방법으로 이용자에게 공시되며, 이를 동의한 이용자가 서비스에 가입함으로써 효력이 발생한다.
@@ -58,9 +58,9 @@
 이용자 : 서비스에 접속하여 마포구립도서관이 제공하는 서비스를 받는 회원 및 비회원
 준회원 : 서비스에 접속하여 이 약관에 동의하고, 본인확인 절차를 거친 후, ID(아이디)와 PASSWORD(비밀번호)를 발급 받은 자
 비회원 : 회원가입을 하지 않고 마포구립도서관 홈페이지에서 제공하는 서비스를 이용하는 자
-ID(아이디) : 회원 식별과 회원의 서비스 이용을 위하여 이용자가 선정하고 마포구립도서관 홈페이지에서 승인하는 영문자와 숫자의 조합(하나의 주민등록번호에 하나의 ID만 발급, 이용 가능)
+ID(아이디) : 회원 식별과 회원의 서비스 이용을 위하여 이용자가 선정하고 KH도서관 홈페이지에서 승인하는 영문자와 숫자의 조합(하나의 주민등록번호에 하나의 ID만 발급, 이용 가능)
 PASSWORD(비밀번호) : 회원의 정보 보호를 위해 이용자 자신이 설정한 문자와 숫자의 조합
-이용해지 : 마포구립도서관 홈페이지의 이용을 종료시키는 의사표시
+이용해지 : KH 홈페이지의 이용을 종료시키는 의사표시
 이 약관에서 사용하는 용어의 정의를 제외하고는 관계법령 및 서비스별 안내에서 정하는 바에 의한다.
 
 제 4조 약관 외 준칙
@@ -97,7 +97,7 @@ PASSWORD(비밀번호) : 회원의 정보 보호를 위해 이용자 자신이 �
 
 제 3장 의무
 제 1조 도서관의 의무
-마포구립도서관 홈페이지는 서비스 제공과 관련해서 알고 있는 회원의 신상 정보를 본인의 승낙 없이 제3자에게 누설/배포하지 않습니다. 단, 전기통신기본법 등 법률의 규정에 의해 국가기관의 요구가 있는 경우, 범죄에 대한 수사상의 목적이 있거나 또는 기타 관계법령에서 정한 절차에 의한 요청이 있을 경우에는 그러하지 아니합니다.
+KH 홈페이지는 서비스 제공과 관련해서 알고 있는 회원의 신상 정보를 본인의 승낙 없이 제3자에게 누설/배포하지 않습니다. 단, 전기통신기본법 등 법률의 규정에 의해 국가기관의 요구가 있는 경우, 범죄에 대한 수사상의 목적이 있거나 또는 기타 관계법령에서 정한 절차에 의한 요청이 있을 경우에는 그러하지 아니합니다.
 
 도서관은 특별한 사정이 없는 한 회원이 신청한 서비스 제공 게시일에 서비스를 이용할 수 있도록 한다.
 도서관은 이 약관에서 정한 바에 따라 계속적, 안정적으로 서비스를 제공할 의무가 있다.
@@ -143,17 +143,18 @@ ID(아이디)와 PASSWORD(비밀번호)에 관한 모든 관리의 책임은 회
 회원이 서비스에 게재한 정보, 자료, 사실의 신뢰도, 정확성 등의 내용에 관하여는 책임을 지지 않는다.
 
 제 3조 관할법원
-서비스를 이용하여 해킹, 음란사이트 링크, 상용S/W 불법배포 등의 행위를 하여서는 아니되며, 이를 위반으로 인해 발생한 영업활동의 결과 및 손실, 관계기관에 의한 법적 조치 등에 관하여는 마포구립도서관 홈페이지는 책임을 지지 않습니다.
+서비스를 이용하여 해킹, 음란사이트 링크, 상용S/W 불법배포 등의 행위를 하여서는 아니되며, 이를 위반으로 인해 발생한 영업활동의 결과 및 손실, 관계기관에 의한 법적 조치 등에 관하여는 KH 홈페이지는 책임을 지지 않습니다.
 
 제16조(서비스 제공의 중지)
-서비스 이용과 관련하여 본 홈페이지 관리 책임 부서와 회원 사이에 분쟁이 발생한 경우, 관리 책임 부서와 회원은 발생한 분쟁을 원만하게 해결하기 위하여 필요한 모든 노력을 기울여야 한다.서비스 이용으로 발생한 분쟁에 대하여 소송이 제기될 경우 마포구립도서관 소재지를 관할하는 법원을 관할법원으로 한다.
+서비스 이용과 관련하여 본 홈페이지 관리 책임 부서와 회원 사이에 분쟁이 발생한 경우, 관리 책임 부서와 회원은 발생한 분쟁을 원만하게 해결하기 위하여 필요한 모든 노력을 기울여야 한다.서비스 이용으로 발생한 분쟁에 대하여 소송이 제기될 경우 KH도서관 소재지를 관할하는 법원을 관할법원으로 한다.
 
-(부칙)이 약관은 2012년 4월 10일부터 시행합니다.
+(부칙)이 약관은 2024년 11월 08일부터 시행합니다.
                 
                 
               </textarea><br>
-              <input type="radio" name="a" id=""><label for="">동의합니다.</label>
-              <input type="radio" name="a" id=""checked><label for="">동의하지 않습니다.</label>    
+              위와 같이 이용약관에 동의하십니까?
+              <input type="radio" name="a" id="agree"><label for="agree">예</label>
+              <input type="radio" name="a" id="disagree"checked><label for="disagree">아니오</label>    
         
               <br>
             
@@ -179,29 +180,59 @@ ID(아이디)와 PASSWORD(비밀번호)에 관한 모든 관리의 책임은 회
                             <tr>
                                 <td>최초 회원가입일시,
                                     마지막 접속일시</td>
-                                <td>개인정보 동의기간 확인</td>
+                                <td>개인정보 동의기간 확인</td>                             
                             </tr>
                         </tbody>
 
                     </table>
-                
-                <input type="radio" name="b" id=""><label for="">동의합니다.</label>
-                <input type="radio" name="b" id=""checked><label for="">동의하지 않습니다.</label>    
+                위와 같이 개인정보 수집 및 이용에 동의하십니까?
+                <input type="radio" name="b" id="agreement"><label for="agreement">예</label>
+                <input type="radio" name="b" id="disagreement"checked><label for="disagreement">아니요</label>    
           
               </fieldset>
+              	<input type="checkbox" id="all" onclick="checkAll();"><label for="all">전체 약관에 동의합니다.</label>
              
         </div>
         <br><br>
         <div align="center">
-            <button type="button" onclick="enrollForm();">다음</button>
+            <button type="button" onclick="return enrollForm();">다음</button>
         </div>
         <script>
+        	function checkAll(){
+        		
+        		var all = document.getElementById("all");
+        		var agree = document.getElementById("agree");
+        		var agreement = document.getElementById("agreement");
+        		var disagree = document.getElementById("disagree");
+        		var disagreement = document.getElementById("disagreement");
+        		
+        		if(all.checked){
+        			
+        			agree.checked= true;
+        			agreement.checked= true;       			
+        		}else{
+        			disagree.checked = true;
+        			disagreement.checked = true;       			
+        		}
+        		       		      		
+        	}
+        	
         	function enrollForm(){
         		
-        		location.href="${contextPath}/insert.me";
+        		var agree = document.getElementById("agree");
+        		var agreement = document.getElementById("agreement");
         		
+        		if(agree.checked && agreement.checked){
+        			
+        			location.href="${contextPath}/insert.me";
+        			
+        		}else{
+        			alert("필수약관에 동의하셔야 합니다.");
+        			agree.focus();
+        			return false;
+        		}
+       		    				
         	}
-        
         
         </script>  
 

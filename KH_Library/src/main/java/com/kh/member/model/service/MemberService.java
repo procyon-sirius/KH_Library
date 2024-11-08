@@ -72,6 +72,17 @@ public class MemberService {
 		
 		return list;
 	}
+	// 아이디 중복 확인
+	public boolean idCheck(String inputId) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Boolean flag = new MemberDao().idCheck(conn,inputId);
+		
+		JDBCTemplate.close(conn);
+		
+		return flag;
+	}
 	
 	
 
