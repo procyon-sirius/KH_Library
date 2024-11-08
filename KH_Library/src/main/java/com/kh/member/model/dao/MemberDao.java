@@ -353,5 +353,35 @@ public class MemberDao {
 		return result;
 	}
 	
+	//아이디 중복체크
+	public Boolean idCheck(Connection conn, String inputId) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("idCheck");
+		
+		boolean flag = false;
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, inputId);
+			
+			rset = pstmt.executeQuery();
+			
+			flag = rset.next();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+			
+		return flag;
+	}
+	
 
 }
