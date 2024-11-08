@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="insertReply">
+		INSERT INTO REPLY(BOARD_NO
+		                  ,REPLY_WRITER
+		                  ,REPLY_CONTENT  
+		                  ,CREATE_DATE)
+		VALUES (?,1,?,SYSDATE)
+	
+	</entry>
+	
+
+	<entry key="updateReply">
+		UPDATE REPLY
+		SET REPLY_CONTENT = ?
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+
+	
+	<entry key="deleteReply">
+		UPDATE REPLY
+		SET STATUS='N'
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	
+
+
+</properties>

@@ -26,6 +26,7 @@ public class Board {
 	private Date date; 
 	private int count; 
 	private String status;
+	private String position;
 	
 	
 	
@@ -62,6 +63,42 @@ public class Board {
 		this.boardContent = boardContent;
 		this.date = date;
 		this.count = count;
+	}
+
+	
+	
+
+	public Board(int boardNo, String userNo, String boardTitle, Date date, int count) {
+		super();
+		this.boardNo = boardNo;
+		this.userNo = userNo;
+		this.boardTitle = boardTitle;
+		this.date = date;
+		this.count = count;
+	}
+
+
+	
+	
+
+	public Board(int boardNo, String userNo, String boardTitle, String boardContent, Date date, int count) {
+		super();
+		this.boardNo = boardNo;
+		this.userNo = userNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.date = date;
+		this.count = count;
+	}
+
+	
+	
+
+	public Board(int boardNo, String boardTitle, String position) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.position = position;
 	}
 
 
@@ -170,6 +207,19 @@ public class Board {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	
+	
+
+	public String getPosition() {
+		return position;
+	}
+
+
+
+	public void setPosition(String position) {
+		this.position = position;
 	}
 
 

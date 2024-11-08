@@ -152,13 +152,9 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 					$(function(){
 						
 						$(".noticeList>tbody>tr").click(function(){
-							
-							console.log($(this));
-							
 							var nno = $(this).children().first().text();
+							location.href="detail.no?nno="+nno+"&currentPage=${pi.currentPage}";
 							
-							
-							location.href="/library/detail.no?nno="+nno;
 						});
 					});
 					

@@ -1,5 +1,5 @@
+<%@page import="com.kh.board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.kh.board.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -115,8 +115,8 @@ pre {
 	<%@include file="/views/common/sideMenu.jsp" %>
 	      <div id="content-area">
 	<p>
-		<% Notice n = (Notice) request.getAttribute("notice"); %>
-		<% ArrayList<Notice> preNnext = (ArrayList<Notice>) request.getAttribute("preNnext");%>
+		<% Board fb = (Board) request.getAttribute("freeBoard"); %>
+		<% ArrayList<Board> preNnext = (ArrayList<Board>) request.getAttribute("preNnext");%>
 		<% int currentPage = (int)request.getAttribute("currentPage"); %>	
 			
 			<div align="center">
@@ -129,7 +129,7 @@ pre {
 						<td class="separator">></td>
 						<td>소통공간</td>
 						<td class="separator">></td>
-						<td>공지사항</td>
+						<td>자유게시판</td>
 					</tr>
 				</table>
 			</div>
@@ -140,7 +140,7 @@ pre {
 	
 			<div class="noticeDetail">
 	
-				<h4 align="center"><%=n.getNoticeTitle()%></h4>
+				<h4 align="center"><%=fb.getBoardTitle()%></h4>
 				<br>
 				<hr class="boarder">
 				<br> <br>
@@ -148,10 +148,10 @@ pre {
 				<table class="info">
 					<tr>
 						<td>등록일:</td>
-						<td class="cell"><%=n.getDate()%></td>
+						<td class="cell"><%=fb.getDate()%></td>
 						<td class="separator">|</td>
 						<td>조회수:</td>
-						<td class="cell"><%=n.getNumber()%></td>
+						<td class="cell"><%=fb.getCount()%></td>
 					</tr>
 				</table>
 				
@@ -160,7 +160,7 @@ pre {
 					<table class="insert">
 						<tr>
 							<td><button type="button" class="m"
-							onclick="location.href='${contextPath}/update.no?nno=<%=n.getNoticeNo()%>'">수정하기</button></td>
+							onclick="location.href='${contextPath}/update.fb?nno=<%=fb.getBoardNo()%>'">수정하기</button></td>
 							<td class="separator">|</td>
 							<td><button type="button" class="m" id="deleteBtn">삭제하기</button> </td>
 						</tr>
@@ -171,26 +171,15 @@ pre {
 	
 				<pre class="content">
 					
-					<%=n.getNoticeContent()%>
-					
-					통합회원 시스템 점검작업으로 인하여 
-					공공도서관 지원서비스 책바다 서비스/ 공공도서관 기술지원센터 회원가입, 로그인, 
-				
-					아이디/비밀번호 찾기에 대한 서비스가 원활하지 않을수 있습니다.
-			
-	
-					ㅇ 점검일시: 2023년 12. 07.(목) 오후 6시 ~2023년 12. 08.(금) 오전 12시
-					ㅇ 점검서비스 : KH도서관 통합회원시스템
-	
-	
-					※ 작업상황에 따라 서비스 중단시간은 변동될 수 있사오니 양해 부탁드립니다.
+					<%=fb.getBoardContent()%>
+					 TEST TEST TEST
 									
 				</pre>
 	
 				<hr>
 	
 	
-				<br> <br> <br> <a href="/library/notice?currentPage=<%=currentPage %>" class="list">목록으로</a>
+				<br> <br> <br> <a href="/library/freeBoard?currentPage=<%=currentPage %>" class="list">목록으로</a>
 				<br> <br>
 				<hr>
 	
@@ -202,14 +191,14 @@ pre {
 						%>
 		
 							<%
-							if (preNnext.get(0).getPostPostion().equals("previous")) {
+							if (preNnext.get(0).getPosition().equals("previous")) {
 							%>
 			
 								<tr>
 									<td>▼</td>
 									<td>다음글</td>
 									<td><a
-										href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
+										href="/library/detail.fb?nno=<%=preNnext.get(0).getPosition()%>"><%=preNnext.get(0).getBoardTitle()%></a></td>
 								</tr>
 			
 							<%
@@ -220,7 +209,7 @@ pre {
 									<td>▲</td>
 									<td>이전글</td>
 									<td><a
-										href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
+										href="/library/detail.fb?nno=<%=preNnext.get(0).getPosition()%>"><%=preNnext.get(0).getBoardTitle()%></a></td>
 								</tr>
 			
 							<%
@@ -236,14 +225,14 @@ pre {
 								<td>▲</td>
 								<td>이전글</td>
 								<td><a
-									href="/library/detail.no?nno=<%=preNnext.get(1).getNoticeNo()%>"><%=preNnext.get(1).getNoticeTitle()%></a></td>
+									href="/library/detail.fb?nno=<%=preNnext.get(1).getBoardNo()%>"><%=preNnext.get(1).getBoardTitle()%></a></td>
 			
 							</tr>
 							<tr>
 								<td>▼</td>
 								<td>다음글</td>
 								<td><a
-									href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>"><%=preNnext.get(0).getNoticeTitle()%></a></td>
+									href="/library/detail.fb?nno=<%=preNnext.get(0).getBoardNo()%>"><%=preNnext.get(0).getBoardTitle()%></a></td>
 							</tr>
 		
 						<%
@@ -261,20 +250,17 @@ pre {
 							
 							if(confirm("정말 삭제하시겠습니까?")){
 								
-								/* var form = $("<form>");
-								form.attr("method", "POST").attr("action","${contextPath}/delete.no"); */
-								
 								
 								var form = $("<form>", {
 									method : "POST",
-									action : "${contextPath}/delete.no"
+									action : "${contextPath}/delete.fb"
 								});
 
 								
 								var inputEl = $("<input>", {
 									type : "hidden",
 									name : "noticeNo",
-									value : <%= n.getNoticeNo() %>
+									value : <%= fb.getBoardNo() %>
 									
 								
 								});

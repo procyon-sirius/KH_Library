@@ -63,7 +63,6 @@ public class NoticeDao {
 									rset.getInt("NOTICE_NO"),
 									rset.getInt("USER_NO"),
 									rset.getString("NOTICE_TITLE"),
-									rset.getString("NOTICE_CONTENT"),
 									rset.getInt("COUNT"),
 									rset.getDate("CREATE_DATE")
 						
@@ -108,10 +107,9 @@ public class NoticeDao {
 		return result;
 	}
 
-
+	
 	
 	// 공지사항 상세조회
-
 	public Notice selectNotice(Connection conn, int nno) {
 		
 		PreparedStatement pstmt = null;
@@ -209,7 +207,6 @@ public class NoticeDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(stmt);
 		}
-		
 		
 		
 		return listCount;

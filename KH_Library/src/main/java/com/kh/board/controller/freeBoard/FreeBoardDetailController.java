@@ -1,4 +1,4 @@
-package com.kh.board.controller.notice;
+package com.kh.board.controller.freeBoard;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.board.model.service.NoticeService;
-import com.kh.board.model.vo.Notice;
+import com.kh.board.model.service.FreeboardService;
+import com.kh.board.model.vo.Board;
 
 /**
- * Servlet implementation class NoticeListDetailController
+ * Servlet implementation class FreeBoardDetailController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/detail.fb")
+public class FreeBoardDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
-        super();
-        // TODO Auto-generated constructor stub
+    public FreeBoardDetailController() {
+    	
     }
 
 	/**
@@ -35,30 +34,25 @@ public class NoticeDetailController extends HttpServlet {
 		int nno = Integer.parseInt(request.getParameter("nno"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
-		// 조회수 증가    
-		int numUp = new NoticeService().increaseCount(nno);
+		int numUp = new FreeboardService().increaseCount(nno);
 		
 		if(numUp>0) {
 			
 			request.setAttribute("currentPage", currentPage);
 			
-			// 공지사항 상세조회
-			Notice n = new NoticeService().selectNotice(nno);
-			request.setAttribute("notice", n);
+			Board freeBoard = new FreeboardService().selectFreeBoard(nno);
+			request.setAttribute("freeBoard", freeBoard);
 			
-			// 이전글 다음글 조회
-			ArrayList<Notice> preNnext = new NoticeService().preNnext(nno);
+			ArrayList<Board> preNnext = new FreeboardService().preNnext(nno);
 			request.setAttribute("preNnext", preNnext);
-			request.getRequestDispatcher("views/board/notice/noticeDetailView.jsp").forward(request, response);
-			
-			
+			request.getRequestDispatcher("views/board/freeBoard/freeBoardDetailView.jsp").forward(request, response);;
 			
 		}else {
 			request.getSession().setAttribute("alertMsg", "공지글 조회 실패");
-			response.sendRedirect(request.getContextPath()+"/list.no");
+			response.sendRedirect(request.getContextPath()+"/freeBoard");
 		}
 		
-	
+		
 	}
 
 	/**

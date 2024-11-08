@@ -1,4 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	
+	<!-- QnA 관련 -->
+	
+	<entry key="increaseCount">
+		UPDATE BOARD 
+		SET COUNT = COUNT + 1
+		WHERE BOARD_NO = 1
+		AND STATUS = 'Y'
+	</entry>
+	
+	
+	<entry key="selectQList">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	        FROM(SELECT BOARD_NO,
+	                   BOARD_TYPE_NO,
+	                   USER_ID, 
+	                   BOARD_TITLE,
+	                   BOARD_CONTENT,
+	                   CREATE_DATE,
+	                   COUNT
+	            FROM BOARD B
+	            JOIN MEMBER USING (USER_NO)
+	            WHERE B.STATUS='Y'
+	            AND BOARD_TYPE_NO = 1
+	            ORDER BY CREATE_DATE DESC) A)
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<entry key="selectAList">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	        FROM(SELECT BOARD_NO,
+	                   USER_ID,
+	                   REPLY_CONTENT,
+	                   CREATE_DATE
+	            FROM REPLY R
+	            JOIN MEMBER M ON (R.REPLY_WRITER = M.USER_NO)
+	            WHERE R.STATUS = 'Y'
+	            ORDER BY CREATE_DATE DESC) A)
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+   	<entry key="insertQnA">
+   	
+   		INSERT INTO BOARD(BOARD_NO
+		                  ,BOARD_TYPE_NO
+		                  ,USER_NO    
+		                  ,BOARD_TITLE
+		                  ,BOARD_CONTENT
+		                  ,CREATE_DATE)
+		VALUES (SEQ_TNO.NEXTVAL,1,?,?,?,SYSDATE)
+   	
+   	</entry>
+   	
+   	
+   	
+   	<!--- freeBoard 관련ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+   	
+   	<!-- 게시글 수 조회 -->
+    <entry key="listCount">
+    	SELECT COUNT(*) COUNT 
+		FROM BOARD
+		WHERE BOARD_TYPE_NO = 3
+    </entry>
+    
+    
+    <!-- 게시글 목록 조회 -->
+    <entry key="selectFreeboardList">
+    	SELECT *
+		FROM(SELECT ROWNUM RNUM, A.*
+		        FROM(SELECT BOARD_NO
+		                   ,USER_ID
+		                   ,BOARD_TITLE
+		                   ,CREATE_DATE
+		                   ,COUNT       
+		            FROM BOARD B
+		            JOIN MEMBER USING (USER_NO)
+		            WHERE B.STATUS = 'Y'
+		            AND BOARD_TYPE_NO = 3
+		            ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+    </entry>
+    
+    <!-- 조회수 증가 -->
+   	<entry key="increaseCount">
+   		UPDATE BOARD
+		SET COUNT = COUNT + 1
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+   	</entry>
+   	
+   	
+   	<!-- 게시글 조회 -->
+   	<entry key="selectFreeBoard">
+   		SELECT BOARD_NO,
+		       USER_ID,
+		       BOARD_TITLE,
+		       BOARD_CONTENT,
+		       COUNT,
+		       CREATE_DATE
+		FROM BOARD B 
+		JOIN MEMBER USING(USER_NO)
+		WHERE BOARD_NO = ?
+		AND B.STATUS='Y'
+   	</entry>
+   	
+   	
+   	<!-- 이전글 다음글 조회  -->
+   	<entry key="preNnext">
+   	
+   		SELECT BOARD_NO, BOARD_TITLE, CREATE_DATE, 'previous' AS post_position
+		FROM (
+		        SELECT BOARD_NO, BOARD_TITLE, CREATE_DATE
+		        FROM BOARD
+		        WHERE STATUS = 'Y'
+		          AND BOARD_TYPE_NO = 3	
+		          AND CREATE_DATE &lt; (SELECT CREATE_DATE FROM BOARD WHERE BOARD_NO = ?)
+		        ORDER BY CREATE_DATE DESC
+		    )
+		    WHERE ROWNUM = 1
+		
+		UNION ALL
+		
+		-- 다음글
+		SELECT BOARD_NO, BOARD_TITLE, CREATE_DATE, 'next' AS post_position
+		FROM (
+		        SELECT BOARD_NO, BOARD_TITLE, CREATE_DATE
+		        FROM BOARD
+		        WHERE STATUS = 'Y'
+		          AND BOARD_TYPE_NO = 3	
+		          AND CREATE_DATE &gt; (SELECT CREATE_DATE FROM BOARD WHERE BOARD_NO = ?)
+		        ORDER BY CREATE_DATE ASC
+		    )
+		    WHERE ROWNUM = 1
+   	</entry>
+    
+   	
+   	
+   	
 </properties>

@@ -28,12 +28,11 @@ public class Notice {
 	}
 
 
-	public Notice(int noticeNo, int userNo, String noticeTitle, String noticeContent, int number, Date date) {
+	public Notice(int noticeNo, int userNo, String noticeTitle, int number, Date date) {
 		super();
 		this.noticeNo = noticeNo;
 		this.userNo = userNo;
 		this.noticeTitle = noticeTitle;
-		this.noticeContent = noticeContent;
 		this.number = number;
 		this.date = date;
 		
