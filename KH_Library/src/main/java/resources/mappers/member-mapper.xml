@@ -36,6 +36,7 @@
 	
 	</entry>
 	
+	<!-- 대출정보 구문 -->
 	<entry key="selectMyRent">
 	SELECT BOOK_ID
        	   ,RETURN_DATE
@@ -46,6 +47,12 @@
 	JOIN BOOK USING(BOOK_ID)
 	WHERE USER_NO= ?
 	
+	</entry>
+	<!-- 아이디 중복 구문 -->
+	<entry key="idCheck">
+	SELECT USER_ID
+	FROM MEMBER
+	WHERE USER_ID= ?
 	
 	</entry>
 
