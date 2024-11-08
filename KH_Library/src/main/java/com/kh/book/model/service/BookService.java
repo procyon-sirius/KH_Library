@@ -149,6 +149,71 @@ public class BookService {
 		
 		return blist;
 	}
+	
+	public ArrayList<Book> monthNewBook(PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().monthNewBook(conn,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Book> dayNewList(PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().dayNewBook(conn,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Book> weekNewList(PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Book> list = new BookDao().weekNewBook(conn,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+	public int dayListCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int dayListCount = new BookDao().dayListCount(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return dayListCount;
+	}
+
+	public int weekListCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int weekListCount = new BookDao().weekListCount(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return weekListCount;
+	}
+
+	public int monthListCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int monthListCount = new BookDao().monthListCount(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return monthListCount;
+	}
+	
+
 
 
 }

@@ -1,4 +1,4 @@
-package com.kh.hopeBook.controller;
+package com.kh.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,21 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.kh.hopeBook.model.service.HopeBookService;
 
 /**
- * Servlet implementation class HopeBookCheckController
+ * Servlet implementation class MyBookListController
  */
-@WebServlet("/checkHope.ho")
-public class HopeBookCheckController extends HttpServlet {
+@WebServlet("/MyBookListController")
+public class MyBookListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HopeBookCheckController() {
+    public MyBookListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,24 +34,8 @@ public class HopeBookCheckController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int hopeNum = Integer.parseInt(request.getParameter("hopeNum"));
-//		System.out.println(hopeNum);
-		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-//		System.out.println(currentPage);
-		
-		
-		int result = new HopeBookService().hopeCheck(hopeNum);
-		
-		HttpSession session = request.getSession();
-		
-		if(result>0) {
-			session.setAttribute("alertMsg", "확인 완료");
-			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage="+currentPage);
-		}else {
-			session.setAttribute("alertMsg", "확인 실패");
-			response.sendRedirect(request.getContextPath()+"/detail.ho?hopeNum="+hopeNum);
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

@@ -43,7 +43,11 @@
 					<tr>
 						<th>신청인</th>
 						<td colspan="2">
-							${h.userId }
+							<!-- ${h.userId } -->
+							<script>
+							    var userId = "${h.userId}";
+							    document.write(userId.substring(0, 3) + "*".repeat(userId.length - 3));
+						    </script>
 						</td>
 						
 						<td>
@@ -101,18 +105,18 @@
 				</table>
 				<br>
 			
-			<c:if test="${loginUser != null && (loginUser.userId eq 'admin' || loginUser.userNo eq h.hopeUser)}">
-				<button onclick="deleteHope();">신청 취소</button>
+			<c:if test="${h.hopeStatus eq 'N' && loginUser != null && (loginUser.userId eq 'admin' || loginUser.userNo eq h.hopeUser)}">
+				<button class="btn btn-outline-danger" onclick="deleteHope();">신청 취소</button>
 			</c:if>
 			
 			<c:if test="${h.hopeStatus eq 'Y' && loginUser != null && loginUser.userId eq 'admin' }">
-				<button onclick="deleteHope();">신청 삭제</button>
+				<button class="btn btn-outline-danger" onclick="deleteHope();">신청 삭제</button>
 			</c:if>
 			
 			<c:if test="${h.hopeStatus == 'N' && loginUser != null && loginUser.userId == 'admin' }">
-				<button type="button" onclick="checkHope();">신청 확인</button>
+				<button class="btn btn-outline-danger" type="button" onclick="checkHope();">신청 확인</button>
 			</c:if>
-			<button onclick="history.back();">뒤로가기</button>
+			<button class="btn btn-outline-primary" onclick="location.href='${contextPath}/select.ho?currentPage=${currentPage}'">목록으로</button>
 		</div>
 		
 		<script>
@@ -134,6 +138,10 @@
 					}).append($("<input>", {type: "hidden",
 							                name: "hopeNum",
 							                value: "${h.hopeNum}"
+							            }),
+							  $("<input>", {type: "hidden",
+							                name: "currentPage",
+							                value: "${currentPage}"
 							            })
 		            ).appendTo("body").submit();
 				}
