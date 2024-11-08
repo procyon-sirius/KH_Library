@@ -75,6 +75,19 @@ public class Book {
 
 
 
+	public Book(int bookId, String bookTitle, String bookAuthor, int publishDate, Date enrollDate, String ageRank,
+			String status) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.publishDate = publishDate;
+		this.enrollDate = enrollDate;
+		this.ageRank = ageRank;
+		this.status = status;
+	}
+
+
 	public int getBookId() {
 		return bookId;
 	}

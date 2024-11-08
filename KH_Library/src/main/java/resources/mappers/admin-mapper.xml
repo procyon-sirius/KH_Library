@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectAllBook">
+		SELECT BOOK_ID
+			, BOOK_TITLE
+			, BOOK_AUTHOR
+			, PUBLISH_DATE
+			, ENROLL_DATE
+			, AGE_RANK
+	        , STATUS
+		FROM BOOK
+	</entry>
+</properties>
