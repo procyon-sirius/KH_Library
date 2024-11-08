@@ -12,9 +12,10 @@
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
-	.member{
-		text-align: right;
+	.member-controller{
+		float: right;
 	}
+
 	.member-list {
 		width: 100%;
 		table-layout : fixed;
@@ -35,16 +36,18 @@
 <body>
 
 	<div class="member">
-		<div class="member-controller">
-			<select name="user" id="user">
-				<option value="userId">아이디</option>
-				<option value="userName">이름</option>
-			</select>
-			<input type="text" id="search">
-			<button id="sbtn">조회</button>
-			<button id="yn" onclick="yn();">상태값(Y/N)</button>
+		<div class="detail-table">
+			<button id="delete">회원영구삭제</button>
+			<div class="member-controller">
+				<select name="user" id="user">
+					<option value="userId">아이디</option>
+					<option value="userName">이름</option>
+				</select>
+				<input type="text" id="search">
+				<button id="sbtn">조회</button>
+				<button id="yn" onclick="yn();">상태값(Y/N)</button>
+			</div>
 		</div>
-		<br>
 		<table class="member-list">
 			<thead>
 				<tr>
@@ -100,19 +103,45 @@
 			
 			var category = $("select[name=user]").val();
 			var search = $("#search").val();
-			console.log(category);
-			console.log(search);
 			
 			$.ajax({
 				url : "find.me",
 				data : {
-					category : category
+					category : category,
+					search : search
 				},
-				success : function(find){
+				success : function(list){
 					
+					$(".member-list tbody").html(" ");
+					
+					var tr = "";
+					
+					if(list == null){
+						alert("검색 결과가 없습니다")
+						
+						search.html(" ");
+					}else{
+						for(var m of list){
+							tr += "<tr>"
+								+"<td><input type='checkbox' id='one' name='one'></td>"
+								+"<th>"+m.userNo+"</th>"
+								+"<td>"+m.userId+"</td>"
+								+"<td>"+m.userPwd+"</td>"
+								+"<td>"+m.userName+"</td>"
+								+"<td>"+m.userNno+"</td>"
+								+"<td>"+m.phone+"</td>"
+								+"<td style='font-size: 10px'>"+m.email+"</td>"
+								+"<td style='font-size: 10px'>"+m.address+"</td>"
+								+"<td>"+m.enrollDate+"</td>"
+								+"<td>"+m.modifyDate+"</td>"
+								+"<td>"+m.rentLimit+"</td>"
+								+"<td id='st'>"+m.status+"</td>"
+						}
+						$(".member-list tbody").html(tr);
+					}
 				},
 				error : function(){
-					
+					console.log("fail");
 				}
 			});
 		});

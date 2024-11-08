@@ -117,6 +117,30 @@ public class MemberService {
 		
 		return list;
 	}
+
+	public ArrayList<Member> findUserId(String search) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Member> list = new MemberDao().findUserId(conn,search);
+		
+		JDBCTemplate.close(conn);
+		
+		
+		return list;
+	}
+
+	public ArrayList<Member> findUserName(String search) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Member> list = new MemberDao().findUserName(conn,search);
+		
+		JDBCTemplate.close(conn);
+		
+		
+		return list;
+	}
 	
 	
 

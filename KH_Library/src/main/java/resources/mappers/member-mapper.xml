@@ -62,5 +62,17 @@
 	JOIN BOOK USING(BOOK_ID)
 	WHERE USER_NO= ?
 	</entry>
+	
+	<entry key="findUserId">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_Id LIKE '%'||?||'%'
+	</entry>
+
+	<entry key="findUserName">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_NAME LIKE '%'||?||'%'
+	</entry>
 
 </properties>

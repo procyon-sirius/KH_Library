@@ -6,14 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.vo.Member;
 import com.kh.member.model.vo.MyRent;
-
-import oracle.jdbc.proxy.annotation.Pre;
 
 public class MemberDao {
 	
@@ -254,6 +253,80 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		}
 		
+		
+		return list;
+	}
+
+	public ArrayList<Member> findUserId(Connection conn, String search) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<>();
+		String sql = prop.getProperty("findUserId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member( rset.getInt("USER_NO"),
+									 rset.getString("USER_ID"),
+									 rset.getString("USER_PWD"),
+									 rset.getString("USER_NAME"),
+									 rset.getString("USER_NNO"),
+									 rset.getString("PHONE"),
+									 rset.getString("EMAIL"),
+									 rset.getString("ADDRESS"),
+									 rset.getDate("ENROLL_DATE"),
+									 rset.getDate("MODIFY_DATE"),
+									 rset.getInt("RENT_LIMIT"),
+									 rset.getString("STATUS")));
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Member> findUserName(Connection conn, String search) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<>();
+		String sql = prop.getProperty("findUserName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member( rset.getInt("USER_NO"),
+									 rset.getString("USER_ID"),
+									 rset.getString("USER_PWD"),
+									 rset.getString("USER_NAME"),
+									 rset.getString("USER_NNO"),
+									 rset.getString("PHONE"),
+									 rset.getString("EMAIL"),
+									 rset.getString("ADDRESS"),
+									 rset.getDate("ENROLL_DATE"),
+									 rset.getDate("MODIFY_DATE"),
+									 rset.getInt("RENT_LIMIT"),
+									 rset.getString("STATUS")));
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
 		
 		return list;
 	}
