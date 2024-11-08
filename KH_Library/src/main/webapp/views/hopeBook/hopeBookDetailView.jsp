@@ -134,7 +134,12 @@
 					}).append($("<input>",{type : "hidden",
 										   name : "hopeNum",
 										   value : "${h.hopeNum}"
-					})).appendTo("body").submit();
+										}),
+							  $("<input>", {type: "hidden",
+								            name: "currentPage",
+								            value: "${currentPage}"
+								        })
+					).appendTo("body").submit();
 				}
 			}
 			

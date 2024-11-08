@@ -62,6 +62,7 @@ public class HopeBookEnrollFormController extends HttpServlet {
 //		System.out.println(h);
 		
 		int result = new HopeBookService().hopeBookInsert(h);
+//		int result = 0;
 		
 		HttpSession session = request.getSession();
 		
@@ -70,7 +71,7 @@ public class HopeBookEnrollFormController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
 		}else {
 			session.setAttribute("alertMsg", "신청 실패");
-			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
+			response.sendRedirect(request.getContextPath()+"/insert.ho");
 		}
 	}
 
