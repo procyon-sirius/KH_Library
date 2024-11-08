@@ -96,6 +96,27 @@ public class AdminDao {
 		
 		return list;
 	}
+
+	public int statusChangeBook(Connection conn, int bookId, String changeStatus) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("changeStatusBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, changeStatus);
+			pstmt.setInt(2, bookId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 	

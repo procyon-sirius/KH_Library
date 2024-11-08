@@ -11,4 +11,9 @@
 	        , STATUS
 		FROM BOOK
 	</entry>
+	<entry key="changeStatusBook">
+		UPDATE BOOK
+		SET STATUS = ?
+		WHERE BOOK_ID = ?
+	</entry>
 </properties>
