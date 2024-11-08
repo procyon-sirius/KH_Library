@@ -3,22 +3,23 @@ package com.kh.member.model.vo;
 import java.sql.Date;
 
 public class Member {
-	private int userNo;		//	USER_NO NUMBER                
-	private String userId;  //  USER_ID VARCHAR2(30)  
-	private String userPwd; //  USER_PWD VARCHAR2(100)   
-	private String userName;//  USER_NAME VARCHAR2(15) 
-	private String userNno; //	USER_NNO CHAR(14) 
-	private String phone;   //  PHONE VARCHAR2(13)             
-	private String email;   //  EMAIL VARCHAR2(100)           
-	private String address; //  ADDRESS VARCHAR2(100)
-	private Date emrollDate;//  ENROLL_DATE DATE 
-	private Date modifyDate;//	MODIFY_DATE DATE 
-	private String status;  //  STATUS VARCHAR2(1)
-	
+	private int userNo; // USER_NO NUMBER
+	private String userId; // USER_ID VARCHAR2(30)
+	private String userPwd; // USER_PWD VARCHAR2(100)
+	private String userName;// USER_NAME VARCHAR2(15)
+	private String userNno; // USER_NNO CHAR(14)
+	private String phone; // PHONE VARCHAR2(13)
+	private String email; // EMAIL VARCHAR2(100)
+	private String address; // ADDRESS VARCHAR2(100)
+	private Date emrollDate;// ENROLL_DATE DATE
+	private Date modifyDate;// MODIFY_DATE DATE
+	private int rentLimit;
+	private String status; // STATUS VARCHAR2(1)
+
 	public Member() {
 		super();
 	}
-	
+
 	public Member(String userId, String userName, String phone, String email, String address) {
 		super();
 		this.userId = userId;
@@ -40,7 +41,6 @@ public class Member {
 		this.address = address;
 	}
 
-
 	public Member(int userNo, String userId, String userPwd, String userName, String userNno, String phone,
 			String email, String address, Date emrollDate, Date modifyDate, String status) {
 		super();
@@ -54,6 +54,23 @@ public class Member {
 		this.address = address;
 		this.emrollDate = emrollDate;
 		this.modifyDate = modifyDate;
+		this.status = status;
+	}
+
+	public Member(int userNo, String userId, String userPwd, String userName, String userNno, String phone,
+			String email, String address, Date emrollDate, Date modifyDate, int rentLimit, String status) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userNno = userNno;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.emrollDate = emrollDate;
+		this.modifyDate = modifyDate;
+		this.rentLimit = rentLimit;
 		this.status = status;
 	}
 
@@ -137,6 +154,14 @@ public class Member {
 		this.modifyDate = modifyDate;
 	}
 
+	public int getRentLimit() {
+		return rentLimit;
+	}
+
+	public void setRentLimit(int rentLimit) {
+		this.rentLimit = rentLimit;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -149,16 +174,8 @@ public class Member {
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", userNno=" + userNno + ", phone=" + phone + ", email=" + email + ", address=" + address
-				+ ", emrollDate=" + emrollDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
+				+ ", emrollDate=" + emrollDate + ", modifyDate=" + modifyDate + ", rentLimit=" + rentLimit + ", status="
+				+ status + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
