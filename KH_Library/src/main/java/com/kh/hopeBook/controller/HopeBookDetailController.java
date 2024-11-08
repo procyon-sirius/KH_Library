@@ -40,6 +40,7 @@ public class HopeBookDetailController extends HttpServlet {
 		
 		HopeBook h = new HopeBookService().hopeBookDetail(hopeNum);
 //		System.out.println(h);
+//		HopeBook h = null;
 		
 		HttpSession session = request.getSession();
 		
@@ -48,7 +49,7 @@ public class HopeBookDetailController extends HttpServlet {
 			request.setAttribute("currentPage", currentPage);
 			request.getRequestDispatcher("/views/hopeBook/hopeBookDetailView.jsp").forward(request, response);	
 		}else {
-			session.setAttribute("alert", "접근 실패");
+			session.setAttribute("alertMsg", "접근 실패");
 			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage="+currentPage);
 		}
 		
