@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -10,28 +10,31 @@
 <meta charset="UTF-8">
 <title>KH Library</title>
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
-	.member-controller{
-		float: right;
-	}
+.member-controller {
+	float: right;
+}
 
-	.member-list {
-		width: 100%;
-		table-layout : fixed;
-		white-space: nowrap;
-	}
-	.member-list th,td{
-		font-size: 13px;
-		border: 1px solid black;
-		table-layout : fixed;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.member-list>tbody>tr>td,th{
-		text-align: center;
-	}
+.member-list {
+	width: 100%;
+	table-layout: fixed;
+	white-space: nowrap;
+}
+
+.member-list th, td {
+	font-size: 13px;
+	border: 1px solid black;
+	table-layout: fixed;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.member-list>tbody>tr>td, th {
+	text-align: center;
+}
 </style>
 <body>
 
@@ -42,8 +45,7 @@
 				<select name="user" id="user">
 					<option value="userId">아이디</option>
 					<option value="userName">이름</option>
-				</select>
-				<input type="text" id="search">
+				</select> <input type="text" id="search">
 				<button id="sbtn">조회</button>
 				<button id="yn" onclick="yn();">상태값(Y/N)</button>
 			</div>
@@ -51,30 +53,31 @@
 		<table class="member-list">
 			<thead>
 				<tr>
-					<th style="width:5%"><input type="checkbox" name="all" id="all"></th>
-					<th style="width:5%">회원번호</th>
-					<th style="width:10%">회원아이디</th>
-					<th style="width:10%">회원비밀번호</th>
-					<th style="width:5%">회원명</th>
-					<th style="width:5%">생년월일</th>
-					<th style="width:10%">전화번호</th>
-					<th style="width:10%">이메일</th>
-					<th style="width:10%">주소</th>
-					<th style="width:8%">회원가입일</th>
-					<th style="width:8%">정보수정일</th>
-					<th style="width:9%">최대대출권수</th>
-					<th style="width:5%">상태값</th>
+					<th style="width: 5%"><input type="checkbox" name="all"
+						id="all"></th>
+					<th style="width: 5%">회원번호</th>
+					<th style="width: 10%">회원아이디</th>
+					<th style="width: 10%">회원비밀번호</th>
+					<th style="width: 5%">회원명</th>
+					<th style="width: 5%">생년월일</th>
+					<th style="width: 10%">전화번호</th>
+					<th style="width: 10%">이메일</th>
+					<th style="width: 10%">주소</th>
+					<th style="width: 8%">회원가입일</th>
+					<th style="width: 8%">정보수정일</th>
+					<th style="width: 9%">최대대출권수</th>
+					<th style="width: 5%">상태값</th>
 				</tr>
 			</thead>
 			<c:choose>
 				<c:when test="${empty list}">
 					<tr>
-						<td  align="center" colspan="13"> 검색 결과가 존재하지 않습니다.</td> 
+						<td align="center" colspan="13">검색 결과가 존재하지 않습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
 					<tbody>
-							
+
 					</tbody>
 				</c:otherwise>
 			</c:choose>
@@ -189,13 +192,12 @@
 		function yn(){
 			//console.log($("input[name=one]"));
 			//console.log($("tbody>tr").children().has("#one").children())
-					$("input[name=one]:checked").each(function(){
-						
+				var count = 0; //조건 카운트
+				$("input[name=one]:checked").each(function(){
 					
 					var userno = $(this).parents("tr").find("th").text();
 					var st = $(this).parents("tr").find("#st").text();
-					console.log($(this));
-					
+
 						$.ajax({
 							url : "delete.me",
 							type : "post",
@@ -204,18 +206,21 @@
 								status : st
 							},
 							success : function(yn){
-	
-								if(yn=='o'){
-									alert("변경완료");
-								}else{
-									alert("변경실패")
+								
+								if(yn=="o"){
+									count++;
 								}
 								updatelist();
 							},
 							error : function(){
 								
+							},
+							complete : function(){
+								if(count == $("input[name=one]:checked").length){
+									alert(count+"명 변경완료");
+								}
 							}
-							});
+					});
 			});
 		}
 		
