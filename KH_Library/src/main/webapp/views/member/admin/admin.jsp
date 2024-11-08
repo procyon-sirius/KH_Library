@@ -12,7 +12,9 @@
 		padding : 0;
 	}
 	#admin-page-area{
-		position: relative;
+		border: 1px solid red;
+        width: 100%;
+		margin-top : -50px;
 	}
     #admin-page-area>h2{
         text-align: center;
@@ -34,8 +36,6 @@
         <img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
     </div>
     <div id="body-wrap">
-		<%@include file="/views/common/sideMenu.jsp" %>
-        <div id="content-area">
             <div id="admin-page-area">
                 <h2>관리자 페이지</h2><br>
                 <div id="admin-btn-area">
@@ -76,7 +76,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <%@include file="/views/common/footer.jsp" %>
 </body>
 </html>
