@@ -26,13 +26,13 @@ thead td>select, thead td>input {
 }
 #management-book-search{
 	height: 30px;
-	width: 1050px;
+	width: 1200px;
 	margin: 0 auto;
 }
 #management-book-table {
 	border : 2px solid black;
 	margin: 0 auto;
-	width: 1050px;
+	width: 1200px;
 	table-layout: fixed;
 	white-space: nowrap;
 }
@@ -106,7 +106,7 @@ thead td>select, thead td>input {
 				<colgroup>
 					<col style="width: 40px;">
 					<col style="width: 100px;">
-					<col style="width: 400px;">
+					<col style="width: 550px;">
 					<col style="width: 140px;">
 					<col style="width: 100px;">
 					<col style="width: 120px;">
@@ -160,12 +160,37 @@ thead td>select, thead td>input {
 				
 				//상태전환 눌렀을시
 				$("#m-b-statusChange").click(function(){
+					var count = 0;
+					var cnt = 0;
 					$("input[name=m-b-checkbox]:checked").each(function(){
 						var bookId = $(this).parents("tr").find(".m-bid").text();
-						$.ajax({
-							url : "deleteBook.ma"
-							
-						});
+						var status = $(this).parents("tr").children().last();
+						
+						if(status.text()=="Y" || status.text() =="N"){
+							$.ajax({
+								url : "deleteBook.ma",
+								data : {
+									bookId : bookId,
+									status : status.text()
+								},
+								success : function(result){
+									if(status.text() != result.status){
+										count++;
+										status.text(result.status);
+									};
+								},
+								error : function(){
+									console.log("error:ajax");	
+								},
+								complete : function(){
+									if(count+cnt == $("input[name=m-b-checkbox]:checked").length){
+										alert(count+"개의 항목이 변경되었습니다.");
+									}
+								}
+							});
+						}else{
+							cnt++;
+						}
 					});
 				});
 			})

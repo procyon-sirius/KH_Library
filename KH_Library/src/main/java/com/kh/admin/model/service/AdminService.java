@@ -29,4 +29,26 @@ public class AdminService {
 		return list;
 	}
 
+	public int statusChangeBook(int bookId, String status) {
+		Connection conn = JDBCTemplate.getConnection();
+		String changeStatus = "";
+		
+		if(status.equals("Y")) {
+			changeStatus = "N";
+		}else {
+			changeStatus = "Y";
+		}
+		
+		int result = new AdminDao().statusChangeBook(conn,bookId,changeStatus);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
 }
