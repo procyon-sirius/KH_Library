@@ -62,13 +62,13 @@
                 <div class="admin-content-area">
                     <c:choose>
                         <c:when test="${mode == 'book'}">
-                        	<%@include file="/views/member/admin/managementBook.jsp" %>
+                        	<jsp:include page="/views/member/admin/managementBook.jsp"/>
                         </c:when>
                         <c:when test="${mode == 'member'}">
-                        	<%@include file="/views/member/admin/managementMember.jsp" %>
+                        	<jsp:include page="/views/member/admin/managementMember.jsp"/>
                         </c:when>
                         <c:when test="${mode == 'board'}">
-                        	<%@include file="/views/member/admin/managementMember.jsp" %>
+                        	<jsp:include page="/views/member/admin/managementBoard.jsp"/>
                         </c:when>
                         <c:otherwise>
                         </c:otherwise>
