@@ -6,10 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.vo.Member;
+import com.kh.member.model.vo.MyRent;
 
 public class MemberDao {
 	
@@ -135,6 +137,45 @@ public class MemberDao {
 		}
 				
 		return result;
+	}
+	
+	//나의 대출 정보 조회
+	public ArrayList<MyRent> selectMyRent(Connection conn,int userNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<MyRent> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectMyRent");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new MyRent(rset.getInt("BOOK_ID"),
+									rset.getString("BOOK_TITLE"),
+									rset.getString("BOOK_AUTHOR"),
+									rset.getString("PUBLISHER"),
+									rset.getDate("RETURN_DATE")));
+				
+			}
+			
+			pstmt.setInt(1, userNo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return list;
 	}
 	
 
