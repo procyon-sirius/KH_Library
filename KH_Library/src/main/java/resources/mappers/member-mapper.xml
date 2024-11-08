@@ -35,5 +35,18 @@
 	WHERE USER_ID= ?
 	
 	</entry>
+	
+	<entry key="selectMyRent">
+	SELECT BOOK_ID
+       	   ,RETURN_DATE
+           ,BOOK_TITLE
+           ,BOOK_AUTHOR
+           ,PUBLISHER
+	FROM RENT
+	JOIN BOOK USING(BOOK_ID)
+	WHERE USER_NO= ?
+	
+	
+	</entry>
 
 </properties>
