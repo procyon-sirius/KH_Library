@@ -51,7 +51,7 @@ public class BookRentController extends HttpServlet {
 		}else if(result > 0){
 			alertMsg = "대출 완료";
 		}
-		System.out.println(alertMsg);
+		
 		HttpSession session = request.getSession();
 		session.setAttribute("alertMsg", alertMsg);
 

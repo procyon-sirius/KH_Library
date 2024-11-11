@@ -13,29 +13,14 @@ public class Book {
 	private int rentCount;// RENT_COUNT NUMBER
 	private String status;// STATUS VARCHAR2(1 BYTE)
 	private String summary;
+	private String imgName;
 
 	public Book() {
 		super();
 	}
 
-
 	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
-			String status, String summary) {
-		super();
-		this.bookId = bookId;
-		this.bookTitle = bookTitle;
-		this.bookAuthor = bookAuthor;
-		this.publisher = publisher;
-		this.publishDate = publishDate;
-		this.enrollDate = enrollDate;
-		this.status = status;
-		this.summary = summary;
-	}
-
-
-
-	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
-			String ageRank, int rentCount, String status, String summary) {
+			String ageRank, int rentCount, String status, String summary, String imgName) {
 		super();
 		this.bookId = bookId;
 		this.bookTitle = bookTitle;
@@ -47,10 +32,11 @@ public class Book {
 		this.rentCount = rentCount;
 		this.status = status;
 		this.summary = summary;
+		this.imgName = imgName;
 	}
-	
+
 	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
-			String status) {
+			String status, String summary, String imgName) {
 		super();
 		this.bookId = bookId;
 		this.bookTitle = bookTitle;
@@ -59,21 +45,10 @@ public class Book {
 		this.publishDate = publishDate;
 		this.enrollDate = enrollDate;
 		this.status = status;
+		this.summary = summary;
+		this.imgName = imgName;
 	}
-
 	
-
-	public Book(int bookId, String bookTitle, String bookAuthor) {
-		super();
-		this.bookId = bookId;
-		this.bookTitle = bookTitle;
-		this.bookAuthor = bookAuthor;
-	}
-
-
-
-
-
 
 	public Book(int bookId, String bookTitle, String bookAuthor, int publishDate, Date enrollDate, String ageRank,
 			String status) {
@@ -87,6 +62,28 @@ public class Book {
 		this.status = status;
 	}
 
+	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
+			String status, String imgName) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.publisher = publisher;
+		this.publishDate = publishDate;
+		this.enrollDate = enrollDate;
+		this.status = status;
+		this.imgName = imgName;
+	}
+
+	
+
+	public Book(int bookId, String bookTitle, String bookAuthor, String imgName) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.imgName = imgName;
+	}
 
 	public int getBookId() {
 		return bookId;
@@ -168,11 +165,23 @@ public class Book {
 		this.summary = summary;
 	}
 
+	public String getImgName() {
+		return imgName;
+	}
+
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Book [bookId=" + bookId + ", bookTitle=" + bookTitle + ", bookAuthor=" + bookAuthor + ", publisher="
 				+ publisher + ", publishDate=" + publishDate + ", enrollDate=" + enrollDate + ", ageRank=" + ageRank
-				+ ", rentCount=" + rentCount + ", status=" + status + ", summary=" + summary + "]";
+				+ ", rentCount=" + rentCount + ", status=" + status + ", summary=" + summary + ", imgName=" + imgName
+				+ "]";
 	}
+
 
 }
