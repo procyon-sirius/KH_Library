@@ -16,4 +16,24 @@
 		SET STATUS = ?
 		WHERE BOOK_ID = ?
 	</entry>
+	
+	<entry key="removeCkNCategory">
+		DELETE BOOK_CATEGORY
+		WHERE BOOK_ID = ?
+	</entry>
+	<entry key="removeCkNBook">
+		DELETE BOOK
+		WHERE BOOK_ID = ?
+	</entry>
+	
+	<entry key="removeAllNCategory">
+		DELETE BOOK_CATEGORY
+		WHERE BOOK_ID IN (SELECT BOOK_ID
+						 FROM BOOK
+						 WHERE STATUS = 'N')
+	</entry>
+	<entry key="removeAllNBook">
+		DELETE BOOK
+		WHERE STATUS = 'N'
+	</entry>
 </properties>

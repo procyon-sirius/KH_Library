@@ -85,6 +85,7 @@ public class SearchDao {
 									, rset.getInt("PUBLISH_DATE")
 									, rset.getDate("ENROLL_DATE")
 									, rset.getString("STATUS")
+									, rset.getString("IMG_NAME")
 									));
 			}
 		} catch (SQLException e) {
