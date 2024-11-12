@@ -96,6 +96,102 @@ public class AdminDao {
 		
 		return list;
 	}
+
+	public int statusChangeBook(Connection conn, int bookId, String changeStatus) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("changeStatusBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, changeStatus);
+			pstmt.setInt(2, bookId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int removeCkNBook(Connection conn, int bookId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("removeCkNBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int removeCkNCategory(Connection conn, int bookId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("removeCkNCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int removeAllNCategory(Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("removeAllNCategory");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int removeAllNBook(Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("removeAllNBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 	

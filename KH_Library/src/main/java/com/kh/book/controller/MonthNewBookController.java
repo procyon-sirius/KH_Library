@@ -44,6 +44,8 @@ public class MonthNewBookController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
+		String time = "M";
+		
 		
 		
 		listCount = new BookService().monthListCount();
@@ -74,6 +76,7 @@ public class MonthNewBookController extends HttpServlet {
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
+		request.setAttribute("time", time);
 		request.getRequestDispatcher("/views/book/newBookView.jsp").forward(request, response);
 	}
 

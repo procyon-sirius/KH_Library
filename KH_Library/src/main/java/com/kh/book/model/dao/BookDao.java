@@ -15,7 +15,6 @@ import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
 
-import oracle.jdbc.proxy.annotation.Pre;
 
 public class BookDao {
 	
@@ -74,7 +73,7 @@ public class BookDao {
 		if(age.equals("AGE_RANK")) {
 			sql ="SELECT * "
 				+ "FROM (SELECT ROWNUM RNUM, Z.* "
-				+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS "
+				+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
 						+ "FROM BOOK "
 						+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
 						+ "WHERE AGE_RANK = AGE_RANK ORDER BY "+order+" "+ad+")"
@@ -84,7 +83,7 @@ public class BookDao {
 		}else {
 			sql ="SELECT * "
 					+ "FROM (SELECT ROWNUM RNUM, Z.* "
-					+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS "
+					+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
 							+ "FROM BOOK "
 							+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
 							+ "WHERE AGE_RANK = '"+age+"' ORDER BY "+order+" "+ad+")"
@@ -105,7 +104,8 @@ public class BookDao {
 								  rset.getString("PUBLISHER"),
 								  rset.getInt("PUBLISH_DATE"),
 								  rset.getDate("ENROLL_DATE"),
-								  rset.getString("STATUS")));
+								  rset.getString("STATUS"),
+								  rset.getString("IMG_NAME")));
 			}
 	    }catch (SQLException e) {
 			e.printStackTrace();
@@ -130,7 +130,7 @@ public class BookDao {
 		if(age.equals("AGE_RANK")) {
 			sql ="SELECT * "
 				+ "FROM (SELECT ROWNUM RNUM, Z.* "
-				+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS "
+				+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
 						+ "FROM BOOK "
 						+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
 						+ "WHERE CATEGORY_NO = "+cno+" AND AGE_RANK = AGE_RANK ORDER BY "+order+" "+ad+")"
@@ -140,7 +140,7 @@ public class BookDao {
 		}else {
 			sql ="SELECT * "
 					+ "FROM (SELECT ROWNUM RNUM, Z.* "
-					+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS "
+					+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
 							+ "FROM BOOK "
 							+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
 							+ "WHERE CATEGORY_NO = "+cno+" AND AGE_RANK = '"+age+"' ORDER BY "+order+" "+ad+")"
@@ -161,7 +161,8 @@ public class BookDao {
 								  rset.getString("PUBLISHER"),
 								  rset.getInt("PUBLISH_DATE"),
 								  rset.getDate("ENROLL_DATE"),
-								  rset.getString("STATUS")));
+								  rset.getString("STATUS"),
+								  rset.getString("IMG_NAME")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -196,7 +197,8 @@ public class BookDao {
 						rset.getInt("PUBLISH_DATE"),
 						rset.getDate("ENROLL_DATE"),
 						rset.getString("STATUS"),
-						rset.getString("SUMMARY"));
+						rset.getString("SUMMARY"),
+						rset.getString("IMG_NAME"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -461,6 +463,7 @@ public class BookDao {
 				blist.add(new Book(rset.getInt("BOOK_ID")
 								, rset.getString("BOOK_TITLE")
 								, rset.getString("BOOK_AUTHOR")
+								, rset.getString("IMG_NAME")
 							));
 			}
 		} catch (SQLException e) {
@@ -495,7 +498,8 @@ public class BookDao {
 			while(rset.next()) {
 				list.add(new Book(rset.getInt("BOOK_ID")
 								, rset.getString("BOOK_TITLE")
-								, rset.getString("BOOK_AUTHOR")));
+								, rset.getString("BOOK_AUTHOR")
+								, rset.getString("IMG_NAME")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -529,7 +533,8 @@ public class BookDao {
 			while(rset.next()) {
 				list.add(new Book(rset.getInt("BOOK_ID")
 								, rset.getString("BOOK_TITLE")
-								, rset.getString("BOOK_AUTHOR")));
+								, rset.getString("BOOK_AUTHOR")
+								, rset.getString("IMG_NAME")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -564,7 +569,8 @@ public class BookDao {
 			while(rset.next()) {
 				list.add(new Book(rset.getInt("BOOK_ID")
 								, rset.getString("BOOK_TITLE")
-								, rset.getString("BOOK_AUTHOR")));
+								, rset.getString("BOOK_AUTHOR")
+								, rset.getString("IMG_NAME")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -653,6 +659,82 @@ public class BookDao {
 		}
 		
 		return listCount;
+	}
+
+
+	public int BNONextVal(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int bid = 0;
+		String sql = prop.getProperty("BNONextVal");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bid = rset.getInt("BID");
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return bid;
+	}
+
+
+	public int insertBook(Connection conn, Book b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, b.getBookId());
+			pstmt.setString(2, b.getBookTitle());
+			pstmt.setString(3, b.getBookAuthor());
+			pstmt.setString(4, b.getPublisher());
+			pstmt.setInt(5, b.getPublishDate());
+			pstmt.setString(6, b.getAgeRank());
+			pstmt.setString(7, b.getSummary());
+			pstmt.setString(8, b.getImgName());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertBookCategory(Connection conn, int bookId, String c) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertBookCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bookId);
+			pstmt.setInt(2, Integer.parseInt(c));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
 	}
 
 	

@@ -23,6 +23,7 @@
 						, PUBLISH_DATE
 						, ENROLL_DATE
 	        	   		, STATUS
+	        	   		, IMG_NAME
 					FROM BOOK
 					JOIN BOOK_CATEGORY USING(BOOK_ID)
 				    WHERE ? LIKE '%'||CATEGORY_NO||'%'

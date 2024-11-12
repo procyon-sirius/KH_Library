@@ -53,17 +53,43 @@
 		color: black;
 	}	
 	
-	#book-img:hover{
-		cursor: pointer;
-	}
-	
 	.thumbnail{
 		display: inline-block;
+		width: 200px;
+		height: 300px;
+		position: relative;
+		margin: 10px;
 	}
 
-	.book-list>.thumbnail{
-		margin: 10px;
-		
+	.thumbnail>#book-img{
+		width: inherit;
+		height: inherit;
+		object-fit: cover;
+	}
+
+	.overlay{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: inherit;
+        height: inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgb(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: opacity 0.2s;
+	}
+
+	.thumbnail:hover .overlay{
+		opacity: 1;
+		cursor: pointer;
+	}
+
+	.book-info{
+		color: white;
+		font-weight: bold;
+		font-size: 17px;
 	}
 	
 </style>
@@ -115,11 +141,17 @@
 	            	</c:when>
 	            	<c:otherwise>
 			        	<c:forEach items="${list }" var="b">
-				 			<div class="thumbnail" align="center">
+				 			<div class="thumbnail">
 				 				<input type="hidden" value="${b.bookId }" name="bookId">
 				 				<input type="hidden" value="${b.bookTitle }" name="bookTitle">
 				 				<input type="hidden" value="${b.bookAuthor }" name="bookAuthor">
-				 				<img src="${contextPath }/resources/img/${b.bookId }.gif"  id="book-img" width="200px" height="300px">
+				 				<img src="${contextPath }/resources/img/${b.bookId }.gif"  id="book-img">
+								<div class="overlay">
+									<p class="book-info">
+										제목 : ${b.bookTitle } <br>
+										작가 : ${b.bookAuthor }
+									</p>
+								</div>
 				 			</div>               	
 			        	</c:forEach>
 	            	</c:otherwise>
@@ -166,13 +198,14 @@
 				var cPageLength = ("${pi.currentPage}").length;
 				var temp = url.slice(0,-cPageLength);
 				location.href = temp + i;
-			};
-			
-			$(".book-list #book-img").click(function() {
-				
+			};			
+
+			$(".thumbnail .overlay").click(function() {
+
 				var bookId = $(this).closest(".thumbnail").find("input[name=bookId]").val();
 						
 				location.href = '${contextPath}/detail.bk?bookId='+ bookId;
+				
 			});
 		</script>
         </div>
