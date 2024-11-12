@@ -16,6 +16,11 @@
 		width : fit-content;
 		height : fit-content;
 	}
+	
+	#book-limit-table{
+		width : 800px;
+		margin : 0 auto;
+	}
 
 </style>
 </head>
@@ -26,22 +31,23 @@
 		<table id="book-limit-table" border="1">
 			<tr>
 				<th>회원번호</th>
-				<td></td>
+				<td width="100px">1</td>
 				<th>회원아이디</th>
-				<td></td>
+				<td>admin</td>
 				<th>회원명</th>
-				<td></td>
+				<td>관리자</td>
 			</tr>
 			<tr>
 				<th>총 대출 수</th>
-				<td></td>
+				<td width="100px">10</td>
 				<th>최대대출권수</th>
-				<td></td>
+				<td colspan="3">
+					<input type="number" style="width: 100%; text-align: center;">
+				</td>
 			</tr>
 		</table>
-		<div id="confirm">
-			<button type="submit">등록하기</button>
-		</div>
+		<br>
+		<button type="submit">등록하기</button>
 		<button type="reset">취소</button>
 	</form>
 	<script>
