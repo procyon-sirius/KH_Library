@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.board.model.service.CommentService;
+
 /**
  * Servlet implementation class CommentUpdateController
  */
@@ -39,8 +41,7 @@ public class CommentUpdateController extends HttpServlet {
 		int rno = Integer.parseInt(request.getParameter("rno"));
 		String content = request.getParameter("content");
 		
-		System.out.println(rno);
-		System.out.println(content);
+		int result = new CommentService().updateComment();
 		
 	
 	}

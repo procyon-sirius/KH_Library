@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.service.FreeboardService;
-import com.kh.board.model.service.NoticeService;
 
 /**
- * Servlet implementation class NoticeDeleteController
+ * Servlet implementation class FreeBoardDeleteController
  */
 @WebServlet("/delete.fb")
 public class FreeBoardDeleteController extends HttpServlet {
@@ -30,28 +29,32 @@ public class FreeBoardDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+		request.setCharacterEncoding("UTF-8");
+		int boardNo = Integer.parseInt(request.getParameter("nno"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		
+		int result = new FreeboardService().deleteFreeBoard(boardNo);
+		HttpSession session = request.getSession();
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "게시판 글이 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath()+"/freeBoard?currentPage="+currentPage);
+		}else {
+			session.setAttribute("alertMsg", "게시판 글삭제에 실패하였습니다.");
+			response.sendRedirect(request.getContextPath()+"/");
+		}
+	
+	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		int result = new FreeboardService().deleteFreeBoard(boardNo);
-		HttpSession session = request.getSession();
-		
-		if(result>0) {
-			session.setAttribute("alertMsg", "공지글이 삭제되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/freeBoard?currentPage=1");
-		}else {
-			session.setAttribute("alertMsg", "공지글 삭제에 실패하였습니다.");
-			response.sendRedirect(request.getContextPath()+"/");
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

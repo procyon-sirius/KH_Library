@@ -118,6 +118,13 @@ public class CommentService {
 		return result;
 	}
 
+	
+	// 코멘트 생성
+	public int updateComment() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 
 }

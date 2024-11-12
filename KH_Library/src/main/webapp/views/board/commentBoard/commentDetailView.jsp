@@ -1,3 +1,5 @@
+<%@page import="com.kh.board.model.vo.Reply"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -89,7 +91,7 @@ textarea {
 				<button id="submit" style="display: none;">작성하기</button>
 				<button id="back" style="display: none;">뒤로가기</button>
 				
-				<br><br>				
+				<br><br>
 				<c:if test="${not empty rlist}">
 				    <c:forEach var="r" items="${rlist}">
 						<br><br>
@@ -103,7 +105,7 @@ textarea {
 							 	<button id="delete">삭제하기</button>
 								<button id="back2">뒤로가기</button>
 							 </c:if>
-							 <br> <br>
+							 <br><br>
 							 <h5 id=origin data-content="${r.replyContent}">
 							 ${r.replyContent} 
 							 </h5>
@@ -113,10 +115,6 @@ textarea {
 				<c:if test="${empty rlist}">
 				    <p>댓글이 없습니다.</p>
 				</c:if>
-				
-				
-				
-
 			</div>
 			
 			
@@ -189,17 +187,18 @@ textarea {
 			            origin.parentNode.replaceChild(textarea, origin);
 			            
 			            
-			            $("#modify").click(function(){
-			            	var t = $("textarea");
-			            	t.disabled = true;
+			            $(".comment button").click(function(){
+			            	var t = $(textarea);
+			            	t.prop("readonly", true);
 				           var submittedText = t.val();
 				           console.log(submittedText);
-				            
+				           
+				           
 				             $.ajax({
 				            	url : '${contextPath}/update.cm',
 				            	data : {
-				            		rno : $("#modify").data("rno")
-				            		//content : $("textarea").val()
+				            		rno : $("#modify").data("rno"),
+				            		content : submittedText
 				            	},
 				            	type : "post",
 				            	success : function(){
