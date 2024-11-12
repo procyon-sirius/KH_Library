@@ -7,22 +7,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberDeleteController
+ * Servlet implementation class MemberLoginController
  */
-@WebServlet("/delete.me")
-public class MemberDeleteController extends HttpServlet {
+@WebServlet("/login.me")
+public class MemberLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDeleteController() {
+    public MemberLoginController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +31,11 @@ public class MemberDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String url = request.getHeader("referer");
+		request.setAttribute("beforeUrl",url);
+		request.getRequestDispatcher("/views/member/memberLoginForm.jsp").forward(request,response);
 		
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		
-		int result = new MemberService().realDelete(userNo);
-		
-		response.getWriter().print(result);
 	}
 
 	/**
@@ -44,32 +43,28 @@ public class MemberDeleteController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		String status = request.getParameter("status");
+		request.setCharacterEncoding("UTF-8");
 		
-		int result = 0;
-		String answer = "";
+		String userId = request.getParameter("userId");
+		String userPwd = request.getParameter("userPwd");
 		
-		if(status.equals("Y")) {
-			result = new MemberService().deleteMember(userNo);
-
-			if(result>0) {
-				answer = "o";
-			}else {
-				answer="x";
-			}
-			response.getWriter().print(answer);
+		Member loginUser = new MemberService().loginMember(userId,userPwd);
+		
+		HttpSession session = request.getSession();
+		
+		if(loginUser!=null) {
+			
+			session.setAttribute( "loginUser", loginUser);
+			session.setAttribute("alertMsg", "로그인 성공!");
 			
 		}else {
-			result = new MemberService().rollbackMember(userNo);
-			
-			if(result>0) {
-				answer = "o";
-			}else {
-				answer="x";
-			}
-			response.getWriter().print(answer);
+			session.setAttribute("alertMsg","로그인 실패!");
 		}
+		String url = request.getParameter("beforeUrl");
+		response.sendRedirect(url);
+		
+	
+		
 		
 	}
 

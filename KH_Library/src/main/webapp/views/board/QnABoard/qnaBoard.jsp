@@ -221,7 +221,6 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 							                        <td width="200"><%=b.getDate() %></td>
 							                        <td colspan="2" ><button class="qListb" data-boardno="<%=b.getBoardNo() %>">▼</button> </td>
 							                    	<td width="150" class="ox">O</td>
-							                    	
 							                    </tr>
 							                    <tr class="aList" id="aList" data-boardno="<%=r.getBoardNo() %>">
 							                        <td width="150"><%=r.getBoardNo() %></td>
@@ -243,7 +242,6 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 													 		
 													  	<%} %>
 							                        </td>
-							                        
 							                        
 							                        
 							                        

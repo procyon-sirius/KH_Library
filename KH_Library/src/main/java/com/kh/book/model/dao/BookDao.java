@@ -15,6 +15,8 @@ import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
 
+import oracle.jdbc.proxy.annotation.Pre;
+
 
 public class BookDao {
 	
@@ -76,7 +78,9 @@ public class BookDao {
 				+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
 						+ "FROM BOOK "
 						+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
-						+ "WHERE AGE_RANK = AGE_RANK ORDER BY "+order+" "+ad+")"
+						+ "WHERE AGE_RANK = AGE_RANK "
+						+ "GROUP BY BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
+						+ "ORDER BY "+order+" "+ad+")"
 					+ " Z) "
 				+ "WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
 			
@@ -86,7 +90,9 @@ public class BookDao {
 					+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
 							+ "FROM BOOK "
 							+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
-							+ "WHERE AGE_RANK = '"+age+"' ORDER BY "+order+" "+ad+")"
+							+ "WHERE AGE_RANK = '"+age+"' "
+							+ "GROUP BY BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
+							+ "ORDER BY "+order+" "+ad+")"
 						+ " Z) "
 					+ "WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
 				
@@ -98,14 +104,15 @@ public class BookDao {
 			rset = stmt.executeQuery(sql);
 			
 			while(rset.next()) {
-				list.add(new Book(rset.getInt("BOOK_ID"),
-								  rset.getString("BOOK_TITLE"),
-								  rset.getString("BOOK_AUTHOR"),
-								  rset.getString("PUBLISHER"),
-								  rset.getInt("PUBLISH_DATE"),
-								  rset.getDate("ENROLL_DATE"),
-								  rset.getString("STATUS"),
-								  rset.getString("IMG_NAME")));
+					list.add(new Book(rset.getInt("BOOK_ID")
+										, rset.getString("BOOK_TITLE")
+										, rset.getString("BOOK_AUTHOR")
+										, rset.getString("PUBLISHER")
+										, rset.getInt("PUBLISH_DATE")
+										, rset.getDate("ENROLL_DATE")
+										, rset.getString("STATUS")
+										, rset.getString("IMG_NAME")
+										));
 			}
 	    }catch (SQLException e) {
 			e.printStackTrace();
@@ -133,7 +140,9 @@ public class BookDao {
 				+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
 						+ "FROM BOOK "
 						+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
-						+ "WHERE CATEGORY_NO = "+cno+" AND AGE_RANK = AGE_RANK ORDER BY "+order+" "+ad+")"
+						+ "WHERE CATEGORY_NO = "+cno+" AND AGE_RANK = AGE_RANK "
+						+ "GROUP BY BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
+						+ "ORDER BY "+order+" "+ad+")"
 					+ " Z) "
 				+ "WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
 			
@@ -143,7 +152,9 @@ public class BookDao {
 					+ "FROM (SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
 							+ "FROM BOOK "
 							+ "JOIN BOOK_CATEGORY USING(BOOK_ID) "
-							+ "WHERE CATEGORY_NO = "+cno+" AND AGE_RANK = '"+age+"' ORDER BY "+order+" "+ad+")"
+							+ "WHERE CATEGORY_NO = "+cno+" AND AGE_RANK = '"+age+"' "
+							+ "GROUP BY BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME "
+							+ "ORDER BY "+order+" "+ad+")"
 						+ " Z) "
 					+ "WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
 				
@@ -155,14 +166,15 @@ public class BookDao {
 			rset = stmt.executeQuery(sql);
 			
 			while(rset.next()) {
-				list.add(new Book(rset.getInt("BOOK_ID"),
-								  rset.getString("BOOK_TITLE"),
-								  rset.getString("BOOK_AUTHOR"),
-								  rset.getString("PUBLISHER"),
-								  rset.getInt("PUBLISH_DATE"),
-								  rset.getDate("ENROLL_DATE"),
-								  rset.getString("STATUS"),
-								  rset.getString("IMG_NAME")));
+					list.add(new Book(rset.getInt("BOOK_ID")
+										, rset.getString("BOOK_TITLE")
+										, rset.getString("BOOK_AUTHOR")
+										, rset.getString("PUBLISHER")
+										, rset.getInt("PUBLISH_DATE")
+										, rset.getDate("ENROLL_DATE")
+										, rset.getString("STATUS")
+										, rset.getString("IMG_NAME")
+										));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -191,14 +203,14 @@ public class BookDao {
 			
 			if(rset.next()) {
 				b = new Book(rset.getInt("BOOK_ID"),
-						rset.getString("BOOK_TITLE"),
-						rset.getString("BOOK_AUTHOR"),
-						rset.getString("PUBLISHER"),
-						rset.getInt("PUBLISH_DATE"),
-						rset.getDate("ENROLL_DATE"),
-						rset.getString("STATUS"),
-						rset.getString("SUMMARY"),
-						rset.getString("IMG_NAME"));
+							rset.getString("BOOK_TITLE"),
+							rset.getString("BOOK_AUTHOR"),
+							rset.getString("PUBLISHER"),
+							rset.getInt("PUBLISH_DATE"),
+							rset.getDate("ENROLL_DATE"),
+							rset.getString("STATUS"),
+							rset.getString("SUMMARY"),
+							rset.getString("IMG_NAME"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -459,12 +471,13 @@ public class BookDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
+
 			while(rset.next()) {
-				blist.add(new Book(rset.getInt("BOOK_ID")
-								, rset.getString("BOOK_TITLE")
-								, rset.getString("BOOK_AUTHOR")
-								, rset.getString("IMG_NAME")
-							));
+					blist.add(new Book(rset.getInt("BOOK_ID")
+									, rset.getString("BOOK_TITLE")
+									, rset.getString("BOOK_AUTHOR")
+									, rset.getString("IMG_NAME")
+								));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -736,6 +749,36 @@ public class BookDao {
 		
 		return result;
 	}
+
+
+	public ArrayList<BookCategoryInfo> selectBookCategory(Connection conn, int bno) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBookCategory");
+		ArrayList<BookCategoryInfo> biList = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				biList.add(new BookCategoryInfo(rset.getInt("CATEGORY_NO"),
+							  			  		rset.getString("CATEGORY_NAME")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return biList;
+	}
+
+
 
 	
 	

@@ -77,6 +77,9 @@
                         <c:when test="${mode == 'member'}">
                         	<%@include file="/views/member/admin/managementMember.jsp" %>
                         </c:when>
+                         <c:when test="${mode == 'rentLimit'}">
+                        	<%@include file="/views/member/admin/rentLimit.jsp" %>
+                        </c:when>
                         <c:when test="${mode == 'board'}">
                         	<%@include file="/views/member/admin/managementBoard.jsp" %>
                         </c:when>

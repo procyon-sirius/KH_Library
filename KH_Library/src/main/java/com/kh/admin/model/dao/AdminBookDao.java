@@ -232,31 +232,6 @@ public class AdminBookDao {
 		return result;
 	}
 
-	public int checkBookCategoryDelete(Connection conn, String cno) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int result = 1;
-		String sql = prop.getProperty("checkBookCategoryDelete");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, cno);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				result = rset.getInt("COUNT");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return result;
-	}
-
 	public int bookCategoryInfoDelete(Connection conn, String cno) {
 		PreparedStatement pstmt = null;
 		int result = 0;

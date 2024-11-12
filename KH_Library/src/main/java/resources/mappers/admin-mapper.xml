@@ -41,11 +41,6 @@
 		WHERE ? LIKE '%'||CATEGORY_NO||'%'
 		AND CATEGORY_NO !=0
 	</entry>
-	<entry key="checkBookCategoryDelete">
-		SELECT COUNT(*) "COUNT"
-		FROM BOOK_CATEGORY
-		WHERE ? LIKE '%'||CATEGORY_NO||'%'
-	</entry>
 	<entry key="bookCategoryDelete">
 		DELETE BOOK_CATEGORY
 		WHERE ? LIKE '%'||CATEGORY_NO||'%'

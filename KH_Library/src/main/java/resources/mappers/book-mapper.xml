@@ -79,7 +79,16 @@
 	
 	<entry key="clistCount">
 		SELECT COUNT(*) COUNT
-		FROM BOOK
+		FROM (SELECT BOOK_ID,
+					 BOOK_TITLE,
+					 BOOK_AUTHOR,
+					 PUBLISHER,
+					 PUBLISH_DATE, 
+					 ENROLL_DATE, 
+					 STATUS, 
+					 IMG_NAME
+			  FROM BOOK
+			  GROUP BY BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME)
 		JOIN BOOK_CATEGORY USING(BOOK_ID)
 		WHERE CATEGORY_NO = ?
 	</entry>
@@ -104,7 +113,8 @@
 		FROM (SELECT ROWNUM RNUM, A.*
            	  FROM (SELECT BOOK_ID,
 				           BOOK_TITLE,
-				           BOOK_AUTHOR
+				           BOOK_AUTHOR,
+				           IMG_NAME
 					FROM BOOK
 					WHERE TO_CHAR(SYSDATE)=TO_CHAR(ENROLL_DATE)) A)
 	    WHERE RNUM BETWEEN ? AND ?
@@ -115,7 +125,8 @@
 		FROM (SELECT ROWNUM RNUM, A.*
            	  FROM (SELECT BOOK_ID,
 				           BOOK_TITLE,
-				           BOOK_AUTHOR
+				           BOOK_AUTHOR,
+				           IMG_NAME
 					FROM BOOK
 					WHERE ENROLL_DATE BETWEEN TRUNC(SYSDATE,'iw') AND (TRUNC(SYSDATE,'iw')+6)) A)
 	    WHERE RNUM BETWEEN ? AND ?
@@ -126,7 +137,8 @@
 		FROM (SELECT ROWNUM RNUM, A.*
            	  FROM (SELECT BOOK_ID,
 				           BOOK_TITLE,
-				           BOOK_AUTHOR
+				           BOOK_AUTHOR,
+				           IMG_NAME
 					FROM BOOK
 					WHERE TO_CHAR(SYSDATE,'MM')=TO_CHAR(ENROLL_DATE,'MM')) A)
 	    WHERE RNUM BETWEEN ? AND ?
@@ -142,5 +154,13 @@
 	<entry key="insertBookCategory">
 		INSERT INTO BOOK_CATEGORY
 		VALUES(?,?)
+	</entry>
+	
+	<entry key="selectBookCategory">
+		SELECT CATEGORY_NO,
+           	   CATEGORY_NAME
+		FROM BOOK_CATEGORY 
+		JOIN BOOK_CATEGORY_INFO USING(CATEGORY_NO)
+		WHERE BOOK_ID = ?
 	</entry>
 </properties>
