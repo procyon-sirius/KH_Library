@@ -70,48 +70,72 @@ public class InsertBook extends HttpServlet {
 			//MultipartRequest(request, 저장경로, 파일최대사이즈, 인코딩, 파일명객체);
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-			String title = multiRequest.getParameter("title");
-			String author = multiRequest.getParameter("author");
-			String publisher = multiRequest.getParameter("publisher");
-			int publishDate = Integer.parseInt(multiRequest.getParameter("publishDate"));
-			String age = multiRequest.getParameter("age");
-			String[] category = multiRequest.getParameterValues("search-book-category");
-			String summary = multiRequest.getParameter("summary");
-			
-			Book b = new Book();
-			b.setBookTitle(title);
-			b.setBookAuthor(author);
-			b.setPublisher(publisher);
-			b.setPublishDate(publishDate);
-			b.setAgeRank(age);
-			b.setSummary(summary);
-			
-			//첨부파일 여부 확인
-			//multiRequest의 getOriginalFileName("키값")
-			String imgName = "temp.jpg";
+			boolean flag = false;
 			if(multiRequest.getOriginalFileName("upload-book-img") != null) {
 				//이름 변경되어 서버에 올라간 파일명
-				imgName = multiRequest.getFilesystemName("upload-book-img");
-				b.setImgName(imgName);
+				String str = multiRequest.getFilesystemName("upload-book-img");
 				
-				//변경된 파일명이 "bookId.확장자" 이기 때문에 확장자 제외하면 bookId가 된다.
-				int index = imgName.lastIndexOf(".");
-				int bookId = Integer.parseInt(imgName.substring(0,index));
-				b.setBookId(bookId);
+				//파일명이 시퀀스에서 제대로 뽑혔는지 확인
+				//시퀀스 실행중 오류가 생겼다면 파일명이 0.ext로 나오기 때문에
+				//시퀀스 최소번호 1000일경우 파일명 : 1000.ext의 최소 문자길이 8보다 작을 경우는 시퀀스 오류로 간주 
+				if(str.length()<8) {
+					flag = false;
+				}else {
+					flag = true;
+				}
 			}
 			
-			int result = new BookService().insertBook(b,category);
-			HttpSession session = request.getSession();
-			String alertMsg = "";
-			if(result>0) {
-				alertMsg = "등록 완료";
+			
+			if(flag) {
+				String title = multiRequest.getParameter("title");
+				String author = multiRequest.getParameter("author");
+				String publisher = multiRequest.getParameter("publisher");
+				int publishDate = Integer.parseInt(multiRequest.getParameter("publishDate"));
+				String age = multiRequest.getParameter("age");
+				String[] category = multiRequest.getParameterValues("search-book-category");
+				String summary = multiRequest.getParameter("summary");
+				
+				Book b = new Book();
+				b.setBookTitle(title);
+				b.setBookAuthor(author);
+				b.setPublisher(publisher);
+				b.setPublishDate(publishDate);
+				b.setAgeRank(age);
+				b.setSummary(summary);
+				
+				//첨부파일 여부 확인
+				//multiRequest의 getOriginalFileName("키값")
+				String imgName = "temp.jpg";
+				if(multiRequest.getOriginalFileName("upload-book-img") != null) {
+					//이름 변경되어 서버에 올라간 파일명
+					imgName = multiRequest.getFilesystemName("upload-book-img");
+					b.setImgName(imgName);
+					
+					//변경된 파일명이 "bookId.확장자" 이기 때문에 확장자 제외하면 bookId가 된다.
+					int index = imgName.lastIndexOf(".");
+					int bookId = Integer.parseInt(imgName.substring(0,index));
+					b.setBookId(bookId);
+				}
+				
+				int result = new BookService().insertBook(b,category);
+				HttpSession session = request.getSession();
+				String alertMsg = "";
+				if(result>0) {
+					alertMsg = "등록 완료";
+				}else {
+					alertMsg = "등록 실패";
+					new File(savePath+imgName).delete();
+				}
+				session.setAttribute("alertMsg", alertMsg);
+				response.sendRedirect(request.getContextPath()+"/insertBook.ma");
+			
 			}else {
-				alertMsg = "등록 실패";
+				String imgName = multiRequest.getFilesystemName("upload-book-img");
 				new File(savePath+imgName).delete();
+				HttpSession session = request.getSession();
+				session.setAttribute("alertMsg", "등록 실패");
+				response.sendRedirect(request.getContextPath()+"/insertBook.ma");
 			}
-			session.setAttribute("alertMsg", alertMsg);
-			response.sendRedirect(request.getContextPath()+"/insertBook.ma");
-			
 		}
 	}
 
