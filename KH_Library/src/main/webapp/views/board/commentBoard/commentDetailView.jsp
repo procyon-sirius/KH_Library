@@ -28,6 +28,13 @@
 }
 
 
+textarea {
+    width: 600px;  
+    height: 150px; 
+    resize: none;  
+}
+
+
 
 </style>
 </head>
@@ -90,8 +97,14 @@
 							 NO :&nbsp;&nbsp;${r.replyNo}&nbsp; |&nbsp;&nbsp;
 							 작성자 :&nbsp;&nbsp;${r.userNo}&nbsp; |&nbsp;&nbsp;
 							 작성일 :&nbsp;&nbsp;${r.date}
+							 <c:if test="${r.userNo eq loginUser.userId}">
+							 	<br>
+							 	<button id="modify" onclick="modifyC();" data-rno="${r.replyNo }" >수정하기</button>
+							 	<button id="delete">삭제하기</button>
+								<button id="back2">뒤로가기</button>
+							 </c:if>
 							 <br> <br>
-							 <h5>
+							 <h5 id=origin data-content="${r.replyContent}">
 							 ${r.replyContent} 
 							 </h5>
 						</div>	
@@ -108,44 +121,127 @@
 			
 			
 			<script>
+			
+				// 생성하기
 				$(function(){
-					$(".commentW").click(function(){
-						$(".commentInput").show(); 
-						$("#submit").show();
-						$("#back").show();
-						$(".commentW").hide();
-						
-						$("#back").click(function(){
-							history.back();
-						});	
-						
-						$("#submit").click(function(){
-							$.ajax({
-								url : '${contextPath}/insert.cm', 
-								data : {
-									bookNo : ${b.bookId},
-									writerNo : ${loginUser.userNo},
-									comment : $(".commentInput").val()
-								},
-								success : function(result){
-									if(result.status=="success"){
-										alert(result.message);
-										$(".commentInput").hide(); 
-										$("#submit").hide();
-										$("#back").hide();
-										
-									}else{
-										alert(result.message);
-									}
-								},
-								error : function(){
-									console.log("통신 오류");
-								},
-								
+						$(".commentW").click(function(){
+							$(".commentInput").show(); 
+							$("#submit").show();
+							$("#back").show();
+							$(".commentW").hide();
+							$(".comment").hide();
+							
+							$("#back").click(function(){
+								history.back();
+							});	
+							
+							$("#submit").click(function(){
+								$.ajax({
+									url : '${contextPath}/insert.cm', 
+									data : {
+										bookNo : ${b.bookId},
+										writerNo : ${loginUser.userNo},
+										comment : $(".commentInput").val()
+									},
+									success : function(result){
+										if(result.status=="success"){
+											alert(result.message);
+											window.location.href = '${contextPath}/commentBoard'; 
+											
+										}else{
+											alert(result.message);
+										}
+									},
+									error : function(){
+										console.log("통신 오류");
+									},
+								});
 							});
 						});
+						
+					
+						$("#back2").click(function(){
+							history.back();
+							// window.location.href = 'destinationPage.html'; 
+						});	
+					
 					});
-				});
+				
+				
+				
+				
+				// 수정하기
+			      function modifyC() {
+					
+			    	  	$("#delete").hide();
+			    	  	$(".commentW").hide();
+				    	var origin = document.getElementById("origin");
+				    	var btn = document.getElementById("modify");
+				    	btn.removeAttribute("onclick");
+				    	// console.log(origin);
+				    	var oText = origin.getAttribute("data-content");
+			            // console.log(oText);
+			
+			            var textarea = document.createElement("textarea");
+			            // 기존 텍스트를 placeholder로 설정
+			            textarea.placeholder = oText;
+			            // 기존 <h1>을 <textarea>로 교체
+			            origin.parentNode.replaceChild(textarea, origin);
+			            
+			            
+			            $("#modify").click(function(){
+			            	var t = $("textarea");
+			            	t.disabled = true;
+				           var submittedText = t.val();
+				           console.log(submittedText);
+				            
+				             $.ajax({
+				            	url : '${contextPath}/update.cm',
+				            	data : {
+				            		rno : $("#modify").data("rno")
+				            		//content : $("textarea").val()
+				            	},
+				            	type : "post",
+				            	success : function(){
+				            		console.log();
+				            	},
+				            	error : function(){
+				            		console.log("통신오류");
+				            	}
+				            	
+				            }); 
+			            });
+	        }
+				
+				
+			 // 삭제하기	
+				$(function(){
+					
+					var replyNo = $("#modify").attr("data-rno");
+					console.log(replyNo);
+					
+					$("#delete").click(function(){
+						if(confirm("정말 삭제하시겠습니까?")){
+							var form = $("<form>", {
+								method : "POST",
+								action : "${contextPath}/delete.cm"
+							});
+							
+							var inputEl = $("<input>", {
+								type : "hidden",
+								name : "replyNo",
+								value : replyNo
+							});
+							
+							form.append(inputEl);
+
+							$("body").append(form);
+							form.submit();	
+						}
+					});
+					
+					
+				});	
 			
 			
 			</script>

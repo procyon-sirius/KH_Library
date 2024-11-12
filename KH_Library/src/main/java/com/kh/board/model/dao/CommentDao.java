@@ -265,7 +265,7 @@ public class CommentDao {
 		int rCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("createComment");
+		String sql = prop.getProperty("replyCount");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardN);
@@ -273,7 +273,6 @@ public class CommentDao {
 			
 			if(rset.next()) {
 				rCount = rset.getInt("COUNT");
-				System.out.println(rCount);
 			}
 			
 		} catch (SQLException e) {
@@ -283,6 +282,30 @@ public class CommentDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return rCount;
+	}
+
+
+
+	// 코멘트 삭제
+	public int deleteComment(Connection conn, int replyNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteComment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, replyNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
 	}
 	
 
