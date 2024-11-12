@@ -1,4 +1,4 @@
-package com.kh.board.controller.reply;
+package com.kh.board.controller.QnABoard;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
