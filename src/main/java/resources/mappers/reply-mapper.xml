@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="insertReply">
+	  	INSERT INTO REPLY( REPLY_NO
+						  ,BOARD_NO
+		                  ,REPLY_WRITER
+		                  ,REPLY_CONTENT  
+		                  ,CREATE_DATE)
+		VALUES (SEQ_NNO.NEXTVAL,?,1,?,SYSDATE)
+	
+	</entry>
+	
+
+	<entry key="updateReply">
+		UPDATE REPLY
+		SET REPLY_CONTENT = ?
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	
+	
+	<entry key="deleteReply">
+		UPDATE REPLY
+		SET STATUS='N'
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ자유게시판 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->	
+	
+	<!-- 자유게시판 댓글작성 -->
+	<entry key="insertFBReply">
+		INSERT INTO REPLY( REPLY_NO
+						  ,BOARD_NO
+		                  ,REPLY_WRITER
+		                  ,REPLY_CONTENT  
+		                  ,CREATE_DATE)
+		VALUES (SEQ_NNO.NEXTVAL,?,?,?,SYSDATE)
+	</entry>
+	
+	<!-- 자유게시판 댓글 리스트 -->
+	<entry key="selectFBreplyList">
+     SELECT REPLY_NO,
+     		BOARD_NO,
+            USER_ID,
+            REPLY_CONTENT,
+            CREATE_DATE
+	   FROM REPLY R
+	   JOIN MEMBER M ON (USER_NO=R.REPLY_WRITER)
+	   WHERE BOARD_NO = ?
+	   AND R.STATUS = 'Y'
+	   ORDER BY CREATE_DATE DESC, REPLY_NO DESC
+	</entry>
+	
+	<!-- 댓글 내용 -->
+	<entry key="selectFBreply">
+		SELECT REPLY_NO,
+            USER_ID,
+            REPLY_CONTENT,
+            CREATE_DATE
+	   FROM REPLY R
+	   JOIN MEMBER M ON (USER_NO=R.REPLY_WRITER)
+	   WHERE REPLY_NO = ?
+	   AND R.STATUS = 'Y'
+	</entry>
+	
+	
+	<entry key="deletefbReply">
+		UPDATE REPLY
+		SET STATUS='N'
+		WHERE REPLY_NO = ? 
+		AND STATUS = 'Y'
+	</entry>
+	
+	
+
+</properties>
