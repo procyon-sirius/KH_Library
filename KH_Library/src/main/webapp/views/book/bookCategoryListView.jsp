@@ -250,89 +250,92 @@
 			</div>
 			<br>
 			<br>
-			<div class="book-list">
-				<c:choose>
-					<c:when test="${empty list}">
-		                      <div  align="center"> 검색 결과가 존재하지 않습니다.</div> 
-		                </c:when>
-					<c:otherwise>
-						<c:forEach var="b" items="${list}">
-							<div class="search-result-block">
-								<div>
-									<input type="hidden" name="bookId" value="${b.bookId }">
-									<table>
-										<tr>
-											<td rowspan="5" style="width: 160px" id="book-img">
-												<img name="book-img" src="${contextPath }/resources/img/${b.bookId}.gif">
-											</td>
-										</tr>
-										<tr>
-											<td class="search-book-title" id="title">${b.bookTitle}</td>
-											<td class="search-table-right book-status" rowspan="5"></td>
-											<td class="search-table-right" rowspan="5">
-												<c:if test="${not empty loginUser }">
-													<button type="button" class="btn btn-success search-table-btn rent-btn">대출</button> <br>
-													<button type="button" class="btn btn-primary search-table-btn reserve-btn">예약</button>
-												</c:if>
-											</td>
-												<script>
-													function reserveDisabled(){
-														$(".search-table-right").last().find(".reserve-btn").removeClass("btn-primary");
-														$(".search-table-right").last().find(".reserve-btn").addClass("btn-secondary");
-													}
-													function rentDisabled(){
-														$(".search-table-right").last().find(".rent-btn").removeClass("btn-success");
-														$(".search-table-right").last().find(".rent-btn").addClass("btn-secondary");
-													}
-												</script>
-												<c:choose>
-													<c:when test="${b.status eq 'Y'}">
-														<script>
-															reserveDisabled();
-															$(".search-result-block").last().find(".book-status").text("대출가능");
-															$(".search-result-block").last().find(".book-status").css("color","green");
-														</script>
-													</c:when>
-													<c:when test="${b.status eq 'B'}">
-														<script>
-															rentDisabled();
-															$(".search-result-block").last().find(".book-status").text("예약가능");
-															$(".search-result-block").last().find(".book-status").css("color","skyblue");
-														</script>
-													</c:when>
-													<c:when test="${b.status eq 'R'}">
-														<script>
-															reserveDisabled();
-															rentDisabled();
-															$(".search-result-block").last().find(".book-status").text("예약중");
-														</script>
-													</c:when>
-													<c:otherwise>
-														<script>
-															reserveDisabled();
-															rentDisabled();
-															$(".search-result-block").last().find(".book-status").text("이용불가");
-															$(".search-result-block").last().find(".book-status").css("color","red");
-														</script>
-													</c:otherwise>
-												</c:choose>
-										</tr>
-										<tr>
-											<td>${b.bookAuthor}</td>
-										</tr>
-										<tr>
-											<td>${b.publisher}</td>
-										</tr>
-										<tr>
-											<td>${b.publishDate}| ${b.enrollDate}</td>
-										</tr>
-									</table>
+				<div class="book-list">
+					<c:choose>
+						<c:when test="${empty list}">
+			                      <div  align="center"> 검색 결과가 존재하지 않습니다.</div> 
+			             </c:when>
+						<c:otherwise>
+							<c:forEach var="b" items="${list}">
+							<form class="book-rent-form" action="" method="post">
+								<input type="hidden" name="userNo" value="${loginUser.userNo}">
+								<div class="search-result-block">
+									<div>
+										<input type="hidden" name="bookId" value="${b.bookId }">
+										<table>
+											<tr>
+												<td rowspan="5" style="width: 160px" id="book-img">
+													<img name="book-img" src="${contextPath }/resources/img/${b.imgName}">
+												</td>
+											</tr>
+											<tr>
+												<td class="search-book-title" id="title">${b.bookTitle}</td>
+												<td class="search-table-right book-status" rowspan="5"></td>
+												<td class="search-table-right" rowspan="5">
+													<c:if test="${not empty loginUser }">
+														<button type="button" class="btn btn-success search-table-btn rent-btn">대출</button> <br>
+														<button type="button" class="btn btn-primary search-table-btn reserve-btn">예약</button>
+													</c:if>
+												</td>
+													<script>
+														function reserveDisabled(){
+															$(".search-table-right").last().find(".reserve-btn").removeClass("btn-primary");
+															$(".search-table-right").last().find(".reserve-btn").addClass("btn-secondary");
+														}
+														function rentDisabled(){
+															$(".search-table-right").last().find(".rent-btn").removeClass("btn-success");
+															$(".search-table-right").last().find(".rent-btn").addClass("btn-secondary");
+														}
+													</script>
+													<c:choose>
+														<c:when test="${b.status eq 'Y'}">
+															<script>
+																reserveDisabled();
+																$(".search-result-block").last().find(".book-status").text("대출가능");
+																$(".search-result-block").last().find(".book-status").css("color","green");
+															</script>
+														</c:when>
+														<c:when test="${b.status eq 'B'}">
+															<script>
+																rentDisabled();
+																$(".search-result-block").last().find(".book-status").text("예약가능");
+																$(".search-result-block").last().find(".book-status").css("color","skyblue");
+															</script>
+														</c:when>
+														<c:when test="${b.status eq 'R'}">
+															<script>
+																reserveDisabled();
+																rentDisabled();
+																$(".search-result-block").last().find(".book-status").text("예약중");
+															</script>
+														</c:when>
+														<c:otherwise>
+															<script>
+																reserveDisabled();
+																rentDisabled();
+																$(".search-result-block").last().find(".book-status").text("이용불가");
+																$(".search-result-block").last().find(".book-status").css("color","red");
+															</script>
+														</c:otherwise>
+													</c:choose>
+											</tr>
+											<tr>
+												<td>${b.bookAuthor}</td>
+											</tr>
+											<tr>
+												<td>${b.publisher}</td>
+											</tr>
+											<tr>
+												<td>${b.publishDate}| ${b.enrollDate}</td>
+											</tr>
+										</table>
+									</div>
 								</div>
-							</div>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-			</div>
+								</form>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</div>
 
 			<script>
 				$(".book-list #book-img").click(
@@ -402,17 +405,20 @@
 				var temp = url.slice(0,-cPageLength);
 				location.href = temp + i;
 			};
-			$(".rent-btn").click(function(){
-				if($(this).closest(".search-result-block").find(".book-status").text()=="대출가능"){
-					$(this).closest(".book-rent-form").attr("action","${contextPath}/rent.bk");
-					$(this).closest(".book-rent-form").submit();
-				};
-			});
-			$(".reserve-btn").click(function(){
-				if($(this).closest(".search-result-block").find(".book-status").text()=="예약가능"){
-					$(this).closest(".book-rent-form").attr("action","${contextPath}/reserve.bk");
-					$(this).closest(".book-rent-form").submit();
-				};
+			
+			$(function(){
+				$(".rent-btn").click(function(){
+					if($(this).closest(".search-result-block").find(".book-status").text()=="대출가능"){
+						$(this).closest(".book-rent-form").attr("action","${contextPath}/rent.bk");
+						$(this).closest(".book-rent-form").submit();
+					};
+				});
+				$(".reserve-btn").click(function(){
+					if($(this).closest(".search-result-block").find(".book-status").text()=="예약가능"){
+						$(this).closest(".book-rent-form").attr("action","${contextPath}/reserve.bk");
+						$(this).closest(".book-rent-form").submit();
+					};
+				});
 			});
 		</script>
 	</div>

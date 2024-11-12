@@ -36,4 +36,6 @@
 		DELETE BOOK
 		WHERE STATUS = 'N'
 	</entry>
+	
+	
 </properties>
