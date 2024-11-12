@@ -1,6 +1,7 @@
 package com.kh.book.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.book.model.service.BookService;
 import com.kh.book.model.vo.Book;
+import com.kh.book.model.vo.BookCategoryInfo;
 
 /**
  * Servlet implementation class BookDetailController
@@ -34,10 +36,17 @@ public class BookDetailController extends HttpServlet {
 		int bno = Integer.parseInt(request.getParameter("bookId"));
 		
 		request.setCharacterEncoding("UTF-8");
+
+		//BookCategoryInfo bi = new BookService().selectBookCategory(bno);
+		
+		//System.out.println(bi);
+		
+		ArrayList<BookCategoryInfo> biList = new BookService().selectBookCategory(bno);
 		
 		Book b = new BookService().selectBook(bno);
 		
 		request.setAttribute("b", b);
+		request.setAttribute("biList", biList);
 		
 		request.getRequestDispatcher("/views/book/bookDetail.jsp").forward(request, response);
 

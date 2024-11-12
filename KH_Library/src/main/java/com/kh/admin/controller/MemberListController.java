@@ -1,6 +1,7 @@
-package com.kh.member.controller;
+package com.kh.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +14,16 @@ import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberDeleteController
+ * Servlet implementation class MemberListController
  */
-@WebServlet("/delete.me")
-public class MemberDeleteController extends HttpServlet {
+@WebServlet("/mlist.me")
+public class MemberListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDeleteController() {
+    public MemberListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,45 +33,17 @@ public class MemberDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		
-		int result = new MemberService().realDelete(userNo);
-		
-		response.getWriter().print(result);
+		ArrayList<Member> list = new MemberService().memberList();
+		response.setContentType("json/application;charset=UTF-8");
+		new Gson().toJson(list,response.getWriter());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		String status = request.getParameter("status");
-		
-		int result = 0;
-		String answer = "";
-		
-		if(status.equals("Y")) {
-			result = new MemberService().deleteMember(userNo);
-
-			if(result>0) {
-				answer = "o";
-			}else {
-				answer="x";
-			}
-			response.getWriter().print(answer);
-			
-		}else {
-			result = new MemberService().rollbackMember(userNo);
-			
-			if(result>0) {
-				answer = "o";
-			}else {
-				answer="x";
-			}
-			response.getWriter().print(answer);
-		}
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

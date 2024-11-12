@@ -35,6 +35,10 @@
 .member-list>tbody>tr>td, th {
 	text-align: center;
 }
+
+#rl:hover{
+	cursor: pointer;
+}
 </style>
 <body>
 
@@ -50,38 +54,39 @@
 				<button id="yn" onclick="yn();">상태값(Y/N)</button>
 			</div>
 		</div>
-		<table class="member-list">
-			<thead>
-				<tr>
-					<th style="width: 5%"><input type="checkbox" name="all"
-						id="all"></th>
-					<th style="width: 5%">회원번호</th>
-					<th style="width: 10%">회원아이디</th>
-					<th style="width: 10%">회원비밀번호</th>
-					<th style="width: 5%">회원명</th>
-					<th style="width: 5%">생년월일</th>
-					<th style="width: 10%">전화번호</th>
-					<th style="width: 10%">이메일</th>
-					<th style="width: 10%">주소</th>
-					<th style="width: 8%">회원가입일</th>
-					<th style="width: 8%">정보수정일</th>
-					<th style="width: 9%">최대대출권수</th>
-					<th style="width: 5%">상태값</th>
-				</tr>
-			</thead>
-			<c:choose>
-				<c:when test="${empty list}">
+			<table class="member-list">
+				<thead>
 					<tr>
-						<td align="center" colspan="13">검색 결과가 존재하지 않습니다.</td>
+						<th style="width: 5%"><input type="checkbox" name="all"
+							id="all"></th>
+						<th style="width: 5%">회원번호</th>
+						<th style="width: 10%">회원아이디</th>
+						<th style="width: 10%">회원비밀번호</th>
+						<th style="width: 5%">회원명</th>
+						<th style="width: 5%">생년월일</th>
+						<th style="width: 10%">전화번호</th>
+						<th style="width: 10%">이메일</th>
+						<th style="width: 10%">주소</th>
+						<th style="width: 8%">회원가입일</th>
+						<th style="width: 8%">정보수정일</th>
+						<th style="width: 9%">최대대출권수</th>
+						<th style="width: 5%">상태값</th>
 					</tr>
-				</c:when>
-				<c:otherwise>
-					<tbody>
-
-					</tbody>
-				</c:otherwise>
-			</c:choose>
-		</table>
+				</thead>
+			
+				<c:choose>
+					<c:when test="${empty list}">
+						<tr>
+							<td align="center" colspan="13">검색 결과가 존재하지 않습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<tbody>
+							
+						</tbody>
+					</c:otherwise>
+				</c:choose>
+			</table>
 	</div>
 	<script>
 		$(function() {
@@ -137,7 +142,7 @@
 								+"<td style='font-size: 10px'>"+m.address+"</td>"
 								+"<td>"+m.enrollDate+"</td>"
 								+"<td>"+m.modifyDate+"</td>"
-								+"<td>"+m.rentLimit+"</td>"
+								+"<td id='rl'>"+m.rentLimit+"</td>"
 								+"<td id='st'>"+m.status+"</td>"
 						}
 						$(".member-list tbody").html(tr);
@@ -176,7 +181,7 @@
 							+"<td style='font-size: 10px'>"+m.address+"</td>"
 							+"<td>"+m.enrollDate+"</td>"
 							+"<td>"+m.modifyDate+"</td>"
-							+"<td>"+m.rentLimit+"</td>"
+							+"<td id='rl'>"+m.rentLimit+"</td>"
 							+"<td id='st'>"+m.status+"</td>"
 					}
 					$(".member-list tbody").html(tr);
@@ -190,6 +195,7 @@
 		
 		
 		function yn(){
+			//console.log($("input[name=one]:checked").parents("tr").find("#rl"));
 			//console.log($("input[name=one]"));
 			//console.log($("tbody>tr").children().has("#one").children())
 				var count = 0; //조건 카운트
@@ -225,6 +231,7 @@
 		}
 		
 		$("#delete").click(function(){
+			var count = 0;
 			$("input[name=one]").each(function(){
 				if($(this).prop("checked")== true){
 					var userno = $(this).parents("tr").find("th").text();
@@ -240,22 +247,47 @@
 								success : function(del){
 		
 									if(del>0){
-										alert("삭제 성공")
-									}else{
-										alert("변경실패")
+										count++
 									}
 									updatelist();
 								},
 								error : function(){
+								},
+								complete : function(){
+									if(count == $("input[name=one]:checked").length){
+										alert(count+"명 변경완료");
+									}
 								}
-							});
-					}else{
-						return alert("'Y'인 회원이 있습니다");			
+						});
 					}
-					return false;
-				}
+				};
 			});
 		});
+		/*		
+		var rows = document.querySelectorAll("tbody>tr");
+		
+		for(var row of rows){
+
+
+			function rent(){
+				var userNo = $(this).parent().siblings("th").first().text();
+				var rentlimit= $("input[name=one]").parent().siblings("#rl").text();
+				
+				location.href = '${contextPath}/rentL.ma?userNo='+userNo;
+			}
+			
+		}*/
+		$(function(){
+
+			$(".member-list>tbody").on("click","#rl", function(){
+				var userNo = $(this).siblings("th").first().text();
+				var rentlimit= $(this).text();
+				
+				location.href = '${contextPath}/rentL.me?userNo='+userNo+"&rentlimit="+rentlimit;
+			})
+		})
+		
+		
 	</script>
 
 </body>
