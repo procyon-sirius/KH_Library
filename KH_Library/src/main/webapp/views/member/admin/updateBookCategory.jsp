@@ -111,22 +111,8 @@
 			<div>
 				<button id="u-b-c-insertRow">+</button>
 			</div>
-			<button id="test">test</button>
 			<script>
 				$(function(){
-					$("#test").click(function(){
-						$(".u-b-c-deleteRow").each(function(){
-							var cno = $(this).parent().siblings().first().text();
-							var cname = $(this).parent().siblings().last().children().val();
-							
-							console.log(cno);
-							console.log(cname);
-							
-							
-						})
-					})
-					
-					
 					//추가
 					$("#u-b-c-insert").click(function() {
 						var count = 0;
@@ -135,7 +121,7 @@
 						$(".u-b-c-deleteRow").each(function(){
 							var cno = $(this).parent().siblings().first().text();
 							var cname = $(this).parent().siblings().last().children().val();
-							console.log(cname);
+							
 							if(cname != ""){
 								$.ajax({
 									url : "${contextPath}/insertBookCategory.ma",
@@ -162,6 +148,8 @@
 										}
 									}
 								})
+							}else{
+								cnt++;
 							}
 
 							
