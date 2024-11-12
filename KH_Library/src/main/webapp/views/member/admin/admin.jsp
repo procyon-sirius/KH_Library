@@ -12,7 +12,6 @@
 		padding : 0;
 	}
 	#admin-page-area{
-		border: 1px solid red;
         width: 100%;
 		margin-top : -50px;
 	}
@@ -27,6 +26,10 @@
     .admin-menu-button{
     	margin : 0 calc(25% / 6);
     	width : 25%;
+    }
+    #admin-btn-area{
+    	padding-bottom : 25px;
+    	border-bottom : 1px solid gray;
     }
 </style>
 </head>
@@ -67,6 +70,9 @@
                         <c:when test="${mode == 'insertBook'}">
                         	<%@include file="/views/member/admin/insertBook.jsp" %>
                         </c:when>
+                        <c:when test="${mode == 'updateBookCategory'}">
+                        	<%@include file="/views/member/admin/updateBookCategory.jsp" %>
+                        </c:when>
 
                         <c:when test="${mode == 'member'}">
                         	<%@include file="/views/member/admin/managementMember.jsp" %>
@@ -74,8 +80,6 @@
                         <c:when test="${mode == 'board'}">
                         	<%@include file="/views/member/admin/managementBoard.jsp" %>
                         </c:when>
-                        <c:otherwise>
-                        </c:otherwise>
                     </c:choose>
                 </div>
             </div>

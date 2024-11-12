@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.admin.model.service.AdminService;
+import com.kh.admin.model.service.AdminBookService;
 import com.kh.book.model.vo.Book;
 import com.kh.member.model.vo.Member;
 
@@ -39,7 +39,7 @@ public class ManagementBook extends HttpServlet {
 			request.setAttribute("errorMsg", "관리자 계정만 접근할 수 있습니다.");
 			request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
 		}else {
-			ArrayList<Book> list = new AdminService().selectAllBook();
+			ArrayList<Book> list = new AdminBookService().selectAllBook();
 			request.setAttribute("mode", "book");
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("/views/member/admin/admin.jsp").forward(request, response);

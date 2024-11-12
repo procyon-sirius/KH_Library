@@ -40,7 +40,7 @@ thead td>select, thead td>input {
 
 #m-b-table-wrap {
 	margin: 0 auto;
-	width: 1223px;
+	width: 1222px;
 	height: fit-content;
 	border: 2px solid black;
 }
@@ -102,12 +102,16 @@ thead td>select, thead td>input {
 	<div id="management-book-area">
 		<div id="management-book-search">
 			<div id="m-b-insert-div">
-				<form action="${contextPath}/insertBook.ma">
-					<button type="submit" id="m-b-insert-btn">도서 추가</button>
-				</form>
-				<form action="${contextPath}/updateBookCategory.ma" method="post">
-					<button type="submit" id="m-b-updateCategory-btn">카테고리 추가/삭제</button>
-				</form>
+				<button type="button" id="m-b-insert-btn">도서 추가</button>
+				<button type="button" id="m-b-updateCategory-btn">카테고리 추가/삭제</button>
+				<script>
+					$("#m-b-insert-btn").click(function(){
+						location.href="${contextPath}/insertBook.ma";
+					})
+					$("#m-b-updateCategory-btn").click(function(){
+						location.href="${contextPath}/updateBookCategory.ma";
+					})
+				</script>
 			</div>
 			<button type="button" id="m-b-allDelete-btn" title="상태값이 N인 모든 도서">모두삭제</button>
 			<button type="button" id="m-b-checkDelete-btn"

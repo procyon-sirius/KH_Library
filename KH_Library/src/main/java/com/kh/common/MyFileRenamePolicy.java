@@ -17,6 +17,7 @@ public class MyFileRenamePolicy implements FileRenamePolicy{
 		//시퀀스에서 다음 BookId 받아오기
 		int bid = new BookService().BNONextVal();
 		
+		
 		String changeName = Integer.toString(bid)+ext;
 		
 		//originFile.getParent() :해당 파일의 부모 폴더 경로 반환

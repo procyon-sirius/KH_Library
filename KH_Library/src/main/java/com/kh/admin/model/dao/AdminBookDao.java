@@ -11,13 +11,14 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.book.model.vo.Book;
+import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.search.model.dao.SearchDao;
 
-public class AdminDao {
+public class AdminBookDao {
 	private Properties prop = new Properties();
 	
-	public AdminDao() {
+	public AdminBookDao() {
 
 		String filePath = SearchDao.class.getResource("/resources/mappers/admin-mapper.xml").getPath();
 		
@@ -182,6 +183,108 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int bookCategoryDelete(Connection conn, String cno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("bookCategoryDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cno);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int bookCategoryChangeZero(Connection conn, String cno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("bookCategoryChangeZero");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cno);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int checkBookCategoryDelete(Connection conn, String cno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 1;
+		String sql = prop.getProperty("checkBookCategoryDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int bookCategoryInfoDelete(Connection conn, String cno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("bookCategoryInfoDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cno);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertNewBookCategoryInfo(Connection conn, BookCategoryInfo cInfo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertNewBookCategoryInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cInfo.getCategoryNo());
+			pstmt.setString(2, cInfo.getCategoryName());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

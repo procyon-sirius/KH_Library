@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.admin.model.service.AdminService;
+import com.kh.admin.model.service.AdminBookService;
 
 /**
  * Servlet implementation class RemoveCkNBook
@@ -38,7 +38,7 @@ public class RemoveCkNBook extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
-		int result = new AdminService().removeCkNBook(bookId);
+		int result = new AdminBookService().removeCkNBook(bookId);
 		
 		response.setContentType("text/html;charset=UTF-8");
 		response.getWriter().print(result);

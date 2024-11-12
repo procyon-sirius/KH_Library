@@ -3,14 +3,24 @@
 <properties>
 	<entry key="selectBookCategoryList">
 		SELECT * FROM BOOK_CATEGORY_INFO
+		ORDER BY CATEGORY_NO ASC
 	</entry>
 	
 	<entry key="listCount">
 		SELECT COUNT(*) COUNT
-		FROM BOOK
-		JOIN BOOK_CATEGORY USING(BOOK_ID)
-		WHERE ? LIKE '%'||CATEGORY_NO||'%'
-		AND (BOOK_TITLE LIKE '%'||?||'%' OR BOOK_AUTHOR LIKE '%'||?||'%' OR PUBLISHER LIKE '%'||?||'%') 
+		FROM(SELECT  BOOK_ID
+						, BOOK_TITLE
+						, BOOK_AUTHOR
+						, PUBLISHER
+						, PUBLISH_DATE
+						, ENROLL_DATE
+	        	   		, STATUS
+	        	   		, IMG_NAME
+			FROM BOOK
+			JOIN BOOK_CATEGORY USING(BOOK_ID)
+			WHERE ? LIKE '%'||CATEGORY_NO||'%'
+			AND (BOOK_TITLE LIKE '%'||?||'%' OR BOOK_AUTHOR LIKE '%'||?||'%' OR PUBLISHER LIKE '%'||?||'%') 
+			GROUP BY BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME)
 	</entry>
 
 	<entry key="selectSearchResultList">
@@ -28,6 +38,7 @@
 					JOIN BOOK_CATEGORY USING(BOOK_ID)
 				    WHERE ? LIKE '%'||CATEGORY_NO||'%'
 				    AND (BOOK_TITLE LIKE '%'||?||'%' OR BOOK_AUTHOR LIKE '%'||?||'%' OR PUBLISHER LIKE '%'||?||'%')
+	    			GROUP BY BOOK_ID, BOOK_TITLE, BOOK_AUTHOR, PUBLISHER, PUBLISH_DATE, ENROLL_DATE, STATUS, IMG_NAME
 	    			) A)
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>

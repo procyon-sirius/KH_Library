@@ -139,7 +139,7 @@
 									value : b.bookId
 									}));
 								book.append($("<img>",{
-									src : "${contextPath}/resources/img/"+b.bookId+".gif"
+									src : "${contextPath}/resources/img/"+b.imgName
 								}).addClass("recommend-cover rec-book-info"));
 								book.append($("<div>").addClass("recommend-title rec-book-info").text(b.bookTitle));
 								book.append($("<div>").addClass("recommend-author").text(b.bookAuthor));

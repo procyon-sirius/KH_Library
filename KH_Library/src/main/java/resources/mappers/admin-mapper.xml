@@ -36,4 +36,43 @@
 		DELETE BOOK
 		WHERE STATUS = 'N'
 	</entry>
+	<entry key="bookCategoryInfoDelete">
+		DELETE BOOK_CATEGORY_INFO
+		WHERE ? LIKE '%'||CATEGORY_NO||'%'
+		AND CATEGORY_NO !=0
+	</entry>
+	<entry key="checkBookCategoryDelete">
+		SELECT COUNT(*) "COUNT"
+		FROM BOOK_CATEGORY
+		WHERE ? LIKE '%'||CATEGORY_NO||'%'
+	</entry>
+	<entry key="bookCategoryDelete">
+		DELETE BOOK_CATEGORY
+		WHERE ? LIKE '%'||CATEGORY_NO||'%'
+		AND  BOOK_ID IN (SELECT A.BOOK_ID
+                          FROM(SELECT BOOK_ID
+                                    , COUNT(*) COUNT
+                               FROM BOOK_CATEGORY
+                               GROUP BY BOOK_ID
+                               ORDER BY BOOK_ID)A
+                          WHERE COUNT > 1)
+		AND CATEGORY_NO != 0
+	</entry>
+	<entry key="bookCategoryChangeZero">
+		UPDATE BOOK_CATEGORY
+		SET CATEGORY_NO = 0
+		WHERE ? LIKE '%'||CATEGORY_NO||'%'
+		AND BOOK_ID IN (SELECT A.BOOK_ID
+						  FROM(SELECT BOOK_ID
+		                    		, COUNT(*) COUNT
+		                       FROM BOOK_CATEGORY
+		                       GROUP BY BOOK_ID
+		                       ORDER BY BOOK_ID)A
+		                  WHERE COUNT = 1)
+		AND CATEGORY_NO != 0
+	</entry>
+	<entry key="insertNewBookCategoryInfo">
+		INSERT INTO BOOK_CATEGORY_INFO
+		VALUES(?,?)
+	</entry>
 </properties>
