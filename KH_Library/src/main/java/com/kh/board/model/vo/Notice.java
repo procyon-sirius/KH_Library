@@ -62,6 +62,15 @@ public class Notice {
 		this.noticeTitle = noticeTitle;
 		this.postPostion = postPostion;
 	}
+	
+	
+
+	public Notice(int noticeNo, String noticeTitle, Date date) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.date = date;
+	}
 
 
 	public int getNoticeNo() {

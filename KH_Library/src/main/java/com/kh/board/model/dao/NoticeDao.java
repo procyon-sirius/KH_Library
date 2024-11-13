@@ -305,6 +305,35 @@ public class NoticeDao {
 	public int updateComment(Connection conn, int rno, String content) {
 		return 0;
 	}
+
+	
+	//메인페이지 공지리스트
+	public ArrayList<Notice> indexSelectNotice(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Notice> list = new ArrayList<>();
+		String sql = prop.getProperty("indexSelectNotice");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Notice(rset.getInt("NOTICE_NO")
+									,rset.getString("NOTICE_TITLE")
+									,rset.getDate("CREATE_DATE")));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
 	
 
 }
