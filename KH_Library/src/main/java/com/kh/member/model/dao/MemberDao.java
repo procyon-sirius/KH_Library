@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
@@ -381,6 +382,63 @@ public class MemberDao {
 		}
 			
 		return flag;
+	}
+
+	//비밀번호 변경	
+	public int updatePwd(Connection conn, HashMap<String, String> map) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, map.get("pwdUpdate"));
+			pstmt.setString(2, map.get("userId"));
+			pstmt.setString(3, map.get("userPwd"));
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(pstmt);
+			
+		}
+												
+		return result;
+	}
+	
+	//책 반납
+	public int bookReturn(Connection conn, int bookId) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("bookReturn");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookId);
+			
+			result= pstmt.executeUpdate();
+						
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(pstmt);
+			
+		}
+				
+		return result;
 	}
 	
 

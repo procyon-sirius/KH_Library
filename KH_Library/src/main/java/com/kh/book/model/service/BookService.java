@@ -212,36 +212,7 @@ public class BookService {
 		return monthListCount;
 	}
 
-	public int BNONextVal() {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int bid = new BookDao().BNONextVal(conn);
-		
-		JDBCTemplate.close(conn);
-		
-		return bid;
-	}
 
-	public int insertBook(Book b, String[] category) {
-		Connection conn = JDBCTemplate.getConnection();
-		int bookId = b.getBookId();
-		int bc = 1;
-		//책 등록 (부모테이블)
-		int result = new BookDao().insertBook(conn,b);
-		for(String c : category) {
-			//카테고리 등록(자식테이블)
-			bc = bc * new BookDao().insertBookCategory(conn,bookId,c);
-		}
-		
-		if(result*bc>0) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		}
-		JDBCTemplate.close(conn);
-		
-		return result;
-	}
 
 	public ArrayList<BookCategoryInfo> selectBookCategory(int bno) {
 		
@@ -253,6 +224,7 @@ public class BookService {
 		
 		return biList;
 	}
+
 
 	public Book monthRecommendBook(int tb) {
 		

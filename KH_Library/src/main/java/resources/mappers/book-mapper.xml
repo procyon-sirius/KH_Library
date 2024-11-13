@@ -143,18 +143,7 @@
 					WHERE TO_CHAR(SYSDATE,'MM')=TO_CHAR(ENROLL_DATE,'MM')) A)
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
-	<entry key="BNONextVal">
-	 	SELECT SEQ_BNO.NEXTVAL "BID"
-		FROM DUAL
-	</entry>
-	<entry key="insertBook">
-		INSERT INTO BOOK
-		VALUES(?, ?, ?, ?, ?, DEFAULT, DEFAULT, ?, DEFAULT, ?,?)
-	</entry>
-	<entry key="insertBookCategory">
-		INSERT INTO BOOK_CATEGORY
-		VALUES(?,?)
-	</entry>
+	
 	
 	<entry key="selectBookCategory">
 		SELECT CATEGORY_NO,

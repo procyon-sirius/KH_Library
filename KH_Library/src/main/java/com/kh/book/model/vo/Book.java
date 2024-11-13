@@ -66,6 +66,19 @@ public class Book {
 		this.imgName = imgName;
 	}
 	
+	
+	public Book(String imgName, int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, String ageRank,
+			String summary) {
+		super();
+		this.imgName = imgName;
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.publisher = publisher;
+		this.publishDate = publishDate;
+		this.ageRank = ageRank;
+		this.summary = summary;
+	}
 
 	public Book(int bookId, String bookTitle, String bookAuthor, int publishDate, Date enrollDate, String ageRank,
 			String status) {

@@ -11,6 +11,23 @@
 	        , STATUS
 		FROM BOOK
 	</entry>
+	<entry key="selectUpdateBook">
+		SELECT BOOK_ID
+			, BOOK_TITLE
+			, BOOK_AUTHOR
+			, PUBLISHER
+			, PUBLISH_DATE
+			, AGE_RANK
+	        , SUMMARY
+	        , IMG_NAME
+		FROM BOOK
+		WHERE BOOK_ID = ?
+	</entry>
+	<entry key="selectBookCategory">
+		SELECT CATEGORY_NO
+		FROM BOOK_CATEGORY
+		WHERE BOOK_ID = ?
+	</entry>
 	<entry key="changeStatusBook">
 		UPDATE BOOK
 		SET STATUS = ?
@@ -71,6 +88,7 @@
 		VALUES(?,?)
 	</entry>
 	
+
 	<entry key="rentCount">
 		SELECT COUNT(*) COUNT
 		FROM RENT
@@ -90,5 +108,33 @@
 		UPDATE MEMBER
 		SET RENT_LIMIT = ?
 		WHERE USER_NO = ?
+	</entry>
+	<entry key="BNONextVal">
+	 	SELECT SEQ_BNO.NEXTVAL "BID"
+		FROM DUAL
+	</entry>
+	<entry key="insertBook">
+		INSERT INTO BOOK
+		VALUES(?, ?, ?, ?, ?, DEFAULT, DEFAULT, ?, DEFAULT, ?,?)
+	</entry>
+	<entry key="insertBookCategory">
+		INSERT INTO BOOK_CATEGORY
+		VALUES(?,?)
+	</entry>
+	<entry key="updateBook">
+		UPDATE BOOK
+		SET BOOK_TITLE = ?
+		    , BOOK_AUTHOR = ?
+		    , PUBLISHER = ?
+		    , PUBLISH_DATE = ?
+		    , AGE_RANK = ?
+		    , SUMMARY = ?
+		    , IMG_NAME = ?
+		WHERE BOOK_ID = ?
+	</entry>
+	
+	<entry key="removeUpdateCategory">
+		DELETE BOOK_CATEGORY
+		WHERE BOOK_ID = ?
 	</entry>
 </properties>
