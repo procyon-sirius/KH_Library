@@ -225,4 +225,28 @@ public class BookService {
 		return biList;
 	}
 
+
+	public Book monthRecommendBook(int tb) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Book b = new BookDao().monthRecommendBook(conn, tb);
+		
+		JDBCTemplate.close(conn);
+		
+		return b;
+	}
+
+	public int topBook() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int tb = new BookDao().topBook(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return tb;
+	}
+	
+
 }

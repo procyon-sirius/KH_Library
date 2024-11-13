@@ -703,6 +703,63 @@ public class BookDao {
 	}
 
 
+	public Book monthRecommendBook(Connection conn, int tb) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Book b = new Book();
+		String sql = prop.getProperty("selectBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tb);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Book(rset.getInt("BOOK_ID"),
+							 rset.getString("BOOK_TITLE"),
+							 rset.getString("BOOK_AUTHOR"),
+							 rset.getString("SUMMARY"),
+							 rset.getString("IMG_NAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return b;
+	}
+
+
+	public int topBook(Connection conn) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int tb = 0;
+		String sql = prop.getProperty("topBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				tb = rset.getInt("BOOK_ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return tb;
+	}
+
+
 
 	
 	

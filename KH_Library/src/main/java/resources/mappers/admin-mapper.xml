@@ -88,6 +88,27 @@
 		VALUES(?,?)
 	</entry>
 	
+
+	<entry key="rentCount">
+		SELECT COUNT(*) COUNT
+		FROM RENT
+		WHERE USER_NO = ?
+	</entry>
+	
+	<entry key="memberInfo">
+		SELECT USER_NO,
+	           USER_ID,
+	           USER_NAME,
+	           RENT_LIMIT
+		FROM MEMBER
+		WHERE USER_NO = ?
+	</entry>
+	
+	<entry key="updateLimit">
+		UPDATE MEMBER
+		SET RENT_LIMIT = ?
+		WHERE USER_NO = ?
+	</entry>
 	<entry key="BNONextVal">
 	 	SELECT SEQ_BNO.NEXTVAL "BID"
 		FROM DUAL

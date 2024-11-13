@@ -152,4 +152,27 @@
 		JOIN BOOK_CATEGORY_INFO USING(CATEGORY_NO)
 		WHERE BOOK_ID = ?
 	</entry>
+	
+	<entry key="topBook">
+		SELECT BOOK_ID
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID, MAX(COUNT) MAX
+                    FROM (SELECT BOOK_ID,COUNT(BOOK_ID) COUNT
+                          FROM RENT
+                          WHERE TO_CHAR(SYSDATE,'MM')=TO_CHAR(RETURN_DATE-14,'MM') 
+                          GROUP BY BOOK_ID)
+                    GROUP BY BOOK_ID
+                    ORDER BY BOOK_ID) A)
+		WHERE RNUM = 1
+	</entry>
+	
+	<entry key="">
+		SELECT BOOK_ID,
+			   BOOK_TITLE,
+	           BOOK_AUTHOR,
+	           SUMMARY,
+	           IMG_NAME
+		FROM BOOK
+		WHERE BOOK_ID = ?
+	</entry>
 </properties>

@@ -550,7 +550,7 @@
                                 <li><a href="${contextPath }/input.se"  class="submenu-text">통합검색</a></li>
                                 <li><a href="${contextPath }/changeCategory.bk?currentPage=1&categoryNo=-1"  class="submenu-text">카테고리 검색</a></li>
                                 <li><a href="${contextPath }/mnewBook.bk?time=M&currentPage=1"  class="submenu-text">신규 도서</a></li>
-                                <li><a href="${contextPath }"  class="submenu-text">추천 도서</a></li>
+                                <li><a href="${contextPath }/mrbook.bk"  class="submenu-text">추천 도서</a></li>
                             </ul>
                         </div>
 
