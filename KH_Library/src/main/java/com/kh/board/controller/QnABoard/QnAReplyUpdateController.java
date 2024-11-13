@@ -49,7 +49,7 @@ public class QnAReplyUpdateController extends HttpServlet {
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
 		
-		int result = new ReplyService().updateReply(content,boardNo);
+		int result = new ReplyService().updateReply(boardNo, content);
 		
 		String alertMsg = "";
 		if(result>0) {
