@@ -2,6 +2,8 @@ package com.kh.member.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.apache.tomcat.dbcp.dbcp2.Jdbc41Bridge;
 
 import com.kh.common.JDBCTemplate;
@@ -168,6 +170,44 @@ public class MemberService {
 		
 		return flag;
 	}
+
+	//비밀번호 변경
+	public int updatePwd(HashMap<String, String> map) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().updatePwd(conn,map);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+											
+		return result;
+	}
+	
+	//책 반납
+	public int bookReturn(int bookId) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().bookReturn(conn,bookId);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+						
+		return result;
+	}
+	
+	
 	
 	
 

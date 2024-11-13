@@ -15,7 +15,7 @@
 	border-bottom:3px solid black;
 	height:32px;
 }
-.rent-book{
+.book-list{
 	margin-left: 32px;
 	width : 1100px;
 	height : 90px;
@@ -45,7 +45,7 @@
           		<label for="allCheck">전체선택</label>
           	</div>
           	<br>
-          	<table border="1" class="rent-book">
+          	<table border="1" id="rentList" class="book-list">
           		<thead>
           			<tr>
           				<th width="90px" height="40px">책 고유번호</th>
@@ -71,8 +71,77 @@
           				<td>${r.bookAuthor }</td>
           				<td>${r.publisher}</td>
           				<td>${r.returnDate }</td>
-          				<td><button type="button">반납</button>
+          				<td><button type="button" >반납</button>
           					<button type="button">반납연기</button></td>
+          			</tr>
+          		   </c:forEach>
+          		  </c:otherwise>
+          		 </c:choose>  
+          			       			      		      		
+          		</tbody>	
+          		    		         	
+          	</table>
+            			
+		  </div>
+		  <script>
+		  	$(function(){
+		  		$("#rentList").on("click","button",function(){
+		  			
+		  			//console.log($(this).parent().siblings().first().text());
+		  			
+		  			var bookId = $(this).parent().siblings().first().text();
+		  			
+		  		  if(confirm("정말 반납하시겠습니까? 반납후 복구는 불가능합니다.")){
+		  			  
+		  			  location.href="${contextPath}/reBook.me?bookId="+bookId;
+		  			  		  			  
+		  		  }
+		  				  			
+		  			
+		  		});
+		  		
+		  		
+		  	});	
+		  		 	  				  
+		  </script>
+			  
+		  
+		  <br>
+		  <h1 align="center">예약현황</h1>
+		  <div id="reserve-area">
+		  	 <br>
+          	<div id="detail-list">
+          		<input type="checkbox" name="allCheck" id="allCheck">
+          		<label for="allCheck">전체선택</label>
+          	</div>
+          	<br>
+          	<table border="1" id="reserveList" class="book-list">
+          		<thead>
+          			<tr>
+          				<th width="90px" height="40px">책 고유번호</th>
+          				<th width="480px">책 제목</th>
+          				<th width="150px">저자</th>
+          				<th width="150px">출판사</th>
+          				<th>예약자</th>
+          				<th>예약 취소</th>
+          			</tr>
+          		</thead>	
+          		<tbody>
+          		<c:choose>
+          		  <c:when test="${empty list }">
+          		  <tr>
+          		  	   <td colspan="6">대출정보가 없습니다.</td>
+          		  </tr>
+          		  </c:when>
+          		 <c:otherwise> 	   
+          		  <c:forEach var="r" items="${list}">
+          			<tr>
+          				<td></td>
+          				<td></td>
+          				<td></td>
+          				<td></td>
+          				<td>${loginUser.userName}</td>
+          				<td><button type="button">예약취소</button></td>          					
           			</tr>
           		   </c:forEach>
           		  </c:otherwise>
@@ -83,12 +152,6 @@
           		    		
           	
           	</table>
-            
-			
-		  </div>
-		  <br>
-		  <h1 align="center">예약현황</h1>
-		  <div id="reserve-area">
 		  </div>
         </div>
     </div>

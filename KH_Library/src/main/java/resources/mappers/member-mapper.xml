@@ -32,6 +32,7 @@
     	,PHONE= ?
     	,EMAIL= ?
     	,ADDRESS= ?
+    	,MODIFY_DATE = SYSDATE
 	WHERE USER_ID= ?
 	</entry>
 	
@@ -87,6 +88,23 @@
 	<entry key="realDelete">
 		DELETE FROM MEMBER
 		WHERE USER_ID = ?
+	</entry>
+	
+	<!-- 비밀번호 변경 구문 -->
+	<entry key="updatePwd">
+	UPDATE MEMBER
+	SET USER_PWD=?
+    	,MODIFY_DATE = SYSDATE
+	WHERE USER_ID=?
+	AND USER_PWD=?
+				
+	</entry>
+	
+	<!-- 책 반납 구문 -->
+	<entry key="bookReturn">
+	DELETE FROM RENT
+	WHERE BOOK_ID = ?
+		
 	</entry>
 
 </properties>
