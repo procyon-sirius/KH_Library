@@ -168,7 +168,7 @@
 				      labels: ['10대', '20대', '30대', '40대', '50대', '60대'],
 				      datasets: [{
 				        label: '대출 권수',
-				        data: [12, 19, 3, 5, 2, 3],
+				        data: [${ten}, ${twenty}, ${thirty}, ${forty}, ${fifty}, ${sixty}],
 				        borderWidth: 1
 				      }]
 				    },

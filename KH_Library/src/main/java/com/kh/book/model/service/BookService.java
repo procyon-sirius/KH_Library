@@ -247,6 +247,72 @@ public class BookService {
 		
 		return tb;
 	}
+
+	public int tenRent(int bno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int ten = new BookDao().tenRent(conn,bno);
+		
+		JDBCTemplate.close(conn);
+		
+		return ten;
+	}
+
+	public int twentyRent(int bno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int twenty = new BookDao().twentyRent(conn,bno);
+		
+		JDBCTemplate.close(conn);
+		
+		return twenty;
+	}
+
+	public int thirtyRent(int bno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int thirty = new BookDao().thirtyRent(conn,bno);
+		
+		JDBCTemplate.close(conn);
+		
+		return thirty;
+	}
+
+	public int fortyRent(int bno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int forty = new BookDao().fortyRent(conn,bno);
+		
+		JDBCTemplate.close(conn);
+		
+		return forty;
+	}
+
+	public int fiftyRent(int bno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int fifty = new BookDao().fiftyRent(conn,bno);
+		
+		JDBCTemplate.close(conn);
+		
+		return fifty;
+	}
+
+	public int sixtyRent(int bno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int sixty = new BookDao().sixtyRent(conn,bno);
+		
+		JDBCTemplate.close(conn);
+		
+		return sixty;
+	}
 	
 
 }
