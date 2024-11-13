@@ -40,6 +40,19 @@ public class HopeBookService {
 		return list;
 	}
 
+
+	public ArrayList<HopeBook> selectHopeListDESC(PageInfo pi) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<HopeBook> list = new HopeBookDao().selectHopeListDESC(conn, pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+	
 	//상세보기
 	public HopeBook hopeBookDetail(int hopeNum) {
 		
