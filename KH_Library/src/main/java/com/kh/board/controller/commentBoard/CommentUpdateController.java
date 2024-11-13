@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import com.kh.board.model.service.CommentService;
 
 /**
@@ -41,9 +43,20 @@ public class CommentUpdateController extends HttpServlet {
 		int rno = Integer.parseInt(request.getParameter("rno"));
 		String content = request.getParameter("content");
 		
-		int result = new CommentService().updateComment();
+		int result = new CommentService().updateComment(rno,content);
 		
-	
+		JSONObject jsonResponse = new JSONObject();
+		response.setContentType("json/application;charset=UTF-8");
+		
+		if(result>0) {
+			jsonResponse.put("status", "success");
+		    jsonResponse.put("message", "코멘트 수정에 성공하였습니다");
+		}else {
+			jsonResponse.put("status", "fail");
+		    jsonResponse.put("message", "코멘트 수정에 실패하였습니다");
+		}
+		
+		response.getWriter().print(jsonResponse);
 	}
 
 }

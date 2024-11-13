@@ -119,10 +119,21 @@ public class CommentService {
 	}
 
 	
-	// 코멘트 생성
-	public int updateComment() {
-		// TODO Auto-generated method stub
-		return 0;
+	// 코멘트 수정
+	public int updateComment(int rno, String content) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new CommentDao().updateComment(conn,rno,content);
+	
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
 	}
 
 

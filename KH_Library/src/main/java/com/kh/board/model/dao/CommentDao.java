@@ -34,8 +34,6 @@ public class CommentDao {
 	}
 	
 	
-	
-	
 	// 게시글 수 조회
 	public int listCount(Connection conn) {
 		Statement stmt = null;
@@ -260,7 +258,7 @@ public class CommentDao {
 	
 	}
 
-
+	// 코멘트 갯수 
 	public int replyCount(Connection conn, int boardN) {
 		int rCount = 0;
 		PreparedStatement pstmt = null;
@@ -307,8 +305,31 @@ public class CommentDao {
 		
 		return result;
 	}
-	
 
+
+
+	// 코멘트 수정
+	public int updateComment(Connection conn, int rno, String content) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateComment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, content);
+			pstmt.setInt(2, rno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 	
 
 }

@@ -1,7 +1,6 @@
 <%@page import="com.kh.board.model.vo.Reply"%>
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.kh.board.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -25,7 +24,6 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 <title>Insert title here</title>
 
 	<style type="text/css">
-	      
         .category {
 			margin-left: -950px;
 			font-size: 16px;
@@ -44,7 +42,6 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 		}
 		
 		.replyWriter{
-		
 			color: #333;
 			border: 1px solid #3333335d;
 			border-radius: 5px;
@@ -53,8 +50,6 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 			font-size: 16px;
 			cursor: pointer;
 		}
-		
-		
 		
 		.separator {
 			display: inline-block;
@@ -75,7 +70,6 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 		  	border-right: none;
 		}
 		
-		
 		.QnAList td:nth-child(1),td:nth-child(5){
 			padding-left: 15px;
 		}
@@ -89,7 +83,15 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 			text-align: left;
 		}
 		
-	
+		
+		.qContent {
+			   display: none;
+		}
+		
+		.qContent td.no-border {
+		    border: none !important;
+		}
+				
 		#aList{
 			height: 200px;
 		    border-top: 1px solid #ddd;  
@@ -104,33 +106,14 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 		  padding-bottom: 50px; /* 텍스트 하단에 10px 여백 */
 		
 		}
-		
-		
 		.aListDml{
 			padding-left: 50px;
 		
 		}
 		
-		
-		pre {
-		 	text-align: left; /* 텍스트 정렬 */
-			padding: 10px;
-			font-family: sans-serif;
-			font-size: 18px;
-			color: #333;
-		}
-		
-		
-		.answer {
-		    display: none; /* 초기에는 보이지 않도록 설정 */
-		}
-		
 		.aList{
 			display: none;
 		}
-		
-		
-		
 		.pageBtn button{
 		border: none;
 	    width: 50px;   
@@ -149,7 +132,6 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 	    <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
 	    <div id="content-area">
-
 				<p>
 			        <div align="center" >
 			        	
@@ -172,12 +154,10 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 								<br>
 								<a href="<%=contextPath %>/insert.qna" class="list">글작성</a>
 							</div>
-							
 						<%} %>	
-													
 					 </div>        	
 			        		
-			        		<hr class="boarder">
+	        		<hr class="boarder">
 	                     <table border="1px" class="qnalist">
 			                <thead>
 			                    <tr>
@@ -198,6 +178,7 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 			                	</tr>
 			                <%}else {
 			                		for(Board b: blist) {	
+			                			
 			                			boolean Reply = false;
 			                			
 			                			for( Reply r: rList) {
@@ -221,6 +202,26 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 							                        <td width="200"><%=b.getDate() %></td>
 							                        <td colspan="2" ><button class="qListb" data-boardno="<%=b.getBoardNo() %>">▼</button> </td>
 							                    	<td width="150" class="ox">O</td>
+							                        
+							                        <td class="aListDml">
+					                        		    <%if(loginUser!=null && loginUser.getUserId().equals(b.getUserNo())) { %>
+															<form action="<%=contextPath %>/update.qna">
+																<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+																<input type="hidden" name="title" value="<%=b.getBoardTitle() %>">
+																<input type="hidden" name="content" value="<%=b.getBoardContent() %>">
+																<button type="submit" class="replyWriter" id="qnaUpdate">문의수정</button>
+													 		</form>
+												 			<form action="<%=contextPath %>/delete.qna" method="post">
+																<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+																<button type="submit" class="replyWriter">문의삭제</button>
+													 		</form>
+													 		
+													  	<%} %>
+							                        </td>
+							                    
+							                    </tr>
+							                    <tr class="qContent" data-boardno="<%=b.getBoardNo() %>">
+							                    	<td colspan="7" class="no-border">ㄴ <%=b.getBoardContent() %></td>
 							                    </tr>
 							                    <tr class="aList" id="aList" data-boardno="<%=r.getBoardNo() %>">
 							                        <td width="150"><%=r.getBoardNo() %></td>
@@ -230,7 +231,7 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 							                        <td width="200"><%=r.getDate() %></td>
 							                        
 							                        <td class="aListDml">
-					                        		    <%if(loginUser!=null && loginUser.getUserId().equals("admin")) { %>
+					                        		    <%if(loginUser!=null && loginUser.getUserId().equals("admin")){ %>
 															<form action="<%=contextPath %>/update.rp">
 																<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
 																<button type="submit" class="replyWriter">답변수정</button>
@@ -239,12 +240,13 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 																<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
 																<button type="submit" class="replyWriter">답변삭제</button>
 													 		</form>
+													 		<form action="<%=contextPath %>/delete.all" method="post">
+																<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+																<button type="submit" class="replyWriter">전체삭제</button>
+													 		</form>
 													 		
 													  	<%} %>
 							                        </td>
-							                        
-							                        
-							                        
 							                    </tr>
 			                    		<%} %>
 			                    		
@@ -264,6 +266,21 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 					                        <td colspan="2"></td>
 					                        <td width="150" class="ox">X</td>
 					                        
+                      				        <td class="aListDml">
+			                        		    <%if(loginUser!=null && loginUser.getUserId().equals(b.getUserNo())) { %>
+													<form action="<%=contextPath %>/update.qna">
+														<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+														<input type="hidden" name="title" value="<%=b.getBoardTitle() %>">
+														<input type="hidden" name="content" value="<%=b.getBoardContent() %>">
+														<button type="submit" class="replyWriter" id="qnaUpdate">문의수정</button>
+											 		</form>
+										 			<form action="<%=contextPath %>/delete.qna" method="post">
+														<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+														<button type="submit" class="replyWriter">문의삭제</button>
+											 		</form>
+											 		
+											  	<%} %>
+					                        </td>
 					                        
 					                        <td>
 					                        	  <%if(loginUser!=null && loginUser.getUserId().equals("admin")) { %>
@@ -286,25 +303,18 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 				
 				<script>
 					$(function(){
-						
-							$(".q").click(function(){
-								
-									console.log($(".q"));
-								
-								 $(".answer").toggle();
-								
-							});
 							
-							
-							$(".qListb").click(function(){
-								 var boardNo = $(this).data("boardno");
-								$(".aList[data-boardno='" + boardNo + "']").toggle();
-								
-						});
-						
+						   $(".qListb").click(function(){
+						        var boardNo = $(this).data("boardno");
+						        
+						        // aList (답변 리스트) 토글
+						        $(".aList[data-boardno='" + boardNo + "']").toggle();
+						        
+						        // 해당 boardNo와 관련된 no-border td 요소도 토글
+						        $(".qContent[data-boardno='" + boardNo + "']").toggle();
+						    });
 					});
 				</script>
-				
 				
 			<br><br><br>
 		    <div align="center" class="pageBtn">

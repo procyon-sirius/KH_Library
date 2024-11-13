@@ -38,6 +38,8 @@ public class FreeBoardDetailController extends HttpServlet {
 		
 		int numUp = new FreeboardService().increaseCount(nno);
 		
+		
+		
 		if(numUp>0) {
 			
 			request.setAttribute("currentPage", currentPage);
