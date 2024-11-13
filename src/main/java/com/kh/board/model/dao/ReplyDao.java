@@ -128,6 +128,7 @@ public class ReplyDao {
 			pstmt.setInt(1, boardNo);
 			pstmt.setInt(2, writerNo);
 			pstmt.setString(3, content);
+			
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

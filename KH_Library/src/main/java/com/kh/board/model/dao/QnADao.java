@@ -32,16 +32,43 @@ public class QnADao {
 			
 		}
 	
+		
+		
+		
+	// 게시글 조회
+	public int QlistCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = prop.getProperty("QlistCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset= stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		
+		return listCount;
+	}
 	
-	
-	
+		
 		
 	// 조회수 증가
 	public int increaseCount(Connection conn, int bno) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String sql = prop.getProperty("listCount");
+		String sql = prop.getProperty("increaseCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -60,8 +87,6 @@ public class QnADao {
 	}
 
 
-
-	
 	
 	// Q 리스트 조회 
 	public ArrayList<Board> selectQList(Connection conn, PageInfo pi) {
@@ -185,6 +210,62 @@ public class QnADao {
 		
 		return result;
 	}
+
+
+
+
+	// 질문글 수정
+	public int updateQnA(Connection conn, int boardNo, String title, String content) {
+	
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateQnA");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, boardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+
+	// 질문글 삭제
+	public int deleteQnA(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteQnA");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 
 }

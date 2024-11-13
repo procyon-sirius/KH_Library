@@ -163,10 +163,15 @@ pre {
 			if(loginUser!=null && loginUser.getUserId().equals(writerNo)) {%> 
 					<table class="insert">
 						<tr>
-							<td><button type="button" class="m"
-							onclick="location.href='${contextPath}/update.fb?nno=<%=fb.getBoardNo()%>&currentPage=<%=currentPage%>'">수정하기</button></td>
+							<td>
+								<button type="button" class="m"
+								onclick="location.href='${contextPath}/update.fb?nno=<%=fb.getBoardNo()%>&currentPage=<%=currentPage%>'">수정하기</button></td>
 							<td class="separator">|</td>
-							<td><button type="button" class="m" id="deleteBtn">삭제하기</button> </td>
+							<td>
+								<button type="button" class="m" id="deleteBtn" onclick="location.href='${contextPath}/delete.fb?nno=<%=fb.getBoardNo()%>&currentPage=<%=currentPage%>'">
+									삭제하기
+								</button> 
+							</td>
 						</tr>
 					</table>
 			 <%} %> 
@@ -201,12 +206,13 @@ pre {
 						<hr>
 						  <td><%=r.getReplyNo() %></td>
 						  <td><%=maskedBid %></td>
-						  <td> <b><%=r.getReplyContent() %></b></td>
+						  <td id="fContent"> <b><%=r.getReplyContent() %></b></td>
 						  <td><%=r.getDate() %></td>
 						  
 						  <%if(loginUser.getUserId().equals(id)){ %>
 						  	<td>
-						  		<button type="button" class="m" onclick="location.href='${contextPath}/update.frp?rno=<%=r.getReplyNo() %>&currentPage=<%=currentPage%>'">수정하기</button>
+						  		<%-- <button type="button" class="m" id="mBtn" onclick="location.href='${contextPath}/update.frp?rno=<%=r.getReplyNo() %>&currentPage=<%=currentPage%>'">수정하기</button> --%>
+						  		<button type="button" class="m" id="mBtn">수정하기</button>
 						  	</td>
 						  	<td>
 						  		<button type="button" class="m" id="deleteReplyBtn" data-rno="<%=r.getReplyNo() %>">삭제하기</button>
@@ -296,19 +302,22 @@ pre {
 					var replyNo = $("#deleteReplyBtn").attr("data-rno");
 					console.log(replyNo);
 					
+					// 댓글 수정
+				/* 	$("#mBtn").click(function(){
+						$("#fContent").
+						
+					}); */
+					
 						
 						// 댓글삭제
 						$("#deleteReplyBtn").click(function(){
 							
 							if(confirm("정말 삭제하시겠습니까?")){
 								
-								
 								var form = $("<form>", {
 									method : "POST",
 									action : "${contextPath}/delete.frp"
 								});
-								
-								
 								
 								var inputEl = $("<input>", {
 									type : "hidden",
@@ -317,12 +326,12 @@ pre {
 								
 								});
 								
-								
 								form.append(inputEl);
 
 								$("body").append(form);
 								form.submit();	
 								
+								location.href ='${contextPath}/freeBoard';
 								
 							};
 						});

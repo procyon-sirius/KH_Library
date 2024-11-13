@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡQnA ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
 	<entry key="insertReply">
 	  	INSERT INTO REPLY( REPLY_NO
 						  ,BOARD_NO
@@ -11,15 +14,12 @@
 	
 	</entry>
 	
-
 	<entry key="updateReply">
 		UPDATE REPLY
 		SET REPLY_CONTENT = ?
 		WHERE BOARD_NO = ?
 		AND STATUS = 'Y'
 	</entry>
-	
-	
 	
 	<entry key="deleteReply">
 		UPDATE REPLY
@@ -66,7 +66,6 @@
 	   AND R.STATUS = 'Y'
 	</entry>
 	
-	
 	<entry key="deletefbReply">
 		UPDATE REPLY
 		SET STATUS='N'
@@ -74,6 +73,12 @@
 		AND STATUS = 'Y'
 	</entry>
 	
-	
+	<entry key="updateFreply">
+		UPDATE REPLY
+		SET REPLY_CONTENT = ?
+		    ,CREATE_DATE = SYSDATE
+		WHERE REPLY_NO = ?
+		AND STATUS = 'Y'
+	</entry>
 
 </properties>

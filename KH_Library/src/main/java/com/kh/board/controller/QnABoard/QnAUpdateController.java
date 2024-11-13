@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.board.model.service.NoticeService;
-import com.kh.board.model.service.ReplyService;
+import com.kh.board.model.service.QnAService;
 
 /**
- * Servlet implementation class QnAReplyUpdateController
+ * Servlet implementation class QnAUpdateController
  */
-@WebServlet("/update.rp")
-public class QnAReplyUpdateController extends HttpServlet {
+@WebServlet("/update.qna")
+public class QnAUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnAReplyUpdateController() {
+    public QnAUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,11 +30,16 @@ public class QnAReplyUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
 		
 		request.setAttribute("boardNo", boardNo);
-		request.getRequestDispatcher("/views/board/QnABoard/qnaReplyUpdateForm.jsp").forward(request, response);
+		request.setAttribute("title", title);
+		request.setAttribute("content", content);
+		
+		request.getRequestDispatcher("/views/board/QnABoard/qnaUpdateForm.jsp").forward(request, response);
 	
-	
+		
 	}
 
 	/**
@@ -43,19 +47,20 @@ public class QnAReplyUpdateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+	
 		request.setCharacterEncoding("UTF-8");
 		
-		String content = request.getParameter("content");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		
-		int result = new ReplyService().updateReply(content,boardNo);
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+	
+		int result = new QnAService().updateQnA(boardNo,title,content);
 		
 		String alertMsg = "";
 		if(result>0) {
-			alertMsg = "문의 글 답변을 수정하였습니다.";
+			alertMsg = "문의글을 수정하였습니다.";
 		}else {
-			alertMsg = "문의 글 답변을 수정하지못했습니다.";
+			alertMsg = "문의글을 수정하지못했습니다.";
 		}
 		
 		request.getSession().setAttribute("alertMsg", alertMsg);

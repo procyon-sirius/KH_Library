@@ -206,13 +206,12 @@ pre {
 						<hr>
 						  <td><%=r.getReplyNo() %></td>
 						  <td><%=maskedBid %></td>
-						  <td id="fContent"> <b><%=r.getReplyContent() %></b></td>
+						  <td id="fContent"><b><%=r.getReplyContent() %></b></td>
 						  <td><%=r.getDate() %></td>
 						  
 						  <%if(loginUser.getUserId().equals(id)){ %>
 						  	<td>
-						  		<%-- <button type="button" class="m" id="mBtn" onclick="location.href='${contextPath}/update.frp?rno=<%=r.getReplyNo() %>&currentPage=<%=currentPage%>'">수정하기</button> --%>
-						  		<button type="button" class="m" id="mBtn">수정하기</button>
+						  		<button type="button" class="m" id="mBtn" data-rno="<%=r.getReplyNo() %>" data-content="<%=r.getReplyContent() %>">수정하기</button>
 						  	</td>
 						  	<td>
 						  		<button type="button" class="m" id="deleteReplyBtn" data-rno="<%=r.getReplyNo() %>">삭제하기</button>
@@ -297,54 +296,107 @@ pre {
 				
 				<script>
 				
-				$(function(){
-					
-					var replyNo = $("#deleteReplyBtn").attr("data-rno");
-					console.log(replyNo);
-					
-					// 댓글 수정
-				/* 	$("#mBtn").click(function(){
-						$("#fContent").
+		
+					$(function() {
 						
-					}); */
-					
-					
-					
-					
-					
-					
-					
-					
 						
-						// 댓글삭제
-						$("#deleteReplyBtn").click(function(){
+						// 댓글수정
+						
+						$(document).on("click","#mBtn",function(){
 							
-							if(confirm("정말 삭제하시겠습니까?")){
+							$(this).find("#deleteReplyBtn").hide();
+							
+							var rno = $(this).attr("data-rno");
+							// console.log(replyNo);
+							var reply = $(this).attr("data-content");
+							// console.log(reply);
+							var replyList = $(this).closest(".bnnlist");
+							// console.log(replyList);
+							replyList.siblings(".bnnlist").hide();
+							
+				    	    // 텍스트 영역 생성
+				    	    var textarea = $("<textarea>");
+				    	    textarea.attr("placeholder",reply);
+							
+							var b = replyList.find("b")
+							b.replaceWith(textarea);
+							
+						
+							
+							$(".bnnlist button").click(function(){
+								var t = $(textarea);
+								t.prop("readonly", true);
+								var changed = t.val();
 								
-								var form = $("<form>", {
-									method : "POST",
-									action : "${contextPath}/delete.frp"
-								});
 								
-								var inputEl = $("<input>", {
-									type : "hidden",
-									name : "replyNo",
-									value : replyNo
+						 		 $.ajax({
+									url : '${contextPath}/update.frp',
+									type : "post",
+									data : {
+										rno : rno,
+										changed : changed
+									},
+									success : function(result){
+								  		if(result.status=="success"){
+											alert(result.message);
+											window.location.href = '${contextPath}/freeBoard?currentPage=${currentPage}'; 
+											
+										}else{
+											alert(result.message);
+										}
+										
+									},
+									error : function(){
+										console.log("통신오류");
+									}
+									
+								});  
 								
-								});
-								
-								form.append(inputEl);
-
-								$("body").append(form);
-								form.submit();	
-								
-								location.href ='${contextPath}/freeBoard';
-								
-							};
+							});
+							
+							
+							
+				
+							
+							
 						});
 						
-					});	
-				
+						
+						
+						
+						
+
+							// 댓글삭제
+							$(document).on("click", "#deleteReplyBtn", function() {
+								var replyNo = $(this).attr("data-rno");
+								console.log(replyNo);	
+								
+								if (confirm("정말 삭제하시겠습니까?")) {
+
+									var form = $("<form>", {
+										method : "POST",
+										action : "${contextPath}/delete.frp"
+									});
+
+									var inputEl = $("<input>", {
+										type : "hidden",
+										name : "replyNo",
+										value : replyNo
+
+									});
+
+									form.append(inputEl);
+
+									$("body").append(form);
+									form.submit();
+
+								};
+						});
+							
+							
+							
+
+					});
 				</script>
 				
 

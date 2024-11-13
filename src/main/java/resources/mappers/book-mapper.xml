@@ -2,14 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="selectBook">
-		SELECT BOOK_ID,
-	           BOOK_TITLE,
-	           BOOK_AUTHOR,
-	           PUBLISHER,
-	           PUBLISH_DATE,
-	           ENROLL_DATE,
-	           STATUS,
-	           SUMMARY
+		SELECT *
 		FROM BOOK
 		WHERE BOOK_ID = ?
 	</entry>
@@ -137,5 +130,16 @@
 					WHERE TO_CHAR(SYSDATE,'MM')=TO_CHAR(ENROLL_DATE,'MM')) A)
 	    WHERE RNUM BETWEEN ? AND ?
 	</entry>
-
+	<entry key="BNONextVal">
+	 	SELECT SEQ_BNO.NEXTVAL "BID"
+		FROM DUAL
+	</entry>
+	<entry key="insertBook">
+		INSERT INTO BOOK
+		VALUES(?, ?, ?, ?, ?, DEFAULT, DEFAULT, ?, DEFAULT, ?,?)
+	</entry>
+	<entry key="insertBookCategory">
+		INSERT INTO BOOK_CATEGORY
+		VALUES(?,?)
+	</entry>
 </properties>

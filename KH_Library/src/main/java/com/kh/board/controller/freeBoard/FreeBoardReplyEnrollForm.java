@@ -57,7 +57,7 @@ public class FreeBoardReplyEnrollForm extends HttpServlet {
 		
 		if(result>0) {
 			request.getSession().setAttribute("alertMsg", "댓글 작성이 완료되었습니다");
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath()+"/freeBoard?currentPage=1");
 			
 		}else {
 			request.setAttribute("errorMsg", "댓글 작성에 실패하였습니다");
