@@ -2,7 +2,14 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	
-	<!-- QnA 관련 -->
+	<!--- QnA 관련ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="QlistCount">
+		SELECT COUNT(*) COUNT 
+		FROM BOARD
+		WHERE BOARD_TYPE_NO = 1
+		AND STATUS = 'Y'
+	</entry>
+	
 	
 	<entry key="increaseCount">
 		UPDATE BOARD 
@@ -10,7 +17,6 @@
 		WHERE BOARD_NO = 1
 		AND STATUS = 'Y'
 	</entry>
-	
 	
 	<entry key="selectQList">
 	SELECT *
@@ -59,6 +65,23 @@
 		VALUES (SEQ_TNO.NEXTVAL,1,?,?,?,SYSDATE)
    	
    	</entry>
+   	
+   	
+   <entry key="updateQnA">
+  	UPDATE BOARD
+	SET BOARD_TITLE = ?
+	    ,BOARD_CONTENT = ?
+	WHERE BOARD_NO = ?
+    AND BOARD_TYPE_NO = 1
+	AND STATUS = 'Y'
+   </entry>
+   
+   <entry key="deleteQnA">
+  	UPDATE BOARD
+	SET STATUS='N'
+	WHERE BOARD_NO = ? 
+	AND STATUS = 'Y'
+   </entry>
    	
    	
    	
@@ -248,12 +271,27 @@
 		AND R.STATUS = 'Y'
    	</entry>
    	
-   	<entry key="createComment">
+   	<entry key="replyCount">
    		SELECT COUNT(*) AS COUNT
 		FROM REPLY 
 		WHERE BOARD_NO = ?
 		AND STATUS = 'Y'
    	</entry>	
+   	
+   	<entry key="updateComment">
+  		UPDATE REPLY
+		SET REPLY_CONTENT = ?
+		    ,CREATE_DATE = SYSDATE
+		WHERE REPLY_NO = ?
+		AND STATUS = 'Y'
+   	</entry>
+   	
+   	<entry key="deleteComment">
+   		UPDATE REPLY
+		SET STATUS='N'
+		WHERE REPLY_NO = ? 
+		AND STATUS = 'Y'
+   	</entry>
 
    	
    	

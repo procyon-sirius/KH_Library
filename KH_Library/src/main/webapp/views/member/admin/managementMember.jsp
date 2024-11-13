@@ -280,12 +280,13 @@
 		$(function(){
 
 			$(".member-list>tbody").on("click","#rl", function(){
+				console.log($(this).siblings("th").first().text());
 				var userNo = $(this).siblings("th").first().text();
-				var rentlimit= $(this).text();
 				
-				location.href = '${contextPath}/rentL.me?userNo='+userNo+"&rentlimit="+rentlimit;
-			})
-		})
+				location.href = '${contextPath}/rentL.me?uNo='+userNo;
+
+			});
+		});
 		
 		
 	</script>

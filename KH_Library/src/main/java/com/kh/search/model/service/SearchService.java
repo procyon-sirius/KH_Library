@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.kh.book.model.dao.BookDao;
 import com.kh.book.model.vo.Book;
 import com.kh.book.model.vo.BookCategoryInfo;
+import com.kh.book.model.vo.Rent;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
 import com.kh.member.model.vo.Member;
@@ -44,10 +45,5 @@ public class SearchService {
 		return listCount;
 	}
 
-	public Member memberInfo(int userNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 }

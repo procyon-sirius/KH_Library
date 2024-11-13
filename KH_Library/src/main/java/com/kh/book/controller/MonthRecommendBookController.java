@@ -1,4 +1,4 @@
-package com.kh.board.controller.QnABoard;
+package com.kh.book.controller;
 
 import java.io.IOException;
 
@@ -7,21 +7,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.board.model.service.ReplyService;
+import com.kh.book.model.service.BookService;
+import com.kh.book.model.vo.Book;
 
 /**
- * Servlet implementation class QnAReplyDeleteController
+ * Servlet implementation class MonthRecommendBookController
  */
-@WebServlet("/delete.rp")
-public class QnAReplyDeleteController extends HttpServlet {
+@WebServlet("/mrbook.bk")
+public class MonthRecommendBookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnAReplyDeleteController() {
+    public MonthRecommendBookController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,31 +30,23 @@ public class QnAReplyDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	
+
+		int tb;
+		
+		tb = new BookService().topBook();
+		
+		Book b = new BookService().monthRecommendBook(tb);
+		request.setAttribute("b", b);
+		request.getRequestDispatcher("/views/book/thisMonthBook.jsp").forward(request, response);
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	
-		request.setCharacterEncoding("UTF-8");
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		int result = new ReplyService().deleteReply(boardNo);
-		HttpSession session = request.getSession();
-		
-		if(result>0) {
-			session.setAttribute("alertMsg", "답변이 삭제되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/qnaBoard?currentPage=1");
-		}else {
-			session.setAttribute("alertMsg", "답변 삭제에 실패하였습니다.");
-			response.sendRedirect(request.getContextPath()+"/");
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
 
 }
-	
-}
-

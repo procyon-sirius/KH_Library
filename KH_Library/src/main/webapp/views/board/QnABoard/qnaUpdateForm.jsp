@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
     
 <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -37,15 +36,13 @@
 		
 		
 		.title {
+			background-color: rgba(128, 128, 128, 0.233);
 		    width: 100%;            
 		    height: 40px;           
-		    background-color: rgba(128, 128, 128, 0.233);          
 		    border: 1px solid #black; 
 		    padding: 8px;           
 		    font-size: 16px;       
 		}
-		
-		
 		
 		.content{
 			background-color: rgba(128, 128, 128, 0.233);
@@ -53,11 +50,9 @@
 			font-size: 18px;
 			color: #333;
 			width: 100%;
-			height: 800px;
+			height: 400px;
 			resize: none;
-			
 		}
-		
 		
 		.separator {
 			display: inline-block;
@@ -92,29 +87,30 @@
 								</tr>
 							</table>
 							<br> <br>
-							<h5>QnA 답변수정하기</h5>
+							<h5>QnA 문의글 수정하기</h5>
 													
 					 </div>        	
 			        		
 	        		<hr class="boarder">
 	      
-    	<form action="<%=contextPath%>/update.rp" method="post">
+    	<form action="<%=contextPath%>/update.qna" method="post">
 			
 			<div class="qnaDetail">
 				<input type="hidden" name="boardNo" value="${boardNo }"/>
 				<br>
+				<input type="text" name="title" class="title" value="${title }"></input>
 				<hr class="boarder">
 				<br><br>
-	
-				<textarea class="content" name="content" placeholder="내용을 입력하세요." required="required" ></textarea>
+				<br>
+				<textarea class="content" name="content" required="required">${content }</textarea>
 	
 				<hr>
 	
-				<br> <br> <br> <button type="submit" class="list">수정하기</button>
+				<br> <br> <br> <button type="submit" class="list">등록하기</button>
 				<a href="/library/qnaBoard" class="list">목록으로</a>
 				<hr>
 		</form>	
-				
+		
 			</p>
 	    </div>
    </div>

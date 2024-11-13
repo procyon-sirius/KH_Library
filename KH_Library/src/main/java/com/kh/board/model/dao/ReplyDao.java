@@ -30,7 +30,7 @@ public class ReplyDao {
 	
 	
 	
-	
+// ------------------------> QnA ------------------------------	
 	// 문의글 답변 생성 메소드
 	public int insertReply(Connection conn, String content, int boardNo) {
 		
@@ -235,13 +235,30 @@ public class ReplyDao {
 		
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+	// 댓글 수정하기
+	public int updateFreply(Connection conn, int rno, String content) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateFreply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, content);
+			pstmt.setInt(2, rno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 	
 }

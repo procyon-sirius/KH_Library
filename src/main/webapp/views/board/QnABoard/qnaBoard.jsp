@@ -54,8 +54,6 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 			cursor: pointer;
 		}
 		
-		
-		
 		.separator {
 			display: inline-block;
 			margin: 0 5px;
@@ -89,7 +87,15 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 			text-align: left;
 		}
 		
-	
+		
+		.qContent {
+			   display: none;
+		}
+		
+		.qContent td.no-border {
+		    border: none !important;
+		}
+				
 		#aList{
 			height: 200px;
 		    border-top: 1px solid #ddd;  
@@ -221,7 +227,9 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 							                        <td width="200"><%=b.getDate() %></td>
 							                        <td colspan="2" ><button class="qListb" data-boardno="<%=b.getBoardNo() %>">▼</button> </td>
 							                    	<td width="150" class="ox">O</td>
-							                    	
+							                    </tr>
+							                    <tr class="qContent" data-boardno="<%=b.getBoardNo() %>">
+							                    	<td colspan="7" class="no-border">ㄴ <%=b.getBoardContent() %></td>
 							                    </tr>
 							                    <tr class="aList" id="aList" data-boardno="<%=r.getBoardNo() %>">
 							                        <td width="150"><%=r.getBoardNo() %></td>
@@ -243,9 +251,6 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 													 		
 													  	<%} %>
 							                        </td>
-							                        
-							                        
-							                        
 							                    </tr>
 			                    		<%} %>
 			                    		
@@ -287,21 +292,16 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 				
 				<script>
 					$(function(){
-						
-							$(".q").click(function(){
-								
-									console.log($(".q"));
-								
-								 $(".answer").toggle();
-								
-							});
 							
-							
-							$(".qListb").click(function(){
-								 var boardNo = $(this).data("boardno");
-								$(".aList[data-boardno='" + boardNo + "']").toggle();
-								
-						});
+						   $(".qListb").click(function(){
+						        var boardNo = $(this).data("boardno");
+						        
+						        // aList (답변 리스트) 토글
+						        $(".aList[data-boardno='" + boardNo + "']").toggle();
+						        
+						        // 해당 boardNo와 관련된 no-border td 요소도 토글
+						        $(".qContent[data-boardno='" + boardNo + "']").toggle();
+						    });
 						
 					});
 				</script>
