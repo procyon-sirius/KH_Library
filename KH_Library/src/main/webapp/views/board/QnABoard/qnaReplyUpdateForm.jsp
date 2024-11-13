@@ -1,14 +1,6 @@
-<%@page import="com.kh.board.model.vo.Reply"%>
-<%@page import="com.kh.board.model.vo.Board"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.kh.board.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<% // 조회된 목록 선언(Q)
-ArrayList<Board> blist = (ArrayList<Board>)request.getAttribute("bList"); %>  
-<% // 조회된 목록 선언(A)
-ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
+
     
 <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">

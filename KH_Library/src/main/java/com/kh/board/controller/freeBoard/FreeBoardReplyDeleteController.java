@@ -41,8 +41,8 @@ public class FreeBoardReplyDeleteController extends HttpServlet {
 	
 		request.setCharacterEncoding("UTF-8");
 		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
-		
-		 int result = new ReplyService().deletefbReply(replyNo);
+		int result = new ReplyService().deletefbReply(replyNo);
+		 
 		 HttpSession session = request.getSession();
 		
 		if(result>0) {

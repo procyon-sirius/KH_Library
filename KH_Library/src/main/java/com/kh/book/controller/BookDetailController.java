@@ -41,12 +41,33 @@ public class BookDetailController extends HttpServlet {
 		
 		//System.out.println(bi);
 		
+		int ten;
+		int twenty;
+		int thirty;
+		int forty;
+		int fifty;
+		int sixty;
+		
+		ten = new BookService().tenRent(bno);
+		twenty = new BookService().twentyRent(bno);
+		thirty = new BookService().thirtyRent(bno);
+		forty = new BookService().fortyRent(bno);
+		fifty = new BookService().fiftyRent(bno);
+		sixty = new BookService().sixtyRent(bno);
+		
 		ArrayList<BookCategoryInfo> biList = new BookService().selectBookCategory(bno);
 		
 		Book b = new BookService().selectBook(bno);
 		
 		request.setAttribute("b", b);
 		request.setAttribute("biList", biList);
+		
+		request.setAttribute("ten", ten);
+		request.setAttribute("twenty", twenty);
+		request.setAttribute("thirty", thirty);
+		request.setAttribute("forty", forty);
+		request.setAttribute("fifty", fifty);
+		request.setAttribute("sixty", sixty);
 		
 		request.getRequestDispatcher("/views/book/bookDetail.jsp").forward(request, response);
 

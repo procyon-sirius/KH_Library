@@ -91,6 +91,17 @@
 							</c:when>
 							<c:otherwise>
 								<div style="border-bottom:1px solid lightgray;"><br>"${keyword}"에 대한 검색 결과입니다.<br><br></div>
+								
+								<script>
+									function reserveDisabled(){
+										$(".search-table-right").last().find(".reserve-btn").removeClass("btn-primary");
+										$(".search-table-right").last().find(".reserve-btn").addClass("btn-secondary");
+									}
+									function rentDisabled(){
+										$(".search-table-right").last().find(".rent-btn").removeClass("btn-success");
+										$(".search-table-right").last().find(".rent-btn").addClass("btn-secondary");
+									}
+								</script>
 								<c:forEach items="${searchResult}" var="r">
 									<form class="book-rent-form" action="" method="post">
 										<div class="search-result-block">
@@ -112,16 +123,6 @@
 																<button type="button" class="btn btn-primary search-table-btn reserve-btn">예약</button>
 															</c:if>
 														</td>
-														<script>
-															function reserveDisabled(){
-																$(".search-table-right").last().find(".reserve-btn").removeClass("btn-primary");
-																$(".search-table-right").last().find(".reserve-btn").addClass("btn-secondary");
-															}
-															function rentDisabled(){
-																$(".search-table-right").last().find(".rent-btn").removeClass("btn-success");
-																$(".search-table-right").last().find(".rent-btn").addClass("btn-secondary");
-															}
-														</script>
 														<c:choose>
 															<c:when test="${r.status eq 'Y'}">
 																<script>
@@ -202,6 +203,7 @@
 							<c:otherwise></c:otherwise>
 						</c:choose>
 					</div>
+					
 					<script>
 						function changePage(i){
 							var url = location.href

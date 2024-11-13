@@ -48,7 +48,7 @@
 <body>
 	<div id="insertBook-area">
 		<h2>도서 정보 입력</h2>
-	<form action="" method="post" enctype="multipart/form-data">
+	<form action="insertBook.ma" method="post" enctype="multipart/form-data">
 		<table id="book-insert-table" border="1">
 			<tr>
 				<th rowspan="7" id="preview-book-thumbnale">
@@ -104,7 +104,7 @@
 				<td style="white-space : normal;">
 					<c:forEach items="${category}" var="c">
 						<div style="float:left">
-							<input type="checkbox" name="search-book-category" style="margin:0 10px" value="${c.categoryNo}">${c.categoryName}
+							<input type="checkbox" name="book-category" style="margin:0 10px" value="${c.categoryNo}">${c.categoryName}
 						</div> 
 			        </c:forEach>
 				</td>
@@ -124,10 +124,31 @@
 			</tr>
 		</table>
 		<div id="insert-book-btn-area">
-			<button type="submit">등록하기</button>
+			<button type="submit" onclick="return checkCategory();">등록하기</button>
 		</div>
 	</form>
+	
 	<script>
+		//카테고리 미지정과 다른 카테고리는 동시에 선택될 수 없음
+		$(function(){
+			$("#book-insert-table").on("click","input[name=book-category]",function(){
+				if($(this).val() == 0){
+					$(this).parent().siblings().find("input[name=book-category]").prop("checked",false);
+				}else{
+					$(this).parents("td").find("input[name=book-category]").first().prop("checked",false);
+				}
+			})
+		})
+	</script>
+	<script>
+		//카테고리 한개 이상 체크했는지 확인
+		function checkCategory(){
+			var count = $("input[name=book-category]:checked").length;
+			if(count==0){
+				alert("카테고리는 최소 1개가 선택되어야 합니다.")
+				return false;
+			}
+		};
 		//책표지 이미지 미리보기 함수
 		function loadThumbnail(inputFile){
 			if(inputFile.files.length == 1){

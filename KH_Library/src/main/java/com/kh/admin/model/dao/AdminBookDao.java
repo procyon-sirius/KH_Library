@@ -175,7 +175,23 @@ public class AdminBookDao {
 		
 		return result;
 	}
-
+	public int removeUpdateCategory(Connection conn, int bookId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("removeUpdateCategory");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,bookId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
 	public int removeAllNBook(Connection conn) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -271,6 +287,163 @@ public class AdminBookDao {
 		return result;
 	}
 	
+	public Book selectUpdateBook(Connection conn, int bid) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Book b = new Book();
+		String sql = prop.getProperty("selectUpdateBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Book(rset.getString("IMG_NAME"),
+							rset.getInt("BOOK_ID"),
+							rset.getString("BOOK_TITLE"),
+							rset.getString("BOOK_AUTHOR"),
+							rset.getString("PUBLISHER"),
+							rset.getInt("PUBLISH_DATE"),
+							rset.getString("AGE_RANK"),
+							rset.getString("SUMMARY"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return b;
+	}
+
+	public ArrayList<String> selectBookCategory(Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> category = new ArrayList<>();
+		String sql = prop.getProperty("selectBookCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bid);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				category.add(rset.getString("CATEGORY_NO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return category;
+	}
 	
+	public int insertBook(Connection conn, Book b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, b.getBookId());
+			pstmt.setString(2, b.getBookTitle());
+			pstmt.setString(3, b.getBookAuthor());
+			pstmt.setString(4, b.getPublisher());
+			pstmt.setInt(5, b.getPublishDate());
+			pstmt.setString(6, b.getAgeRank());
+			pstmt.setString(7, b.getSummary());
+			pstmt.setString(8, b.getImgName());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertBookCategory(Connection conn, int bookId, String c) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertBookCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bookId);
+			pstmt.setInt(2, Integer.parseInt(c));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
 	
+	public int BNONextVal(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int bid = 0;
+		String sql = prop.getProperty("BNONextVal");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bid = rset.getInt("BID");
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return bid;
+	}
+
+	public int updateBook(Connection conn, Book b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updateBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b.getBookTitle());
+			pstmt.setString(2, b.getBookAuthor());
+			pstmt.setString(3, b.getPublisher());
+			pstmt.setInt(4, b.getPublishDate());
+			pstmt.setString(5, b.getAgeRank());
+			pstmt.setString(6, b.getSummary());
+			pstmt.setString(7, b.getImgName());
+			pstmt.setInt(8, b.getBookId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }

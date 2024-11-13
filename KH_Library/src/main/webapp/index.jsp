@@ -11,7 +11,6 @@
     <div class="center-img index">
         <img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
     </div>
-    <a href="/views/sample.jsp">세부 페이지 샘플</a>
     <%@include file="/views/common/main.jsp" %>
     <%@include file="/views/common/footer.jsp" %>
 </body>

@@ -222,7 +222,6 @@ public class BookDao {
 		return b;
 	}
 
-
 	public ArrayList<BookCategoryInfo> selectCategory(Connection conn) {
 		
 		PreparedStatement pstmt = null;		
@@ -675,81 +674,6 @@ public class BookDao {
 	}
 
 
-	public int BNONextVal(Connection conn) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int bid = 0;
-		String sql = prop.getProperty("BNONextVal");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				bid = rset.getInt("BID");
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return bid;
-	}
-
-
-	public int insertBook(Connection conn, Book b) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String sql = prop.getProperty("insertBook");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, b.getBookId());
-			pstmt.setString(2, b.getBookTitle());
-			pstmt.setString(3, b.getBookAuthor());
-			pstmt.setString(4, b.getPublisher());
-			pstmt.setInt(5, b.getPublishDate());
-			pstmt.setString(6, b.getAgeRank());
-			pstmt.setString(7, b.getSummary());
-			pstmt.setString(8, b.getImgName());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return result;
-	}
-
-
-	public int insertBookCategory(Connection conn, int bookId, String c) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String sql = prop.getProperty("insertBookCategory");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, bookId);
-			pstmt.setInt(2, Integer.parseInt(c));
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return result;
-	}
-
 
 	public ArrayList<BookCategoryInfo> selectBookCategory(Connection conn, int bno) {
 
@@ -776,6 +700,219 @@ public class BookDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return biList;
+	}
+
+
+	public Book monthRecommendBook(Connection conn, int tb) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Book b = new Book();
+		String sql = prop.getProperty("selectBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tb);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Book(rset.getInt("BOOK_ID"),
+							 rset.getString("BOOK_TITLE"),
+							 rset.getString("BOOK_AUTHOR"),
+							 rset.getString("SUMMARY"),
+							 rset.getString("IMG_NAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return b;
+	}
+
+
+	public int topBook(Connection conn) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int tb = 0;
+		String sql = prop.getProperty("topBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				tb = rset.getInt("BOOK_ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return tb;
+	}
+
+
+	public int tenRent(Connection conn, int bno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int ten = 0;
+		String sql = prop.getProperty("tenRent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				ten = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return ten;
+	}
+
+
+	public int twentyRent(Connection conn, int bno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int twenty = 0;
+		String sql = prop.getProperty("twentyRent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				twenty = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return twenty;
+	}
+
+
+	public int thirtyRent(Connection conn, int bno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int thirty = 0;
+		String sql = prop.getProperty("thirtyRent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				thirty = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return thirty;
+	}
+
+
+	public int fortyRent(Connection conn, int bno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int forty = 0;
+		String sql = prop.getProperty("fortyRent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				forty = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return forty;
+	}
+
+
+	public int fiftyRent(Connection conn, int bno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int fifty = 0;
+		String sql = prop.getProperty("fiftyRent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				fifty = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return fifty;
+	}
+
+
+	public int sixtyRent(Connection conn, int bno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int sixty = 0;
+		String sql = prop.getProperty("sixtyRent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				sixty = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return sixty;
 	}
 
 

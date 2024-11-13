@@ -14,7 +14,6 @@
 		justify-items: left; /* 요소를 가운데 정렬 */
 	}
 	
-	
 	.item {
 		width: 300px;
 		margin: 20px;
@@ -78,8 +77,6 @@
 					
 					$(".thumbnail").click(function(){
 						
-						// console.log($(this).children().first().val());
-						
 						var bno = $(this).find("input[type=hidden]").val();
 						location.href = '${contextPath}/detail.cm?bno='+bno;
 						
@@ -124,8 +121,6 @@
                     <button onclick="location.href='commentBoard?currentPage=${pi.currentPage+1}'">다음</button>
                 </c:if>
             </div>
-	
-	
 	
 	
 	

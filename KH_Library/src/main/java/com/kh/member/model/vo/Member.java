@@ -19,6 +19,18 @@ public class Member {
 	public Member() {
 		super();
 	}
+	
+	
+
+	public Member(int userNo, String userId, String userName, int rentLimit) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userName = userName;
+		this.rentLimit = rentLimit;
+	}
+
+
 
 	public Member(String userId, String userName, String phone, String email, String address) {
 		super();
