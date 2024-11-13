@@ -331,7 +331,6 @@
 	<style>
         /* 브라우저 width가 800px보다 작을경우 : 고정*/
         #body-wrap {
-            border: 2px solid orange;
             width: 740px;
             height: fit-content;
             margin: 0 auto;
@@ -384,7 +383,6 @@
         }
 
         #content-area {
-            border: 1px solid blue;
             width: calc(100% - 220px);
             height: fit-content;
         }
