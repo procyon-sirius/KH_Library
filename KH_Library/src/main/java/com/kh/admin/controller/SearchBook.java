@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.kh.admin.model.service.AdminService;
+import com.kh.admin.model.service.AdminBookService;
 import com.kh.book.model.vo.Book;
 import com.kh.member.model.vo.Member;
 
@@ -52,7 +52,7 @@ public class SearchBook extends HttpServlet {
 			String category = request.getParameter("category");
 			String keyword = request.getParameter("keyword");
 			
-			ArrayList<Book> list = new AdminService().searchBook(category,keyword);
+			ArrayList<Book> list = new AdminBookService().searchBook(category,keyword);
 			
 			response.setContentType("json/application;charset=UTF-8");
 			new Gson().toJson(list,response.getWriter());

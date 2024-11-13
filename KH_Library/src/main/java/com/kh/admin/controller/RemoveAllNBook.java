@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.admin.model.service.AdminService;
+import com.kh.admin.model.service.AdminBookService;
 
 /**
  * Servlet implementation class RemoveAllNBook
@@ -38,7 +38,7 @@ public class RemoveAllNBook extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		//몇개의 행이 업데이트됐는지 확인해서 위임하기
-		int result = new AdminService().removeAllNBook();
+		int result = new AdminBookService().removeAllNBook();
 		response.setContentType("text/html;charset=UTF-8");
 		response.getWriter().print(result);
 	}

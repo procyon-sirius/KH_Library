@@ -8,6 +8,7 @@ import com.kh.book.model.vo.Book;
 import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
+import com.kh.member.model.vo.Member;
 import com.kh.search.model.dao.SearchDao;
 
 public class SearchService {
@@ -41,6 +42,11 @@ public class SearchService {
 		JDBCTemplate.close(conn);
 		
 		return listCount;
+	}
+
+	public Member memberInfo(int userNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -100,7 +100,7 @@
 												<table>
 													<tr>
 														<td rowspan="5" style="width:160px">
-															<img class="book-img book-info" src="${contextPath }/resources/img/${r.bookId}.gif">
+															<img class="book-img book-info" src="${contextPath }/resources/img/${r.imgName}">
 														</td>
 													</tr>
 													<tr>

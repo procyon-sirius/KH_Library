@@ -145,7 +145,7 @@
 				 				<input type="hidden" value="${b.bookId }" name="bookId">
 				 				<input type="hidden" value="${b.bookTitle }" name="bookTitle">
 				 				<input type="hidden" value="${b.bookAuthor }" name="bookAuthor">
-				 				<img src="${contextPath }/resources/img/${b.bookId }.gif"  id="book-img">
+				 				<img src="${contextPath }/resources/img/${b.imgName}"  id="book-img">
 								<div class="overlay">
 									<p class="book-info">
 										제목 : ${b.bookTitle } <br>

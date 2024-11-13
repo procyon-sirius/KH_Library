@@ -242,6 +242,17 @@ public class BookService {
 		
 		return result;
 	}
+
+	public ArrayList<BookCategoryInfo> selectBookCategory(int bno) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<BookCategoryInfo> biList = new BookDao().selectBookCategory(conn,bno);
+		
+		JDBCTemplate.close(conn);
+		
+		return biList;
+	}
 	
 
 

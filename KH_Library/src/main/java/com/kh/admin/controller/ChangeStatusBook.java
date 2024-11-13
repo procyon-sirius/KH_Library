@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.kh.admin.model.service.AdminService;
+import com.kh.admin.model.service.AdminBookService;
 import com.kh.book.model.service.BookService;
 import com.kh.book.model.vo.Book;
 import com.kh.member.model.vo.Member;
@@ -54,7 +54,7 @@ public class ChangeStatusBook extends HttpServlet {
 			
 			Book book = null;
 			
-			int result = new AdminService().statusChangeBook(bookId,status);
+			int result = new AdminBookService().statusChangeBook(bookId,status);
 			
 			if(result>0) {
 				book = new BookService().selectBook(bookId);
