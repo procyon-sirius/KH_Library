@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.admin.model.dao.AdminBookDao;
+import com.kh.book.model.dao.BookDao;
 import com.kh.book.model.vo.Book;
 import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
@@ -128,5 +129,85 @@ public class AdminBookService {
 		
 		return result;
 	}
+	
 
+	public int BNONextVal() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int bid = 0;
+		bid = new AdminBookDao().BNONextVal(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return bid;
+	}
+	
+	public int insertBook(Book b, String[] category) {
+		Connection conn = JDBCTemplate.getConnection();
+		int bookId = b.getBookId();
+		int bc = 1;
+		//책 등록 (부모테이블)
+		int result = new AdminBookDao().insertBook(conn,b);
+		for(String c : category) {
+			//카테고리 등록(자식테이블)
+			bc = bc * new AdminBookDao().insertBookCategory(conn,bookId,c);
+		}
+		
+		if(result*bc>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	public Book selectUpdateBook(int bid) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Book b = new AdminBookDao().selectUpdateBook(conn,bid);
+		
+		JDBCTemplate.close(conn);
+		
+		return b;
+	}
+
+	public ArrayList<String> selectBookCategory(int bid) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<String> category = new AdminBookDao().selectBookCategory(conn,bid);
+		
+		JDBCTemplate.close(conn);
+		
+		return category;
+	}
+
+	public int updateBook(Book b, String[] category) {
+		Connection conn = JDBCTemplate.getConnection();
+		int bookId = b.getBookId();
+		int bc = 1;
+		int result = 0; 
+		
+		//기존카테고리 삭제(덮어씌우기)
+		int cRemove = new AdminBookDao().removeUpdateCategory(conn, bookId);
+		if(cRemove > 0) {
+			//책 등록 (부모테이블)
+			result = new AdminBookDao().updateBook(conn,b);
+			for(String c : category) {
+				//카테고리 등록(자식테이블)
+				bc = bc * new AdminBookDao().insertBookCategory(conn,bookId,c);
+			}
+		}
+		
+		if(result*bc>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }

@@ -222,7 +222,6 @@ public class BookDao {
 		return b;
 	}
 
-
 	public ArrayList<BookCategoryInfo> selectCategory(Connection conn) {
 		
 		PreparedStatement pstmt = null;		
@@ -674,81 +673,6 @@ public class BookDao {
 		return listCount;
 	}
 
-
-	public int BNONextVal(Connection conn) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int bid = 0;
-		String sql = prop.getProperty("BNONextVal");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				bid = rset.getInt("BID");
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return bid;
-	}
-
-
-	public int insertBook(Connection conn, Book b) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String sql = prop.getProperty("insertBook");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, b.getBookId());
-			pstmt.setString(2, b.getBookTitle());
-			pstmt.setString(3, b.getBookAuthor());
-			pstmt.setString(4, b.getPublisher());
-			pstmt.setInt(5, b.getPublishDate());
-			pstmt.setString(6, b.getAgeRank());
-			pstmt.setString(7, b.getSummary());
-			pstmt.setString(8, b.getImgName());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return result;
-	}
-
-
-	public int insertBookCategory(Connection conn, int bookId, String c) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String sql = prop.getProperty("insertBookCategory");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, bookId);
-			pstmt.setInt(2, Integer.parseInt(c));
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return result;
-	}
 
 
 	public ArrayList<BookCategoryInfo> selectBookCategory(Connection conn, int bno) {
