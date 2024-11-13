@@ -107,6 +107,9 @@
     		  var userPwd = document.getElementById("userPwd");
     		  var chkPwd = document.getElementById("chkPwd");
     		  
+    		  console.log(userPwd);
+    		  console.log(chkPwd);
+    		  
     		  if(userPwd !=chkPwd){
     			  alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     			  userPwd.focus();
