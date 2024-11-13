@@ -125,12 +125,49 @@
 		border: 1px solid black;
 	}
 	#newBook-table-area{
-		background-color: skyblue;
 		border-radius: 15px;
 		width: 450px;
 		height: 300px;
 		text-align: center;
 	}
+	#new-book{
+		width: 200px;
+		height: 300px;
+		border: 1px solid gray;
+	}
+
+	#new-text{
+		padding-left: 250px;
+		opacity: 0;
+	}
+
+	#month-newBook-area:hover #new-book{
+		animation : ani-new1 2s forwards; 
+	}
+
+	#month-newBook-area:hover #new-text{
+		animation : ani-new2 2s forwards; 
+	}
+
+	@keyframes ani-new1{
+		0%{
+        }100%{
+            color: black;
+            opacity: 1;
+            transform: translateX(-90px);
+        }
+	}
+
+	@keyframes ani-new2{
+		0%{
+        }100%{
+            color: black;
+            opacity: 1;
+            transform: translateY(-160px);
+        }
+	}
+
+
 </style>
 
 
@@ -228,10 +265,10 @@
 					<div id="month-newBook-area">
 						<div class="index-top-btn-area">
 							<h3>신간 도서</h3>
-							<a>+</a>
+							<a href="${contextPath }/mnewBook.bk?time=M&currentPage=1" style="text-decoration: none; color: black;">+</a>
 						</div>
 						<div id="newBook-table-area">
-
+							
 						</div>
 					</div>
 				</div>
@@ -249,6 +286,27 @@
 					}
 				})
 			});
+		</script>
+		<script>
+			$(function(){
+				$.ajax({
+					url : "${contextPath}/mainbook.bk",
+					success: function(b){
+						console.log("success");
+						var img = "";
+						img = "<img id='new-book' name='new-book' src='${contextPath }/resources/img/"+b.imgName+"'>"
+						  	+ "<p id='new-text'>"+b.bookTitle+"</p>"
+						  	
+						$("#newBook-table-area").html(img);
+						
+					},
+					error: function(){
+						console.log("fail");
+					}
+				});
+
+			});
+
 		</script>
 
 		<div id="index-content-block2" class="index-content-block">

@@ -20,9 +20,12 @@ public class Book {
 	}
 	
 	
-
-
-
+	public Book(int bookId, String bookTitle, String imgName) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.imgName = imgName;
+	}
 
 	public Book(int bookId, String bookTitle, String bookAuthor, String summary, String imgName) {
 		super();
