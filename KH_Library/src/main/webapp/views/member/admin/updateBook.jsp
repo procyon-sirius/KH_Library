@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>도서 정보 수정</title>
 <style>
 	#book-insert-table{
 		width : 800px;
@@ -40,6 +40,7 @@
 	}
 	#insert-book-btn-area button{
 		margin: 10px 0;
+		margin-left : 10px;
 		padding: 0 10px;
 		float : right;
 	}
@@ -47,18 +48,20 @@
 </head>
 <body>
 	<div id="insertBook-area">
-		<h2>도서 정보 입력</h2>
-	<form action="insertBook.ma" method="post" enctype="multipart/form-data">
+		<h2>도서 정보 수정</h2>
+	<form action="updateBook.ma" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="bookId" value="${book.bookId}">
+		<input type="hidden" name="imgName" value="${book.imgName}">
 		<table id="book-insert-table" border="1">
 			<tr>
 				<th rowspan="7" id="preview-book-thumbnale">
-					<img alt="책 표지" id="insert-book-img">
+					<img alt="책 표지" id="insert-book-img" src="${contextPath}/resources/img/${book.imgName}">
 				</th>
 				<td style="width : 100px">
 					제목
 				</td>
 				<td>
-					<input type="text" name="title" required>
+					<input type="text" name="title" value="${book.bookTitle }" required>
 				</td>
 			</tr>
 			<tr>
@@ -66,7 +69,7 @@
 					저자
 				</td>
 				<td>
-					<input type="text" name="author" required>
+					<input type="text" name="author" value="${book.bookAuthor}" required>
 				</td>
 			</tr>
 			<tr>
@@ -74,7 +77,7 @@
 					출판사
 				</td>
 				<td>
-					<input type="text" name="publisher" required>
+					<input type="text" name="publisher" value="${book.publisher}" required>
 				</td>
 			</tr>
 			<tr>
@@ -82,7 +85,7 @@
 					출판년도
 				</td>
 				<td>
-					<input type="text" name="publishDate" placeholder="년도 4자리" required>
+					<input type="text" accept="image/*" name="publishDate" placeholder="년도 4자리" value="${book.publishDate}" required>
 				</td>
 			</tr>
 			<tr>
@@ -114,20 +117,31 @@
 					요약
 				</td>
 				<td rowspan="2">
-					<textarea style="resize:none" name="summary"></textarea>
+					<textarea style="resize:none" name="summary">${book.summary}</textarea>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input type="file" name="upload-book-img" onchange="loadThumbnail(this);" value="책표지" required>
+					<input type="file" name="upload-book-img" onchange="loadThumbnail(this);">
 				</td>
 			</tr>
 		</table>
 		<div id="insert-book-btn-area">
-			<button type="submit" onclick="return checkCategory();">등록하기</button>
+			<button type="submit" onclick="return checkCategory();">수정</button>
+			<button type="button" onclick="back();">뒤로</button>
 		</div>
 	</form>
-	
+	<script>
+		//저장된 카테고리 불러오기
+		$(function(){
+			var str = "${bookCategory}";
+			var category = str.split(",");
+			for(var c of category){
+				$("input[name=book-category][value="+c+"]").prop("checked",true);
+			}
+			$("select[name=age]").val("${book.ageRank}").prop("selected", true);
+		})
+	</script>
 	<script>
 		//카테고리 미지정과 다른 카테고리는 동시에 선택될 수 없음
 		$(function(){
@@ -141,6 +155,10 @@
 		})
 	</script>
 	<script>
+		//뒤로가기
+		function back(){
+			location.href="${contextPath}/management.bk"
+		}
 		//카테고리 한개 이상 체크했는지 확인
 		function checkCategory(){
 			var count = $("input[name=book-category]:checked").length;
