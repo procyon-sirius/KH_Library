@@ -61,7 +61,6 @@
 	<!-- 공지 -->
 <style> 
 	#index-content-top{
-		border: 2px solid green;
 		width: 100%;
 		height: 100%;
 		white-space: nowrap;
@@ -70,7 +69,6 @@
 	#main-notice-area{
 		float: left;
 		margin-top: 100px;
-		border: 1px solid black;
 		width: 850px;
 		height: 400px;
 		text-align: center;
@@ -92,7 +90,7 @@
 		cursor: pointer;
 	}
 	#notice-table-area{
-		background-color: rgba(255, 255, 255, 0.397);
+		background-color: white;
 		border-radius: 15px;
 		width: 850px;
 		height: 300px;
@@ -110,6 +108,10 @@
 		border-bottom: 1px solid lightgray;
 		height: 60px;
 	}
+	#main-notice-table>tbody a:hover{
+		cursor: pointer;
+		text-decoration: underline;
+	}
 
 </style>
 	<!-- 신간 -->
@@ -122,7 +124,6 @@
 		width: 450px;
 		height: 400px;
 		text-align: center;
-		border: 1px solid black;
 	}
 	#newBook-table-area{
 		background-color: skyblue;
@@ -206,21 +207,23 @@
 					<div id="main-notice-area">
 						<div class="index-top-btn-area">
 							<h3>도서관 소식</h3>
-							<a>+</a>
+							<a id="plusNotice">+</a>
 						</div>
 						<div id="notice-table-area">
-							<table id="main-notice-table" border="1">
+							<table id="main-notice-table">
 								<colgroup>
 									<col width="150px">
 									<col width="400px">
 									<col width="200px">
 								</colgroup>
-								<tbody>
+								<thead>
 									<tr>
-										<th>공지사항</th>
-										<td>제목</td>
-										<td>날짜</td>
+										<th>공지</th>
+										<th>제목</th>
+										<th>날짜</th>
 									</tr>
+								</thead>
+								<tbody>
 								</tbody>
 							</table>
 						</div>
@@ -239,13 +242,36 @@
 		</div>
 		<script>
 			$(function(){
+				$("#main-notice-table>tbody").on("click", "a", function(){
+					var nno = $(this).parents("tr").find("th").text();
+					location.href="${contextPath}/detail.no?nno="+nno+"&currentPage=1"
+				})
+				$("#plusNotice").click(function(){
+					location.href="${contextPath}/notice";
+				})
+			})
+		</script>
+		<script>
+			$(function(){
 				$.ajax({
 					url : "${contextPath}/main.no",
-					success : function(){
-						
+					success : function(list){
+						if(list.length == 0){
+							var tr = $("<tr>");
+							tr.append($("<td>").attr("colspan","3").text("공지사항이 없습니다."));
+							$("#main-notice-table>tbody").append(tr);
+						}else{
+							for(var n of list){
+								var tr = $("<tr>");
+								tr.append($("<th>").text(n.noticeNo).append($("<input>").attr("type","hidden").val(n.noticeNo)));
+								tr.append($("<td>").append($("<a>").text(n.noticeTitle)));
+								tr.append($("<td>").text(n.date));
+								$("#main-notice-table>tbody").append(tr);
+							}
+						}
 					},
 					error : function(){
-
+						console.log("error:ajax:index-notice")
 					}
 				})
 			});
