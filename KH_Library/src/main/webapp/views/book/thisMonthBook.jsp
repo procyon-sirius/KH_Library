@@ -20,6 +20,7 @@
 
     #book-area{
         margin: auto;
+        margin-left: 100px;
         position: relative;
         width:350px;
         height: 450px;
@@ -36,6 +37,7 @@
 
     #text-area{
         margin: auto;
+        margin-right: 150px;
         position: relative;
         width: 400px;
         height: 500px;
@@ -49,6 +51,7 @@
 
     #book-table{
         padding-top: 20px;
+        margin-right: 50px;
         position: absolute;
         display: flex;
         align-items: center;
@@ -80,6 +83,7 @@
         }100%{
             color: black;
             opacity: 1;
+            transform: translateX(10px);
         }
     }
 
@@ -107,11 +111,11 @@
                 </div>            
                 <div class="book" id="text-area"> 
                     <table  id="book-table">
-                        <tr>
+                        <tr style="font-size: 20px">
                             <th width="50px">제목</th>
                             <td width="350px"> ${b.bookTitle } </td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 20px">
                             <th width="50px">작가</th>
                             <td width="250px"> ${b.bookAuthor } </td>
                         </tr>
@@ -127,6 +131,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
+                            <br> <br>
                                 <button onclick="detail();">자세히보기</button>
                             </td>
                             
