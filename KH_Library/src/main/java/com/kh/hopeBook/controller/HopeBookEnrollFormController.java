@@ -68,7 +68,7 @@ public class HopeBookEnrollFormController extends HttpServlet {
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "신청 성공");
-			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage=1");
+			response.sendRedirect(request.getContextPath()+"/select.ho?sort=aOder&currentPage=1");
 		}else {
 			session.setAttribute("alertMsg", "신청 실패");
 			response.sendRedirect(request.getContextPath()+"/insert.ho");

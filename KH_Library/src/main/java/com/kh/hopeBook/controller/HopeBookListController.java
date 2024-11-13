@@ -50,6 +50,17 @@ public class HopeBookListController extends HttpServlet {
 		
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 //		System.out.println(currentPage);
+//		if(currentPage == 0) {
+//			currentPage=1;
+//		}
+		
+		//
+		String oder = request.getParameter("sort");
+		if(oder == null) {
+			oder = "aOrder";
+		}
+//		System.out.println(oder);
+		//
 		
 		pageLimit = 5;
 		boardLimit = 10;
@@ -67,12 +78,24 @@ public class HopeBookListController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 //		System.out.println("pi : "+pi);
 		
-		ArrayList<HopeBook> list = new HopeBookService().selectHopeList(pi);
+//		ArrayList<HopeBook> list = new HopeBookService().selectHopeList(pi);
 //		System.out.println(list);
+		
+		//
+		ArrayList<HopeBook> list = null;
+		if(oder.equals("dOrder")) {
+			list = new HopeBookService().selectHopeListDESC(pi);
+			
+		}else {
+			list = new HopeBookService().selectHopeList(pi);
+		}
+		//
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
-		request.getRequestDispatcher("/views/hopeBook/hopeBookList.jsp").forward(request, response);
+		request.setAttribute("oder", oder);
+//		request.getRequestDispatcher("/views/hopeBook/hopeBookList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/hopeBook/hopeBookList2.jsp").forward(request, response);
 		
 	}
 
