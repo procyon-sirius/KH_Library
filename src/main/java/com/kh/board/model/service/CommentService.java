@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.board.model.dao.CommentDao;
+import com.kh.board.model.dao.FreeBoardDao;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Reply;
 import com.kh.book.model.vo.Book;
@@ -89,13 +90,50 @@ public class CommentService {
 		return rlist;
 	}
 
-
+	// 코멘트 갯수 조회
 	public int replyCount(int boardN) {
 		Connection conn = JDBCTemplate.getConnection();
 		int rCount = new CommentDao().replyCount(conn,boardN);
 		JDBCTemplate.close(conn);
 		
 		return rCount;
+	}
+
+	
+	
+	// 코멘트 삭제
+	public int deleteComment(int replyNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new CommentDao().deleteComment(conn,replyNo);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	
+	// 코멘트 수정
+	public int updateComment(int rno, String content) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new CommentDao().updateComment(conn,rno,content);
+	
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
 	}
 
 

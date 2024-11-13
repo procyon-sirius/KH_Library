@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.kh.board.model.dao.CommentDao;
 import com.kh.board.model.dao.NoticeDao;
 import com.kh.board.model.dao.QnADao;
 import com.kh.board.model.dao.ReplyDao;
@@ -34,7 +35,7 @@ public class ReplyService {
 
 	
 	// 답변 수정하기 
-	public int updateReply(String content, int boardNo) {
+	public int updateReply(int boardNo, String content) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ReplyDao().updateReply(conn,content,boardNo);
@@ -123,6 +124,24 @@ public class ReplyService {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ReplyDao().deletefbReply(conn,replyNo);
 		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	
+	// 댓글 수정하기
+	public int updateFreply(int rno, String content) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReplyDao().updateFreply(conn,rno,content);
+	
 		if(result>0) {
 			JDBCTemplate.commit(conn);
 		}else {

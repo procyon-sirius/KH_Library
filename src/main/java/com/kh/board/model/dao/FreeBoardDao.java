@@ -275,7 +275,7 @@ public class FreeBoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
-			
+			System.out.println(boardNo);
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

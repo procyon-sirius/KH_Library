@@ -1,7 +1,6 @@
 
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.kh.board.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -31,7 +30,6 @@
 			
 		}
 		
-		
 		.separator {
 			display: inline-block;
 			margin: 0 5px;
@@ -41,7 +39,6 @@
 			border: none; /* 기본 테두리 제거 */
 			background-color: #333333c4;
 		}
-		
 		
 		.list {
 			color: #333;
@@ -54,7 +51,6 @@
 			left: 500px;
 		}
 		
-		
 		.fbList tr{
 			height: 100px;
 		    border-top: 1px solid #ddd;  
@@ -63,11 +59,9 @@
 		  	border-right: none;
 			
 		}
-		
 		.fbList td:nth-child(1),td:nth-child(3),td:last-child{
 			padding-left: 10px
 		}
-		
 		
 		.pageBtn button{
 			border: none;
@@ -89,19 +83,19 @@
 	    <div id="content-area">
 			<p>
 			
-			        <div align="center" >
-			  	        	<h2>자유게시판</h2>
-			  	        	<br><br><br>
-			        
-					       	<table class="category">
-								<tr>
-									<td><a href="/library">Home</a></td>
-									<td class="separator">></td>
-									<td>소통공간</td>
-									<td class="separator">></td>
-									<td>자유게시판</td>
-								</tr>
-							</table>
+		        <div align="center" >
+	  	        	<h2>자유게시판</h2>
+	  	        	<br><br><br>
+	        
+			       	<table class="category">
+						<tr>
+							<td><a href="/library">Home</a></td>
+							<td class="separator">></td>
+							<td>소통공간</td>
+							<td class="separator">></td>
+							<td>자유게시판</td>
+						</tr>
+					</table>
 					        	
    		 <%if(loginUser!=null) { %>
 		
@@ -111,11 +105,7 @@
 			</div>
 			
 		<%} %>
-		    	
-			        		
 		        		<hr class="boarder">
-			        
-			        
 			            <table border="1px" class="fbList" style="border: none;">
 			                <thead>
 			                    <tr>
@@ -138,7 +128,6 @@
 			                			
 			                			String userId = fb.getUserNo();
 	                					String maskedId = userId.substring(0, userId.length() - 3).replaceAll(".", "*") + userId.substring(userId.length() - 3);
-			                			
 			                %>
 			                    <tr>
 			                        <td width="150"><%=fb.getBoardNo() %></td>
@@ -150,26 +139,9 @@
 			                    </tr>
 			      				  <%} %>
 			      			<%} %>
-			                    
 			                </tbody>
 			            </table>
 				</div>
-				
-				<script>
-					$(function(){
-						
-						$(".fbList>tbody>tr").click(function(){
-							
-							console.log($(this));
-							
-							var nno = $(this).children().first().text();
-							
-							
-							location.href="/library/detail.fb?nno="+nno+"&currentPage=${pi.currentPage}";
-						});
-					});
-					
-				</script>
 				
 				<br><br><br>
 		    <div align="center" class="pageBtn">
@@ -193,10 +165,21 @@
                     <button onclick="location.href='freeBoard?currentPage=${pi.currentPage+1}'">다음</button>
                 </c:if>
             </div>
+	
+					
+			<script>
+				$(function(){
+					
+					$(".fbList>tbody>tr").click(function(){
+						
+						var nno = $(this).children().first().text();
+						
+						location.href="/library/detail.fb?nno="+nno+"&currentPage=${pi.currentPage}";
+					});
+				});
 				
-				
-				
-				
+			</script>			
+			
 			</div>
 			
 			</p>

@@ -58,6 +58,7 @@ public class CommentInsertController extends HttpServlet {
 			
 			if(commentB>0) {
 				
+				boardN = new CommentService().selectClist(bookNo);
 				int commentR = new CommentService().createReply(boardN,writerNo,comment);
 				
 				if(commentR>0) {

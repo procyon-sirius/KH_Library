@@ -248,12 +248,27 @@
 		AND R.STATUS = 'Y'
    	</entry>
    	
-   	<entry key="createComment">
+   	<entry key="replyCount">
    		SELECT COUNT(*) AS COUNT
 		FROM REPLY 
 		WHERE BOARD_NO = ?
 		AND STATUS = 'Y'
    	</entry>	
+   	
+   	<entry key="updateComment">
+  		UPDATE REPLY
+		SET REPLY_CONTENT = ?
+		    ,CREATE_DATE = SYSDATE
+		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
+   	</entry>
+   	
+   	<entry key="deleteComment">
+   		UPDATE REPLY
+		SET STATUS='N'
+		WHERE REPLY_NO = ? 
+		AND STATUS = 'Y'
+   	</entry>
 
    	
    	

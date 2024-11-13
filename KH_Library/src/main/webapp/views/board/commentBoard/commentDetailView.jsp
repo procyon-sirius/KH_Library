@@ -61,6 +61,8 @@ textarea {
 							<input type="hidden" value="${bno }"> <!-- 글번호 숨겨넣기 -->
 							<img class="photo" class="bookC" src="/library/resources/img/${bno}.gif" width="280px" height="380px">
 					</div>
+					<br>
+					<button id="back1">뒤로가기</button>
 			</div>	
 			
 			<div>
@@ -101,12 +103,12 @@ textarea {
 							 작성일 :&nbsp;&nbsp;${r.date}
 							 <c:if test="${r.userNo eq loginUser.userId}">
 							 	<br>
-							 	<button id="modify" onclick="modifyC();" data-rno="${r.replyNo }" >수정하기</button>
-							 	<button id="delete">삭제하기</button>
+							 	<button class="modify" data-rno="${r.replyNo }" >수정하기</button>
+							 	<button class="delete" data-rno="${r.replyNo }" >삭제하기</button>
 								<button id="back2">뒤로가기</button>
 							 </c:if>
 							 <br><br>
-							 <h5 id=origin data-content="${r.replyContent}">
+							 <h5 class="origin" data-content="${r.replyContent}">
 							 ${r.replyContent} 
 							 </h5>
 						</div>	
@@ -158,7 +160,7 @@ textarea {
 						});
 						
 					
-						$("#back2").click(function(){
+						$("#back,#back1,#back2").click(function(){
 							history.back();
 							// window.location.href = 'destinationPage.html'; 
 						});	
@@ -169,40 +171,46 @@ textarea {
 				
 				
 				// 수정하기
-			      function modifyC() {
-					
-			    	  	$("#delete").hide();
-			    	  	$(".commentW").hide();
-				    	var origin = document.getElementById("origin");
-				    	var btn = document.getElementById("modify");
-				    	btn.removeAttribute("onclick");
-				    	// console.log(origin);
-				    	var oText = origin.getAttribute("data-content");
-			            // console.log(oText);
-			
-			            var textarea = document.createElement("textarea");
-			            // 기존 텍스트를 placeholder로 설정
-			            textarea.placeholder = oText;
-			            // 기존 <h1>을 <textarea>로 교체
-			            origin.parentNode.replaceChild(textarea, origin);
-			            
+			      $(document).on("click", ".modify", function() {
+			    	  $(".delete").hide();
+			    	  $(".commentW").hide();
+			    	  	
+			    	  const clickDiv = $(this).closest(".comment");
+			    	  clickDiv.siblings(".comment").hide();
+			    	  
+			    	 // 클릭된 버튼이 속한 .comment 요소 찾기
+			    	  var commentDiv = $(this).closest(".comment");
+			    	  // .origin 클래스를 가진 요소에서 data-content 속성 값 가져오기
+			    	  var oText = commentDiv.find(".origin").data("content");
+
+			    	    // 텍스트 영역 생성
+			    	    var textarea = $("<textarea>");
+			    	    textarea.attr("placeholder",oText);
+
+			    	    // 기존 <h5>를 <textarea>로 교체
+			    	    $(this).closest(".comment").find("h5").replaceWith(textarea);
 			            
 			            $(".comment button").click(function(){
 			            	var t = $(textarea);
 			            	t.prop("readonly", true);
 				           var submittedText = t.val();
-				           console.log(submittedText);
-				           
+				          //  console.log(submittedText);
 				           
 				             $.ajax({
 				            	url : '${contextPath}/update.cm',
 				            	data : {
-				            		rno : $("#modify").data("rno"),
+				            		rno : $(this).data("rno"),
 				            		content : submittedText
 				            	},
 				            	type : "post",
-				            	success : function(){
-				            		console.log();
+				            	success : function(result){
+				            		if(result.status=="success"){
+										alert(result.message);
+										window.location.href = '${contextPath}/commentBoard'; 
+										
+									}else{
+										alert(result.message);
+									}
 				            	},
 				            	error : function(){
 				            		console.log("통신오류");
@@ -210,36 +218,43 @@ textarea {
 				            	
 				            }); 
 			            });
-	        }
+	        });
 				
 				
 			 // 삭제하기	
 				$(function(){
 					
-					var replyNo = $("#modify").attr("data-rno");
-					console.log(replyNo);
+					$(".delete").each(function(index, element) {
+					   
+				/* 		$(element).find(".delete").one("click", function() {
+						
+						} */
+						var replyNo = $(element).attr("data-rno");
+					    // console.log(replyNo);
 					
-					$("#delete").click(function(){
-						if(confirm("정말 삭제하시겠습니까?")){
-							var form = $("<form>", {
-								method : "POST",
-								action : "${contextPath}/delete.cm"
-							});
+						  $(".delete").click(function(){
 							
-							var inputEl = $("<input>", {
-								type : "hidden",
-								name : "replyNo",
-								value : replyNo
-							});
-							
-							form.append(inputEl);
-
-							$("body").append(form);
-							form.submit();	
-						}
+							  if(confirm("정말 삭제하시겠습니까?")){
+								var form = $("<form>", {
+									method : "POST",
+									action : "${contextPath}/delete.cm"
+								});
+								
+								var inputEl = $("<input>", {
+									type : "hidden",
+									name : "replyNo",
+									value : replyNo
+								});
+								
+								form.append(inputEl);
+	
+								$("body").append(form);
+								form.submit();	
+							}
+							  
+						});
+					
 					});
-					
-					
 				});	
 			
 			
