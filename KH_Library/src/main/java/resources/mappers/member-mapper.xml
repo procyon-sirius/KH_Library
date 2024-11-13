@@ -91,7 +91,6 @@
 		WHERE USER_NO = ?
 	</entry>
 	
-
 	<!-- 비밀번호 변경 구문 -->
 	<entry key="updatePwd">
 	UPDATE MEMBER
