@@ -37,6 +37,8 @@ public class HopeBookDetailController extends HttpServlet {
 //		System.out.println(hopeNum);
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 //		System.out.println(currentPage);
+		String oder = request.getParameter("sort");
+//		System.out.println(oder);
 		
 		HopeBook h = new HopeBookService().hopeBookDetail(hopeNum);
 //		System.out.println(h);
@@ -47,10 +49,11 @@ public class HopeBookDetailController extends HttpServlet {
 		if(h != null) {
 			request.setAttribute("h", h);
 			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("oder", oder);
 			request.getRequestDispatcher("/views/hopeBook/hopeBookDetailView.jsp").forward(request, response);	
 		}else {
 			session.setAttribute("alertMsg", "접근 실패");
-			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage="+currentPage);
+			response.sendRedirect(request.getContextPath()+"/select.ho?sort=aOrder&currentPage="+currentPage);
 		}
 		
 		
