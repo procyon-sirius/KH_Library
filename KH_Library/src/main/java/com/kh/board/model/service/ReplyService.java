@@ -152,6 +152,16 @@ public class ReplyService {
 		
 		return result;
 	}
+
+
+	public String selectRconent(int boardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		String r = new ReplyDao().selectRconent(conn,boardNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return r;
+	}
 	
 }
 	

@@ -117,6 +117,18 @@ public class QnAService {
 		return result;
 	 }
 
+
+	// 답변작성시 글 내용 가져오기
+	public Board selectQ(int boardNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		Board q = new QnADao().selectQ(conn, boardNo);
+
+		JDBCTemplate.close(conn);
+
+		return q;
+	}
+
 }
 
 

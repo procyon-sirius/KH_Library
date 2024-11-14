@@ -10,7 +10,7 @@
 		                  ,REPLY_WRITER
 		                  ,REPLY_CONTENT  
 		                  ,CREATE_DATE)
-		VALUES (SEQ_NNO.NEXTVAL,?,1,?,SYSDATE)
+		VALUES (SEQ_RNO.NEXTVAL,?,1,?,SYSDATE)
 	
 	</entry>
 	
@@ -26,6 +26,13 @@
 		SET STATUS='N'
 		WHERE BOARD_NO = ?
 		AND STATUS = 'Y'
+	</entry>
+	
+	
+	<entry key="selectRconent">
+		 SELECT REPLY_CONTENT
+		 FROM REPLY
+		 WHERE BOARD_NO = ?
 	</entry>
 	
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ자유게시판 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->	

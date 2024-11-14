@@ -268,4 +268,38 @@ public class QnADao {
 
 
 
+	// 답변작성시 글 내용 가져오기
+	public Board selectQ(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board q = new Board();
+		String sql = prop.getProperty("selectQ");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				q.setBoardNo(rset.getInt("BOARD_NO"));
+				q.setBoardTitle(rset.getString("BOARD_TITLE"));
+				q.setBoardContent(rset.getString("BOARD_CONTENT"));
+				q.setDate(rset.getDate("CREATE_DATE"));
+				q.setCount(rset.getInt("COUNT"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return q;
+	}
+
+
+
 }
