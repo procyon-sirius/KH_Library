@@ -13,7 +13,6 @@
         #footer {
             width: 100%;
             height: 200px;
-            border: 2px solid red;
             background-color: rgb(16, 49, 114);
         }
         
