@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH Library>오시는 길</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 
@@ -24,16 +24,12 @@
 	
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c455d1def298ac100bf896a06a4bf4b5"></script>
 			<script type="text/javascript">
-			
 				var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 				var options = { //지도를 생성할 때 필요한 기본 옵션
 					center: new kakao.maps.LatLng(37.533808, 126.8968323), //지도의 중심좌표.
 					level: 3 //지도의 레벨(확대, 축소 정도)
 				};
-			
 				var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-				
-				
 				
 				var coords = new kakao.maps.LatLng(37.533808, 126.8968323);
 			
@@ -52,6 +48,7 @@
 			    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 			    map.setCenter(coords);
 			</script>
+
 			
         </div>
     </div>

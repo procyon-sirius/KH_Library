@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KH Library</title>
+<title>KH Library>카테고리 검색</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
@@ -64,22 +64,25 @@
 }
 
 #age-rank {
-	width: 70%;
+	width: 60%;
 	padding-top: 17px;
 }
 
 #order-area {
-
-	width: 30%;
+	width: 40%;
 	padding-top: 10px;
 	right: 0;
+}
+
+#order-area>select{
+	margin-left: 3px;
 }
 
 #category-list {
 	font-weight: bold;
 	margin: 0px;
 	padding: 0px;
-	list-style-type: none;
+
 }
 
 #category, #order, #ad {
@@ -90,7 +93,7 @@
 	border-radius: 10px;
 }
 
-#search, #rentBtn {
+#rentBtn {
 	height: 30px;
 	width: 50px;
 	font-size: 15px;
@@ -195,7 +198,7 @@
 							</script>
 						</c:if>
 						<div id="cbtn-area">
-							<button type="button" id="search">조회</button>
+							<button type="button" id="search" class="btn btn-primary search">조회</button>
 							<script>
 								$("#search").click(function() {
 										$("#category-search-form").find("input[name=currentPage]").val(1);
@@ -209,7 +212,7 @@
 						<div id="age-rank">
 							<input type="radio" name="age" value="AGE_RANK"><label for="AGE_RANK">전체도서</label> &nbsp; 
 							<input type="radio" name="age" value="T"><label for="T">청소년도서</label> &nbsp; 
-							<input type="radio" name="age" value="A"><label for="A">어린이도서</label> &nbsp;
+							<input type="radio" name="age" value="A"><label for="A">어린이도서</label>
 						</div>
 						<div id="order-area">
 							<select name="order" id="order">
@@ -217,7 +220,8 @@
 								<option value="BOOK_AUTHOR">작가이름</option>
 								<option value="PUBLISH_DATE">발행연도</option>
 								<option value="ENROLL_DATE">등록일</option>
-							</select> &nbsp; 
+							</select> 
+							
 							<select name="ad" id="ad">
 								<option value="DESC">내림차순</option>
 								<option value="ASC">오름차순</option>

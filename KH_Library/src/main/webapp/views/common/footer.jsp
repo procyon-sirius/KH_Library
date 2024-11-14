@@ -38,6 +38,10 @@
             border: none;
         }
         
+        html{
+		  scroll-behavior: smooth;
+		}
+        
         
     </style>
 </head>
@@ -49,9 +53,16 @@
    		</div>
    		
    		<div id="top-btn" align="center">
-   			<input type="button" id="top" value="TOP" onClick="javascript:window.scrollTo(0,0)" />
+   			<input type="button" id="top" value="TOP"  onClick="javascript:window.scrollTo(0,0);" />
    		</div>
-
+		<script>
+			$("#top-btn").onclick = function(){
+				window.scrollTo({
+			        top: 0,
+			        behavior: 'smooth'
+			    });
+			}
+		</script>
 		
     </div>
 </body>

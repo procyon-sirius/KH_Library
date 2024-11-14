@@ -11,7 +11,7 @@ public class Member {
 	private String phone; // PHONE VARCHAR2(13)
 	private String email; // EMAIL VARCHAR2(100)
 	private String address; // ADDRESS VARCHAR2(100)
-	private Date emrollDate;// ENROLL_DATE DATE
+	private Date enrollDate;// ENROLL_DATE DATE
 	private Date modifyDate;// MODIFY_DATE DATE
 	private int rentLimit;
 	private String status; // STATUS VARCHAR2(1)
@@ -54,7 +54,7 @@ public class Member {
 	}
 
 	public Member(int userNo, String userId, String userPwd, String userName, String userNno, String phone,
-			String email, String address, Date emrollDate, Date modifyDate, String status) {
+			String email, String address, Date enrollDate, Date modifyDate, String status) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -64,13 +64,13 @@ public class Member {
 		this.phone = phone;
 		this.email = email;
 		this.address = address;
-		this.emrollDate = emrollDate;
+		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
 
 	public Member(int userNo, String userId, String userPwd, String userName, String userNno, String phone,
-			String email, String address, Date emrollDate, Date modifyDate, int rentLimit, String status) {
+			String email, String address, Date enrollDate, Date modifyDate, int rentLimit, String status) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -80,7 +80,7 @@ public class Member {
 		this.phone = phone;
 		this.email = email;
 		this.address = address;
-		this.emrollDate = emrollDate;
+		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
 		this.rentLimit = rentLimit;
 		this.status = status;
@@ -150,12 +150,12 @@ public class Member {
 		this.address = address;
 	}
 
-	public Date getEmrollDate() {
-		return emrollDate;
+	public Date getenrollDate() {
+		return enrollDate;
 	}
 
-	public void setEmrollDate(Date emrollDate) {
-		this.emrollDate = emrollDate;
+	public void setenrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
 	}
 
 	public Date getModifyDate() {
@@ -186,7 +186,7 @@ public class Member {
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", userNno=" + userNno + ", phone=" + phone + ", email=" + email + ", address=" + address
-				+ ", emrollDate=" + emrollDate + ", modifyDate=" + modifyDate + ", rentLimit=" + rentLimit + ", status="
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", rentLimit=" + rentLimit + ", status="
 				+ status + "]";
 	}
 

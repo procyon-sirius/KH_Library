@@ -495,7 +495,7 @@
 						var img = "";
 						img = "<img id='new-book' name='new-book' src='${contextPath }/resources/img/"+b.imgName+"'>"
 						  	+ "<div id='new-text'>"+b.bookTitle+"</div>"
-						  	+ "<div id='new-author'>저자/글쓴이</div>"
+						  	+ "<div id='new-author'>"+b.bookAuthor+"</div>"
 						  	
 						$("#newBook-table-area").html(img);
 						
