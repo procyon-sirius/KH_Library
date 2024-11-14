@@ -59,7 +59,6 @@ textarea {
 								height="380px">
 						</div>
 						<br>
-						<button id="back1">뒤로가기</button>
 					</div>
 
 					<div>
@@ -152,7 +151,7 @@ textarea {
 						});
 						
 					
-						$("#back,#back1,#back2").click(function(){
+						$("#back,#back2").click(function(){
 							history.back();
 						});	
 					

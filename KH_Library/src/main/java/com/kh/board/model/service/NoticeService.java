@@ -183,6 +183,21 @@ public class NoticeService {
 		
 		return at;
 	}
+
+
+	public int deleteAttachment(int noticeNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new NoticeDao().deleteAttachment(conn,noticeNo);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 	
 
 }

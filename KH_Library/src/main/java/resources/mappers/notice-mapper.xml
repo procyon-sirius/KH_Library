@@ -164,5 +164,12 @@
 		AND STATUS = 'Y'
 	</entry>
 	
+	<entry key="deleteAttachment">
+		UPDATE ATTACHMENT
+		SET STATUS='N'
+		WHERE REF_NNO = ? 
+		AND STATUS = 'Y'
+	</entry>
+	
 	
 </properties>
