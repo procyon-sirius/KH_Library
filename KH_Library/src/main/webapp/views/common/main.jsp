@@ -116,6 +116,12 @@
 </style>
 	<!-- 신간 -->
 <style>
+	@font-face {
+		font-family: 'Tenada';
+		src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+		font-weight: normal;
+		font-style: normal;
+	}	
 	#month-newBook-area{
 		position: relative;
 		display: inline-block;
@@ -135,9 +141,12 @@
 		width: 200px;
 		height: 300px;
 		border: 1px solid gray;
+		box-shadow: 0px 0px 2px gray;
 	}
 
 	#new-text{
+		font-size: 25px;
+		font-family: 'Tenada';
 		padding-left: 250px;
 		opacity: 0;
 	}
@@ -156,6 +165,7 @@
             color: black;
             opacity: 1;
             transform: translateX(-90px);
+			box-shadow: 0px 0px 10px darkgray;
         }
 	}
 

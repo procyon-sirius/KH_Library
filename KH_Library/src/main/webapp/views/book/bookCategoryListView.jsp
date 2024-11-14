@@ -69,9 +69,14 @@
 }
 
 #order-area {
+
 	width: 30%;
 	padding-top: 10px;
 	right: 0;
+}
+
+#order-area>#order{
+	width: 10%;
 }
 
 #category-list {
