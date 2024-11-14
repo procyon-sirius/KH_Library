@@ -120,5 +120,16 @@
 		ORDER BY CREATE_DATE DESC, NOTICE_NO DESC
 		
 	</entry>
-
+	
+	<entry key="indexSelectNotice">
+		SELECT *
+		FROM(SELECT ROWNUM, A.*
+			FROM (SELECT NOTICE_NO
+						, NOTICE_TITLE
+						, CREATE_DATE
+			FROM NOTICE
+			WHERE STATUS = 'Y'
+			ORDER BY CREATE_DATE ASC)A)
+		WHERE ROWNUM BETWEEN 1 AND 4
+	</entry>
 </properties>

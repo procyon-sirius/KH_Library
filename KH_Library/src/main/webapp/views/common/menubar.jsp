@@ -331,7 +331,6 @@
 	<style>
         /* 브라우저 width가 800px보다 작을경우 : 고정*/
         #body-wrap {
-            border: 2px solid orange;
             width: 740px;
             height: fit-content;
             margin: 0 auto;
@@ -384,7 +383,6 @@
         }
 
         #content-area {
-            border: 1px solid blue;
             width: calc(100% - 220px);
             height: fit-content;
         }
@@ -550,7 +548,7 @@
                                 <li><a href="${contextPath }/input.se"  class="submenu-text">통합검색</a></li>
                                 <li><a href="${contextPath }/changeCategory.bk?currentPage=1&categoryNo=-1"  class="submenu-text">카테고리 검색</a></li>
                                 <li><a href="${contextPath }/mnewBook.bk?time=M&currentPage=1"  class="submenu-text">신규 도서</a></li>
-                                <li><a href="${contextPath }"  class="submenu-text">추천 도서</a></li>
+                                <li><a href="${contextPath }/mrbook.bk"  class="submenu-text">추천 도서</a></li>
                             </ul>
                         </div>
 

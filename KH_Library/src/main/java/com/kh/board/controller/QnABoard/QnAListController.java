@@ -36,8 +36,6 @@ public class QnAListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		int listCount;
 		int currentPage;
 		int pageLimit;
@@ -47,14 +45,13 @@ public class QnAListController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		
 		currentPage = 1; // 기본값 설정
 
 		if (request.getParameter("currentPage") != null) {
 		    currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		listCount = new NoticeService().listCount();
+		listCount = new QnAService().QlistCount();
 		
 		pageLimit = 10;
 		boardLimit = 10;
@@ -80,11 +77,6 @@ public class QnAListController extends HttpServlet {
 		// R 리스트 조회
 		ArrayList<Reply> rList = new QnAService().selectAList(pi);
 		request.setAttribute("rList", rList);
-		
-//		for(Reply r : rList) {
-//			System.out.println(r.getBoardNo());
-//			System.out.println(r.getReplyContent());
-//		}
 
 		RequestDispatcher view = request.getRequestDispatcher("/views/board/QnABoard/qnaBoard.jsp");
 		view.forward(request, response); 

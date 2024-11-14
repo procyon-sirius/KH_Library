@@ -1,4 +1,4 @@
-package com.kh.board.controller.reply;
+package com.kh.board.controller.QnABoard;
 
 import java.io.IOException;
 
@@ -42,7 +42,6 @@ public class QnAReplyDeleteController extends HttpServlet {
 	
 		request.setCharacterEncoding("UTF-8");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		System.out.println(boardNo);
 		
 		int result = new ReplyService().deleteReply(boardNo);
 		HttpSession session = request.getSession();

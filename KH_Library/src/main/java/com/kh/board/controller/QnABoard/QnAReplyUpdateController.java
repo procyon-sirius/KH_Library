@@ -31,6 +31,7 @@ public class QnAReplyUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
 		request.setAttribute("boardNo", boardNo);
 		request.getRequestDispatcher("/views/board/QnABoard/qnaReplyUpdateForm.jsp").forward(request, response);
 	
@@ -47,8 +48,8 @@ public class QnAReplyUpdateController extends HttpServlet {
 		String content = request.getParameter("content");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
-		
-		int result = new ReplyService().updateReply(content,boardNo);
+		int result = new ReplyService().updateReply(boardNo, content);
+
 		
 		String alertMsg = "";
 		if(result>0) {

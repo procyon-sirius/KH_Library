@@ -62,49 +62,7 @@ public class MemberService {
 		return result;
 	}
 
-	public ArrayList<Member> memberList() {
-		
-		Connection conn= JDBCTemplate.getConnection();
-		
-		ArrayList<Member> list = new MemberDao().memberList(conn);
-		
-		JDBCTemplate.close(conn);
-		
-		return list;
-	}
-
-	public int deleteMember(int userNo) {
-
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result = new MemberDao().deleteMember(conn,userNo);
-		
-		if(result>0) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		}
-		
-		JDBCTemplate.close(conn);
-		
-		return result;
-	}
-
-	public int rollbackMember(int userNo) {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result = new MemberDao().rollbackMember(conn,userNo);
-		
-		if(result>0) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		}
-		
-		JDBCTemplate.close(conn);
-		
-		return result;
-	}
+	
 	
 	//나의 대출 정보 조회
 	public ArrayList<MyRent> selectMyRent(int userNo) {
@@ -119,45 +77,7 @@ public class MemberService {
 		return list;
 	}
 
-	public ArrayList<Member> findUserId(String search) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		ArrayList<Member> list = new MemberDao().findUserId(conn,search);
-		
-		JDBCTemplate.close(conn);
-		
-		
-		return list;
-	}
-
-	public ArrayList<Member> findUserName(String search) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		ArrayList<Member> list = new MemberDao().findUserName(conn,search);
-		
-		JDBCTemplate.close(conn);
-		
-		
-		return list;
-	}
-
-	public int realDelete(int userNo) {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result = new MemberDao().realDelete(conn,userNo);
-		
-		if(result>0) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		}
-		
-		JDBCTemplate.close(conn);
-		
-		return result;
-	}
+	
 	// 아이디 중복 확인
 	public boolean idCheck(String inputId) {
 		

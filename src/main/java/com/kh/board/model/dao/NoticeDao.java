@@ -299,6 +299,12 @@ public class NoticeDao {
 		
 		return result;
 	}
+
+	
+	// 코멘트 수정
+	public int updateComment(Connection conn, int rno, String content) {
+		return 0;
+	}
 	
 
 }

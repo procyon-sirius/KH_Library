@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.kh.admin.model.service.AdminMemberService;
 
 /**
  * Servlet implementation class MemberDeleteController
@@ -34,7 +32,7 @@ public class MemberDeleteController extends HttpServlet {
 		
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		
-		int result = new MemberService().realDelete(userNo);
+		int result = new AdminMemberService().realDelete(userNo);
 		
 		response.getWriter().print(result);
 	}
@@ -51,7 +49,7 @@ public class MemberDeleteController extends HttpServlet {
 		String answer = "";
 		
 		if(status.equals("Y")) {
-			result = new MemberService().deleteMember(userNo);
+			result = new AdminMemberService().deleteMember(userNo);
 
 			if(result>0) {
 				answer = "o";
@@ -61,7 +59,7 @@ public class MemberDeleteController extends HttpServlet {
 			response.getWriter().print(answer);
 			
 		}else {
-			result = new MemberService().rollbackMember(userNo);
+			result = new AdminMemberService().rollbackMember(userNo);
 			
 			if(result>0) {
 				answer = "o";

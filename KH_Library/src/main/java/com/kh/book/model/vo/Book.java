@@ -18,6 +18,26 @@ public class Book {
 	public Book() {
 		super();
 	}
+	
+	
+	public Book(int bookId, String bookTitle, String imgName) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.imgName = imgName;
+	}
+
+	public Book(int bookId, String bookTitle, String bookAuthor, String summary, String imgName) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.summary = summary;
+		this.imgName = imgName;
+	}
+
+
+
 
 	public Book(int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, Date enrollDate,
 			String ageRank, int rentCount, String status, String summary, String imgName) {
@@ -49,6 +69,19 @@ public class Book {
 		this.imgName = imgName;
 	}
 	
+	
+	public Book(String imgName, int bookId, String bookTitle, String bookAuthor, String publisher, int publishDate, String ageRank,
+			String summary) {
+		super();
+		this.imgName = imgName;
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.publisher = publisher;
+		this.publishDate = publishDate;
+		this.ageRank = ageRank;
+		this.summary = summary;
+	}
 
 	public Book(int bookId, String bookTitle, String bookAuthor, int publishDate, Date enrollDate, String ageRank,
 			String status) {

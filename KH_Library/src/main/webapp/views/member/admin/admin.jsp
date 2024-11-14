@@ -73,6 +73,9 @@
                         <c:when test="${mode == 'updateBookCategory'}">
                         	<%@include file="/views/member/admin/updateBookCategory.jsp" %>
                         </c:when>
+                        <c:when test="${mode == 'updateBook'}">
+                        	<%@include file="/views/member/admin/updateBook.jsp" %>
+                        </c:when>
 
                         <c:when test="${mode == 'member'}">
                         	<%@include file="/views/member/admin/managementMember.jsp" %>
