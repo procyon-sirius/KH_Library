@@ -261,7 +261,78 @@
 
 <!-- 구역3 -->
 <style>
-
+	#comment-index-area{
+		margin-top: 50px;
+		height : 500px;
+	}
+	
+	.comment-area-title{
+		height: 50px;
+	}
+	.comment-area-title>h3{
+		float: left;
+		font-weight: 600;
+	}
+	.comment-area-title>a{
+		margin-right: 10px;
+		font-size: 25px;
+		float: right;
+	}
+	.comment-area-title>a:hover{
+		color: navy;
+		cursor: pointer;
+	}
+	#comment-block-area{
+		height : 450px;
+		position: relative;
+	}
+	.comment-block{
+		width: 450px;
+		display: inline-block;
+		height : 450px;
+		border-radius: 10px;
+		padding : 15px;
+		position: relative;
+	}
+	.comment-block>div{
+		margin-bottom: 20px;
+	}
+	.comment-block>table{
+		position: absolute;
+		bottom: 15px;
+		width: calc(100% - 30px);
+	}
+	.comment-block img{
+		width : 80px;
+		min-width: 80px;
+		white-space: nowrap;
+		border-radius: 5px;
+		box-shadow : 2px 2px 10px 1px rgba(0, 0, 0, 0.15);
+	}
+	#comment-block1{
+		position: absolute;
+		left : 0px;
+		background-color: rgb(235, 240, 243);
+	}
+	#comment-block2{
+		position: absolute;
+		left : 475px;
+		background-color: rgb(255, 253, 205);
+	}
+	#comment-block3{
+		position: absolute;
+		left : 950px;
+		background-color: rgb(198, 240, 216);
+	}
+	.comment-block-title{
+		height : 70px;
+	}
+	.comment-block-content{
+		height : 100px;
+	}
+	.comment-block>table th{
+		position: absolute;
+	}
 </style>
 
 </head>
@@ -428,80 +499,7 @@
 
 		</script>
 
-		<style>
-			#comment-index-area{
-				margin-top: 50px;
-				height : 500px;
-			}
-			
-			.comment-area-title{
-				height: 50px;
-			}
-			.comment-area-title>h3{
-				float: left;
-				font-weight: 600;
-			}
-			.comment-area-title>a{
-				margin-right: 10px;
-				font-size: 25px;
-				float: right;
-			}
-			.comment-area-title>a:hover{
-				color: navy;
-				cursor: pointer;
-			}
-			#comment-block-area{
-				height : 450px;
-				position: relative;
-			}
-			.comment-block{
-				width: 450px;
-				display: inline-block;
-				height : 450px;
-				border-radius: 10px;
-				padding : 15px;
-				position: relative;
-			}
-			.comment-block>div{
-				margin-bottom: 20px;
-			}
-			.comment-block>table{
-				position: absolute;
-				bottom: 15px;
-				width: calc(100% - 30px);
-			}
-			.comment-block img{
-				width : 80px;
-				min-width: 80px;
-				white-space: nowrap;
-				border-radius: 5px;
-				box-shadow : 2px 2px 10px 1px rgba(0, 0, 0, 0.15);
-			}
-			#comment-block1{
-				position: absolute;
-				left : 0px;
-				background-color: rgb(235, 240, 243);
-			}
-			#comment-block2{
-				position: absolute;
-				left : 475px;
-				background-color: rgb(255, 253, 205);
-			}
-			#comment-block3{
-				position: absolute;
-				left : 950px;
-				background-color: rgb(198, 240, 216);
-			}
-			.comment-block-title{
-				height : 70px;
-			}
-			.comment-block-content{
-				height : 100px;
-			}
-			.comment-block>table th{
-				position: absolute;
-			}
-		</style>		
+				
 		<div id="index-content-block3" class="index-content-block">
 			<div class="index-content-inner">
 				<div id="comment-index-area">
