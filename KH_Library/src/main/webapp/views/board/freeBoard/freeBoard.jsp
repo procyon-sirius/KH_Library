@@ -81,6 +81,14 @@
 	</div>
 	<div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp"%>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(3);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(3).addClass("menu-click");
+			})
+		</script>
 		<div id="content-area">
 			<p>
 			<div align="center">
