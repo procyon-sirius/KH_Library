@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.admin.model.dao.AdminBookDao;
-import com.kh.book.model.dao.BookDao;
+import com.kh.board.model.vo.Comment;
 import com.kh.book.model.vo.Book;
 import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
@@ -209,5 +209,24 @@ public class AdminBookService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+
+	
+
+	public ArrayList<Comment> commentInfo() {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Comment> list = new ArrayList<>();
+		ArrayList<Integer> rbid = new AdminBookDao().recommendBookId(conn);
+		
+		Comment cinfo = null;
+		for(Integer bid : rbid) {
+			cinfo = new AdminBookDao().commentInfo(conn, bid);
+			if(cinfo!=null) {
+				list.add(cinfo);
+			}
+		}
+
+		JDBCTemplate.close(conn);
+		return list;
 	}
 }

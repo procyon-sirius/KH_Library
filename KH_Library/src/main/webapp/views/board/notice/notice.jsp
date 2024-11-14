@@ -79,6 +79,14 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 	</div>
 	<div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp"%>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(3);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(0).addClass("menu-click");
+			})
+		</script>
 		<div id="content-area">
 			<div align="center">
 				<h2>공지사항</h2>

@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.board.model.vo.Comment;
 import com.kh.book.model.vo.Book;
 import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
@@ -445,5 +446,54 @@ public class AdminBookDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<Integer> recommendBookId(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Integer> rbid = new ArrayList<Integer>();
+		String sql = prop.getProperty("recommendBookId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				rbid.add(rset.getInt("BOOK_ID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return rbid;
+	}
+
+	public Comment commentInfo(Connection conn, Integer bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Comment cinfo = null;
+		String sql = prop.getProperty("commentInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				cinfo = new Comment(rset.getString("USER_NAME")
+									, rset.getString("USER_ID")
+									, rset.getString("BOOK_TITLE")
+									, rset.getString("REPLY_CONTENT")
+									, rset.getString("IMG_NAME")
+									);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return cinfo;
 	}
 }
