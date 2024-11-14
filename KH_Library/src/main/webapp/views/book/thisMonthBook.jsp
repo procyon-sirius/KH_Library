@@ -58,6 +58,8 @@
         justify-content: center;
         color: white;
         opacity: 0;
+
+        font-family: 'STUNNING-Bd';
     }
     
     #content-area:hover #book-area{
@@ -87,6 +89,34 @@
         }
     }
 
+    @font-face {
+    font-family: 'STUNNING-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-2@1.0/STUNNING-Bd.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    }   
+
+    @font-face {
+        font-family: 'Danjo-bold-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Danjo-bold-Regular.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    #title{
+        font-family: 'Danjo-bold-Regular';
+        font-size: 40px;
+    }
+
+    #dbtn{
+        border-radius: 20px;
+        width: 100px;
+        height: 50px;
+    }
+
+    #dbtn:hover{
+        background-color: rgb(222, 222, 222);
+    }
 
 
 </style>
@@ -100,7 +130,7 @@
 		<%@include file="/views/common/sideMenu.jsp" %>
         <div id="content-area">
             
-        	<h2 align="center">이달의 책</h2>
+        	<h2 align="center" id="title">이달의 책</h2>
         	<br><br>
 
             <br> 
@@ -110,7 +140,7 @@
     
                 </div>            
                 <div class="book" id="text-area"> 
-                    <table  id="book-table">
+                    <table id="book-table">
                         <tr style="font-size: 20px">
                             <th width="50px">제목</th>
                             <td width="350px"> ${b.bookTitle } </td>
@@ -132,7 +162,7 @@
                         <tr>
                             <td colspan="2">
                             <br> <br>
-                                <button onclick="detail();">자세히보기</button>
+                                <button id="dbtn" onclick="detail();">자세히보기</button>
                             </td>
                             
                         </tr>
