@@ -65,6 +65,7 @@
 		height: 100%;
 		white-space: nowrap;
 		overflow: hidden;
+		position: relative;
 	}
 	#main-notice-area{
 		float: left;
@@ -86,8 +87,10 @@
 		float: right;
 	}
 	.index-top-btn-area>a:hover{
-		color: navy;
 		cursor: pointer;
+	}
+	#plusNotice:hover{
+		color: blue;
 	}
 	#notice-table-area{
 		background-color: white;
@@ -123,7 +126,8 @@
 		font-style: normal;
 	}	
 	#month-newBook-area{
-		position: relative;
+		position: absolute;
+		left : 900px;
 		display: inline-block;
 		margin-top: 100px;
 		margin-left: 50px;
@@ -136,6 +140,7 @@
 		width: 450px;
 		height: 300px;
 		text-align: center;
+		background-color: white;
 	}
 	#new-book{
 		width: 200px;
@@ -145,10 +150,23 @@
 	}
 
 	#new-text{
-		font-size: 25px;
+		font-size: 23px;
 		font-family: 'Tenada';
-		padding-left: 250px;
+		margin-left: 230px;
 		opacity: 0;
+  		white-space: pre-wrap;
+		width : 200px;
+		height : 140px;
+	}
+
+	#new-author{
+		font-size: 20px;
+		font-family: 'Tenada';
+		margin-left: 230px;
+		opacity: 0;
+  		white-space: pre-wrap;
+		width : 200px;
+		height : 120px;
 	}
 
 	#month-newBook-area:hover #new-book{
@@ -159,12 +177,15 @@
 		animation : ani-new2 2s forwards; 
 	}
 
+	#month-newBook-area:hover #new-author{
+		animation : ani-new2 2s forwards; 
+	}
 	@keyframes ani-new1{
 		0%{
         }100%{
             color: black;
             opacity: 1;
-            transform: translateX(-90px);
+            transform: translateX(-110px);
 			box-shadow: 0px 0px 10px darkgray;
         }
 	}
@@ -174,7 +195,7 @@
         }100%{
             color: black;
             opacity: 1;
-            transform: translateY(-160px);
+            transform: translateY(-280px);
         }
 	}
 
@@ -195,10 +216,10 @@
 		padding : 10px;
 		margin : 0 10px;
 	}
-	@media ( min-width :1280px) {
+	@media ( min-width :1230px) {
 		.recommend-book{
 			display : inline-block;
-			margin : 0 calc((100% - 1100px) / 10);
+			margin : 0 calc((100% - 1050px) / 10);
 		}
 	}
 	
@@ -207,8 +228,7 @@
 		box-shadow: 3px 3px 3px darkgray;
 	}
 	.recommend-cover{
-		width : 200px;
-		height : 275px;
+		width : 180px;
 		border: 1px solid lightgray;
 	}
 	.recommend-title{
@@ -241,7 +261,78 @@
 
 <!-- 구역3 -->
 <style>
-
+	#comment-index-area{
+		margin-top: 50px;
+		height : 500px;
+	}
+	
+	.comment-area-title{
+		height: 50px;
+	}
+	.comment-area-title>h3{
+		float: left;
+		font-weight: 600;
+	}
+	.comment-area-title>a{
+		margin-right: 10px;
+		font-size: 25px;
+		float: right;
+	}
+	.comment-area-title>a:hover{
+		color: navy;
+		cursor: pointer;
+	}
+	#comment-block-area{
+		height : 450px;
+		position: relative;
+	}
+	.comment-block{
+		width: 450px;
+		display: inline-block;
+		height : 450px;
+		border-radius: 10px;
+		padding : 15px;
+		position: relative;
+	}
+	.comment-block>div{
+		margin-bottom: 20px;
+	}
+	.comment-block>table{
+		position: absolute;
+		bottom: 15px;
+		width: calc(100% - 30px);
+	}
+	.comment-block img{
+		width : 80px;
+		min-width: 80px;
+		white-space: nowrap;
+		border-radius: 5px;
+		box-shadow : 2px 2px 10px 1px rgba(0, 0, 0, 0.15);
+	}
+	#comment-block1{
+		position: absolute;
+		left : 0px;
+		background-color: rgb(235, 240, 243);
+	}
+	#comment-block2{
+		position: absolute;
+		left : 475px;
+		background-color: rgb(255, 253, 205);
+	}
+	#comment-block3{
+		position: absolute;
+		left : 950px;
+		background-color: rgb(198, 240, 216);
+	}
+	.comment-block-title{
+		height : 70px;
+	}
+	.comment-block-content{
+		height : 100px;
+	}
+	.comment-block>table th{
+		position: absolute;
+	}
 </style>
 
 </head>
@@ -365,10 +456,16 @@
 							$("#main-notice-table>tbody").append(tr);
 						}else{
 							for(var n of list){
+								var str = n.date;
+								var date = str.substr(-4);
+								str = str.replace(/월 /g, '-');
+								str = str.replace(/, /g, '-');
+								str = str.slice(0, -5);
+								date = date + "-" + str;
 								var tr = $("<tr>");
 								tr.append($("<th>").text(n.noticeNo).append($("<input>").attr("type","hidden").val(n.noticeNo)));
 								tr.append($("<td>").append($("<a>").text(n.noticeTitle)));
-								tr.append($("<td>").text(n.date));
+								tr.append($("<td>").text(date));
 								$("#main-notice-table>tbody").append(tr);
 							}
 						}
@@ -387,7 +484,8 @@
 						console.log("success");
 						var img = "";
 						img = "<img id='new-book' name='new-book' src='${contextPath }/resources/img/"+b.imgName+"'>"
-						  	+ "<p id='new-text'>"+b.bookTitle+"</p>"
+						  	+ "<div id='new-text'>"+b.bookTitle+"</div>"
+						  	+ "<div id='new-author'>"+b.bookAuthor+"</div>"
 						  	
 						$("#newBook-table-area").html(img);
 						
@@ -401,9 +499,66 @@
 
 		</script>
 
-		
+				
 		<div id="index-content-block3" class="index-content-block">
-			<div class="index-content-inner">최신 후기</div>
+			<div class="index-content-inner">
+				<div id="comment-index-area">
+					<div class="comment-area-title">
+						<h3>이 서평 어떠세요?</h3>
+						<a id="pulsComment">+</a>
+					</div>
+					<div id="comment-block-area">
+						<div id="comment-block1" class="comment-block">
+							<div class="comment-block-title">
+								제목입니다
+							</div>
+							<div class="comment-block-content">
+								내용입니다
+							</div>
+							<table>
+								<tr>
+									<th>by.###|@@@</th>
+									<td width="80">
+										<img alt="" src="${contextPath}/resources/img/1000.gif">
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div id="comment-block2" class="comment-block">
+							<div class="comment-block-title">
+								제목입니다
+							</div>
+							<div class="comment-block-content">
+								내용입니다
+							</div>
+							<table>
+								<tr>
+									<th>by.###|@@@</th>
+									<td width="80">
+										<img alt="" src="${contextPath}/resources/img/1000.gif">
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div id="comment-block3" class="comment-block">
+							<div class="comment-block-title">
+								제목입니다
+							</div>
+							<div class="comment-block-content">
+								내용입니다
+							</div>
+							<table>
+								<tr>
+									<th>by.###|@@@</th>
+									<td width="80">
+										<img alt="" src="${contextPath}/resources/img/1000.gif">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

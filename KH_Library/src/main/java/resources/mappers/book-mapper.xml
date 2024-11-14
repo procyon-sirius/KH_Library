@@ -246,10 +246,12 @@
 	<entry key="mainNewBook">
 		SELECT BOOK_ID,
 			   BOOK_TITLE,
+			   BOOK_AUTHOR,
                IMG_NAME
 		FROM (SELECT ROWNUM RNUM, A.*
            	  FROM (SELECT BOOK_ID,
                            BOOK_TITLE,
+                           BOOK_AUTHOR,
                            IMG_NAME
                     FROM BOOK
                     ORDER BY ENROLL_DATE) A)
