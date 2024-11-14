@@ -35,12 +35,6 @@
     	,MODIFY_DATE = SYSDATE
 	WHERE USER_ID= ?
 	</entry>
-	
-
-	<entry key="memberList">
-		SELECT *
-		FROM MEMBER
-	</entry>
 
 	<!-- 대출정보 구문 -->
 	<entry key="selectMyRent">
@@ -61,36 +55,6 @@
 	WHERE USER_ID= ?
 	</entry>
 	
-	<!-- 회원 관련 -->
-	<entry key="deleteMember">
-		UPDATE MEMBER
-		SET STATUS = 'N'
-		WHERE USER_NO = ?
-	</entry>
-	
-	<entry key="rollbackMember">
-		UPDATE MEMBER
-		SET STATUS = 'Y'
-		WHERE USER_NO = ?
-	</entry>
-	
-	<entry key="findUserId">
-		SELECT *
-		FROM MEMBER
-		WHERE USER_Id LIKE '%'||?||'%'
-	</entry>
-
-	<entry key="findUserName">
-		SELECT *
-		FROM MEMBER
-		WHERE USER_NAME LIKE '%'||?||'%'
-	</entry>
-	
-	<entry key="realDelete">
-		DELETE FROM MEMBER
-		WHERE USER_NO = ?
-	</entry>
-	
 	<!-- 비밀번호 변경 구문 -->
 	<entry key="updatePwd">
 	UPDATE MEMBER
@@ -108,7 +72,5 @@
 		
 	</entry>
 
-
-	
 	
 </properties>

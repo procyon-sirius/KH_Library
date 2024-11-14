@@ -1,4 +1,4 @@
-package com.kh.member.controller;
+package com.kh.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.member.model.service.MemberService;
+import com.kh.admin.model.service.AdminMemberService;
 import com.kh.member.model.vo.Member;
 
 /**
@@ -39,9 +39,9 @@ public class MemberSearchController extends HttpServlet {
 		ArrayList<Member> list = new ArrayList<>();
 		
 		if(category.equals("userId")) {
-			list = new MemberService().findUserId(search);
+			list = new AdminMemberService().findUserId(search);
 		}else {
-			list = new MemberService().findUserName(search);
+			list = new AdminMemberService().findUserName(search);
 		}
 		
 		response.setContentType("json/application;charset=UTF-8");
