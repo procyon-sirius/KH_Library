@@ -70,7 +70,7 @@
                     ,NOTICE_TITLE
                     ,NOTICE_CONTENT
                     ,CREATE_DATE)
-	VALUES (SEQ_NNO.NEXTVAL,1,?,?,SYSDATE)
+	VALUES (?,1,?,?,SYSDATE)
 	</entry>
 	
 	
@@ -132,4 +132,37 @@
 			ORDER BY CREATE_DATE ASC)A)
 		WHERE ROWNUM BETWEEN 1 AND 4
 	</entry>
+	
+	
+	
+	   	
+   	<!-- attachment 관련(글 시퀀스 번호 추출용 메소드) -->
+  	<entry key="selectBoardNo">
+		SELECT SEQ_NNO.NEXTVAL NNO
+		FROM DUAL
+	</entry>
+	
+	
+	<entry key="insertAttachment">
+		INSERT INTO ATTACHMENT(
+		                         FILE_NO
+		                        ,REF_NNO
+		                        ,ORIGIN_NAME
+		                        ,CHANGE_NAME
+		                        ,FILE_PATH) 
+		VALUES (SEQ_FNO.NEXTVAL,?,?,?,?)
+	</entry>
+	
+	
+	<entry key="selectAttachment">
+		SELECT FILE_NO
+		       ,ORIGIN_NAME
+		       ,CHANGE_NAME
+		       ,FILE_PATH
+		FROM ATTACHMENT
+		WHERE REF_NNO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	
 </properties>

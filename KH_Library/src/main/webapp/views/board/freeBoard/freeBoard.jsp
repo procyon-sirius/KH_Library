@@ -116,7 +116,6 @@
 							<th width="600">제목</th>
 							<th width="150">작성자</th>
 							<th width="150">작성일</th>
-							<th width="150">첨부</th>
 							<th width="150">조회수</th>
 						</tr>
 					</thead>
@@ -137,7 +136,6 @@
 							<td width="600"><%=fb.getBoardTitle() %></td>
 							<td width="150"><%=maskedId %></td>
 							<td width="150"><%=fb.getDate() %></td>
-							<td width="150">첨부파일</td>
 							<td width="150"><%=fb.getCount() %></td>
 						</tr>
 						<%} %>
