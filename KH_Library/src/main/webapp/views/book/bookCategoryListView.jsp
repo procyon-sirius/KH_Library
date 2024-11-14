@@ -75,10 +75,6 @@
 	right: 0;
 }
 
-#order-area>#order{
-	width: 10%;
-}
-
 #category-list {
 	font-weight: bold;
 	margin: 0px;

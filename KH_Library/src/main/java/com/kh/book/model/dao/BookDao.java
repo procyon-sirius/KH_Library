@@ -941,6 +941,34 @@ public class BookDao {
 	}
 
 
+	public Book monthRandomBook(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Book b = new Book();
+		String sql = prop.getProperty("monthRandomBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Book(rset.getInt("BOOK_ID"),
+							 rset.getString("BOOK_TITLE"),
+							 rset.getString("BOOK_AUTHOR"),
+							 rset.getString("SUMMARY"),
+							 rset.getString("IMG_NAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return b;
+	}
+
+
 
 	
 	

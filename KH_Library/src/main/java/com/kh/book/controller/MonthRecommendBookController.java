@@ -32,17 +32,16 @@ public class MonthRecommendBookController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int tb;
-		
 		tb = new BookService().topBook();
 		
-		System.out.println(tb);
-		
-		Book b = new BookService().monthRecommendBook(tb);
-		
-		System.out.println(b);
+		Book b = new Book();
+		if(tb==0) {
+			b = new BookService().monthRandomBook();
+		}else {
+			b = new BookService().monthRecommendBook(tb);
+		}
 		request.setAttribute("b", b);
 		request.getRequestDispatcher("/views/book/thisMonthBook.jsp").forward(request, response);
-		
 	}
 
 	/**
