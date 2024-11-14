@@ -54,6 +54,7 @@
 				<button id="yn" onclick="yn();">상태값(Y/N)</button>
 			</div>
 		</div>
+		<br>
 			<table class="member-list">
 				<thead>
 					<tr>

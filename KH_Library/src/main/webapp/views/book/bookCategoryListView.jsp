@@ -69,6 +69,7 @@
 }
 
 #order-area {
+
 	width: 30%;
 	padding-top: 10px;
 	right: 0;
@@ -172,7 +173,7 @@
 		<%@include file="/views/common/sideMenu.jsp"%>
 		<div id="content-area">
 
-			<h2 align="center">카테고리 검색</h2>
+			<h2 align="center" style="font-family: '맑은 고딕'; font-weight: bolder;">카테고리 검색</h2>
 			<br>
 			<br>
 

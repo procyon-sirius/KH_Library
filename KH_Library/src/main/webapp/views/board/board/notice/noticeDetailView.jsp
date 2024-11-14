@@ -60,8 +60,8 @@
 }
 
 pre {
-	font-family: sans-serif;
-	font-size: 18px;
+	font-family: sans-serif; !important;
+	font-size: 21px !important;
 	color: #333;
 }
 

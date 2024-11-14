@@ -313,6 +313,26 @@ public class BookService {
 		
 		return sixty;
 	}
+
+	public Book mainNewBook() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Book b = new BookDao().mainNewBook(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return b;
+	}
+
+	public Book monthRandomBook() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Book b = new BookDao().monthRandomBook(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return b;
+	}
 	
 
 }

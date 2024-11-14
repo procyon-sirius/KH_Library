@@ -119,6 +119,12 @@
 </style>
 	<!-- 신간 -->
 <style>
+	@font-face {
+		font-family: 'Tenada';
+		src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+		font-weight: normal;
+		font-style: normal;
+	}	
 	#month-newBook-area{
 		position: absolute;
 		left : 900px;
@@ -130,12 +136,53 @@
 		text-align: center;
 	}
 	#newBook-table-area{
-		background-color: skyblue;
 		border-radius: 15px;
 		width: 450px;
 		height: 300px;
 		text-align: center;
 	}
+	#new-book{
+		width: 200px;
+		height: 300px;
+		border: 1px solid gray;
+		box-shadow: 0px 0px 2px gray;
+	}
+
+	#new-text{
+		font-size: 25px;
+		font-family: 'Tenada';
+		padding-left: 250px;
+		opacity: 0;
+	}
+
+	#month-newBook-area:hover #new-book{
+		animation : ani-new1 2s forwards; 
+	}
+
+	#month-newBook-area:hover #new-text{
+		animation : ani-new2 2s forwards; 
+	}
+
+	@keyframes ani-new1{
+		0%{
+        }100%{
+            color: black;
+            opacity: 1;
+            transform: translateX(-90px);
+			box-shadow: 0px 0px 10px darkgray;
+        }
+	}
+
+	@keyframes ani-new2{
+		0%{
+        }100%{
+            color: black;
+            opacity: 1;
+            transform: translateY(-160px);
+        }
+	}
+
+
 </style>
 
 
@@ -290,10 +337,10 @@
 					<div id="month-newBook-area">
 						<div class="index-top-btn-area">
 							<h3>신간 도서</h3>
-							<a>+</a>
+							<a href="${contextPath }/mnewBook.bk?time=M&currentPage=1" style="text-decoration: none; color: black;">+</a>
 						</div>
 						<div id="newBook-table-area">
-
+							
 						</div>
 					</div>
 				</div>
@@ -340,6 +387,27 @@
 					}
 				})
 			});
+		</script>
+		<script>
+			$(function(){
+				$.ajax({
+					url : "${contextPath}/mainbook.bk",
+					success: function(b){
+						console.log("success");
+						var img = "";
+						img = "<img id='new-book' name='new-book' src='${contextPath }/resources/img/"+b.imgName+"'>"
+						  	+ "<p id='new-text'>"+b.bookTitle+"</p>"
+						  	
+						$("#newBook-table-area").html(img);
+						
+					},
+					error: function(){
+						console.log("fail");
+					}
+				});
+
+			});
+
 		</script>
 
 		<style>
