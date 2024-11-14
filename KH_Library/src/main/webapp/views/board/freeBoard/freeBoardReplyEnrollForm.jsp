@@ -3,8 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +24,9 @@
 <title>Insert title here</title>
 
 <style type="text/css">
+.info {
+	margin-left: 20px;
+}
 
 .insert {
 	margin-left: 1000px;
@@ -36,28 +37,33 @@
 	font-size: 16px;
 }
 
+.content {
+	background-color: rgba(128, 128, 128, 0.233);
+	font-family: sans-serif;
+	font-size: 18px;
+	width: 100%;
+	height: 300px;
+	resize: none;
+}
+
+.cell {
+	padding-left: 5px; /* 등록일과 날짜 사이의 여백 조절 */
+}
+
 .separator {
 	display: inline-block;
 	margin: 0 10px;
 }
 
-.title {
-	width: 100%;
-	height: 40px;
-	background-color: rgba(128, 128, 128, 0.233);
-	border: 1px solid #black;
-	padding: 8px;
-	font-size: 16px;
-}
-
 .content {
 	background-color: rgba(128, 128, 128, 0.233);
+	border-radius: 10px;
+}
+
+pre {
 	font-family: sans-serif;
 	font-size: 18px;
 	color: #333;
-	width: 100%;
-	height: 800px;
-	resize: none;
 }
 
 .list {
@@ -70,8 +76,8 @@
 	position: relative;
 	left: 500px;
 }
-
 </style>
+
 </head>
 <body>
 
@@ -82,12 +88,13 @@
 	<div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp"%>
 		<div id="content-area">
-
-			<% Board fb = (Board) request.getAttribute("Board"); %>
-
-
+			<p>
+				<% Board fb = (Board) request.getAttribute("freeBoard"); %>
+				<% int currentPage = (int)request.getAttribute("currentPage"); %>
+			
 			<div align="center">
-				<h2>공지사항</h2>
+
+				<h2>자유게시판</h2>
 				<br>
 				<br>
 				<br>
@@ -97,31 +104,56 @@
 						<td class="separator">></td>
 						<td>소통공간</td>
 						<td class="separator">></td>
-						<td>공지사항</td>
+						<td>자유게시판</td>
 					</tr>
 				</table>
 			</div>
 
 			<br> <br> <br>
 
-			<form action="<%=contextPath%>/insert.no" method="post">
-				<div class="noticeDetail">
-					<input type="hidden" name="currentPage" value="${currentPage}">
-					<input type="text" name="title" class="title" required="required"
-						placeholder="제목을 입력하세요."></input> <br>
-					<br>
-					<br>
-					<textarea class="content" name="content" placeholder="내용을 입력하세요."
-						required="required"></textarea>
-					<br> <br> <br>
-					<button type="submit" class="list">등록하기</button>
-					<a href="/library/notice?currentPage=${currentPage }" class="list">목록으로</a>
-				</div>	
-			</form>
-		
-	</div>
-	</div>
+			<div class="noticeDetail">
 
-	<%@include file="/views/common/footer.jsp"%>
+				<h4 align="center"><%=fb.getBoardTitle()%></h4>
+				<br>
+				<hr class="boarder">
+				<br> <br>
+
+				<table class="info">
+					<tr>
+						<td>등록일:</td>
+						<td class="cell"><%=fb.getDate()%></td>
+						<td class="separator">|</td>
+						<td>조회수:</td>
+						<td class="cell"><%=fb.getCount()%></td>
+					</tr>
+				</table>
+
+
+				<br> <br>
+
+				<div class="content"
+					style="background-color: rgba(211, 211, 211, 0.171);">
+					<%=fb.getBoardContent()%>
+				</div>
+				<br><br>
+
+				<form action="<%=contextPath%>/insert.FBrp" method="post">
+					<div class="qnaDetail">
+						<input type="hidden" name="boardNo" value="<%=fb.getBoardNo()%>" />
+						<% int writerNo = loginUser.getUserNo();%>
+						<input type="hidden" name="writerNo" value="<%=writerNo%>" />
+						<textarea class="content" name="content" placeholder="내용을 입력하세요."
+							required="required"></textarea>
+						<br> <br> <br>
+						<button type="submit" class="list">등록하기</button>
+						<a href="/library/freeBoard?currentPage=<%=currentPage %>"
+							class="list">목록으로</a>
+					</div>	
+				</form>
+
+			</div>
+		</div>
+	</div>	
+<%@include file="/views/common/footer.jsp"%>
 </body>
 </html>

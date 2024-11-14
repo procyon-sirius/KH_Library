@@ -29,7 +29,9 @@ public class NoticeInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		request.setAttribute("currentPage", currentPage);
 		request.getRequestDispatcher("/views/board/notice/noticeEnrollForm.jsp").forward(request, response);
 
 	}
@@ -43,12 +45,12 @@ public class NoticeInsertController extends HttpServlet {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int result = new NoticeService().insertNotice(title,content);
 		
 		if(result>0) {
 			request.getSession().setAttribute("alertMsg", "공지글 작성 성공!");
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath()+"/notice?currentPage="+currentPage);
 			
 		}else {
 			request.setAttribute("errorMsg", "공지글 작성 실패");
