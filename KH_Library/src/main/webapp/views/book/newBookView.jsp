@@ -101,8 +101,8 @@
     </div>
     <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
-        <div id="content-area">
-           <h2 align="center">신규 도서</h2>
+        <div id="content-area"  style="font-family: '맑은 고딕';">
+           <h2 align="center" style="font-family: '맑은 고딕'; font-weight: bolder;">신규 도서</h2>
            <br>
            <div class="filter-div">
            	<form action="${contextPath }/newBook.bk?time='+ ${time}+'&currentPage=1" id="day-form">
