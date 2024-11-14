@@ -140,6 +140,7 @@
 		width: 450px;
 		height: 300px;
 		text-align: center;
+		background-color: white;
 	}
 	#new-book{
 		width: 200px;
@@ -149,10 +150,23 @@
 	}
 
 	#new-text{
-		font-size: 25px;
+		font-size: 23px;
 		font-family: 'Tenada';
-		padding-left: 250px;
+		margin-left: 230px;
 		opacity: 0;
+  		white-space: pre-wrap;
+		width : 200px;
+		height : 140px;
+	}
+
+	#new-author{
+		font-size: 20px;
+		font-family: 'Tenada';
+		margin-left: 230px;
+		opacity: 0;
+  		white-space: pre-wrap;
+		width : 200px;
+		height : 120px;
 	}
 
 	#month-newBook-area:hover #new-book{
@@ -163,12 +177,15 @@
 		animation : ani-new2 2s forwards; 
 	}
 
+	#month-newBook-area:hover #new-author{
+		animation : ani-new2 2s forwards; 
+	}
 	@keyframes ani-new1{
 		0%{
         }100%{
             color: black;
             opacity: 1;
-            transform: translateX(-90px);
+            transform: translateX(-110px);
 			box-shadow: 0px 0px 10px darkgray;
         }
 	}
@@ -178,7 +195,7 @@
         }100%{
             color: black;
             opacity: 1;
-            transform: translateY(-160px);
+            transform: translateY(-280px);
         }
 	}
 
@@ -396,7 +413,8 @@
 						console.log("success");
 						var img = "";
 						img = "<img id='new-book' name='new-book' src='${contextPath }/resources/img/"+b.imgName+"'>"
-						  	+ "<p id='new-text'>"+b.bookTitle+"</p>"
+						  	+ "<div id='new-text'>"+b.bookTitle+"</div>"
+						  	+ "<div id='new-author'>저자/글쓴이</div>"
 						  	
 						$("#newBook-table-area").html(img);
 						
