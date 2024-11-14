@@ -312,7 +312,7 @@
 	#comment-block1{
 		position: absolute;
 		left : 0px;
-		background-color: rgb(235, 240, 243);
+		background-color: rgb(213, 231, 241);
 	}
 	#comment-block2{
 		position: absolute;
@@ -332,6 +332,16 @@
 	}
 	.comment-block>table th{
 		position: absolute;
+	}
+	.comment-block-title{
+		font-weight: 600;
+		font-size : 18px;
+		white-space: pre-line;
+		
+	}
+	.comment-block-content{
+		font-size : 12px;
+		white-space: pre-line;
 	}
 </style>
 
@@ -510,48 +520,48 @@
 					<div id="comment-block-area">
 						<div id="comment-block1" class="comment-block">
 							<div class="comment-block-title">
-								제목입니다
+								등록된 서평이 없습니다.
 							</div>
 							<div class="comment-block-content">
-								내용입니다
+								
 							</div>
 							<table>
 								<tr>
-									<th>by.###|@@@</th>
+									<th></th>
 									<td width="80">
-										<img alt="" src="${contextPath}/resources/img/1000.gif">
+										<img alt="" src="">
 									</td>
 								</tr>
 							</table>
 						</div>
 						<div id="comment-block2" class="comment-block">
 							<div class="comment-block-title">
-								제목입니다
+								등록된 서평이 없습니다.
 							</div>
 							<div class="comment-block-content">
-								내용입니다
+								
 							</div>
 							<table>
 								<tr>
-									<th>by.###|@@@</th>
+									<th></th>
 									<td width="80">
-										<img alt="" src="${contextPath}/resources/img/1000.gif">
+										<img alt="" src="">
 									</td>
 								</tr>
 							</table>
 						</div>
 						<div id="comment-block3" class="comment-block">
 							<div class="comment-block-title">
-								제목입니다
+								등록된 서평이 없습니다.
 							</div>
 							<div class="comment-block-content">
-								내용입니다
+								
 							</div>
 							<table>
 								<tr>
-									<th>by.###|@@@</th>
+									<th></th>
 									<td width="80">
-										<img alt="" src="${contextPath}/resources/img/1000.gif">
+										<img alt="" src="">
 									</td>
 								</tr>
 							</table>
@@ -559,6 +569,38 @@
 					</div>
 				</div>
 			</div>
+			<script>
+				$(function(){
+					$("#pulsComment").click(function(){
+						location.href="${contextPath}/commentBoard"
+					})
+				})
+			</script>
+			<script>
+				$(function(){
+					$.ajax({
+						url : "${contextPath}/comment.bk",
+						success : function(result){
+							var cnt = 0;
+							for(var c of result){
+								cnt++;
+								var title = $("#comment-block"+cnt).find(".comment-block-title");
+								var content = $("#comment-block"+cnt).find(".comment-block-content");
+								var userInfo = $("#comment-block"+cnt).find("th");
+								var img = $("#comment-block"+cnt).find("img");
+								
+								title.text(c.bookTitle);
+								content.text(c.replyComment);
+								userInfo.text("by. "+c.userId+" | "+c.userName);
+								img.attr("src","${contextPath}/resources/img/"+c.imgName);
+							}
+						},
+						error : function(){
+							console.log("error:ajax:index-comment")
+						}
+					})
+				})
+			</script>
 		</div>
 	</div>
 </body>
