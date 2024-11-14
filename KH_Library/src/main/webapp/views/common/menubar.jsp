@@ -554,7 +554,7 @@
 
                     </li>
                     <li>
-                        <a href="${contextPath }" class="menu-title">도서관 안내</a>
+                        <a href="${contextPath }/views/info/infoView.jsp" class="menu-title">도서관 안내</a>
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
                                 <li><a href="${contextPath }/views/info/infoView.jsp" class="submenu-text">도서관 소개</a></li>
@@ -563,7 +563,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="${contextPath }" class="menu-title">소통공간</a>
+                        <a href="${contextPath }/notice" class="menu-title">소통공간</a>
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
                                 <li><a href="${contextPath }/notice"  class="submenu-text">공지 사항</a></li>
@@ -574,7 +574,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="${contextPath }" class="menu-title">나만의 서재</a>
+                        <a href="${contextPath }/mypage.me" class="menu-title">나만의 서재</a>
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
 								<li><a href="${contextPath}/mypage.me"  class="submenu-text">내 정보</a></li>

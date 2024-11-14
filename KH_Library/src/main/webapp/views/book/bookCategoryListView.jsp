@@ -186,7 +186,7 @@
 					<div id="category-list">
 						<div id="category-area">
 							카테고리 : <select name="categoryNo" id="category">
-											<option value="0">전체</option>
+											<option value="10000">전체</option>
 										<c:forEach items="${bci }" var="c">
 											<option value="${c.categoryNo }">${c.categoryName }</option>
 										</c:forEach>
@@ -234,7 +234,7 @@
 				<c:choose>
 					<c:when test="${cno != -1}">
 						<script>
-							$("select[name=categoryNo][value=0]").prop("selected", true);
+							$("select[name=categoryNo][value=20000]").prop("selected", true);
 							$("input[name=age][value=AGE_RANK]").prop("checked", true);
 							$("select[name=order][value=BOOK_TITLE]").prop("selected", true);
 							$("select[name=ad][value=ASC]").prop("selected", true);	
@@ -245,7 +245,7 @@
 					</c:when>
 					<c:otherwise>
 						<script>
-							$("select[name=categoryNo][value=0]").prop("selected", true);
+							$("select[name=categoryNo][value=10000]").prop("selected", true);
 							$("input[name=age][value=AGE_RANK]").prop("checked", true);
 							$("select[name=order][value=BOOK_TITLE]").prop("selected", true);
 							$("select[name=ad][value=ASC]").prop("selected", true);
