@@ -93,41 +93,41 @@
                     <li>
                         <a class="side-title-menu">도서신청</a>
                         <ul class="side-sub-menu">
-                            <li class="side-sub-menu-li"><a>도서 신청</a></li>
-                            <li class="side-sub-menu-li"><a>도서 신청 현황</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/insert.ho">도서 신청</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/select.ho?currentPage=1">도서 신청 현황</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="side-title-menu">자료 검색</a>
                         <ul class="side-sub-menu">
-                            <li class="side-sub-menu-li"><a>통합검색</a></li>
-                            <li class="side-sub-menu-li"><a>카테고리 검색</a></li>
-                            <li class="side-sub-menu-li"><a>신규 도서</a></li>
-                            <li class="side-sub-menu-li"><a>추천 도서</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/input.se">통합검색</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/changeCategory.bk?currentPage=1&categoryNo=-1">카테고리 검색</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/mnewBook.bk?time=M&currentPage=1">신규 도서</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/mrbook.bk">추천 도서</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="side-title-menu">도서관 안내</a>
                         <ul class="side-sub-menu">
-                            <li class="side-sub-menu-li"><a>도서관 소개</a></li>
-                            <li class="side-sub-menu-li"><a>오시는 길</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/views/info/infoView.jsp">도서관 소개</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/views/info/mapView.jsp">오시는 길</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="side-title-menu">소통공간</a>
                         <ul class="side-sub-menu">
-                            <li class="side-sub-menu-li"><a>공지 사항</a></li>
-                            <li class="side-sub-menu-li"><a>문의 게시판</a></li>
-                            <li class="side-sub-menu-li"><a>한줄평</a></li>
-                            <li class="side-sub-menu-li"><a>자유게시판</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/notice">공지 사항</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/qnaBoard">문의 게시판</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/commentBoard">한줄평</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/freeBoard">자유게시판</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="side-title-menu">나만의 서재</a>
                         <ul class="side-sub-menu">
-                            <li class="side-sub-menu-li"><a>내 정보</a></li>
-                            <li class="side-sub-menu-li"><a>신청 내역</a></li>
-                            <li class="side-sub-menu-li"><a>도서 관리</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath}/mypage.me">내 정보</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/myHope">신청 내역</a></li>
+                            <li class="side-sub-menu-li"><a href="${contextPath }/mybook.me">도서 관리</a></li>
                         </ul>
                     </li>
                 </ul>

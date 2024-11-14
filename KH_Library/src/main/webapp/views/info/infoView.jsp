@@ -29,6 +29,14 @@
     </div>
     <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(2);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(0).addClass("menu-click");
+			})
+		</script>
         <div id="content-area">
 			
 			<h1 id="title">KH도서관에 오신 것을 환영합니다.</h1>  

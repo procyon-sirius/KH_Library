@@ -83,6 +83,14 @@
 			</div>
 			<div id="body-wrap" style="border : 0">
 				<%@include file="/views/common/sideMenu.jsp" %>
+				<script>
+					$(function(){
+						console.log();
+						var sidemenu = $(".side-title-menu").eq(1);
+						sidemenu.siblings("ul").children().show();
+						sidemenu.siblings("ul").children().eq(0).addClass("menu-click");
+					})
+				</script>
 					<div id="content-area" style="border : 0">
 						<%@include file="/views/search/searchBar.jsp"%>
 						<c:choose>
