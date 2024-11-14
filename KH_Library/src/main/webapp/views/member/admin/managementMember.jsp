@@ -124,11 +124,9 @@
 					$(".member-list tbody").html(" ");
 					
 					var tr = "";
-					
 					if(list == null){
-						alert("검색 결과가 없습니다")
-						
-						search.html(" ");
+						tr = "<tr><td align='center' colspan='13'>검색 결과가 존재하지 않습니다.</td></tr>"
+						$(".member-list tbody").html(tr);
 					}else{
 						for(var m of list){
 							tr += "<tr>"
@@ -147,6 +145,7 @@
 								+"<td id='st'>"+m.status+"</td>"
 						}
 						$(".member-list tbody").html(tr);
+						$("#search").html(" ");
 					}
 				},
 				error : function(){
@@ -186,6 +185,7 @@
 							+"<td id='st'>"+m.status+"</td>"
 					}
 					$(".member-list tbody").html(tr);
+					$("#search").html(" ");
 				},
 			 error : function(){
 				console.log("fail");
@@ -225,6 +225,7 @@
 							complete : function(){
 								if(count == $("input[name=one]:checked").length){
 									alert(count+"명 변경완료");
+									$("#search").val(" ");
 								}
 							}
 					});

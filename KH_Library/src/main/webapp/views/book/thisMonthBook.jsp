@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH Library>이달의 책</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
     #content-area{
@@ -33,6 +33,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border: 1px solid lightgray;
     }
 
     #text-area{
@@ -77,6 +78,7 @@
         }100%{
             scale: 110%;
             transform: translateX(-100px);
+            box-shadow: 0px 0px 20px rgb(100, 100, 100);
         }
     }
 
