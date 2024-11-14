@@ -269,6 +269,7 @@
 		JOIN MEMBER ON (REPLY_WRITER=USER_NO)
 		WHERE BOARD_NO = ?
 		AND R.STATUS = 'Y'
+		ORDER BY CREATE_DATE DESC
    	</entry>
    	
    	<entry key="replyCount">
@@ -292,6 +293,8 @@
 		WHERE REPLY_NO = ? 
 		AND STATUS = 'Y'
    	</entry>
+   	
+   	
 
    	
    	
