@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오시는 길</title>
+<title>KH Library>오시는 길</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 

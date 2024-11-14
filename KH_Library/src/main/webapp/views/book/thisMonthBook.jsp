@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH Library>이달의 책</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
     #content-area{

@@ -254,7 +254,7 @@
                            BOOK_AUTHOR,
                            IMG_NAME
                     FROM BOOK
-                    ORDER BY ENROLL_DATE) A)
+                    ORDER BY PUBLISH_DATE DESC) A)
 		WHERE RNUM = 1	
 	</entry>
 	
