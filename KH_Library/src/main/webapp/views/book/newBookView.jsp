@@ -101,6 +101,14 @@
     </div>
     <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(1);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(2).addClass("menu-click");
+			})
+		</script>
         <div id="content-area"  style="font-family: '맑은 고딕';">
            <h2 align="center" style="font-family: '맑은 고딕'; font-weight: bolder;">신규 도서</h2>
            <br>

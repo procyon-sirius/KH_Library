@@ -174,6 +174,14 @@
 	</div>
 	<div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp"%>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(1);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(1).addClass("menu-click");
+			})
+		</script>
 		<div id="content-area">
 
 			<h2 align="center" style="font-family: '맑은 고딕'; font-weight: bolder;">카테고리 검색</h2>

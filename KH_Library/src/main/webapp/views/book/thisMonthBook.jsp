@@ -130,6 +130,14 @@
     </div>
     <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(1);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(3).addClass("menu-click");
+			})
+		</script>
         <div id="content-area">
             
         	<h2 align="center" id="title">이달의 책</h2>

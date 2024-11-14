@@ -17,6 +17,14 @@
     </div>
     <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(2);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(1).addClass("menu-click");
+			})
+		</script>
         <div id="content-area">
 			
 			<div id="map" style="width: 100%; height: 500px;"></div> 
