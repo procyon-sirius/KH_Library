@@ -201,6 +201,62 @@
 
 <body>
 	<div id="index-body">
+		<div id="index-content-block2" class="index-content-block">
+			<div class="index-content-inner">
+				<div id="recommend-book-area">
+				</div>
+			</div>
+		</div>
+	
+		<script>
+			$(function(){
+				$.ajax({
+					url : "${contextPath}/recommend.bk",
+					success : function(result){
+						$("#recommend-book-area").html("<h1>인기 도서</h1>")
+						if(result == null){
+							$("#recommend-book-area").append("<div>등록된 도서가 없습니다.</div>")
+						}else{
+							for(var b of result){
+								var book = $("<div>").addClass("recommend-book");
+								book.append($("<input>",{
+									type : "hidden",
+									name : "bookId",
+									value : b.bookId
+									}));
+								book.append($("<img>",{
+									src : "${contextPath}/resources/img/"+b.imgName
+								}).addClass("recommend-cover rec-book-info"));
+								book.append($("<div>").addClass("recommend-title rec-book-info").text(b.bookTitle));
+								book.append($("<div>").addClass("recommend-author").text(b.bookAuthor));
+								$("#recommend-book-area").append(book);
+							}
+						}
+					},
+					error : function(){
+						console.log("error:ajax");
+					}
+				});
+				
+				
+			})
+		</script>
+		<script>
+			$(function(){
+				$("#recommend-book-area").on("click",".rec-book-info",function(){
+					var bookId = $(this).closest(".recommend-book").find("input[name=bookId]").val();
+					location.href = "${contextPath}/detail.bk?bookId="+bookId;
+				});
+
+				$("#recommend-book-area").on("mouseenter",".recommend-book", function(){
+						$(this).addClass("sizeUp");
+				});
+				$("#recommend-book-area").on("mouseleave",".recommend-book", function(){
+						$(this).removeClass("sizeUp");
+				});
+			})
+		</script>
+	
 		<div id="index-content-block1" class="index-content-block  index-bgc">
 			<div class="index-content-inner">
 				<div id="index-content-top">
@@ -277,62 +333,8 @@
 			});
 		</script>
 
-		<div id="index-content-block2" class="index-content-block">
-			<div class="index-content-inner">
-				<div id="recommend-book-area">
-				</div>
-			</div>
-		</div>
-	
-		<script>
-			$(function(){
-				$.ajax({
-					url : "${contextPath}/recommend.bk",
-					success : function(result){
-						$("#recommend-book-area").html("<h1>인기 도서</h1>")
-						if(result == null){
-							$("#recommend-book-area").append("<div>등록된 도서가 없습니다.</div>")
-						}else{
-							for(var b of result){
-								var book = $("<div>").addClass("recommend-book");
-								book.append($("<input>",{
-									type : "hidden",
-									name : "bookId",
-									value : b.bookId
-									}));
-								book.append($("<img>",{
-									src : "${contextPath}/resources/img/"+b.imgName
-								}).addClass("recommend-cover rec-book-info"));
-								book.append($("<div>").addClass("recommend-title rec-book-info").text(b.bookTitle));
-								book.append($("<div>").addClass("recommend-author").text(b.bookAuthor));
-								$("#recommend-book-area").append(book);
-							}
-						}
-					},
-					error : function(){
-						console.log("error:ajax");
-					}
-				});
-				
-				
-			})
-		</script>
-		<script>
-			$(function(){
-				$("#recommend-book-area").on("click",".rec-book-info",function(){
-					var bookId = $(this).closest(".recommend-book").find("input[name=bookId]").val();
-					location.href = "${contextPath}/detail.bk?bookId="+bookId;
-				});
-
-				$("#recommend-book-area").on("mouseenter",".recommend-book", function(){
-						$(this).addClass("sizeUp");
-				});
-				$("#recommend-book-area").on("mouseleave",".recommend-book", function(){
-						$(this).removeClass("sizeUp");
-				});
-			})
-		</script>
-		<div id="index-content-block3" class="index-content-block  index-bgc">
+		
+		<div id="index-content-block3" class="index-content-block">
 			<div class="index-content-inner">최신 후기</div>
 		</div>
 	</div>
