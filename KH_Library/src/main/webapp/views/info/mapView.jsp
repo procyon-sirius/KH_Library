@@ -19,23 +19,38 @@
 		<%@include file="/views/common/sideMenu.jsp" %>
         <div id="content-area">
 			
-			<div id="map" style="width: 500px; height: 400px;"></div>
+			<div id="map" style="width: 100%; height: 500px;"></div> 
+	
+	
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c455d1def298ac100bf896a06a4bf4b5"></script>
+			<script type="text/javascript">
 			
-			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7fa08141bb6b5c46aa34fc704a6d962a">
 				var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 				var options = { //지도를 생성할 때 필요한 기본 옵션
-					center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+					center: new kakao.maps.LatLng(37.533808, 126.8968323), //지도의 중심좌표.
 					level: 3 //지도의 레벨(확대, 축소 정도)
 				};
-	
+			
 				var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-			</script>
-			<script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?autoload=false"></script>
-			<script type="text/javascript">
-				kakao.maps.load(function() {
-				    // v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
-				    var map = new kakao.maps.Map(node, options);
-				});
+				
+				
+				
+				var coords = new kakao.maps.LatLng(37.533808, 126.8968323);
+			
+			    // 결과값으로 받은 위치를 마커로 표시합니다
+			    var marker = new kakao.maps.Marker({
+			        map: map,
+			        position: coords
+			    });
+			
+			    // 인포윈도우로 장소에 대한 설명을 표시합니다
+			    var infowindow = new kakao.maps.InfoWindow({
+			        content: '<div style="width:150px;text-align:center;padding:6px 0;">KH Library</div>'
+			    });
+			    infowindow.open(map, marker);
+			
+			    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			    map.setCenter(coords);
 			</script>
 			
         </div>
