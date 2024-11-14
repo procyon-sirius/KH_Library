@@ -8,7 +8,7 @@
 <style>
 #rent-area{
 	border:1px solid black;
-	height:300px;
+	height:600px;
 }
 #detail-list{
 	border-top:3px solid black;
@@ -18,12 +18,16 @@
 .book-list{
 	margin-left: 32px;
 	width : 1100px;
-	height : 90px;
+	height : 110px;
 	text-align : center;
+}
+th{
+	background-color: rgb(156, 183, 199);
+
 }
 #reserve-area{
 	border:1px solid black;
-	height:300px;
+	height:600px;
 }
 
 
@@ -66,7 +70,7 @@
           		 <c:otherwise> 	   
           		  <c:forEach var="r" items="${list}">
           			<tr>
-          				<td>${r.bookId}</td>
+          				<td height="50px">${r.bookId}</td>
           				<td>${r.bookTitle}</td>
           				<td>${r.bookAuthor }</td>
           				<td>${r.publisher}</td>
@@ -90,7 +94,7 @@
 		  			//console.log($(this).parent().siblings().first().text());
 		  			
 		  			var bookId = $(this).parent().siblings().first().text();
-		  			
+		  				  					  			
 		  		  if(confirm("정말 반납하시겠습니까? 반납후 복구는 불가능합니다.")){
 		  			  
 		  			  location.href="${contextPath}/reBook.me?bookId="+bookId;
@@ -128,18 +132,18 @@
           		</thead>	
           		<tbody>
           		<c:choose>
-          		  <c:when test="${empty list }">
+          		  <c:when test="${empty reList }">
           		  <tr>
-          		  	   <td colspan="6">대출정보가 없습니다.</td>
+          		  	   <td colspan="6">예약정보가 없습니다.</td>
           		  </tr>
           		  </c:when>
           		 <c:otherwise> 	   
-          		  <c:forEach var="r" items="${list}">
+          		  <c:forEach var="c" items="${reList}">
           			<tr>
-          				<td></td>
-          				<td></td>
-          				<td></td>
-          				<td></td>
+          				<td height="50px">${c.bookId}</td>
+          				<td>${c.bookTitle}</td>
+          				<td>${c.bookAuthor}</td>
+          				<td>${c.publisher}</td>
           				<td>${loginUser.userName}</td>
           				<td><button type="button">예약취소</button></td>          					
           			</tr>

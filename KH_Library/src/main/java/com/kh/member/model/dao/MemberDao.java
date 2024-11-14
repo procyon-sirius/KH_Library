@@ -441,5 +441,86 @@ public class MemberDao {
 		return result;
 	}
 	
+	//예약현황
+	public ArrayList<MyRent> reserveMyBook(Connection conn, int userNo) {
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		ArrayList<MyRent> reList = new ArrayList<>();
+		
+		String sql = prop.getProperty("reserveMyBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				reList.add(new MyRent(rset.getInt("BOOK_ID"),
+									  rset.getString("BOOK_TITLE"),
+									  rset.getString("BOOK_AUTHOR"),
+									  rset.getString("PUBLISHER")
+										));
+							
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+			
+		}
+				
+		return reList;
+	}
+	
+	// 대출 책의 상태값 조회
+	public String selectStatus(Connection conn, int bookId) {
+		
+		PreparedStatement pstmt = null;		
+		ResultSet rset = null;
+				
+		String sql = prop.getProperty("selectStatus");
+		
+		String bs = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1 , bookId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {			
+			 	bs = rset.getString("STATUS");
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+			
+		}
+		
+		return bs;
+	}
+
+	public int reserveCheck(int bookId) {
+		
+		return 0;
+	}
+	
 
 }

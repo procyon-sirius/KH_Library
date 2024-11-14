@@ -33,23 +33,27 @@ public class MyBookReturnController extends HttpServlet {
 		
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
 		
-		int result = new MemberService().bookReturn(bookId);
+		int returnBook = new MemberService().bookReturn(bookId);
 		
+		
+		//대출한 책의 상태값
+		String bookStatus = new MemberService().selectStatus(bookId);
+							
 		HttpSession session = request.getSession();
 		
-		if(result>0) {
+		if(returnBook>0) {
 			
 			session.setAttribute("alertMsg", "반납되었습니다. 책은 도서관 앞 반납수거함에 넣어 주세요");
 			
-			response.sendRedirect(request.getContextPath()+"/mybook.me");
+			response.sendRedirect(request.getContextPath()+"/myBook.me");
+				
 												
 		}else {
 			
 			session.setAttribute("errorMsg","책 반납 실패");
-			request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
-			
+			request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);			
 		}
-																
+		
 	}
 
 	/**

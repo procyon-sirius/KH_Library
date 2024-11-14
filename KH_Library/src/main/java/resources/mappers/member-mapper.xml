@@ -49,9 +49,10 @@
            ,BOOK_TITLE
            ,BOOK_AUTHOR
            ,PUBLISHER
-	FROM RENT
-	JOIN BOOK USING(BOOK_ID)
+	FROM RENT r
+	JOIN BOOK b USING(BOOK_ID)
 	WHERE USER_NO= ?
+	AND r.STATUS= 'N'
 	</entry>
 	
 	<!-- 아이디 중복 구문 -->
@@ -103,9 +104,30 @@
 	
 	<!-- 책 반납 구문 -->
 	<entry key="bookReturn">
-	DELETE FROM RENT
-	WHERE BOOK_ID = ?
+	UPDATE RENT
+	SET STATUS = 'Y'
+	WHERE BOOK_ID= ?
 		
+	</entry>
+	<!-- 나의 예약 현황 -->
+	<entry key="reserveMyBook">
+	SELECT BOOK_ID
+       	,BOOK_TITLE
+       	,BOOK_AUTHOR
+       	,PUBLISHER
+	FROM RESERVE
+	JOIN BOOK USING(BOOK_ID)
+	WHERE USER_NO= ?
+	
+	</entry>
+	
+	<!-- 대출 책의 상태값 조회 -->
+	<entry key="selectStatus">
+	SELECT b.STATUS       	   
+	FROM RENT r
+	JOIN BOOK b USING(BOOK_ID)
+	WHERE BOOK_ID= ?
+	
 	</entry>
 
 

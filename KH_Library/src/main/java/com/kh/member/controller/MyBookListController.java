@@ -46,7 +46,11 @@ public class MyBookListController extends HttpServlet {
 							
 			ArrayList<MyRent> list = new MemberService().selectMyRent(userNo);
 			
+			ArrayList<MyRent> reList = new MemberService().reserveMyBook(userNo); 
+					
 			request.setAttribute("list", list);
+			
+			request.setAttribute("reList", reList);
 			
 			request.getRequestDispatcher("/views/member/myBookList.jsp").forward(request, response);
 		}
