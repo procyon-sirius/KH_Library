@@ -173,4 +173,22 @@
 		DELETE BOOK_CATEGORY
 		WHERE BOOK_ID = ?
 	</entry>
+	<entry key="recommendBookId">
+		SELECT BOOK_ID
+		FROM RECOMMEND
+	</entry>
+	<entry key="commentInfo">
+		SELECT M.USER_NAME
+		        , M.USER_ID
+		        , BK.BOOK_TITLE
+		        , R.REPLY_CONTENT
+		        , BK.IMG_NAME
+		FROM REPLY R
+		JOIN BOARD BD USING(BOARD_NO)
+		JOIN BOOK BK ON(BK.BOOK_ID=BD.BOOK_ID)
+		JOIN MEMBER M ON(R.REPLY_WRITER = M.USER_NO)
+		WHERE ROWNUM = 1
+		AND BK.BOOK_ID = ?
+		ORDER BY R.CREATE_DATE
+	</entry>
 </properties>
