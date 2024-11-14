@@ -123,7 +123,7 @@
 			<c:if test="${h.hopeStatus == 'N' && loginUser != null && loginUser.userId == 'admin' }">
 				<button class="btn btn-outline-danger" type="button" onclick="checkHope();">신청 확인</button>
 			</c:if>
-			<button class="btn btn-outline-primary" onclick="location.href='${contextPath}/select.ho?currentPage=${currentPage}'">목록으로</button>
+			<button class="btn btn-outline-primary" onclick="location.href='${contextPath}/select.ho?sort=${oder }&currentPage=${currentPage}'">목록으로</button>
 		</div>
 		
 		<script>
@@ -138,7 +138,11 @@
 							  $("<input>", {type: "hidden",
 								            name: "currentPage",
 								            value: "${currentPage}"
-								        })
+								        }),
+							  $("<input>", {type: "hidden",
+									        name: "oder",
+									        value: "${oder}"
+									    })
 					).appendTo("body").submit();
 				}
 			}
@@ -154,7 +158,11 @@
 							  $("<input>", {type: "hidden",
 							                name: "currentPage",
 							                value: "${currentPage}"
-							            })
+							            }),
+							  $("<input>", {type: "hidden",
+										    name: "oder",
+										    value: "${oder}"
+										})
 		            ).appendTo("body").submit();
 				}
 			}

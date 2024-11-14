@@ -166,7 +166,7 @@
 		WHERE RNUM = 1
 	</entry>
 	
-	<entry key="">
+	<entry key="monthRecommendBook">
 		SELECT BOOK_ID,
 			   BOOK_TITLE,
 	           BOOK_AUTHOR,
@@ -174,5 +174,72 @@
 	           IMG_NAME
 		FROM BOOK
 		WHERE BOOK_ID = ?
+	</entry>
+	
+	<!-- 나이대별 대출 수  -->
+	<entry key="tenRent">
+		SELECT COUNT(A) COUNT
+		FROM(SELECT BOOK_ID,
+                     USER_NO,
+                     TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) A
+	         FROM RENT
+	         JOIN MEMBER USING(USER_NO)
+	         WHERE BOOK_ID = ?
+	         AND TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) BETWEEN 1 AND 20)
+	</entry>
+	
+	<entry key="twentyRent">
+			SELECT COUNT(A) COUNT
+			FROM(SELECT BOOK_ID,
+                     	USER_NO,
+                     	TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) A
+	         	 FROM RENT
+	         	 JOIN MEMBER USING(USER_NO)
+	         	 WHERE BOOK_ID = ?
+	         	 AND TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) BETWEEN 19 AND 30)
+	</entry>
+	
+	<entry key="thirtyRent">
+			SELECT COUNT(A) COUNT
+			FROM(SELECT BOOK_ID,
+	                     USER_NO,
+	                     TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) A
+		         FROM RENT
+		         JOIN MEMBER USING(USER_NO)
+		         WHERE BOOK_ID = ?
+		         AND TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) BETWEEN 29 AND 40)
+	</entry>
+	
+	<entry key="fortyRent">
+			SELECT COUNT(A) COUNT
+			FROM(SELECT BOOK_ID,
+	                     USER_NO,
+	                     TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) A
+		         FROM RENT
+		         JOIN MEMBER USING(USER_NO)
+		         WHERE BOOK_ID = ?
+		         AND TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) BETWEEN 39 AND 50)
+	</entry>
+	
+	<entry key="fiftyRent">
+			SELECT COUNT(A) COUNT
+			FROM(SELECT BOOK_ID,
+                     	USER_NO,
+                     	TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) A
+		         FROM RENT
+		         JOIN MEMBER USING(USER_NO)
+		         WHERE BOOK_ID = ?
+		         AND TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) BETWEEN 49 AND 60)
+	</entry>
+	
+	<entry key="sixtyRent">
+			SELECT COUNT(A) COUNT
+			FROM(SELECT BOOK_ID,
+                     	USER_NO,
+                     	TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) A
+	         	FROM RENT
+	         	JOIN MEMBER USING(USER_NO)
+	         	WHERE BOOK_ID = ?
+	         	AND TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) > 60)
 	</entry>
 </properties>

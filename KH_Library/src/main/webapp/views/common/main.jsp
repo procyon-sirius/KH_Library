@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- 전체 -->
 <style>
 	* {
 		box-sizing: border-box;
@@ -22,7 +23,6 @@
 		overflow: hidden;
 		z-index : 0;
 	}
-	
 	.index-content-block {
 		height: 600px;
 	}
@@ -55,6 +55,88 @@
 			width: 1400px;
 		}
 	}
+</style>
+
+<!-- 구역1 -->
+	<!-- 공지 -->
+<style> 
+	#index-content-top{
+		width: 100%;
+		height: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+	#main-notice-area{
+		float: left;
+		margin-top: 100px;
+		width: 850px;
+		height: 400px;
+		text-align: center;
+	}
+	.index-top-btn-area{
+		height: 50px;
+	}
+	.index-top-btn-area>h3{
+		float: left;
+		font-weight: 600;
+	}
+	.index-top-btn-area>a{
+		margin-right: 10px;
+		font-size: 25px;
+		float: right;
+	}
+	.index-top-btn-area>a:hover{
+		color: navy;
+		cursor: pointer;
+	}
+	#notice-table-area{
+		background-color: white;
+		border-radius: 15px;
+		width: 850px;
+		height: 300px;
+		text-align: center;
+	}
+	#main-notice-table{
+		border: 1px solid white;
+		margin: auto;
+		border-radius: 15px;
+		width: 800px;
+	}
+	
+	#main-notice-table th,
+	#main-notice-table td{
+		border-bottom: 1px solid lightgray;
+		height: 60px;
+	}
+	#main-notice-table>tbody a:hover{
+		cursor: pointer;
+		text-decoration: underline;
+	}
+
+</style>
+	<!-- 신간 -->
+<style>
+	#month-newBook-area{
+		position: relative;
+		display: inline-block;
+		margin-top: 100px;
+		margin-left: 50px;
+		width: 450px;
+		height: 400px;
+		text-align: center;
+	}
+	#newBook-table-area{
+		background-color: skyblue;
+		border-radius: 15px;
+		width: 450px;
+		height: 300px;
+		text-align: center;
+	}
+</style>
+
+
+<!-- 구역2 -->
+<style>
 	#recommend-book-area h1{
 		text-align: center;
 		margin: 70px 0;
@@ -108,14 +190,18 @@
 		transition-duration: 0.3s;
 	}
 </style>
+
+
+<!-- 구역3 -->
+<style>
+
+</style>
+
 </head>
 
 <body>
 	<div id="index-body">
-		<div id="index-content-block1" class="index-content-block">
-			<div class="index-content-inner">main div1</div>
-		</div>
-		<div id="index-content-block2" class="index-content-block index-bgc">
+		<div id="index-content-block2" class="index-content-block">
 			<div class="index-content-inner">
 				<div id="recommend-book-area">
 				</div>
@@ -170,11 +256,86 @@
 				});
 			})
 		</script>
-		<div id="index-content-block3" class="index-content-block">
-			<div class="index-content-inner">main div3</div>
+	
+		<div id="index-content-block1" class="index-content-block  index-bgc">
+			<div class="index-content-inner">
+				<div id="index-content-top">
+					<div id="main-notice-area">
+						<div class="index-top-btn-area">
+							<h3>도서관 소식</h3>
+							<a id="plusNotice">+</a>
+						</div>
+						<div id="notice-table-area">
+							<table id="main-notice-table">
+								<colgroup>
+									<col width="150px">
+									<col width="400px">
+									<col width="200px">
+								</colgroup>
+								<thead>
+									<tr>
+										<th>공지</th>
+										<th>제목</th>
+										<th>날짜</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="month-newBook-area">
+						<div class="index-top-btn-area">
+							<h3>신간 도서</h3>
+							<a>+</a>
+						</div>
+						<div id="newBook-table-area">
+
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div id="index-content-block4" class="index-content-block index-bgc">
-			<div class="index-content-inner">main div4</div>
+		<script>
+			$(function(){
+				$("#main-notice-table>tbody").on("click", "a", function(){
+					var nno = $(this).parents("tr").find("th").text();
+					location.href="${contextPath}/detail.no?nno="+nno+"&currentPage=1"
+				})
+				$("#plusNotice").click(function(){
+					location.href="${contextPath}/notice";
+				})
+			})
+		</script>
+		<script>
+			$(function(){
+				$.ajax({
+					url : "${contextPath}/main.no",
+					success : function(list){
+						if(list.length == 0){
+							var tr = $("<tr>");
+							tr.append($("<td>").attr("colspan","3").text("공지사항이 없습니다."));
+							$("#main-notice-table>tbody").append(tr);
+						}else{
+							for(var n of list){
+								var tr = $("<tr>");
+								tr.append($("<th>").text(n.noticeNo).append($("<input>").attr("type","hidden").val(n.noticeNo)));
+								tr.append($("<td>").append($("<a>").text(n.noticeTitle)));
+								tr.append($("<td>").text(n.date));
+								$("#main-notice-table>tbody").append(tr);
+							}
+						}
+					},
+					error : function(){
+						console.log("error:ajax:index-notice")
+					}
+				})
+			});
+		</script>
+
+		
+		<div id="index-content-block3" class="index-content-block">
+			<div class="index-content-inner">최신 후기</div>
 		</div>
 	</div>
 </body>
