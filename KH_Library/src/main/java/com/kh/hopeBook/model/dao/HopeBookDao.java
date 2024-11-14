@@ -94,6 +94,47 @@ public class HopeBookDao {
 		
 		return list;
 	}
+	
+
+	public ArrayList<HopeBook> selectHopeListDESC(Connection conn, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HopeBook> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectHopeListDESC");
+		
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = pi.getCurrentPage() * pi.getBoardLimit();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,startRow);
+			pstmt.setInt(2,endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new HopeBook(rset.getInt("HOPE_NUM"),
+									  rset.getString("USER_ID"),
+									  rset.getString("HOPE_TITLE"),
+									  rset.getDate("HOPE_DATE"),
+									  rset.getString("HOPE_PUBLIC"),
+									  rset.getString("HOPE_STATE")
+									 ));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
 
 	//상세보기
 	public HopeBook hopeBookDetail(Connection conn, int hopeNum) {

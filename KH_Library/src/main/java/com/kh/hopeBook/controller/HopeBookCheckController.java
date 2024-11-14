@@ -42,6 +42,8 @@ public class HopeBookCheckController extends HttpServlet {
 //		System.out.println(hopeNum);
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 //		System.out.println(currentPage);
+		String oder = request.getParameter("oder");
+//		System.out.println(oder);
 		
 		int result = new HopeBookService().hopeCheck(hopeNum);
 //		int result = 0;
@@ -50,10 +52,10 @@ public class HopeBookCheckController extends HttpServlet {
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "확인 완료");
-			response.sendRedirect(request.getContextPath()+"/select.ho?currentPage="+currentPage);
+			response.sendRedirect(request.getContextPath()+"/select.ho?sort="+oder+"&currentPage="+currentPage);
 		}else {
 			session.setAttribute("alertMsg", "확인 실패");
-			response.sendRedirect(request.getContextPath()+"/detail.ho?hopeNum="+hopeNum+"&currentPage="+currentPage);
+			response.sendRedirect(request.getContextPath()+"/detail.ho?hopeNum="+hopeNum+"&sort="+oder+"&currentPage="+currentPage);
 		}
 	}
 

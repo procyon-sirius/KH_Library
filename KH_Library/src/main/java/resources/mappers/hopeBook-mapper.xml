@@ -43,6 +43,22 @@
 		
 	</entry>
 	
+	<entry key="selectHopeListDESC">
+		SELECT *
+		FROM (  SELECT ROWNUM RNUM, A.*
+		        FROM (  SELECT HOPE_NUM,
+		                       USER_ID,
+		                       HOPE_TITLE,
+		                       HOPE_DATE,
+		                       HOPE_PUBLIC,
+		                       HOPE_STATE
+		                FROM hope_book HB
+		                JOIN member on(user_no = hope_user)
+		                ORDER BY hope_DATE) A)
+		WHERE RNUM BETWEEN ? AND ?
+		
+	</entry>
+	
 	<!-- 상세보기 -->
 	<entry key="hopeBookDetail">
 		SELECT HOPE_NUM,

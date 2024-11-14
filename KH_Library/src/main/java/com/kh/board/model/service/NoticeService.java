@@ -134,6 +134,13 @@ public class NoticeService {
 	}
 	
 	
+	//메인페이지 공지리스트
+	public ArrayList<Notice> indexSelectNotice(){
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Notice> list = new NoticeDao().indexSelectNotice(conn);
+		JDBCTemplate.close(conn);
+		return list;
+	}
 	
 
 }
