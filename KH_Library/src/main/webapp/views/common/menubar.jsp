@@ -557,8 +557,8 @@
                         <a href="${contextPath }" class="menu-title">도서관 안내</a>
                         <div class="sub_menu_mask">
                             <ul class="sub_menu"><br>
-                                <li><a href="${contextPath }" class="submenu-text">도서관 소개</a></li>
-                                <li><a href="${contextPath }" class="submenu-text">오시는 길</a></li>
+                                <li><a href="${contextPath }/views/info/infoView.jsp" class="submenu-text">도서관 소개</a></li>
+                                <li><a href="${contextPath }/views/info/mapView.jsp" class="submenu-text">오시는 길</a></li>
                             </ul>
                         </div>
                     </li>
