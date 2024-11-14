@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.NoticeService;
+import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Notice;
 
 /**
@@ -33,22 +34,26 @@ public class NoticeDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		int nno = Integer.parseInt(request.getParameter("nno"));
-		
+		NoticeService NoticeService = new NoticeService();
 		
 		// 조회수 증가    
-		int numUp = new NoticeService().increaseCount(nno);
+		int numUp = NoticeService.increaseCount(nno);
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
 		if(numUp>0) {
 			
 			request.setAttribute("currentPage", currentPage);
 			
+			// 첨부파일 조회
+			Attachment at = NoticeService.selectAttachment(nno);
+			request.setAttribute("at", at);
+			
 			// 공지사항 상세조회
-			Notice n = new NoticeService().selectNotice(nno);
+			Notice n = NoticeService.selectNotice(nno);
 			request.setAttribute("notice", n);
 			
 			// 이전글 다음글 조회
-			ArrayList<Notice> preNnext = new NoticeService().preNnext(nno);
+			ArrayList<Notice> preNnext = NoticeService.preNnext(nno);
 			request.setAttribute("preNnext", preNnext);
 			request.getRequestDispatcher("views/board/notice/noticeDetailView.jsp").forward(request, response);
 			

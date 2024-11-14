@@ -104,12 +104,13 @@
 
 			<br> <br> <br>
 
-			<form action="<%=contextPath%>/insert.no" method="post">
+			<form action="<%=contextPath%>/insert.no" method="post" id="enroll" enctype="multipart/form-data">
 				<div class="noticeDetail">
 					<input type="hidden" name="currentPage" value="${currentPage}">
 					<input type="text" name="title" class="title" required="required"
 						placeholder="제목을 입력하세요."></input> <br>
 					<br>
+					<input type="file" name="uploadFile">
 					<br>
 					<textarea class="content" name="content" placeholder="내용을 입력하세요."
 						required="required"></textarea>

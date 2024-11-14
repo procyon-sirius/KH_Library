@@ -260,5 +260,34 @@ public class ReplyDao {
 		}
 		return result;
 	}
+
+
+	 
+	public String selectRconent(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String r = "";
+		String sql = prop.getProperty("selectRconent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = rset.getString("REPLY_CONTENT");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return r;
+		
+	}
 	
 }

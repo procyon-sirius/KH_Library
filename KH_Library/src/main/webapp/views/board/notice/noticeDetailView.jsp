@@ -153,8 +153,19 @@ pre {
 					</tr>
 				</table>
 				<%} %>
+				
+				<!-- 첨부파일이 있는 경우에만 보여주기 -->
+				<td colspan="3"><c:choose>
+						<c:when test="${empty at }">
+							&nbsp;&nbsp;&nbsp;&nbsp;첨부파일이 없습니다
+						</c:when>
+						<c:otherwise>
+							<!-- 다운로드 속성 추가 -->
+							&nbsp;&nbsp;&nbsp;&nbsp;<a download href="${contextPath }${at.filePath}/${at.changeName}">${at.originName }</a>
+						</c:otherwise>
+					</c:choose></td>
 
-				<br> <br>
+				<br><br>
 
 				<pre class="content">
 					
@@ -270,10 +281,8 @@ pre {
 									name : "noticeNo",
 									value : <%= n.getNoticeNo() %>
 									
-								
 								});
-								
-								
+			
 								form.append(inputEl);
 
 								$("body").append(form);

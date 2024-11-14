@@ -1,3 +1,4 @@
+<%@page import="com.kh.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -40,9 +41,8 @@
 	background-color: rgba(128, 128, 128, 0.233);
 	font-family: sans-serif;
 	font-size: 18px;
-	color: #333;
 	width: 100%;
-	height: 800px;
+	height: 300px;
 	resize: none;
 }
 
@@ -53,7 +53,7 @@
 </style>
 </head>
 <body>
-
+	<% Board q = (Board) request.getAttribute("q"); %>
 	<%@include file="/views/common/menubar.jsp"%>
 	<div class="center-img">
 		<img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
@@ -77,8 +77,26 @@
 				</table>
 				<br> <br>
 				<h5>QnA 답변작성하기</h5>
-
 			</div>
+				<table class="info">
+					<tr>
+						<td>등록일:</td>
+						<td class="cell"><%=q.getDate()%></td>
+						<td class="separator">|</td>
+						<td>조회수:</td>
+						<td class="cell"><%=q.getCount()%></td>
+					</tr>
+				</table>
+
+				<br><br>
+
+				<div class="content"
+					style="background-color: rgba(211, 211, 211, 0.171);">
+					<%=q.getBoardContent()%>
+				</div>
+				<br><br>
+				
+			
 
 			<form action="<%=contextPath%>/insert.rp" method="post">
 				<div class="qnaDetail">

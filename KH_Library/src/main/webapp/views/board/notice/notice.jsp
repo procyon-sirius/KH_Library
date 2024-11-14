@@ -120,7 +120,6 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 							<th width="600">제목</th>
 							<th width="150">작성자</th>
 							<th width="150">작성일</th>
-							<th width="150">첨부</th>
 							<th width="150">조회수</th>
 						</tr>
 					</thead>
@@ -138,7 +137,6 @@ ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list"); %>
 							<td width="600"><%=n.getNoticeTitle() %></td>
 							<td width="150"><%=n.getUserNo() %></td>
 							<td width="150"><%=n.getDate() %></td>
-							<td width="150">첨부파일</td>
 							<td width="150"><%=n.getNumber() %></td>
 						</tr>
 						<%} %>

@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.board.model.service.FreeboardService;
+import com.kh.board.model.service.QnAService;
 import com.kh.board.model.service.ReplyService;
+import com.kh.board.model.vo.Board;
 
 /**
  * Servlet implementation class QnAReplyInsertController
@@ -31,7 +34,10 @@ public class QnAReplyInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		Board q = new QnAService().selectQ(boardNo);
+		
 		request.setAttribute("boardNo", boardNo);
+		request.setAttribute("q", q);
 		request.getRequestDispatcher("/views/board/QnABoard/qnaReplyEnrollForm.jsp").forward(request, response);
 	}
 

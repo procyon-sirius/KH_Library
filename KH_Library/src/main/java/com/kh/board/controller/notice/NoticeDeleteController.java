@@ -40,7 +40,6 @@ public class NoticeDeleteController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-		System.out.println(noticeNo);
 		
 		int result = new NoticeService().deleteNotice(noticeNo);
 		HttpSession session = request.getSession();

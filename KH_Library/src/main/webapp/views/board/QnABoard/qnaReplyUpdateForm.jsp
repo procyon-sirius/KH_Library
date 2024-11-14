@@ -85,8 +85,9 @@
 				<div class="qnaDetail">
 					<input type="hidden" name="boardNo" value="${boardNo }" /> <br>
 					<br> <br>
-					<textarea class="content" name="content" placeholder="내용을 입력하세요."
-						required="required"></textarea>
+					<textarea class="content" name="content" required="required">
+						${content }
+					</textarea>
 
 					<br> <br> <br>
 					<button type="submit" class="list">수정하기</button>

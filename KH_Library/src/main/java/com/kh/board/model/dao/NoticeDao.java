@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.board.model.vo.Attachment;
+import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Notice;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
@@ -241,10 +243,6 @@ public class NoticeDao {
 	}
 
 	
-	
-	
-	
-	
 	// 공지사항 삭제
 	public int deleteNotice(Connection conn, int noticeNo) {
 		
@@ -270,12 +268,8 @@ public class NoticeDao {
 	}
 
 	
-	
-	
-	
-	
 	// 공지사항 게시글 등록
-	public int insertNotice(Connection conn, String title, String content) {
+	public int insertNotice(Connection conn, Notice n) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -285,8 +279,9 @@ public class NoticeDao {
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
+			pstmt.setInt(1, n.getNoticeNo());
+			pstmt.setString(2, n.getNoticeTitle());
+			pstmt.setString(3, n.getNoticeContent());
 			
 			result = pstmt.executeUpdate();
 			
@@ -300,11 +295,6 @@ public class NoticeDao {
 		return result;
 	}
 
-	
-	// 코멘트 수정
-	public int updateComment(Connection conn, int rno, String content) {
-		return 0;
-	}
 
 	
 	//메인페이지 공지리스트
@@ -334,6 +324,121 @@ public class NoticeDao {
 		
 		return list;
 	}
+	
+	
+	// 글 시퀀스 번호 추출용 메소드
+	public int selectBoardNo(Connection conn) {
+		// select 구문으로 시퀀스 발행해오기
+		int boardNo = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("selectBoardNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				boardNo = rset.getInt("NNO");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		
+		return boardNo;
+	}
+
+	
+	// 첨부파일 추가하기
+	public int insertAttachment(Connection conn, Attachment at) {
+		
+		//insert(DMl)
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, at.getRefNno());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
+
+
+	public Attachment selectAttachment(Connection conn, int nno) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Attachment at = null; // 조회되면 담을 객체
+		
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, nno);
+			
+			rset = pstmt.executeQuery();
+			
+			// 일반 게시글에 첨부파일은 하나만 등록될 수 있기 때문에 if문으로 처리
+			if(rset.next()) {
+				at = new Attachment(rset.getInt("FILE_NO")
+									,rset.getString("ORIGIN_NAME")
+									,rset.getString("CHANGE_NAME")
+									,rset.getString("FILE_PATH"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return at;
+		
+	}
+
+
+	public int deleteAttachment(Connection conn, int noticeNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 
 }
