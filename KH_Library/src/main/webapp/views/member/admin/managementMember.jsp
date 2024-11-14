@@ -265,20 +265,7 @@
 				};
 			});
 		});
-		/*		
-		var rows = document.querySelectorAll("tbody>tr");
 		
-		for(var row of rows){
-
-
-			function rent(){
-				var userNo = $(this).parent().siblings("th").first().text();
-				var rentlimit= $("input[name=one]").parent().siblings("#rl").text();
-				
-				location.href = '${contextPath}/rentL.ma?userNo='+userNo;
-			}
-			
-		}*/
 		$(function(){
 
 			$(".member-list>tbody").on("click","#rl", function(){
