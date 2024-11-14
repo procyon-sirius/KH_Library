@@ -205,7 +205,8 @@
 
 <!-- 구역2 -->
 <style>
-	#recommend-book-area h1{
+	#recommend-book-area h2{
+		font-weight : 600;
 		text-align: center;
 		margin: 70px 0;
 	}
@@ -361,7 +362,7 @@
 				$.ajax({
 					url : "${contextPath}/recommend.bk",
 					success : function(result){
-						$("#recommend-book-area").html("<h1>인기 도서</h1>")
+						$("#recommend-book-area").html("<h2>인기 도서</h2>")
 						if(result == null){
 							$("#recommend-book-area").append("<div>등록된 도서가 없습니다.</div>")
 						}else{
