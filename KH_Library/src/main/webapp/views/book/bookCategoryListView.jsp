@@ -69,6 +69,7 @@
 }
 
 #order-area {
+
 	width: 30%;
 	padding-top: 10px;
 	right: 0;

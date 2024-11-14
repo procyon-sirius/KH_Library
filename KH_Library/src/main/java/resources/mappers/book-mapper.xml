@@ -242,4 +242,30 @@
 	         	WHERE BOOK_ID = ?
 	         	AND TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), TO_DATE(USER_NNO,'RRMMDD')) / 12) > 60)
 	</entry>
+	
+	<entry key="mainNewBook">
+		SELECT BOOK_ID,
+			   BOOK_TITLE,
+               IMG_NAME
+		FROM (SELECT ROWNUM RNUM, A.*
+           	  FROM (SELECT BOOK_ID,
+                           BOOK_TITLE,
+                           IMG_NAME
+                    FROM BOOK
+                    ORDER BY ENROLL_DATE) A)
+		WHERE RNUM = 1	
+	</entry>
+	
+	<entry key="monthRandomBook">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+	          FROM (SELECT BOOK_ID,
+					       BOOK_TITLE,
+					       BOOK_AUTHOR,
+					       SUMMARY,
+					       IMG_NAME
+					FROM BOOK
+				    WHERE TO_CHAR(SYSDATE,'MM')=TO_CHAR(ENROLL_DATE,'MM')) A)
+	    WHERE RNUM=1
+	</entry>
 </properties>

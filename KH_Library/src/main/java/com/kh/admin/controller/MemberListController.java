@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.member.model.service.MemberService;
+import com.kh.admin.model.service.AdminMemberService;
 import com.kh.member.model.vo.Member;
 
 /**
@@ -33,7 +33,7 @@ public class MemberListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Member> list = new MemberService().memberList();
+		ArrayList<Member> list = new AdminMemberService().memberList();
 		response.setContentType("json/application;charset=UTF-8");
 		new Gson().toJson(list,response.getWriter());
 	}
