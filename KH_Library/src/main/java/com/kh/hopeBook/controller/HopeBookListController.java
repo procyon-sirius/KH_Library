@@ -94,7 +94,6 @@ public class HopeBookListController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		request.setAttribute("oder", oder);
-//		request.getRequestDispatcher("/views/hopeBook/hopeBookList.jsp").forward(request, response);
 		request.getRequestDispatcher("/views/hopeBook/hopeBookList2.jsp").forward(request, response);
 		
 	}
