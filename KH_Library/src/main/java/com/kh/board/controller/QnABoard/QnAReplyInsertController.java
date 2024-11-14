@@ -50,7 +50,7 @@ public class QnAReplyInsertController extends HttpServlet {
 		
 		if(result>0) {
 			request.getSession().setAttribute("alertMsg", "문의글 답변 작성이 완료되었습니다");
-			request.getRequestDispatcher("/views/board/QnABoard.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/qnaBoard?nno=1");
 			
 		}else {
 			request.setAttribute("errorMsg", "문의글 답변 작성에 실패하였습니다");
