@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.service.MemberService;
+import com.kh.member.model.vo.Member;
 import com.kh.member.model.vo.MyHope;
 
 /**
@@ -41,7 +42,9 @@ public class MyHopeBookController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/login.me");
 		}else {
 			
-			ArrayList<MyHope> list = new MemberService().selectMyHope();
+			int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+			
+			ArrayList<MyHope> list = new MemberService().selectMyHope(userNo);
 			
 			request.setAttribute("list", list);
 			

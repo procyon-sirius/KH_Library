@@ -139,10 +139,11 @@
 	
 	<entry key="selectMyHope">
 	SELECT HOPE_TITLE,
-       	   HOPE_DATE,
-       	   USER_NAME
+        HOPE_DATE,
+        USER_NAME
 	FROM HOPE_BOOK
 	JOIN MEMBER ON (USER_NO=HOPE_USER)
+	WHERE HOPE_USER = ?
 	
 	</entry>
 	
