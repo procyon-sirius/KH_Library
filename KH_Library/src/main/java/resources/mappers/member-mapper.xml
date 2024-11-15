@@ -145,7 +145,10 @@
 	JOIN MEMBER ON (USER_NO=HOPE_USER)
 	
 	</entry>
-	
+	<entry key="deleteReserve">
+		DELETE RESERVE
+		WHERE BOOK_ID = ?
+	</entry>
 	<entry key="bookReserve">
 		SELECT *
 		FROM RESERVE

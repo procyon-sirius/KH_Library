@@ -8,6 +8,7 @@ import com.kh.book.model.vo.Book;
 import com.kh.book.model.vo.BookCategoryInfo;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.PageInfo;
+import com.kh.member.model.dao.MemberDao;
 
 public class BookService {
 
@@ -87,6 +88,11 @@ public class BookService {
 			int increaseRentBook = new BookDao().increaseRentCount(conn, bookId); 
 			//book의 status를 B(예약가능)로 변경
 			int updateBookStatusB = new BookDao().updateBookStatusB(conn, bookId);
+			
+			int resUserNo = new MemberDao().reserveCheck(conn,bookId);
+			if(resUserNo!=0) {
+				new MemberDao().reserveDelete(conn, bookId);
+			}
 			if(result*/*increaseRentBook*/updateBookStatusB>0) {//셋다 정상처리
 				JDBCTemplate.commit(conn);
 			}else {	//셋중 하나라도 오류일경우
