@@ -152,7 +152,7 @@ textarea {
 						
 					
 						$("#back,#back2").click(function(){
-							history.back();
+							window.location.href = '${contextPath}/commentBoard'; 
 						});	
 					
 					});
