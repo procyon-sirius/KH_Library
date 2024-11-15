@@ -8,7 +8,7 @@
 <style>
 #rent-area{
 	border:1px solid black;
-	height:300px;
+	height:550px;
 }
 #detail-list{
 	border-top:3px solid black;
@@ -18,12 +18,16 @@
 .book-list{
 	margin-left: 32px;
 	width : 1100px;
-	height : 90px;
+	height : 110px;
 	text-align : center;
+}
+th{
+	background-color: rgb(156, 183, 199);
+
 }
 #reserve-area{
 	border:1px solid black;
-	height:300px;
+	height:550px;
 }
 
 
@@ -48,20 +52,16 @@
           <h1 align="center">대출현황</h1>    
           <div id="rent-area">
           <br>
-          	<div id="detail-list">
-          		<input type="checkbox" name="allCheck" id="allCheck">
-          		<label for="allCheck">전체선택</label>
-          	</div>
-          	<br>
-          	<table border="1" id="rentList" class="book-list">
+          	
+          	<table border="1" id="rentTable" class="book-list">
           		<thead>
-          			<tr>
+          			<tr>         				
           				<th width="90px" height="40px">책 고유번호</th>
-          				<th width="480px">책 제목</th>
-          				<th width="150px">저자</th>
-          				<th width="150px">출판사</th>
-          				<th>반납예정일</th>
-          				<th>반납및연기</th>
+          				<th width="510px">책 제목</th>
+          				<th width="120px">저자</th>
+          				<th width="170px">출판사</th>
+          				<th width="120px">반납예정일</th>
+          				<th width="150px">반납 및 연기</th>       				
           			</tr>
           		</thead>	
           		<tbody>
@@ -74,13 +74,14 @@
           		 <c:otherwise> 	   
           		  <c:forEach var="r" items="${list}">
           			<tr>
-          				<td>${r.bookId}</td>
+          				<td height="50px">${r.bookId}</td>
           				<td>${r.bookTitle}</td>
           				<td>${r.bookAuthor }</td>
           				<td>${r.publisher}</td>
           				<td>${r.returnDate }</td>
-          				<td><button type="button" >반납</button>
-          					<button type="button">반납연기</button></td>
+          				<td><button type="button" class="reBook">반납</button>
+          					<button type="button" class="deBook">반납연기</button>	</td>
+          							       								       				      					
           			</tr>
           		   </c:forEach>
           		  </c:otherwise>
@@ -89,26 +90,38 @@
           		</tbody>	
           		    		         	
           	</table>
-            			
+          	  
 		  </div>
 		  <script>
 		  	$(function(){
-		  		$("#rentList").on("click","button",function(){
+		  		
+		  		$("#rentTable").on("click","button[class^=re]",function(){
 		  			
-		  			//console.log($(this).parent().siblings().first().text());
-		  			
+					//console.log($(this).parent().siblings().first().text());
+						
 		  			var bookId = $(this).parent().siblings().first().text();
 		  			
-		  		  if(confirm("정말 반납하시겠습니까? 반납후 복구는 불가능합니다.")){
+  				  if(confirm("정말 반납하시겠습니까? 반납후 복구는 불가능합니다.")){
 		  			  
 		  			  location.href="${contextPath}/reBook.me?bookId="+bookId;
-		  			  		  			  
 		  		  }
-		  				  			
-		  			
+	  				  			  			
 		  		});
 		  		
-		  		
+		  		$("#rentTable").on("click","button[class^=de]",function(){
+		  			
+					//console.log($(this).parent().siblings().first().text());
+														  			
+		  			var bookId = $(this).parent().siblings().first().text();
+		  			
+					if(confirm("반납 연기하시겠습니까? 연기는 한번만 가능하고 7일 연기됩니다.")){
+						
+						location.href="${contextPath}/deBook.me?bookId="+bookId;
+														
+		  			}
+	  							
+		  		});
+		  			
 		  	});	
 		  		 	  				  
 		  </script>
@@ -118,12 +131,8 @@
 		  <h1 align="center">예약현황</h1>
 		  <div id="reserve-area">
 		  	 <br>
-          	<div id="detail-list">
-          		<input type="checkbox" name="allCheck" id="allCheck">
-          		<label for="allCheck">전체선택</label>
-          	</div>
-          	<br>
-          	<table border="1" id="reserveList" class="book-list">
+          	
+          	<table border="1" id="reserveTable" class="book-list">
           		<thead>
           			<tr>
           				<th width="90px" height="40px">책 고유번호</th>
@@ -136,31 +145,58 @@
           		</thead>	
           		<tbody>
           		<c:choose>
-          		  <c:when test="${empty list }">
+          		  <c:when test="${empty reList }">
           		  <tr>
-          		  	   <td colspan="6">대출정보가 없습니다.</td>
+          		  	   <td colspan="6">예약정보가 없습니다.</td>
           		  </tr>
           		  </c:when>
           		 <c:otherwise> 	   
-          		  <c:forEach var="r" items="${list}">
+          		  <c:forEach var="c" items="${reList}">
           			<tr>
-          				<td></td>
-          				<td></td>
-          				<td></td>
-          				<td></td>
+          				<td height="50px">${c.bookId}</td>
+          				<td>${c.bookTitle}</td>
+          				<td>${c.bookAuthor}</td>
+          				<td>${c.publisher}</td>
           				<td>${loginUser.userName}</td>
           				<td><button type="button">예약취소</button></td>          					
           			</tr>
           		   </c:forEach>
           		  </c:otherwise>
           		 </c:choose>  
-          			       			      		
-         		
+          			       			      		       		
           		</tbody>	
           		    		
           	
           	</table>
 		  </div>
+		  
+		  <script>
+		  	$(function(){
+		  		
+		  		$("#reserveTable").on("click","button",function(){
+		  			
+		  			//console.log($(this).parent().siblings().first().text());
+					
+		  			var bookId = $(this).parent().siblings().first().text();
+		  			
+					if(confirm("예약 취소하시겠습니까? ")){
+						
+			
+		  						  				
+		  			}
+		  			
+		  			
+		  		});
+		  		
+		  		
+		  		
+		  		
+		  	});
+		  
+		  
+		  
+		  </script>
+		  
         </div>
     </div>
     <%@include file="/views/common/footer.jsp" %>

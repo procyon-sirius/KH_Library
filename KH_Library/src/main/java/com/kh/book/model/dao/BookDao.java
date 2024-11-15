@@ -318,7 +318,7 @@ public class BookDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("statusB");
 		int result = 0;
-
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bookId);
