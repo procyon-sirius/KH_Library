@@ -35,12 +35,14 @@ public class CommentDetailController extends HttpServlet {
 
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		Book b = new CommentService().selectBookForComment(bno);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
 		int boardN = new CommentService().selectClist(bno);
 		ArrayList<Reply> rlist = new ArrayList<>();
 		rlist = new CommentService().selectReply(boardN);
 		int rCount = new CommentService().replyCount(boardN);
 		
+		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("rCount", rCount);
 		request.setAttribute("bno", bno);
