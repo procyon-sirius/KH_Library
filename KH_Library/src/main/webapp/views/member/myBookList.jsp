@@ -193,6 +193,8 @@ th{
 		  			var bookId = $(this).parent().siblings().first().text();
 		  			
 					if(confirm("예약 취소하시겠습니까? ")){
+			  			var bookId = $(this).parents("tr").children().first().text();
+						location.href="${contextPath}/undoReserve.bk?bookId="+bookId;
 		  			}
 		  		});
 		  	});
@@ -205,7 +207,6 @@ th{
 		  			var bookId = $(this).parents("tr").children().first().text();
 		  			
 		  			$("input[name=bookId]").val(bookId);
-		  			
 		  			$("form").submit();
 		  		})
 		  	})

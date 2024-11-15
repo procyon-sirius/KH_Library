@@ -1,7 +1,6 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,19 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.admin.controller.MemberSearchController;
 import com.kh.member.model.service.MemberService;
 
 /**
- * Servlet implementation class MyBookReturnController
+ * Servlet implementation class UndoReserve
  */
-@WebServlet("/reBook.me")
-public class MyBookReturnController extends HttpServlet {
+@WebServlet("/undoReserve.bk")
+public class UndoReserve extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyBookReturnController() {
+    public UndoReserve() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,37 +30,27 @@ public class MyBookReturnController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
-		
-		int returnBook = new MemberService().bookReturn(bookId);
-		
-		new MemberService().checkReserve(bookId);
-									
-		HttpSession session = request.getSession();
-		
-		if(returnBook>0) {
-			
-			session.setAttribute("alertMsg", "반납되었습니다. 책은 도서관 앞 반납수거함에 넣어 주세요");
-			
-			response.sendRedirect(request.getContextPath()+"/mybook.me");
-				
-												
+		int result = new MemberService().undoReserve(bookId);
+		String alertMsg = "";
+		if(result>0) {
+			alertMsg="예약 취소되었습니다.";
 		}else {
-			
-			session.setAttribute("errorMsg","도서 반납 실패");
-			request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);			
+			alertMsg="예약 취소 실패";
 		}
-		
+		HttpSession session = request.getSession();
+		session.setAttribute("alertMsg", alertMsg);
+
+		String url = request.getHeader("referer");
+		response.sendRedirect(url); //이전 경로 재요청
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);	
-		
+		doGet(request, response);
 	}
 
 }
