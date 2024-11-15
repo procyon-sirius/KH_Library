@@ -178,8 +178,8 @@ th{
           	
           	</table>
           	<form action="${contextPath }/rent.bk" method="post" name="reserveRentForm">
-          		<input type="text" name="userNo" value="${loginUser.userNo }">
-          		<input type="text" name="bookId" value="">
+          		<input type="hidden" name="userNo" value="${loginUser.userNo }">
+          		<input type="hidden" name="bookId" value="">
           	</form>
 		  </div>
 		  
@@ -193,6 +193,8 @@ th{
 		  			var bookId = $(this).parent().siblings().first().text();
 		  			
 					if(confirm("예약 취소하시겠습니까? ")){
+			  			var bookId = $(this).parents("tr").children().first().text();
+						location.href="${contextPath}/undoReserve.bk?bookId="+bookId;
 		  			}
 		  		});
 		  	});
@@ -207,7 +209,7 @@ th{
 		  			$("input[name=bookId]").val(bookId);
 		  			
 		  			
-		  			$("#reserveRentForm").submit();
+		  			$("form").submit();
 		  		})
 		  	})
 		  </script>

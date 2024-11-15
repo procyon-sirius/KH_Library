@@ -10,6 +10,7 @@
 		SELECT COUNT(*) RCOUNT
 		FROM RENT
 		WHERE USER_NO = ?
+		AND STATUS = 'N'
 	</entry>
 	<entry key="countRentLimit">
 		SELECT RENT_LIMIT

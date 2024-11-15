@@ -242,6 +242,21 @@ public class MemberService {
 		
 		return r;
 	}
+
+	public int undoReserve(int bookId) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new MemberDao().reserveDelete(conn, bookId);
+		int result2 = new BookDao().updateBookStatusB(conn, bookId);
+		if(result*result2>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 	
 	
 	

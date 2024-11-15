@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.book.model.service.BookService;
+import com.kh.member.model.dao.MemberDao;
 
 /**
  * Servlet implementation class BookRentController
@@ -40,8 +41,9 @@ public class BookRentController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		System.out.println(bookId);
+		
 		int result = new BookService().insertRentBook(bookId,userNo);
+		
 		
 		String alertMsg = "";
 		if(result == -1) {
