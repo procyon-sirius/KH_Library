@@ -120,7 +120,7 @@
 	
 	<entry key="realDelete">
 		DELETE FROM MEMBER
-		WHERE USER_NO = ?
+		WHERE USER_NO LIKE '%'||?||'%'
 	</entry>
 
 	<entry key="rentCount">

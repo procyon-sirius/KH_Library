@@ -242,7 +242,7 @@
 				<c:choose>
 					<c:when test="${cno != -1}">
 						<script>
-							$("select[name=categoryNo][value=20000]").prop("selected", true);
+							$("select[name=categoryNo][value=10000]").prop("selected", true);
 							$("input[name=age][value=AGE_RANK]").prop("checked", true);
 							$("select[name=order][value=BOOK_TITLE]").prop("selected", true);
 							$("select[name=ad][value=ASC]").prop("selected", true);	

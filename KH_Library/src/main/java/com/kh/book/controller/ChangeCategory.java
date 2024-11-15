@@ -95,7 +95,8 @@ public class ChangeCategory extends HttpServlet {
 			request.setAttribute("age", age);
 			request.setAttribute("order", order);
 			request.setAttribute("ad", ad);
-			request.setAttribute("list", list)	;	
+			request.setAttribute("list", list);	
+			System.out.println(list);
 			
 			
 		}else {

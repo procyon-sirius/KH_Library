@@ -207,8 +207,6 @@ th{
 		  			var bookId = $(this).parents("tr").children().first().text();
 		  			
 		  			$("input[name=bookId]").val(bookId);
-		  			
-		  			
 		  			$("form").submit();
 		  		})
 		  	})
