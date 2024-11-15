@@ -12,16 +12,16 @@ import javax.servlet.http.HttpSession;
 import com.kh.member.model.service.MemberService;
 
 /**
- * Servlet implementation class MyBookReturnController
+ * Servlet implementation class MyBookDelayController
  */
-@WebServlet("/reBook.me")
-public class MyBookReturnController extends HttpServlet {
+@WebServlet("/deBook.me")
+public class MyBookDelayController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyBookReturnController() {
+    public MyBookDelayController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,35 +30,34 @@ public class MyBookReturnController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
-		
-		int returnBook = new MemberService().bookReturn(bookId);
-									
-		HttpSession session = request.getSession();
-		
-		if(returnBook>0) {
-			
-			session.setAttribute("alertMsg", "반납되었습니다. 책은 도서관 앞 반납수거함에 넣어 주세요");
-			
-			response.sendRedirect(request.getContextPath()+"/mybook.me");
 				
-												
-		}else {
+		int result = new MemberService().bookDelay(bookId);
+		
+		HttpSession session = request.getSession();
 			
-			session.setAttribute("errorMsg","도서 반납 실패");
-			request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);			
-		}
+			if(result>0) {
+				
+				session.setAttribute("alertMsg", "연기되었습니다.");
+				
+				response.sendRedirect(request.getContextPath()+"/mybook.me");
+								
+			}else {
+				
+				session.setAttribute("errorMsg","도서 반납 연기 실패");
+				request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);			
+			}
+							
 		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);	
-		
+		doGet(request, response);
 	}
 
 }

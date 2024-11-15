@@ -309,15 +309,15 @@ public class MemberDao {
 		return reList;
 	}
 	
-	// 대출 책의 상태값 조회
-	public String selectStatus(Connection conn, int bookId) {
+	//도서 예약 체크
+	public int reserveCheck(Connection conn, int bookId) {
 		
 		PreparedStatement pstmt = null;		
 		ResultSet rset = null;
-				
-		String sql = prop.getProperty("selectStatus");
 		
-		String bs = "";
+		String sql = prop.getProperty("reserveCheck");
+		
+		int userNo = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -326,11 +326,10 @@ public class MemberDao {
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {			
-			 	bs = rset.getString("STATUS");
+			if(rset.next()) {
+				userNo = rset.getInt("USER_NO");
 				
-			}
-			
+			}			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -340,15 +339,144 @@ public class MemberDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 			
-		}
+		}		
 		
-		return bs;
+		return userNo;
 	}
 
-	public int reserveCheck(int bookId) {
+	public int reserveDelete(Connection conn, int bookId) {
 		
-		return 0;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("reserveDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookId);
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(pstmt);
+			
+		}
+			
+		return result;
 	}
+	
+	//반납 연기
+	public int bookDelay(Connection conn, int bookId) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("bookDelay");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(pstmt);
+			
+		}
+		
+		return result;
+	}
+
+	public int bStatus(Connection conn, int bookId) {
+		
+		PreparedStatement pstmt = null;
+		int result2 = 0;
+		
+		String sql = prop.getProperty("bStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookId);
+			
+			result2 = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(pstmt);
+			
+		}
+			
+		return result2;
+	}
+
+	public int cStatus(Connection conn, int bookId) {
+		
+		PreparedStatement pstmt = null;
+		int result3 = 0;
+		
+		String sql = prop.getProperty("cStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookId);
+			
+			result3 = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(pstmt);
+			
+		}
+			
+		return result3;
+	}
+
+	public int deleteMember(Connection conn, String userId, String userPwd) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(pstmt);
+			
+		}		
+		
+		
+		return result;
+	}
+	
 	
 
 }

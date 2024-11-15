@@ -85,14 +85,57 @@
 	
 	</entry>
 	
-	<!-- 대출 책의 상태값 조회 -->
-	<entry key="selectStatus">
-	SELECT b.STATUS       	   
-	FROM RENT r
-	JOIN BOOK b USING(BOOK_ID)
+	<entry key="reserveCheck">
+	SELECT USER_NO
+	FROM RESERVE
+	WHERE BOOK_ID = ? 
+	
+	</entry>
+	
+	<entry key="reserveDelete">
+	DELETE FROM RESERVE
 	WHERE BOOK_ID= ?
+
+	</entry>
+	
+	<!-- 도서 반납연기 -->
+	<entry key="bookDelay">
+	UPDATE RENT
+	SET RETURN_DATE = RETURN_DATE+7
+   		,RETURN_DELAY='Y'
+	WHERE BOOK_ID = ?
+	
+	</entry>
+	
+	<entry key="delayCheck">
+	SELECT RETURN_DELAY
+	FROM RENT
+	WHERE BOOK_ID=?
+	
+	</entry>
+	
+	<entry key="bStatus">
+	UPDATE BOOK
+	SET STATUS = 'Y'
+	WHERE BOOK_ID = ?
+	
+	</entry>
+	
+	<entry key="cStatus">
+	UPDATE BOOK
+	SET STATUS = 'B'
+	WHERE BOOK_ID = ?
+	
+	</entry>
+	
+	<entry key="deleteMember">
+	UPDATE MEMBER
+ 	SET STATUS = 'N'
+ 	,MODIFY_DATE = SYSDATE
+ 	WHERE USER_ID = ?
+ 	AND USER_PWD = ?
+	
 	
 	</entry>
 
-	
 </properties>

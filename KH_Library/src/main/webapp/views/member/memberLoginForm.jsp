@@ -91,7 +91,7 @@
 				<br>
 				<button type="submit" id="loginBtn">로그인</button>
 				<div id="searchArea">
-					<a href="">아이디찾기</a> <a href="">비밀번호찾기</a> <a href="">회원가입</a>
+					<a href="">아이디찾기</a> <a href="">비밀번호찾기</a> <a href="${contextPath}/enrollForm.me">회원가입</a>
 				</div>
 
 			</form>
