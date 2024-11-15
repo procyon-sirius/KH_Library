@@ -1,9 +1,6 @@
 <%@page import="com.kh.board.model.vo.Board"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -26,25 +23,13 @@
 <title>Insert title here</title>
 
 <style type="text/css">
-
-
 .info {
 	margin-left: 20px;
-}
-
-.insert {
-	margin-left: 1000px;
 }
 
 .category {
 	margin-left: -900px;
 	font-size: 16px;
-}
-
-.boarder {
-	border: none; /* 기본 테두리 제거 */
-	height: 1px; /* 두께 조절 */
-	background-color: #333333c4;
 }
 
 .cell {
@@ -57,17 +42,15 @@
 }
 
 .title {
-    width: 100%;            
-    height: 40px;           
-    background-color: rgba(128, 128, 128, 0.233);          
-    border: 1px solid #black; 
-    padding: 8px;           
-    font-size: 16px;       
+	width: 100%;
+	height: 40px;
+	background-color: rgba(128, 128, 128, 0.233);
+	border: 1px solid #black;
+	padding: 8px;
+	font-size: 16px;
 }
 
-
-
-.content{
+.content {
 	background-color: rgba(128, 128, 128, 0.233);
 	font-family: sans-serif;
 	font-size: 18px;
@@ -75,7 +58,6 @@
 	width: 100%;
 	height: 800px;
 	resize: none;
-	
 }
 
 .list {
@@ -88,43 +70,26 @@
 	position: relative;
 	left: 500px;
 }
-
-.bnnlist {
-	margin-left: 20px;
-}
-
-.bnnlist td {
-	padding: 20px;
-}
-
-.m{
-	color: #333;
-	border: none;
-	border-radius: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	position: relative;
-}
-
 </style>
 
 </head>
 <body>
-	
-	<%@include file="/views/common/menubar.jsp" %>
-	   <div class="center-img">
-	       <img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
-	   </div>
-	   <div id="body-wrap">
-	<%@include file="/views/common/sideMenu.jsp" %>
-	      <div id="content-area">
-	<p>
-		<% Board fb = (Board) request.getAttribute("Freeboard"); %>
-		<% int currentPage = (int)request.getAttribute("currentPage"); %>	
+
+	<%@include file="/views/common/menubar.jsp"%>
+	<div class="center-img">
+		<img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
+	</div>
+	<div id="body-wrap">
+		<%@include file="/views/common/sideMenu.jsp"%>
+		<div id="content-area">
+				<% Board fb = (Board) request.getAttribute("Freeboard"); %>
+				<% int currentPage = (int)request.getAttribute("currentPage"); %>
 			
 			<div align="center">
 				<h2>자유게시판 글 수정</h2>
-				<br><br><br>
+				<br>
+				<br>
+				<br>
 				<table class="category">
 					<tr>
 						<td><a href="/library">Home</a></td>
@@ -135,49 +100,42 @@
 					</tr>
 				</table>
 			</div>
-	
-			<br>
-			<br>
-			<br>
-		
-		<form action="<%=contextPath%>/update.fb" method="post">
-			
-			<input type="hidden" name="nno" value="<%=fb.getBoardNo()%>">
-			<input type="hidden" name="currentPage" value="${currentPage}">
-			
-			<div class="noticeDetail">
-				<input type="text" name="title" class="title" value="<%=fb.getBoardTitle()%>"></input>
-				<br>
-				<hr class="boarder">
-				<br> <br>
-	
-				<table class="info">
-					<tr>
-						<td>등록일:</td>
-						<td class="cell"><%=fb.getDate()%></td>
-						<td class="separator">|</td>
-						<td>조회수:</td>
-						<td class="cell"><%=fb.getCount()%></td>
-					</tr>
-				</table>
-				
-	
-				<br> <br>
-	
-				<textarea class="content" name="content">
+
+			<br> <br> <br>
+
+			<form action="<%=contextPath%>/update.fb" method="post">
+				<input type="hidden" name="nno" value="<%=fb.getBoardNo()%>">
+				<input type="hidden" name="currentPage" value="${currentPage}">
+
+				<div class="noticeDetail">
+					<input type="text" name="title" class="title"
+						value="<%=fb.getBoardTitle()%>"></input> <br>
+					<br><br>
+
+					<table class="info">
+						<tr>
+							<td>등록일:</td>
+							<td class="cell"><%=fb.getDate()%></td>
+							<td class="separator">|</td>
+							<td>조회수:</td>
+							<td class="cell"><%=fb.getCount()%></td>
+						</tr>
+					</table>
+
+					<br><br>
+					<textarea class="content" name="content">
 					<%=fb.getBoardContent()%>
 				</textarea>
-				<hr>
-	
-				<br> <br> <br> <button type="submit" class="list">수정하기</button>
-				<a href="/library/freeBoard?currentPage=<%=currentPage %>" class="list">목록으로</a>
-				<hr>
-		</form>	
-				
-	</p>
-  </div>
- </div>
-	
-	 <%@include file="/views/common/footer.jsp" %>
+					<br> <br> <br>
+					<button type="submit" class="list">수정하기</button>
+					<a href="/library/freeBoard?currentPage=<%=currentPage %>"
+						class="list">목록으로</a>
+				</div>		
+			</form>
+
+		</div>
+	</div>
+
+	<%@include file="/views/common/footer.jsp"%>
 </body>
 </html>

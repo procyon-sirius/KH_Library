@@ -20,7 +20,6 @@
         .category {
 			margin-left: -950px;
 			font-size: 16px;
-			
 		}
 		
 		.list {
@@ -70,10 +69,7 @@
 	    <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
 	    <div id="content-area">
-
-				<p>
 			        <div align="center" >
-			        	
 			  	        	<h2>문의게시판</h2>
 			  	        	<br><br><br>
 			        
@@ -88,10 +84,8 @@
 							</table>
 							<br> <br>
 							<h5>QnA 문의글 수정하기</h5>
-													
 					 </div>        	
 			        		
-	        		<hr class="boarder">
 	      
     	<form action="<%=contextPath%>/update.qna" method="post">
 			
@@ -99,19 +93,14 @@
 				<input type="hidden" name="boardNo" value="${boardNo }"/>
 				<br>
 				<input type="text" name="title" class="title" value="${title }"></input>
-				<hr class="boarder">
 				<br><br>
 				<br>
 				<textarea class="content" name="content" required="required">${content }</textarea>
-	
-				<hr>
-	
 				<br> <br> <br> <button type="submit" class="list">등록하기</button>
 				<a href="/library/qnaBoard" class="list">목록으로</a>
-				<hr>
+			</div>
 		</form>	
 		
-			</p>
 	    </div>
    </div>
    <%@include file="/views/common/footer.jsp" %>

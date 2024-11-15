@@ -54,6 +54,7 @@
 				<button id="yn" onclick="yn();">상태값(Y/N)</button>
 			</div>
 		</div>
+		<br>
 			<table class="member-list">
 				<thead>
 					<tr>
@@ -123,11 +124,9 @@
 					$(".member-list tbody").html(" ");
 					
 					var tr = "";
-					
 					if(list == null){
-						alert("검색 결과가 없습니다")
-						
-						search.html(" ");
+						tr = "<tr><td align='center' colspan='13'>검색 결과가 존재하지 않습니다.</td></tr>"
+						$(".member-list tbody").html(tr);
 					}else{
 						for(var m of list){
 							tr += "<tr>"
@@ -146,6 +145,7 @@
 								+"<td id='st'>"+m.status+"</td>"
 						}
 						$(".member-list tbody").html(tr);
+						$("#search").html(" ");
 					}
 				},
 				error : function(){
@@ -185,6 +185,7 @@
 							+"<td id='st'>"+m.status+"</td>"
 					}
 					$(".member-list tbody").html(tr);
+					$("#search").html(" ");
 				},
 			 error : function(){
 				console.log("fail");
@@ -224,6 +225,7 @@
 							complete : function(){
 								if(count == $("input[name=one]:checked").length){
 									alert(count+"명 변경완료");
+									$("#search").val(" ");
 								}
 							}
 					});
@@ -263,20 +265,7 @@
 				};
 			});
 		});
-		/*		
-		var rows = document.querySelectorAll("tbody>tr");
 		
-		for(var row of rows){
-
-
-			function rent(){
-				var userNo = $(this).parent().siblings("th").first().text();
-				var rentlimit= $("input[name=one]").parent().siblings("#rl").text();
-				
-				location.href = '${contextPath}/rentL.ma?userNo='+userNo;
-			}
-			
-		}*/
 		$(function(){
 
 			$(".member-list>tbody").on("click","#rl", function(){

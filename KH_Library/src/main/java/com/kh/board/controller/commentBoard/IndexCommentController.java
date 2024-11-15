@@ -1,23 +1,29 @@
-package com.kh.admin.controller;
+package com.kh.board.controller.commentBoard;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.kh.admin.model.service.AdminBookService;
+import com.kh.board.model.vo.Comment;
+
 /**
- * Servlet implementation class ManagementBoard
+ * Servlet implementation class IndexCommentController
  */
-@WebServlet("/management.bo")
-public class ManagementBoard extends HttpServlet {
+@WebServlet("/comment.bk")
+public class IndexCommentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ManagementBoard() {
+    public IndexCommentController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +32,11 @@ public class ManagementBoard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("mode", "board");
-		request.getRequestDispatcher("/views/member/admin/admin.jsp").forward(request, response);
+		ArrayList<Comment> cinfo = new AdminBookService().commentInfo();
+		
+		response.setContentType("json/application;charset=UTF-8");
+
+		new Gson().toJson(cinfo,response.getWriter());
 	}
 
 	/**

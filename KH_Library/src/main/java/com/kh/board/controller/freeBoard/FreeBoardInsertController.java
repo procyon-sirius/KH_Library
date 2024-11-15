@@ -57,7 +57,7 @@ public class FreeBoardInsertController extends HttpServlet {
 		
 		if(result>0) {
 			request.getSession().setAttribute("alertMsg", "게시글 등록이 완료되었습니다.");
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath()+"/freeBoard");
 		}else {
 			request.getSession().setAttribute("alertMsg", "게시글 작성에 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

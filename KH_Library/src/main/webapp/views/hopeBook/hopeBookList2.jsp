@@ -38,6 +38,14 @@
 	</div>
 	<div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp"%>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(0);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(1).addClass("menu-click");
+			})
+		</script>
 
 		<div id="content-area" align="center">
 			<h2>도서 신청 현황</h2>

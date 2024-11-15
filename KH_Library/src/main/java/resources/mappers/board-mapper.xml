@@ -82,6 +82,18 @@
 	WHERE BOARD_NO = ? 
 	AND STATUS = 'Y'
    </entry>
+   
+   <entry key="selectQ">
+  	SELECT BOARD_NO,     
+          BOARD_TITLE,
+          BOARD_CONTENT,
+          CREATE_DATE,
+          COUNT
+    FROM BOARD 
+    WHERE STATUS='Y'
+    AND BOARD_TYPE_NO = 1
+    AND BOARD_NO = ?
+   </entry>
    	
    	
    	
@@ -269,6 +281,7 @@
 		JOIN MEMBER ON (REPLY_WRITER=USER_NO)
 		WHERE BOARD_NO = ?
 		AND R.STATUS = 'Y'
+		ORDER BY CREATE_DATE DESC
    	</entry>
    	
    	<entry key="replyCount">
@@ -292,6 +305,8 @@
 		WHERE REPLY_NO = ? 
 		AND STATUS = 'Y'
    	</entry>
+   	
+   	
 
    	
    	

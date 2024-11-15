@@ -62,7 +62,7 @@ public class ChangeCategory extends HttpServlet {
 		
 		ArrayList<BookCategoryInfo> bci = new BookService().selectCategory();
 		
-		if(cno==0) {
+		if(cno==10000) {
 			listCount = new BookService().listCount();
 			
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));

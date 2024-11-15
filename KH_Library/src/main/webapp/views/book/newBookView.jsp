@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KH Library</title>
+<title>KH Library>신규 도서</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
@@ -101,8 +101,16 @@
     </div>
     <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
-        <div id="content-area">
-           <h2 align="center">신규 도서</h2>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(1);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(2).addClass("menu-click");
+			})
+		</script>
+        <div id="content-area"  style="font-family: '맑은 고딕';">
+           <h2 align="center" style="font-family: '맑은 고딕'; font-weight: bolder;">신규 도서</h2>
            <br>
            <div class="filter-div">
            	<form action="${contextPath }/newBook.bk?time='+ ${time}+'&currentPage=1" id="day-form">

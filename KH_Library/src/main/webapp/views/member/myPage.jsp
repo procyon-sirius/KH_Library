@@ -47,6 +47,14 @@ input{
     </div>
     <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(4);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(0).addClass("menu-click");
+			})
+		</script>
       <div id="content-area">
        <br>
        <h1>나의 정보</h1>

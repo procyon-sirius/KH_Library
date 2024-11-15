@@ -1,3 +1,4 @@
+<%@page import="com.kh.common.PageInfo"%>
 <%@page import="com.kh.board.model.vo.Reply"%>
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
@@ -128,11 +129,18 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 	<%@include file="/views/common/menubar.jsp" %>
     <div class="center-img">
 	        <img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
-	    </div>
+    </div>
 	    <div id="body-wrap">
 		<%@include file="/views/common/sideMenu.jsp" %>
+		<script>
+			$(function(){
+				console.log();
+				var sidemenu = $(".side-title-menu").eq(3);
+				sidemenu.siblings("ul").children().show();
+				sidemenu.siblings("ul").children().eq(1).addClass("menu-click");
+			})
+		</script>
 	    <div id="content-area">
-				<p>
 			        <div align="center" >
 			        	
 			  	        	<h2>문의게시판</h2>
@@ -199,7 +207,7 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 							                        <td width="150"><b>Q</b></td>
 							                        <td width="1200"><%=b.getBoardTitle() %></td>
 							                        <td width="150"><%=maskedBid %></td>
-							                        <td width="200"><%=b.getDate() %></td>
+							                        <td width="250"><%=b.getDate() %></td>
 							                        <td colspan="2" ><button class="qListb" data-boardno="<%=b.getBoardNo() %>">▼</button> </td>
 							                    	<td width="150" class="ox">O</td>
 							                        
@@ -228,7 +236,7 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 							                        <td width="150"><b>A</b></td>
 							                        <td width="1200"><%=r.getReplyContent() %></td>
 							                        <td width="150"><%=maskedRid %></td>
-							                        <td width="200"><%=r.getDate() %></td>
+							                        <td width="250"><%=r.getDate() %></td>
 							                        
 							                        <td class="aListDml">
 					                        		    <%if(loginUser!=null && loginUser.getUserId().equals("admin")){ %>
@@ -262,7 +270,7 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 					                        <td width="150"><b>Q</b></td>
 					                        <td width="500"><%=b.getBoardTitle() %></td>
 					                        <td width="150"><%=maskedBid  %></td>
-					                        <td width="150"><%=b.getDate() %></td>
+					                        <td width="250"><%=b.getDate() %></td>
 					                        <td colspan="2"></td>
 					                        <td width="150" class="ox">X</td>
 					                        
@@ -343,7 +351,6 @@ ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList"); %>
 				
 				
 				
-			</p>
 	    </div>
    </div>
    <%@include file="/views/common/footer.jsp" %>

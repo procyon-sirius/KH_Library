@@ -26,8 +26,6 @@
 <title>Insert title here</title>
 
 <style type="text/css">
-
-
 .info {
 	margin-left: 20px;
 }
@@ -56,17 +54,10 @@
 	margin: 0 10px;
 }
 
-
-.content{
+.content {
 	background-color: rgba(128, 128, 128, 0.233);
 	border-radius: 10px;
-	
-	
 }
-
-/* .noticeDetail {
-	margin-left: 400px;
-} */
 
 pre {
 	font-family: sans-serif;
@@ -93,7 +84,7 @@ pre {
 	padding: 20px;
 }
 
-.m{
+.m {
 	color: #333;
 	border: none;
 	border-radius: 5px;
@@ -101,32 +92,26 @@ pre {
 	cursor: pointer;
 	position: relative;
 }
-
 </style>
 
 </head>
 <body>
-	
-	<%@include file="/views/common/menubar.jsp" %>
-	   <div class="center-img">
-	       <img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
-	   </div>
-	   <div id="body-wrap">
-	<%@include file="/views/common/sideMenu.jsp" %>
-	      <div id="content-area">
-	<p>
-		<% Notice n = (Notice) request.getAttribute("notice"); %>
-		<% ArrayList<Notice> preNnext = (ArrayList<Notice>) request.getAttribute("preNnext");%>
-		<% int currentPage = (int)request.getAttribute("currentPage"); %>	
-			
-			<script>
-			    console.log(<%= currentPage %>);
-			</script>
-									
+
+	<%@include file="/views/common/menubar.jsp"%>
+	<div class="center-img">
+		<img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
+	</div>
+	<div id="body-wrap">
+		<%@include file="/views/common/sideMenu.jsp"%>
+		<div id="content-area">
+			<% Notice n = (Notice) request.getAttribute("notice"); %>
+			<% ArrayList<Notice> preNnext = (ArrayList<Notice>) request.getAttribute("preNnext");%>
+			<% int currentPage = (int)request.getAttribute("currentPage"); %>
+
 			<div align="center">
 
 				<h2>공지사항</h2>
-				<br><br><br>
+				<br> <br> <br>
 				<table class="category">
 					<tr>
 						<td><a href="/library">Home</a></td>
@@ -137,18 +122,15 @@ pre {
 					</tr>
 				</table>
 			</div>
-	
-			<br>
-			<br>
-			<br>
-	
+
+			<br> <br> <br>
+
 			<div class="noticeDetail">
-	
 				<h4 align="center"><%=n.getNoticeTitle()%></h4>
 				<br>
 				<hr class="boarder">
 				<br> <br>
-	
+
 				<table class="info">
 					<tr>
 						<td>등록일:</td>
@@ -158,21 +140,33 @@ pre {
 						<td class="cell"><%=n.getNumber()%></td>
 					</tr>
 				</table>
+
+
+				<%if(loginUser!=null && loginUser.getUserId().equals("admin")) {%>
+				<table class="insert">
+					<tr>
+						<td><button type="button" class="m"
+								onclick="location.href='<%=contextPath %>/update.no?nno=<%=n.getNoticeNo()%>&currentPage=${currentPage}'">수정하기</button></td>
+						<td class="separator">|</td>
+						<td><button type="button" class="m" id="deleteBtn">삭제하기</button>
+						</td>
+					</tr>
+				</table>
+				<%} %>
 				
-				
-			<%if(loginUser!=null && loginUser.getUserId().equals("admin")) {%> 
-					<table class="insert">
-						<tr>
-							<td><button type="button" class="m"
-							onclick="location.href='<%=contextPath %>/update.no?nno=<%=n.getNoticeNo()%>&currentPage=${currentPage}'">수정하기</button></td>
-							<td class="separator">|</td>
-							<td><button type="button" class="m" id="deleteBtn">삭제하기</button> </td>
-						</tr>
-					</table>
-			 <%} %> 
-	
-				<br> <br>
-	
+				<!-- 첨부파일이 있는 경우에만 보여주기 -->
+				<td colspan="3"><c:choose>
+						<c:when test="${empty at }">
+							&nbsp;&nbsp;&nbsp;&nbsp;첨부파일이 없습니다
+						</c:when>
+						<c:otherwise>
+							<!-- 다운로드 속성 추가 -->
+							&nbsp;&nbsp;&nbsp;&nbsp;<a download href="${contextPath }${at.filePath}/${at.changeName}">${at.originName }</a>
+						</c:otherwise>
+					</c:choose></td>
+
+				<br><br>
+
 				<pre class="content">
 					
 					<%=n.getNoticeContent()%>
@@ -190,85 +184,80 @@ pre {
 					※ 작업상황에 따라 서비스 중단시간은 변동될 수 있사오니 양해 부탁드립니다.
 									
 				</pre>
-	
 				<hr>
-	
-	
-				<br> <br> <br> <a href="/library/notice?currentPage=<%=currentPage %>" class="list">목록으로</a>
+
+				<br> <br> <br> <a
+					href="/library/notice?currentPage=<%=currentPage %>" class="list">목록으로</a>
 				<br> <br>
 				<hr>
-	
-	
+
+
 				<table class="bnnlist">
-	
-						<%
+
+					<%
 						if (preNnext.size() == 1) {
 						%>
-		
-							<%
+
+					<%
 							if (preNnext.get(0).getPostPostion().equals("next")) {
 							%>
-			
-								<tr>
-									<td>▼</td>
-									<td>다음글</td>
-									<td>
-										<a href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>&currentPage=<%=currentPage %>">
-											<%=preNnext.get(0).getNoticeTitle()%>
-										</a>
-									</td>
-								</tr>
-			
-							<%
+
+					<tr>
+						<td>▼</td>
+						<td>다음글</td>
+						<td><a
+							href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>&currentPage=<%=currentPage %>">
+								<%=preNnext.get(0).getNoticeTitle()%>
+						</a></td>
+					</tr>
+
+					<%
 							} else {
 							%>
-			
-								<tr>
-									<td>▲</td>
-									<td>이전글</td>
-									<td>
-										<a href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>&currentPage=<%=currentPage %>">
-											<%=preNnext.get(0).getNoticeTitle()%>
-										</a>
-									</td>
-								</tr>
-			
-							<%
+
+					<tr>
+						<td>▲</td>
+						<td>이전글</td>
+						<td><a
+							href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>&currentPage=<%=currentPage %>">
+								<%=preNnext.get(0).getNoticeTitle()%>
+						</a></td>
+					</tr>
+
+					<%
 							}
 							%>
-		
-		
-						<%
+
+
+					<%
 						} else {
 						%>
-		
-							<tr>
-								<td>▲</td>
-								<td>이전글</td>
-								<td>
-									<a href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>&currentPage=<%=currentPage %>">
-										<%=preNnext.get(0).getNoticeTitle()%>
-									</a>
-								</td>
-			
-							</tr>
-							<tr>
-								<td>▼</td>
-								<td>다음글</td>
-								<td>
-									<a href="/library/detail.no?nno=<%=preNnext.get(1).getNoticeNo()%>&currentPage=<%=currentPage %>">
-										<%=preNnext.get(1).getNoticeTitle()%>
-									</a>
-								</td>
-							</tr>
-		
-						<%
+
+					<tr>
+						<td>▲</td>
+						<td>이전글</td>
+						<td><a
+							href="/library/detail.no?nno=<%=preNnext.get(0).getNoticeNo()%>&currentPage=<%=currentPage %>">
+								<%=preNnext.get(0).getNoticeTitle()%>
+						</a></td>
+
+					</tr>
+					<tr>
+						<td>▼</td>
+						<td>다음글</td>
+						<td><a
+							href="/library/detail.no?nno=<%=preNnext.get(1).getNoticeNo()%>&currentPage=<%=currentPage %>">
+								<%=preNnext.get(1).getNoticeTitle()%>
+						</a></td>
+					</tr>
+
+					<%
 						}
 						%>
 				</table>
 				<br> <br>
-				
-				
+
+
 				<script>
 				
 					$(function(){
@@ -292,10 +281,8 @@ pre {
 									name : "noticeNo",
 									value : <%= n.getNoticeNo() %>
 									
-								
 								});
-								
-								
+			
 								form.append(inputEl);
 
 								$("body").append(form);
@@ -306,15 +293,12 @@ pre {
 						});
 					});
 				
-				
-				
 				</script>
-				
+			</div>
 
-			
-	</p>
-  </div>
- </div>
-	<%@include file="/views/common/footer.jsp" %>
+
+		</div>
+	</div>
+	<%@include file="/views/common/footer.jsp"%>
 </body>
 </html>

@@ -928,6 +928,7 @@ public class BookDao {
 			if(rset.next()) {
 				b = new Book(rset.getInt("BOOK_ID"),
 							 rset.getString("BOOK_TITLE"),
+							 rset.getString("BOOK_AUTHOR"),
 							 rset.getString("IMG_NAME"));
 			}
 		} catch (SQLException e) {

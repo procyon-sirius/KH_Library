@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.board.model.service.NoticeService;
+import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Notice;
 import com.kh.book.model.service.BookService;
 import com.kh.common.PageInfo;

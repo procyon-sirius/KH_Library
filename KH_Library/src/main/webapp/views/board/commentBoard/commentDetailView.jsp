@@ -1,126 +1,117 @@
 <%@page import="com.kh.board.model.vo.Reply"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
 .list-area {
- 	display: flex; /* 왼쪽 컨테이너 내에서 이미지와 텍스트를 가로로 배치 */
-    align-items: flex-start;  /* 이미지와 텍스트 수직 중앙 정렬 */
+	display: flex; /* 왼쪽 컨테이너 내에서 이미지와 텍스트를 가로로 배치 */
+	align-items: flex-start; /* 이미지와 텍스트 수직 중앙 정렬 */
 }
 
-.item{
-   margin-right: 50px; /* 이미지와 텍스트 사이의 간격 */
+.item {
+	margin-right: 50px; /* 이미지와 텍스트 사이의 간격 */
 }
 
-
-.comment,.commentInput{
-	width : 600px;
-	height : 300px;
+.comment, .commentInput {
+	width: 600px;
+	height: 300px;
 	background-color: rgba(128, 128, 128, 0.1);
 	border-radius: 40px;
-	padding-top : 50px;
-    padding-left: 50px;          
-    text-align: left;            
+	padding-top: 50px;
+	padding-left: 50px;
+	text-align: left;
 }
-
 
 textarea {
-    width: 600px;  
-    height: 150px; 
-    resize: none;  
+	width: 500px;
+	height: 150px;
+	resize: none;
 }
-
-
-
 </style>
 </head>
 <body>
 
-	<%@include file="/views/common/menubar.jsp" %>
-	    <div class="center-img">
-	        <img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
-	    </div>
-	    <div id="body-wrap">
-			<%@include file="/views/common/sideMenu.jsp" %>
-	        <div id="content-area">
-	
+	<%@include file="/views/common/menubar.jsp"%>
+	<div class="center-img">
+		<img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
+	</div>
+	<div id="body-wrap">
+		<%@include file="/views/common/sideMenu.jsp"%>
+		<div id="content-area">
+
 			<div class="outer">
-		
-			<h2 align="center">한줄평</h2>
-			<br><br><br>
-			
-			<div class="list-area">
+
+				<h2 align="center">한줄평</h2>
+				<br> <br> <br>
+
+				<div class="list-area">
 					<div class="item">
 						<div class="thumbnail" align="center">
-							<input type="hidden" value="${bno }"> <!-- 글번호 숨겨넣기 -->
-							<img class="photo" class="bookC" src="/library/resources/img/${bno}.gif" width="280px" height="380px">
+							<input type="hidden" value="${bno }">
+							<!-- 글번호 숨겨넣기 -->
+							<img class="photo" class="bookC"
+								src="/library/resources/img/${bno}.gif" width="280px"
+								height="380px">
+						</div>
+						<br>
 					</div>
-					<br>
-					<button id="back1">뒤로가기</button>
-			</div>	
-			
-			<div>
-				<div id=bookInfo>
-				<h4>${b.bookTitle }</h4> 
-				
-				  <%if(loginUser!= null) {%>
-						<button class="commentW">후기작성</button>				  		
-				  <%} %>
-				
-				<br>
-				지은이 :&nbsp;&nbsp;${b.bookAuthor } <br>
-				출판사 :&nbsp;&nbsp;${b.publisher } <br>
-					<p>
-					줄거리 요약 : demo------------------- <br>
-					${b.summary }
-					</p>
-				</div>
-				
-				<br><br><br><br>
-				<hr>
-					이 책에 남긴 코멘트 : &nbsp;&nbsp;${rCount }개
-				<br><br>
-				
-				
-				<input class=commentInput style="display: none;">
-				</input> <br><br>
-				<button id="submit" style="display: none;">작성하기</button>
-				<button id="back" style="display: none;">뒤로가기</button>
-				
-				<br><br>
-				<c:if test="${not empty rlist}">
-				    <c:forEach var="r" items="${rlist}">
-						<br><br>
-						<div class=comment>
-							 NO :&nbsp;&nbsp;${r.replyNo}&nbsp; |&nbsp;&nbsp;
-							 작성자 :&nbsp;&nbsp;${r.userNo}&nbsp; |&nbsp;&nbsp;
-							 작성일 :&nbsp;&nbsp;${r.date}
-							 <c:if test="${r.userNo eq loginUser.userId}">
-							 	<br>
-							 	<button class="modify" data-rno="${r.replyNo }" >수정하기</button>
-							 	<button class="delete" data-rno="${r.replyNo }" >삭제하기</button>
-								<button id="back2">뒤로가기</button>
-							 </c:if>
-							 <br><br>
-							 <h5 class="origin" data-content="${r.replyContent}">
-							 ${r.replyContent} 
-							 </h5>
-						</div>	
-				    </c:forEach>
-				</c:if>
-				<c:if test="${empty rlist}">
-				    <p>댓글이 없습니다.</p>
-				</c:if>
-			</div>
-			
-			
-			<script>
+
+					<div>
+						<div id=bookInfo>
+							<h4>${b.bookTitle }</h4>
+
+							<%if(loginUser!= null) {%>
+							<button class="commentW">후기작성</button>
+							<%} %>
+
+							<br> 지은이 :&nbsp;&nbsp;${b.bookAuthor } <br> 출판사
+							:&nbsp;&nbsp;${b.publisher } <br>
+							<p>
+								줄거리 요약 : demo------------------- <br> ${b.summary }
+							</p>
+						</div>
+
+						<br> <br> <br> <br>
+						<hr>
+						이 책에 남긴 코멘트 : &nbsp;&nbsp;${rCount }개 <br> <br> 
+						<input class=commentInput style="display: none;"/> 
+						<br> <br>
+						<button id="submit" style="display: none;">작성하기</button>
+						<button id="back" style="display: none;">뒤로가기</button>
+
+						<br> <br>
+						<c:if test="${not empty rlist}">
+							<c:forEach var="r" items="${rlist}">
+								<br>
+								<br>
+								<div class=comment>
+									NO :&nbsp;&nbsp;${r.replyNo}&nbsp; |&nbsp;&nbsp; 작성자
+									:&nbsp;&nbsp;${r.userNo}&nbsp; |&nbsp;&nbsp; 작성일
+									:&nbsp;&nbsp;${r.date}
+									<c:if test="${r.userNo eq loginUser.userId}">
+										<br>
+										<button class="modify" data-rno="${r.replyNo }">수정하기</button>
+										<button class="delete" data-rno="${r.replyNo }">삭제하기</button>
+										<button id="back2">뒤로가기</button>
+									</c:if>
+									<br> <br>
+									<h5 class="origin" data-content="${r.replyContent}">
+										${r.replyContent}</h5>
+								</div>
+							</c:forEach>
+						</c:if>
+						<c:if test="${empty rlist}">
+							<p>댓글이 없습니다.</p>
+						</c:if>
+					</div>
+
+
+					<script>
 			
 				// 생성하기
 				$(function(){
@@ -160,14 +151,11 @@ textarea {
 						});
 						
 					
-						$("#back,#back1,#back2").click(function(){
+						$("#back,#back2").click(function(){
 							history.back();
-							// window.location.href = 'destinationPage.html'; 
 						});	
 					
 					});
-				
-				
 				
 				
 				// 수정하기
@@ -224,17 +212,13 @@ textarea {
 			 // 삭제하기	
 				$(function(){
 					
-					$(".delete").each(function(index, element) {
-					   
-				/* 		$(element).find(".delete").one("click", function() {
-						
-						} */
-						var replyNo = $(element).attr("data-rno");
+					$(document).on("click", ".delete", function() {   
+				
+						var replyNo = $(this).attr("data-rno");
 					    // console.log(replyNo);
-					
-						  $(".delete").click(function(){
 							
 							  if(confirm("정말 삭제하시겠습니까?")){
+								  
 								var form = $("<form>", {
 									method : "POST",
 									action : "${contextPath}/delete.cm"
@@ -252,23 +236,21 @@ textarea {
 								form.submit();	
 							}
 							  
-						});
 					
 					});
 				});	
 			
 			
 			</script>
-			
-						
-	
-	
-	
+
+
+
+
+
+				</div>
 			</div>
 		</div>
-    </div>
-    <%@include file="/views/common/footer.jsp" %>
-	
-
+	</div>	
+		<%@include file="/views/common/footer.jsp"%>
 </body>
 </html>
