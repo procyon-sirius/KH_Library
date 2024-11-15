@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.book.model.service.BookService;
+import com.kh.book.model.vo.Reserve;
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
@@ -225,6 +226,16 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return list;
+	}
+
+	public Reserve bookReserve(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Reserve r = new MemberDao().bookReserve(conn,userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return r;
 	}
 	
 	

@@ -139,7 +139,7 @@ th{
           				<th width="480px">책 제목</th>
           				<th width="150px">저자</th>
           				<th width="150px">출판사</th>
-          				<th>예약자</th>
+          				<th>대출버튼</th>
           				<th>예약 취소</th>
           			</tr>
           		</thead>	
@@ -157,7 +157,16 @@ th{
           				<td>${c.bookTitle}</td>
           				<td>${c.bookAuthor}</td>
           				<td>${c.publisher}</td>
-          				<td>${loginUser.userName}</td>
+          				<td>
+	          				<c:choose>
+	          					<c:when test="${r.returnBook eq 'Y' }">
+	          						<button type="button" onclick="rent();">대출</button>
+	          					</c:when>
+	          					<c:otherwise>
+	          						<button type="button" disabled>대출불가</button>
+	          					</c:otherwise>
+	          				</c:choose>
+          				</td>
           				<td><button type="button">예약취소</button></td>          					
           			</tr>
           		   </c:forEach>
@@ -180,19 +189,14 @@ th{
 		  			var bookId = $(this).parent().siblings().first().text();
 		  			
 					if(confirm("예약 취소하시겠습니까? ")){
-						
-			
-		  						  				
 		  			}
-		  			
-		  			
 		  		});
-		  		
-		  		
-		  		
-		  		
 		  	});
 		  
+			function rent(){
+
+				
+			}
 		  
 		  
 		  </script>

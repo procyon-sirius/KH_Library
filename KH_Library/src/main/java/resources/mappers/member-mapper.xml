@@ -145,5 +145,11 @@
 	JOIN MEMBER ON (USER_NO=HOPE_USER)
 	
 	</entry>
+	
+	<entry key="bookReserve">
+		SELECT *
+		FROM RESERVE
+		WHERE USER_NO = ?
+	</entry>
 
 </properties>
