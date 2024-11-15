@@ -139,7 +139,7 @@ th{
           				<th width="480px">책 제목</th>
           				<th width="150px">저자</th>
           				<th width="150px">출판사</th>
-          				<th>예약자</th>
+          				<th>대출버튼</th>
           				<th>예약 취소</th>
           			</tr>
           		</thead>	
@@ -157,8 +157,17 @@ th{
           				<td>${c.bookTitle}</td>
           				<td>${c.bookAuthor}</td>
           				<td>${c.publisher}</td>
-          				<td>${loginUser.userName}</td>
-          				<td><button type="button">예약취소</button></td>          					
+          				<td>
+	          				<c:choose>
+	          					<c:when test="${r.returnBook eq 'Y' }">
+	          						<button type="button" id="reserveRent">대출</button>
+	          					</c:when>
+	          					<c:otherwise>
+	          						<button type="button" disabled>대출불가</button>
+	          					</c:otherwise>
+	          				</c:choose>
+          				</td>
+          				<td><button type="button" id="cancle">예약취소</button></td>          					
           			</tr>
           		   </c:forEach>
           		  </c:otherwise>
@@ -168,35 +177,40 @@ th{
           		    		
           	
           	</table>
+          	<form action="${contextPath }/rent.bk" method="post" name="reserveRentForm">
+          		<input type="text" name="userNo" value="${loginUser.userNo }">
+          		<input type="text" name="bookId" value="">
+          	</form>
 		  </div>
 		  
 		  <script>
 		  	$(function(){
 		  		
-		  		$("#reserveTable").on("click","button",function(){
+		  		$("#reserveTable").on("click","#cancle",function(){
 		  			
 		  			//console.log($(this).parent().siblings().first().text());
 					
 		  			var bookId = $(this).parent().siblings().first().text();
 		  			
 					if(confirm("예약 취소하시겠습니까? ")){
-						
-			
-		  						  				
 		  			}
-		  			
-		  			
 		  		});
-		  		
-		  		
-		  		
-		  		
 		  	});
 		  
 		  
-		  
 		  </script>
-		  
+		  <script>
+		  	$(function(){
+		  		$("#reserveTable>tbody>tr").on("click","#reserveRent", function(){
+		  			var bookId = $(this).parents("tr").children().first().text();
+		  			
+		  			$("input[name=bookId]").val(bookId);
+		  			
+		  			
+		  			$("#reserveRentForm").submit();
+		  		})
+		  	})
+		  </script>
         </div>
     </div>
     <%@include file="/views/common/footer.jsp" %>

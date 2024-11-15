@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.book.model.vo.Reserve;
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.vo.Member;
 import com.kh.member.model.vo.MyHope;
@@ -293,7 +294,7 @@ public class MemberDao {
 									  rset.getString("BOOK_TITLE"),
 									  rset.getString("BOOK_AUTHOR"),
 									  rset.getString("PUBLISHER")
-										));
+									  ));
 							
 			}
 					
@@ -536,6 +537,31 @@ public class MemberDao {
 		
 		
 		return list;
+	}
+
+	public Reserve bookReserve(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Reserve r = new Reserve();
+		String sql = prop.getProperty("bookReserve");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				r = new Reserve(rset.getInt("BOOK_ID"),
+								rset.getInt("USER_NO"),	
+								rset.getString("RETURN_BOOK"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return r;
 	}
 	
 	

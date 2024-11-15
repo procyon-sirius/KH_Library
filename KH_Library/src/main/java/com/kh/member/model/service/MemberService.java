@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.book.model.service.BookService;
+import com.kh.book.model.vo.Reserve;
 import com.kh.book.model.dao.BookDao;
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.dao.MemberDao;
@@ -145,6 +147,7 @@ public class MemberService {
 		int userNo = new MemberDao().reserveCheck(conn,bookId);
 		//책 반납
 		int result = new MemberDao().bookReturn(conn,bookId);
+							
 		int result2 = 1;
 		if(userNo==0) {	//예약자 없을시
 			//책 상태 변경(대출가능)
@@ -228,6 +231,16 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return list;
+	}
+
+	public Reserve bookReserve(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Reserve r = new MemberDao().bookReserve(conn,userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return r;
 	}
 	
 	

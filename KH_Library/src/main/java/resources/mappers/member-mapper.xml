@@ -146,6 +146,12 @@
 	
 	</entry>
 	
+	<entry key="bookReserve">
+		SELECT *
+		FROM RESERVE
+		WHERE USER_NO = ?
+	</entry>
+
 	<entry key="changeResReturnBook">
 	UPDATE RESERVE
 	SET RETURN_BOOK = 'Y'
