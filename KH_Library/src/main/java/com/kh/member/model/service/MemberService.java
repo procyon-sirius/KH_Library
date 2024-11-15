@@ -222,11 +222,11 @@ public class MemberService {
 	
 	
 	//나의 신청 현황
-	public ArrayList<MyHope> selectMyHope() {
+	public ArrayList<MyHope> selectMyHope(int userNo) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<MyHope> list = new MemberDao().selectMyHope(conn);
+		ArrayList<MyHope> list = new MemberDao().selectMyHope(conn,userNo);
 		
 		JDBCTemplate.close(conn);
 		

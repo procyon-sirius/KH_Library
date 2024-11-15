@@ -502,7 +502,7 @@ public class MemberDao {
 		return result;
 	}
 	//나의 신청 현황
-	public ArrayList<MyHope> selectMyHope(Connection conn) {
+	public ArrayList<MyHope> selectMyHope(Connection conn, int userNo ) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -514,6 +514,8 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
 			
 			rset = pstmt.executeQuery();
 			
