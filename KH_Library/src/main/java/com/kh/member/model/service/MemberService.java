@@ -141,15 +141,15 @@ public class MemberService {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
+		//RESERVE 테이블에 반납하는 도서가 예약되어있을때 : 리턴값=USER_NO / 예약x : 리턴값=0
+		int userNo = new MemberDao().reserveCheck(conn,bookId);
+		System.out.println("userno : " + userNo);
 		//책 반납
 		int result = new MemberDao().bookReturn(conn,bookId);
 		System.out.println("반납 : "+result);
 		//예약이 없는 도서 상태값 변경
 		int result2 = new MemberDao().bStatus(conn,bookId);
 		System.out.println("도서상태 변경: "+result2);
-		//RESERVE 테이블에 반납하는 도서가 예약되어있을때 : 리턴값=USER_NO / 예약x : 리턴값=0
-		int userNo = new MemberDao().reserveCheck(conn,bookId);
-		System.out.println("userno : " + userNo);
 		//기본값 1
 		int rent = 1;
 		int delete = 1;
@@ -157,10 +157,13 @@ public class MemberService {
 		if(userNo!=0) {//userNo가 검색되었을때(예약자가 있을때)
 			//대출처리(성공:1, 실패:0)
 			rent = new BookService().insertRentBook(bookId, userNo);
+			System.out.println(rent);
 			//예약 테이블에서 삭제(성공:1, 실패:0)
 			delete = new MemberDao().reserveDelete(conn,bookId);
+			System.out.println(delete);
 			//예약이 있는 도서 상태값 변경
 			result3 = new MemberDao().cStatus(conn,bookId);
+			System.out.println(result3);
 							
 		}
 		

@@ -77,7 +77,6 @@ public class BookService {
 		
 		int rLimit = new BookDao().countRentLimit(conn, userNo);
 		int resCount = new BookDao().countReserveUser(conn,userNo);
-		
 		if(resCount+rCount < rLimit) {
 			//rent테이블에 추가
 			result = new BookDao().insertRentBook(conn, bookId, userNo);
@@ -85,8 +84,7 @@ public class BookService {
 			int increaseRentBook = new BookDao().increaseRentCount(conn, bookId); 
 			//book의 status를 B(예약가능)로 변경
 			int updateBookStatusB = new BookDao().updateBookStatusB(conn, bookId);
-			
-			if(result*increaseRentBook*updateBookStatusB>0) {//셋다 정상처리
+			if(result*/*increaseRentBook*/updateBookStatusB>0) {//셋다 정상처리
 				JDBCTemplate.commit(conn);
 			}else {	//셋중 하나라도 오류일경우
 				JDBCTemplate.rollback(conn);

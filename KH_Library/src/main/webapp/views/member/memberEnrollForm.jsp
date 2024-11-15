@@ -108,26 +108,26 @@
     		  var userPwd = document.getElementById("userPwd").value;
     		  var chkPwd = document.getElementById("chkPwd").value;
     		  var userId = document.getElementById("userId").value;  		  
-    		  var idForm = /^[a-z][0-9a-z]{6,12}$/;
-    		  var pwdForm = /^[a-z0-9!@#$%^&*]{8,20}$/;
-    		 		  	  		  
+    		  var idForm = /^[a-z]+[0-9a-z]{6,12}$/;
+    		  var pwdForm = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
+
     		  if(!idForm.test(userId)){
     			  
     			  alert("아이디 형식이 올바르지 않습니다.");
-    			  userId.focus();
+    			  $("userId").focus();
     			  return false; 				  
     		  }
     		  
     		  if(!pwdForm.test(userPwd)){
     			  
     			  alert("비밀번호 형식이 올바르지 않습니다.");
-    			  userPwd.focus();
+    			  $("userPwd").focus();
     			  return false;
     		  }
     		 		  
     		  if(userPwd !=chkPwd){
     			  alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-    			  userPwd.focus();
+    			  $("userPwd").focus();
     			  return false;
     		  }
     		 
