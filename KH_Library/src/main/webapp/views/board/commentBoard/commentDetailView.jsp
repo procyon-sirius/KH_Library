@@ -137,7 +137,7 @@ textarea {
 									success : function(result){
 										if(result.status=="success"){
 											alert(result.message);
-											window.location.href = '${contextPath}/commentBoard'; 
+											window.location.href = '${contextPath}/commentBoard?currentPage=${currentPage}'; 
 											
 										}else{
 											alert(result.message);
@@ -152,7 +152,7 @@ textarea {
 						
 					
 						$("#back,#back2").click(function(){
-							window.location.href = '${contextPath}/commentBoard'; 
+							window.location.href = '${contextPath}/commentBoard?currentPage=${currentPage}'; 
 						});	
 					
 					});
