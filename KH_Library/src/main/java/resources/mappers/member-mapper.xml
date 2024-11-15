@@ -135,6 +135,14 @@
  	WHERE USER_ID = ?
  	AND USER_PWD = ?
 	
+	</entry>
+	
+	<entry key="selectMyHope">
+	SELECT HOPE_TITLE,
+       	   HOPE_DATE,
+       	   USER_NAME
+	FROM HOPE_BOOK
+	JOIN MEMBER ON (USER_NO=HOPE_USER)
 	
 	</entry>
 	

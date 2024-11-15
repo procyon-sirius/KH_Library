@@ -142,6 +142,7 @@ pre {
 						<input type="hidden" name="boardNo" value="<%=fb.getBoardNo()%>" />
 						<% int writerNo = loginUser.getUserNo();%>
 						<input type="hidden" name="writerNo" value="<%=writerNo%>" />
+						<input type="hidden" name="currentPage" value="<%=currentPage%>" />
 						<textarea class="content" name="content" placeholder="내용을 입력하세요."
 							required="required"></textarea>
 						<br> <br> <br>

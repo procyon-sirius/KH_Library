@@ -8,6 +8,7 @@ import com.kh.book.model.dao.BookDao;
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
+import com.kh.member.model.vo.MyHope;
 import com.kh.member.model.vo.MyRent;
 
 public class MemberService {
@@ -216,6 +217,18 @@ public class MemberService {
 	}
 
 	
+	
+	//나의 신청 현황
+	public ArrayList<MyHope> selectMyHope() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<MyHope> list = new MemberDao().selectMyHope(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
 	
 	
 	
