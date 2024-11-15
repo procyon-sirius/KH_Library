@@ -1,12 +1,17 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.kh.member.model.service.MemberService;
+import com.kh.member.model.vo.MyHope;
 
 /**
  * Servlet implementation class MyHopeBookController
@@ -35,6 +40,10 @@ public class MyHopeBookController extends HttpServlet {
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
 			response.sendRedirect(request.getContextPath()+"/login.me");
 		}else {
+			
+			ArrayList<MyHope> list = new MemberService().selectMyHope();
+			
+			request.setAttribute("list", list);
 			
 			request.getRequestDispatcher("/views/member/myHopeBook.jsp").forward(request, response);
 		}

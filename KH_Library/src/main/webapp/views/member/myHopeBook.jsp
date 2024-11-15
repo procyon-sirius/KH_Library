@@ -50,12 +50,23 @@ th{
 					</tr>
 				</thead>
 				<tbody>
+				<c:choose>
+          		  <c:when test="${empty list }">
+          		  <tr>
+          		  	   <td colspan="4">신청정보가 없습니다.</td>
+          		  </tr>
+          		  </c:when>
+          		 <c:otherwise> 	   
+          		  <c:forEach var="h" items="${list}">
 					<tr>						
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>${h.userName}</td>
+						<td>${h.hopeTitle}</td>
+						<td>${h.hopeDate}</td>
 						<td>처리중<br><button type="button">신청 취소</button></td>
-					</tr>													
+					</tr>
+					</c:forEach>
+				   </c:otherwise>
+				  </c:choose>													
 				</tbody>
 			</table>	
         
