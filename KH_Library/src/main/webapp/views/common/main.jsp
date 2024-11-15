@@ -192,7 +192,9 @@
 
 	@keyframes ani-new2{
 		0%{
-        }100%{
+        }20%{
+			opacity: 0;
+		}100%{
             color: black;
             opacity: 1;
             transform: translateY(-280px);
@@ -439,7 +441,6 @@
 							<a href="${contextPath }/mnewBook.bk?time=M&currentPage=1" style="text-decoration: none; color: black;">+</a>
 						</div>
 						<div id="newBook-table-area">
-							
 						</div>
 					</div>
 				</div>
@@ -497,17 +498,21 @@
 						img = "<img id='new-book' name='new-book' src='${contextPath }/resources/img/"+b.imgName+"'>"
 						  	+ "<div id='new-text'>"+b.bookTitle+"</div>"
 						  	+ "<div id='new-author'>"+b.bookAuthor+"</div>"
+							+ "<input type='hidden' name='bookId' value='"+b.bookId+"'>"
 						  	
 						$("#newBook-table-area").html(img);
-						
 					},
 					error: function(){
 						console.log("fail");
 					}
 				});
-
+				
+			});								
+			
+			$("#newBook-table-area").click(function(){
+				location.href = '${contextPath}/detail.bk?bookId='+ b.bookId;
 			});
-
+			
 		</script>
 
 				

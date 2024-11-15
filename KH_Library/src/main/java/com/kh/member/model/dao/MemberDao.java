@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.vo.Member;
+import com.kh.member.model.vo.MyHope;
 import com.kh.member.model.vo.MyRent;
 
 public class MemberDao {
@@ -475,6 +476,43 @@ public class MemberDao {
 		
 		
 		return result;
+	}
+	//나의 신청 현황
+	public ArrayList<MyHope> selectMyHope(Connection conn) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<MyHope> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectMyHope");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				
+				list.add(new MyHope(rset.getString("USER_NAME"),
+									rset.getString("HOPE_TITLE"),
+									rset.getDate("HOPE_DATE")));				
+					
+			}		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+			
+		}
+		
+		
+		return list;
 	}
 	
 	
