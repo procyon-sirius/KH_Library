@@ -70,7 +70,6 @@ public class BookDao {
 		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 		
 		int endRow = pi.getCurrentPage()*pi.getBoardLimit();
-
 		String sql = "";
 		if(age.equals("AGE_RANK")) {
 			sql ="SELECT * "
@@ -83,7 +82,6 @@ public class BookDao {
 						+ "ORDER BY "+order+" "+ad+")"
 					+ " Z) "
 				+ "WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
-			
 		}else {
 			sql ="SELECT * "
 					+ "FROM (SELECT ROWNUM RNUM, Z.* "
@@ -95,7 +93,6 @@ public class BookDao {
 							+ "ORDER BY "+order+" "+ad+")"
 						+ " Z) "
 					+ "WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
-				
 		}
 
 	    try {
@@ -120,7 +117,6 @@ public class BookDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(stmt);
 		}
-		
 		return list;
 	}
 	
