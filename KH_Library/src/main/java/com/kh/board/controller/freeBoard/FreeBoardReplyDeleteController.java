@@ -42,12 +42,13 @@ public class FreeBoardReplyDeleteController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
 		int result = new ReplyService().deletefbReply(replyNo);
-		 
+		int currentPage = Integer.parseInt(request.getParameter("currentPage")); 
+		
 		 HttpSession session = request.getSession();
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "댓글이 삭제되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/freeBoard?currentPage=1");
+			response.sendRedirect(request.getContextPath()+"/freeBoard?currentPage="+currentPage);
 		}else {
 			session.setAttribute("alertMsg", "댓글삭제에 실패하였습니다.");
 			response.sendRedirect(request.getContextPath()+"/");
