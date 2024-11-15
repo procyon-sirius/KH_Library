@@ -137,7 +137,7 @@ textarea {
 									success : function(result){
 										if(result.status=="success"){
 											alert(result.message);
-											window.location.href = '${contextPath}/commentBoard'; 
+											window.location.href = '${contextPath}/commentBoard?currentPage=${currentPage}'; 
 											
 										}else{
 											alert(result.message);
@@ -152,7 +152,7 @@ textarea {
 						
 					
 						$("#back,#back2").click(function(){
-							history.back();
+							window.location.href = '${contextPath}/commentBoard?currentPage=${currentPage}'; 
 						});	
 					
 					});
@@ -194,7 +194,7 @@ textarea {
 				            	success : function(result){
 				            		if(result.status=="success"){
 										alert(result.message);
-										window.location.href = '${contextPath}/commentBoard'; 
+										window.location.href = '${contextPath}/commentBoard?currentPage=${currentPage}'; 
 										
 									}else{
 										alert(result.message);
@@ -230,7 +230,14 @@ textarea {
 									value : replyNo
 								});
 								
+								var inputE2 = $("<input>", {
+									type : "hidden",
+									name : "currentPage",
+									value : ${currentPage}
+								});
+								
 								form.append(inputEl);
+								form.append(inputE2);
 	
 								$("body").append(form);
 								form.submit();	

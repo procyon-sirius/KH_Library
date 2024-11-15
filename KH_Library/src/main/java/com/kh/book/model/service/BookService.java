@@ -70,12 +70,15 @@ public class BookService {
 
 	public int insertRentBook(int bookId, int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		int rCount = new BookDao().countRentUser(conn, userNo);
 		int result = 0;
 		
-		//인당 대출권수
+		//현재 대출권수 조회
+		int rCount = new BookDao().countRentUser(conn, userNo);
 		
+		//인당 최대 대출권수 조회
 		int rLimit = new BookDao().countRentLimit(conn, userNo);
+		
+		//현재 예약권수 조회
 		int resCount = new BookDao().countReserveUser(conn,userNo);
 		if(resCount+rCount < rLimit) {
 			//rent테이블에 추가

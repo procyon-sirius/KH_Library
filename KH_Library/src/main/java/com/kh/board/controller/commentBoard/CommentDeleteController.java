@@ -31,13 +31,15 @@ public class CommentDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
 		
 		int result = new CommentService().deleteComment(replyNo);
 		HttpSession session = request.getSession();
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "코멘트가 삭제되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/commentBoard");
+			response.sendRedirect(request.getContextPath()+"/commentBoard?currentPage="+currentPage);
 		}else {
 			session.setAttribute("alertMsg", "코멘트 삭제에 실패하였습니다.");
 			response.sendRedirect(request.getContextPath()+"/");

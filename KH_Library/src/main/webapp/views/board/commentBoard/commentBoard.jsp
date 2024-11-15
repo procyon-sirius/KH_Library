@@ -83,7 +83,7 @@
 					$(".thumbnail").click(function(){
 						
 						var bno = $(this).find("input[type=hidden]").val();
-						location.href = '${contextPath}/detail.cm?bno='+bno;
+						location.href = '${contextPath}/detail.cm?bno='+bno+'&currentPage=${pi.currentPage}';
 						
 					});
 				});

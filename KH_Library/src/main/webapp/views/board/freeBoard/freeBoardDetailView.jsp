@@ -365,8 +365,16 @@ pre {
 										value : replyNo
 
 									});
+									
+									var inputE2 = $("<input>", {
+										type : "hidden",
+										name : "currentPage",
+										value : ${currentPage}
+									});
+									
 
 									form.append(inputEl);
+									form.append(inputE2);
 
 									$("body").append(form);
 									form.submit();
