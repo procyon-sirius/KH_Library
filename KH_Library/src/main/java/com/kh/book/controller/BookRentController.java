@@ -40,7 +40,7 @@ public class BookRentController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-
+		System.out.println(bookId);
 		int result = new BookService().insertRentBook(bookId,userNo);
 		
 		String alertMsg = "";

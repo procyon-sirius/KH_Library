@@ -160,14 +160,14 @@ th{
           				<td>
 	          				<c:choose>
 	          					<c:when test="${r.returnBook eq 'Y' }">
-	          						<button type="button" onclick="rent();">대출</button>
+	          						<button type="button" id="reserveRent">대출</button>
 	          					</c:when>
 	          					<c:otherwise>
 	          						<button type="button" disabled>대출불가</button>
 	          					</c:otherwise>
 	          				</c:choose>
           				</td>
-          				<td><button type="button">예약취소</button></td>          					
+          				<td><button type="button" id="cancle">예약취소</button></td>          					
           			</tr>
           		   </c:forEach>
           		  </c:otherwise>
@@ -177,12 +177,16 @@ th{
           		    		
           	
           	</table>
+          	<form action="${contextPath }/rent.bk" method="post" name="reserveRentForm">
+          		<input type="text" name="userNo" value="${loginUser.userNo }">
+          		<input type="text" name="bookId" value="">
+          	</form>
 		  </div>
 		  
 		  <script>
 		  	$(function(){
 		  		
-		  		$("#reserveTable").on("click","button",function(){
+		  		$("#reserveTable").on("click","#cancle",function(){
 		  			
 		  			//console.log($(this).parent().siblings().first().text());
 					
@@ -193,14 +197,20 @@ th{
 		  		});
 		  	});
 		  
-			function rent(){
-
-				
-			}
-		  
 		  
 		  </script>
-		  
+		  <script>
+		  	$(function(){
+		  		$("#reserveTable>tbody>tr").on("click","#reserveRent", function(){
+		  			var bookId = $(this).parents("tr").children().first().text();
+		  			
+		  			$("input[name=bookId]").val(bookId);
+		  			
+		  			
+		  			$("#reserveRentForm").submit();
+		  		})
+		  	})
+		  </script>
         </div>
     </div>
     <%@include file="/views/common/footer.jsp" %>
