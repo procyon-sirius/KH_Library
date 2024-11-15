@@ -368,7 +368,7 @@ public class AdminBookDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		}finally {	
 			JDBCTemplate.close(pstmt);
 		}
 		

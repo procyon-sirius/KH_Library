@@ -476,6 +476,29 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	public int changeResReturnBook(Connection conn, int bookId) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("changeResReturnBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bookId);
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}		
+		
+		return result;
+	}
 	
 	
 
