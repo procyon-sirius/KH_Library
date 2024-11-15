@@ -11,12 +11,21 @@ public class MyRent {
 	private Date returnDate; //	RETURN_DATE	DATE
 	private String returnDelay; //	RETURN_DELAY	VARCHAR2(1 BYTE)
 	private int userNo; //	USER_NO	NUMBER
+	private String status;	// STATUS VARCHAR2(1 BYTE)
 	
 	public MyRent() {
 		super();
 	}
 	
-	
+	public MyRent(int bookId, String bookTitle, String bookAuthor, String publisher) {
+		super();
+		this.bookId = bookId;
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor;
+		this.publisher = publisher;
+	}
+
+
 	public MyRent(int bookId, String bookTitle, String bookAuthor, String publisher, Date returnDate) {
 		super();
 		this.bookId = bookId;
@@ -26,8 +35,10 @@ public class MyRent {
 		this.returnDate = returnDate;
 	}
 
+	
+
 	public MyRent(int bookId, String bookTitle, String bookAuthor, String publisher, Date returnDate,
-			String returnDelay, int userNo) {
+			String returnDelay, int userNo, String status) {
 		super();
 		this.bookId = bookId;
 		this.bookTitle = bookTitle;
@@ -36,6 +47,7 @@ public class MyRent {
 		this.returnDate = returnDate;
 		this.returnDelay = returnDelay;
 		this.userNo = userNo;
+		this.status = status;
 	}
 
 	public int getBookId() {
@@ -94,22 +106,22 @@ public class MyRent {
 		this.userNo = userNo;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "MyRent [bookId=" + bookId + ", bookTitle=" + bookTitle + ", bookAuthor=" + bookAuthor + ", publisher="
 				+ publisher + ", returnDate=" + returnDate + ", returnDelay=" + returnDelay + ", userNo=" + userNo
-				+ "]";
+				+ ", status=" + status + "]";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 

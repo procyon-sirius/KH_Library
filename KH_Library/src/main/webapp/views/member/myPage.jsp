@@ -16,14 +16,13 @@
 <style>
 #mypage-area{
 	width :1160px;
-	height :600px;	
+	height :500px;	
 }
 h1{
    margin-left: 120px;	
  } 
  
 #myInfo{
-   
    width: 900px;
    height: 300px;
    margin-top: 22px;
@@ -35,31 +34,13 @@ input{
     border-radius: 4px;
     height: 22px;    
  } 
-#myservice{
-	height : 120px;
-	margin-left: 120px;
-}
-#myservice>ul>li{
-	border :1px solid black;
-	float : left;
-	list-style-type: none;
-	width : 190px;
-	height : 70px;
-	margin-left: 29px;
-	padding-top: 8px;
-	padding-left: 8px;
-	position: relative;
-}
-#myservice>ul>li>a>span {
-	position: absolute;
-	top : 9px;
-	right : 22px;
-	font-size : 27px
+
 }
 
 </style>
 </head>
 <body>
+	
 	<%@include file="/views/common/menubar.jsp" %>
     <div class="center-img">
         <img src="https://www.wallpaperuse.com/wallp/84-842169_m.jpg">
@@ -186,12 +167,12 @@ input{
         			
         			<!-- Modal body -->
         			<div class="modal-body" align="center">
-        				<form action="" method="post">
-        					<input type="hidden" name="userId" value="">
+        				<form action="${contextPath}/del.me" method="post">
+        					<input type="hidden" name="userId" value="${loginUser.userId}">
         					<table>
         						<tr>
         							<td width="170px">현재 비밀번호</td>
-        							<td><input></td>
+        							<td><input type="password" name="userPwd" required></td>
         							
         						</tr>
         					</table>
@@ -213,26 +194,6 @@ input{
                
         </div>
                               
-        <div id="myservice">
-        	<h4>*서비스 이용 현황</h4>
-        	<br>	
-          <ul>
-          	<li><a href="">대출중인<br>도서<span>0</span>
-          		</a>
-          	</li>
-        	<li><a href="">예약중인<br>도서<span>0</span>
-        		</a>
-        	</li>
-        	<li><a href="">신청중인<br>희망도서<span>0</span>
-        		</a>
-        	</li>
-        	<li><a href="">내가 쓴<br>게시글<span>0</span>
-        		</a>
-        	</li>     
-          </ul>	
-        	
-        		                
-        </div>
     
         </div>
                                            
