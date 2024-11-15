@@ -50,10 +50,10 @@
 		<br>
 		<input type="hidden" name="userNo" value="${mem.userNo }">
 		<button type="submit">등록하기</button>
-		<button type="reset">취소</button>
+		<button type="reset" id="reject">취소</button>
 	</form>
 	<script>
-		
+
 	</script>
 	</div>
 </body>
