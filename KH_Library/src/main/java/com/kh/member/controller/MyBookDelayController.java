@@ -1,7 +1,6 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,20 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
-import com.kh.member.model.vo.MyRent;
 
 /**
- * Servlet implementation class MyBookListController
+ * Servlet implementation class MyBookDelayController
  */
-@WebServlet("/mybook.me")
-public class MyBookListController extends HttpServlet {
+@WebServlet("/deBook.me")
+public class MyBookDelayController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyBookListController() {
+    public MyBookDelayController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,28 +30,25 @@ public class MyBookListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		int bookId = Integer.parseInt(request.getParameter("bookId"));
+				
+		int result = new MemberService().bookDelay(bookId);
 		
 		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("loginUser")==null) {
 			
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
-			response.sendRedirect(request.getContextPath()+"/login.me");
-		}else {
-			
-			int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+			if(result>0) {
+				
+				session.setAttribute("alertMsg", "연기되었습니다.");
+				
+				response.sendRedirect(request.getContextPath()+"/mybook.me");
+								
+			}else {
+				
+				session.setAttribute("errorMsg","도서 반납 연기 실패");
+				request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);			
+			}
 							
-			ArrayList<MyRent> list = new MemberService().selectMyRent(userNo);
-			
-			ArrayList<MyRent> reList = new MemberService().reserveMyBook(userNo); 
-					
-			request.setAttribute("list", list);
-			
-			request.setAttribute("reList", reList);
-			
-			request.getRequestDispatcher("/views/member/myBookList.jsp").forward(request, response);
-		}
-		
 		
 	}
 
@@ -64,7 +58,6 @@ public class MyBookListController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
 	}
 
 }

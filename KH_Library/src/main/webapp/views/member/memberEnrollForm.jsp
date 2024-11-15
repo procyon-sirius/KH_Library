@@ -56,7 +56,7 @@
                         <td width="120px">* 아이디</td>
                         <td width="170px"><input type="text" id="userId" name="userId" required> </td>
                         <td width="70px"><button type="button" onclick="idCheck();"> 중복확인</button></td>
-                        <td><span><small> ※ '영소문자', '숫자' 로 이루어진 6~12자 이내 </small></span></td> 
+                        <td><span><small> ※ 첫글자는 반드시 '영소문자'이고 '영소문자', '숫자' 로 이루어진 6~12자 이내 </small></span></td> 
                     </tr>
                     <tr>
                         <td>* 비밀번호</td>
@@ -77,16 +77,16 @@
                         
                     </tr>
                     <tr>
-                        <td>&nbsp;&nbsp;전화번호</td>
-                        <td><input type="text" name="phone" placeholder="-포함해서 입력" > </td>
+                        <td>*전화번호</td>
+                        <td><input type="text" name="phone" placeholder="-포함해서 입력" required> </td>
                     </tr>
                     <tr>
-                        <td>&nbsp;&nbsp;이메일</td>
-                        <td><input type="email" name="email" ></td>
+                        <td>*이메일</td>
+                        <td><input type="email" name="email" required></td>
                     </tr>
                     <tr>
-                        <td>&nbsp;&nbsp;주소</td>
-                        <td><input type="text" name="address" > </td>
+                        <td>*주소</td>
+                        <td><input type="text" name="address" required> </td>
                     </tr>
                 </table>
                 <br><br>
@@ -102,14 +102,29 @@
     </div>
     	
     	<script>
+    	  	
     	  function pwdCheck(){
     		  
-    		  var userPwd = document.getElementById("userPwd");
-    		  var chkPwd = document.getElementById("chkPwd");
+    		  var userPwd = document.getElementById("userPwd").value;
+    		  var chkPwd = document.getElementById("chkPwd").value;
+    		  var userId = document.getElementById("userId").value;  		  
+    		  var idForm = /^[a-z][0-9a-z]{6,12}$/;
+    		  var pwdForm = /^[a-z0-9!@#$%^&*]{8,20}$/;
+    		 		  	  		  
+    		  if(!idForm.test(userId)){
+    			  
+    			  alert("아이디 형식이 올바르지 않습니다.");
+    			  userId.focus();
+    			  return false; 				  
+    		  }
     		  
-    		  console.log(userPwd);
-    		  console.log(chkPwd);
-    		  
+    		  if(!pwdForm.test(userPwd)){
+    			  
+    			  alert("비밀번호 형식이 올바르지 않습니다.");
+    			  userPwd.focus();
+    			  return false;
+    		  }
+    		 		  
     		  if(userPwd !=chkPwd){
     			  alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     			  userPwd.focus();
