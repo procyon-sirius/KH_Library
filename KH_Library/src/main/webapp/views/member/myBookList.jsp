@@ -178,8 +178,8 @@ th{
           	
           	</table>
           	<form action="${contextPath }/rent.bk" method="post" name="reserveRentForm">
-          		<input type="text" name="userNo" value="${loginUser.userNo }">
-          		<input type="text" name="bookId" value="">
+          		<input type="hidden" name="userNo" value="${loginUser.userNo }">
+          		<input type="hidden" name="bookId" value="">
           	</form>
 		  </div>
 		  
@@ -206,8 +206,7 @@ th{
 		  			
 		  			$("input[name=bookId]").val(bookId);
 		  			
-		  			
-		  			$("#reserveRentForm").submit();
+		  			$("form").submit();
 		  		})
 		  	})
 		  </script>
