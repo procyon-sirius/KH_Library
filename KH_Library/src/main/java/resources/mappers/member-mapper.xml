@@ -145,5 +145,10 @@
 	JOIN MEMBER ON (USER_NO=HOPE_USER)
 	
 	</entry>
-
+	
+	<entry key="changeResReturnBook">
+	UPDATE RESERVE
+	SET RETURN_BOOK = 'Y'
+	WHERE BOOK_ID = ?
+	</entry>
 </properties>
