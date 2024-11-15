@@ -130,8 +130,6 @@ public class UpdateBook extends HttpServlet {
 				}else {
 					alertMsg = "수정 실패";
 				}
-				new File(savePath+changeName).delete();
-				
 			}
 			
 			session.setAttribute("alertMsg", alertMsg);
