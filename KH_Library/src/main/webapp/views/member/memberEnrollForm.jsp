@@ -93,7 +93,7 @@
 
                 <div align="center">
                     <button type="submit" id="enroll" onclick="return pwdCheck();" disabled >회원가입</button>
-                    <button type="reset" onclick="again();">초기화</button>
+                    <button type="reset" >초기화</button>
                 </div>
 
             </form>
@@ -108,26 +108,26 @@
     		  var userPwd = document.getElementById("userPwd").value;
     		  var chkPwd = document.getElementById("chkPwd").value;
     		  var userId = document.getElementById("userId").value;  		  
-    		  var idForm = /^[a-z][0-9a-z]{6,12}$/;
-    		  var pwdForm = /^[a-z0-9!@#$%^&*]{8,20}$/;
+    		  var idForm = /^[a-z]+[0-9a-z]{6,12}$/;  		  
+    		  var pwdForm = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
     		 		  	  		  
     		  if(!idForm.test(userId)){
     			  
     			  alert("아이디 형식이 올바르지 않습니다.");
-    			  userId.focus();
+    			  document.getElementById("userId").focus();
     			  return false; 				  
     		  }
     		  
     		  if(!pwdForm.test(userPwd)){
     			  
     			  alert("비밀번호 형식이 올바르지 않습니다.");
-    			  userPwd.focus();
+    			  document.getElementById("userPwd").focus();
     			  return false;
     		  }
     		 		  
     		  if(userPwd !=chkPwd){
     			  alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-    			  userPwd.focus();
+    			  document.getElementById("userPwd").focus();
     			  return false;
     		  }
     		 
@@ -151,8 +151,7 @@
     					  if(confirm("사용가능합니다. 정말 사용하시겠습니까?")) {
     						  
     						  $("#enroll").removeAttr("disabled");
-    						  inputId.attr("readonly",true);
-    						   						    
+    						  			   						    
     					  }else{
     						  inputId.focus();
     					  }
@@ -166,13 +165,7 @@
     		  });
     		  
     	  }
-    	  function again(){
-    		  
-    		  var inputId = $("#userId");
-    		  
-    		  inputId.removeAttr("readonly");
-   		    		  
-    	  }
+    	  
     	
     	</script>
     
