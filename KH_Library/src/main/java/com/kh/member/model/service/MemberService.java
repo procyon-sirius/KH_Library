@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import com.kh.book.model.service.BookService;
 import com.kh.book.model.vo.Reserve;
+import com.kh.book.model.dao.BookDao;
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
@@ -142,34 +143,18 @@ public class MemberService {
 	public int bookReturn(int bookId) {
 		
 		Connection conn = JDBCTemplate.getConnection();
-		
-		//RESERVE 테이블에 반납하는 도서가 예약되어있을때 : 리턴값=USER_NO / 예약x : 리턴값=0
+
 		int userNo = new MemberDao().reserveCheck(conn,bookId);
-		System.out.println("userno : " + userNo);
 		//책 반납
 		int result = new MemberDao().bookReturn(conn,bookId);
-		System.out.println("반납 : "+result);
-		//예약이 없는 도서 상태값 변경
-		int result2 = new MemberDao().bStatus(conn,bookId);
-		System.out.println("도서상태 변경: "+result2);
-		//기본값 1
-		int rent = 1;
-		int delete = 1;
-		int result3 = 1;
-		if(userNo!=0) {//userNo가 검색되었을때(예약자가 있을때)
-			//대출처리(성공:1, 실패:0)
-			rent = new BookService().insertRentBook(bookId, userNo);
-			System.out.println(rent);
-			//예약 테이블에서 삭제(성공:1, 실패:0)
-			delete = new MemberDao().reserveDelete(conn,bookId);
-			System.out.println(delete);
-			//예약이 있는 도서 상태값 변경
-			result3 = new MemberDao().cStatus(conn,bookId);
-			System.out.println(result3);
 							
+		int result2 = 1;
+		if(userNo==0) {	//예약자 없을시
+			//책 상태 변경(대출가능)
+			result2 = new MemberDao().bStatus(conn,bookId);	
 		}
 		
-		if(rent*result*result2*delete*result3>0) {//반납과 예약자 대출이 모두 성공한 경우(예약자 없는경우는 기본값 1이라 자동 성공처리)
+		if(result*result2>0) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);
@@ -177,9 +162,27 @@ public class MemberService {
 		
 		JDBCTemplate.close(conn);
 						
-		return result;
+		return result*result2;
 	}
-	
+	//예약자 확인
+	public int checkReserve(int bookId) {
+		Connection conn = JDBCTemplate.getConnection();
+		//예약자 확인
+		int userNo = new MemberDao().reserveCheck(conn,bookId);
+		
+		if(userNo!=0) {//예약 있을때
+			//예약 status 변경
+			int changeResStatus = new MemberDao().changeResReturnBook(conn, bookId);
+			
+			if(changeResStatus > 0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+		}
+		JDBCTemplate.close(conn);
+		return 0;
+	}
 	//반납 연기
 	public int bookDelay(int bookId) {
 		
@@ -215,6 +218,8 @@ public class MemberService {
 		
 		return result;
 	}
+
+	
 	
 	//나의 신청 현황
 	public ArrayList<MyHope> selectMyHope() {

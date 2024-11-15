@@ -34,6 +34,8 @@ public class MyBookReturnController extends HttpServlet {
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
 		
 		int returnBook = new MemberService().bookReturn(bookId);
+		
+		int checkReserve = new MemberService().checkReserve(bookId);
 									
 		HttpSession session = request.getSession();
 		

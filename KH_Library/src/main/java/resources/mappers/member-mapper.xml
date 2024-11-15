@@ -152,4 +152,9 @@
 		WHERE USER_NO = ?
 	</entry>
 
+	<entry key="changeResReturnBook">
+	UPDATE RESERVE
+	SET RETURN_BOOK = 'Y'
+	WHERE BOOK_ID = ?
+	</entry>
 </properties>
